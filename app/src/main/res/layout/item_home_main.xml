@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginTop="10dp"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/img"
+            style="@style/lib_style_fresco_base_normal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            fresco:roundingBorderColor="@color/lib_color_font7"
+            fresco:roundingBorderWidth="1dp" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_add_v"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/follow_bg"
+            android:gravity="center"
+            android:layout_gravity="right|bottom"
+            android:layout_marginBottom="7dp"
+            android:layout_marginRight="7dp"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_follow"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#f7f7f7"
+                android:layout_marginLeft="6dp"
+                android:text="1688"/>
+        </LinearLayout>
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="7dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLength="20"
+                android:text="胡歌"
+                android:textColor="#4c4c4c"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_line"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:layout_toRightOf="@id/tv_name"
+                android:text="|"
+                android:textColor="#aaa7a7" />
+
+            <TextView
+                android:id="@+id/tv_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:layout_toRightOf="@id/tv_line"
+                android:text="ID 23324344"
+                android:textColor="#aaa7a7"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_locate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:drawableLeft="@drawable/icon_location"
+                android:drawablePadding="2dp"
+                android:text="北京"
+                android:textColor="#fcbd54"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_user_head_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="34岁 身高 175 演员 年收入 10万-15万"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_user_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="3dp"
+            android:maxLines="3"
+            android:text="我叫什么，今年多少岁，我你地方反倒是发的认定是等等多少是放得开电风扇等等肯定发生，反倒是发的时刻反倒是多少反倒是多少"
+            android:textColor="#aaa7a7"
+            android:textSize="12sp" />
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,504 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+        <item name="colorPrimary">@color/lib_color_font8</item>
+        <item name="colorPrimaryDark">@color/lib_color_font8</item>
+        <item name="colorAccent">@color/lib_color_font8</item>
+
+        <!--<item name="android:windowAnimationStyle">@style/AnimationActivity</item>-->
+        <!--<item name="android:windowNoTitle">true</item>-->
+        <!--<item name="android:windowBackground">@color/share_bg</item>-->
+        <!--<item name="android:windowIsTranslucent">true</item>-->
+    </style>
+
+    <style name="AnimationActivity" mce_bogus="1" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/push_left_in</item>
+        <item name="android:activityOpenExitAnimation">@anim/push_left_out</item>
+        <item name="android:activityCloseEnterAnimation">@null</item>
+        <item name="android:activityCloseExitAnimation">@anim/push_right_out</item>
+    </style>
+
+    <!-- ******************* 基类style ******************* start -->
+    <!--基类-->
+    <style name="lib_style_base">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <!--文本基类-->
+    <style name="lib_style_text" parent="lib_style_base">
+        <item name="android:textColor">@color/lib_color_font2</item>
+    </style>
+    <!-- 编辑框 -->
+    <style name="lib_style_edit" parent="lib_style_base">
+        <item name="android:textColor">@color/lib_color_bg1</item>
+    </style>
+
+    <style name="lib_style_edit_login" parent="lib_style_edit">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@color/lib_transparent</item>
+        <item name="android:inputType">text</item>
+        <item name="android:maxLength">15</item>
+        <item name="android:paddingBottom">15dp</item>
+        <item name="android:paddingTop">15dp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textSize">@dimen/lib_font_size3</item>
+        <item name="android:textColor">@color/lib_color_font2</item>
+        <item name="android:textColorHint">@color/lib_color_font5</item>
+    </style>
+
+    <style name="lib_style_edit_password" parent="lib_style_edit_login">
+        <item name="android:inputType">textPassword</item>
+        <item name="android:maxLength">16</item>
+        <item name="android:textSize">@dimen/lib_font_size4</item>
+        <item name="android:textColor">@color/lib_color_font4</item>
+    </style>
+
+    <style name="lib_style_edit_password2" parent="lib_style_edit_password">
+        <item name="android:textSize">@dimen/lib_font_size3</item>
+        <item name="android:textColor">@color/lib_color_font2</item>
+    </style>
+
+    <style name="error_message">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#ff0000</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:visibility">invisible</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <!-- ******************* 按钮style ******************* start -->
+    <!--按钮基类-->
+    <style name="lib_style_button" parent="lib_style_base">
+        <item name="android:gravity">center</item>
+    </style>
+    <!--四种大小按钮基类-->
+    <style name="lib_style_button_small" parent="lib_style_button">
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingRight">12dp</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="lib_style_button_middle" parent="lib_style_button">
+        <item name="android:paddingTop">7dp</item>
+        <item name="android:paddingBottom">7dp</item>
+        <item name="android:paddingLeft">21dp</item>
+        <item name="android:paddingRight">21dp</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="lib_style_button_big" parent="lib_style_button">
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:paddingLeft">27dp</item>
+        <item name="android:paddingRight">27dp</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="lib_style_button_big2" parent="lib_style_button">
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingLeft">27dp</item>
+        <item name="android:paddingRight">27dp</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="lib_style_button_large" parent="lib_style_button">
+        <item name="android:paddingTop">13dp</item>
+        <item name="android:paddingBottom">13dp</item>
+        <item name="android:paddingLeft">36dp</item>
+        <item name="android:paddingRight">36dp</item>
+        <item name="android:textSize">17sp</item>
+    </style>
+
+    <style name="lib_style_fav_mark" parent="lib_style_button">
+        <item name="android:textColor">#fbb238</item>
+        <item name="android:background">@drawable/lib_selector_fav_mark_bg</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:paddingLeft">18dp</item>
+        <item name="android:paddingRight">18dp</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="lib_style_info_mark" parent="lib_style_button">
+        <item name="android:textColor">#4c4c4c</item>
+        <item name="android:background">@drawable/lib_selector_info_mark_bg</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:paddingLeft">18dp</item>
+        <item name="android:paddingRight">18dp</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <!--详细类别按钮1-->
+    <style name="lib_style_button1_small" parent="lib_style_button_small">
+        <item name="android:textColor">@drawable/lib_selector_btn1_font</item>
+        <item name="android:background">@drawable/lib_selector_btn1_bg</item>
+    </style>
+
+    <style name="lib_style_button1_middle" parent="lib_style_button_middle">
+        <item name="android:textColor">@drawable/lib_selector_btn1_font</item>
+        <item name="android:background">@drawable/lib_selector_btn1_bg</item>
+    </style>
+
+    <style name="lib_style_button1_big" parent="lib_style_button_big">
+        <item name="android:textColor">@drawable/lib_selector_btn1_font</item>
+        <item name="android:background">@drawable/lib_selector_btn1_bg</item>
+    </style>
+
+    <style name="lib_style_button1_large" parent="lib_style_button_large">
+        <item name="android:textColor">@drawable/lib_selector_btn1_font</item>
+        <item name="android:background">@drawable/lib_selector_btn1_bg</item>
+    </style>
+    <!--详细类别按钮2-->
+    <style name="lib_style_button2_small" parent="lib_style_button_small">
+        <item name="android:textColor">@drawable/lib_selector_btn2_font</item>
+        <item name="android:background">@drawable/lib_selector_btn2_bg</item>
+    </style>
+
+    <style name="lib_style_button2_middle" parent="lib_style_button_middle">
+        <item name="android:textColor">@drawable/lib_selector_btn2_font</item>
+        <item name="android:background">@drawable/lib_selector_btn2_bg</item>
+    </style>
+
+    <style name="lib_style_button2_big" parent="lib_style_button_big">
+        <item name="android:textColor">@drawable/lib_selector_btn2_font</item>
+        <item name="android:background">@drawable/lib_selector_btn2_bg</item>
+    </style>
+
+    <style name="lib_style_button2_large" parent="lib_style_button_large">
+        <item name="android:textColor">@drawable/lib_selector_btn2_font</item>
+        <item name="android:background">@drawable/lib_selector_btn2_bg</item>
+    </style>
+
+    <!--详细类别按钮3-->
+    <style name="lib_style_button3_small" parent="lib_style_button_small">
+        <item name="android:textColor">@drawable/lib_selector_btn3_font</item>
+        <item name="android:background">@drawable/lib_selector_btn3_bg</item>
+    </style>
+
+    <style name="lib_style_button3_middle" parent="lib_style_button_middle">
+        <item name="android:textColor">@drawable/lib_selector_btn3_font</item>
+        <item name="android:background">@drawable/lib_selector_btn3_bg</item>
+    </style>
+
+    <style name="lib_style_button3_big" parent="lib_style_button_big">
+        <item name="android:textColor">@drawable/lib_selector_btn3_font</item>
+        <item name="android:background">@drawable/lib_selector_btn3_bg</item>
+    </style>
+
+    <style name="lib_style_button3_large" parent="lib_style_button_large">
+        <item name="android:textColor">@drawable/lib_selector_btn3_font</item>
+        <item name="android:background">@drawable/lib_selector_btn3_bg</item>
+    </style>
+
+    <!--详细类别按钮4-->
+    <style name="lib_style_button4_small" parent="lib_style_button_small">
+        <item name="android:textColor">@drawable/lib_selector_btn4_font</item>
+        <item name="android:background">@drawable/lib_selector_btn4_bg</item>
+    </style>
+
+    <style name="lib_style_button4_middle" parent="lib_style_button_middle">
+        <item name="android:textColor">@drawable/lib_selector_btn4_font</item>
+        <item name="android:background">@drawable/lib_selector_btn4_bg</item>
+    </style>
+
+    <style name="lib_style_button4_big" parent="lib_style_button_big">
+        <item name="android:textColor">@drawable/lib_selector_btn4_font</item>
+        <item name="android:background">@drawable/lib_selector_btn4_bg</item>
+    </style>
+
+    <style name="lib_style_button6_big" parent="lib_style_button_big">
+        <item name="android:textColor">@drawable/lib_selector_btn6_font</item>
+        <item name="android:background">@drawable/lib_selector_btn1_bg</item>
+    </style>
+
+    <!-- 登录相关 -->
+    <style name="lib_style_button4_large" parent="lib_style_base">
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:textColor">@color/lib_color_bg12</item>
+        <item name="android:textColorHint">@color/lib_color_font10</item>
+        <item name="android:background">@drawable/lib_selector_btn4_bg</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <!--详细类别按钮5-->
+    <style name="lib_style_button5_small" parent="lib_style_button_small">
+        <item name="android:textColor">@drawable/lib_selector_btn5_font</item>
+        <item name="android:background">@drawable/lib_selector_btn5_bg</item>
+    </style>
+
+    <style name="lib_style_button5_middle" parent="lib_style_button_middle">
+        <item name="android:textColor">@drawable/lib_selector_btn5_font</item>
+        <item name="android:background">@drawable/lib_selector_btn5_bg</item>
+    </style>
+
+    <style name="lib_style_button5_big" parent="lib_style_button_big">
+        <item name="android:textColor">@drawable/lib_selector_btn5_font</item>
+        <item name="android:background">@drawable/lib_selector_btn5_bg</item>
+    </style>
+
+    <style name="lib_style_button5_big2" parent="lib_style_button_big2">
+        <item name="android:textColor">@drawable/lib_selector_btn5_font</item>
+        <item name="android:background">@drawable/lib_selector_btn5_2_bg</item>
+    </style>
+
+    <style name="lib_style_button5_large" parent="lib_style_button_large">
+        <item name="android:textColor">@drawable/lib_selector_btn5_font</item>
+        <item name="android:background">@drawable/lib_selector_btn5_bg</item>
+    </style>
+
+    <!-- 对话框样式 -->
+    <style name="DialogStyle" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:background">#00000000</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+    <style name="lib_style_fresco_base" parent="lib_style_base">
+        <item name="actualImageScaleType">centerCrop</item>
+        <item name="failureImageScaleType">fitCenter</item>
+        <item name="progressBarImageScaleType">centerCrop</item>
+        <item name="failureImage">@color/lib_color_bg2</item>
+        <item name="placeholderImage">@color/lib_color_bg2</item>
+
+    </style>
+    <!--圆形 fresco base style-->
+    <style name="lib_style_fresco_base_circle" parent="lib_style_fresco_base">
+        <item name="roundAsCircle">true</item>
+    </style>
+    <!--矩形 fresco base style-->
+    <style name="lib_style_fresco_base_normal" parent="lib_style_fresco_base">
+        <item name="roundAsCircle">false</item>
+    </style>
+    <style name="lib_style_text_size3" parent="lib_style_text">
+        <item name="android:textSize">@dimen/lib_font_size3</item>
+    </style>
+    <style name="lib_style_title_text" parent="lib_style_text_size3">
+        <item name="android:textColor">@color/lib_color_font7</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/lib_font_size2</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <declare-styleable name="WheelView">
+        <attr name="unitHeight" format="dimension" />
+        <attr name="itemNumber" format="integer"/>
+
+        <attr name="normalTextColor" format="color" />
+        <attr name="normalTextSize" format="dimension" />
+        <attr name="selectedTextColor" format="color" />
+        <attr name="selectedTextSize" format="dimension" />
+
+        <attr name="lineColor" format="color" />
+        <attr name="lineHeight" format="dimension" />
+
+        <attr name="maskHeight" format="dimension"/>
+        <attr name="noEmpty" format="boolean"/>
+        <attr name="isEnable" format="boolean"/>
+    </declare-styleable>
+
+    <!-- 分割线 -->
+    <style name="lib_style_divider" parent="lib_style_base">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.5dp</item>
+        <item name="android:background">@color/lib_color_divider</item>
+    </style>
+
+    <style name="lib_style_divider2" parent="lib_style_base">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.5dp</item>
+        <item name="android:background">@color/lib_color_divider2</item>
+    </style>
+
+    <style name="lib_style_divider3" parent="lib_style_base">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.5dp</item>
+        <item name="android:background">@color/lib_color_divider3</item>
+    </style>
+
+    <style name="lib_style_divider4" parent="lib_style_base">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.5dp</item>
+        <item name="android:background">@color/lib_color_divider4</item>
+    </style>
+
+    <style name="lib_style_divider5" parent="lib_style_divider">
+        <item name="android:background">@color/lib_color_bg2</item>
+        <item name="android:layout_height">7dp</item>
+    </style>
+
+    <style name="lib_style_divider_vertical1" parent="lib_style_base">
+        <item name="android:layout_width">0.5dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/lib_color_divider</item>
+    </style>
+
+    <declare-styleable name="PullZoomView">
+        <attr name="pzv_sensitive" format="float" />
+        <attr name="pzv_isZoomEnable" format="boolean" />
+        <attr name="pzv_isParallax" format="boolean" />
+        <attr name="pzv_zoomTime" format="integer" />
+    </declare-styleable>
+
+    <!-- Text styles -->
+    <style name="Style_TextViewDefault">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="Style_TextViewListEmpty_View" parent="Style_TextViewDefault">
+        <item name="android:paddingRight">30dp</item>
+        <item name="android:paddingLeft">30dp</item>
+        <item name="android:textColor">#7a7a7a</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <declare-styleable name="TagCloudLayout">
+        <attr name="lineSpacing" format="dimension" />
+        <attr name="tagSpacing" format="dimension" />
+        <!-- 是否是固定布局 -->
+        <attr name="isFixed" format="boolean" />
+        <attr name="columnSize" format="integer" />
+    </declare-styleable>
+
+    <!-- Button styles -->
+    <style name="Button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="ButtonWidth" parent="Button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="Button_DialogDefault" parent="ButtonWidth">
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="Button_DialogConfirmNew" parent="Button_DialogDefault">
+        <item name="android:background">#00000000</item>
+        <item name="android:padding">12dip</item>
+        <item name="android:textColor">@color/title</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="wheelview_item_style">
+        <item name="android:paddingRight">7dp</item>
+        <item name="android:paddingLeft">7dp</item>
+        <item name="android:paddingTop">15dp</item>
+        <item name="android:paddingBottom">15dp</item>
+    </style>
+
+    <style name="Style_TextViewDialog" parent="Style_TextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:textColor">#888888</item>
+        <item name="android:textSize">16.0sp</item>
+    </style>
+
+    <style name="Style_TextView" parent="Style_TextViewDefault">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@drawable/text_white_blue</item>
+    </style>
+
+    <style name="lib_title_text_btn" parent="lib_style_title_text">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingRight">12dp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">15.0sp</item>
+        <item name="android:textColor">@color/register_title</item>
+        <item name="android:background">@drawable/lib_selector_title_back_bg</item>
+    </style>
+
+    <style name="ucrop_ImageViewWidgetIcon">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:duplicateParentState">true</item>
+    </style>
+
+    <style name="ucrop_WrapperIconState">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <style name="ucrop_WrapperRotateButton">
+        <item name="android:layout_width">@dimen/ucrop_size_wrapper_rotate_button</item>
+        <item name="android:layout_height">@dimen/ucrop_size_wrapper_rotate_button</item>
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <style name="ucrop_TextViewCropAspectRatio">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/ucrop_height_crop_aspect_ratio_text</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:duplicateParentState">true</item>
+        <item name="android:textColor">@color/ucrop_scale_text_view_selector</item>
+    </style>
+
+    <style name="ucrop_TextViewWidgetText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_marginTop">@dimen/ucrop_margit_top_widget_text</item>
+        <item name="android:textColor">@color/ucrop_color_widget_text</item>
+        <item name="android:textSize">@dimen/ucrop_text_size_widget_text</item>
+    </style>
+
+    <!--通用二级tab title标题style-->
+    <style name="lib_style_second_tab_title" parent="lib_style_text_size3">
+        <item name="android:textColor">@drawable/lib_selector_font_tab_name</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:lineSpacingExtra">0dp</item>
+    </style>
+
+    <declare-styleable name="TabItemView">
+        <attr name="name" format="string|reference" />
+        <attr name="selected" format="boolean" />
+    </declare-styleable>
+
+    <style name="lib_style_text_size4" parent="lib_style_text">
+        <item name="android:textSize">@dimen/lib_font_size4</item>
+    </style>
+
+    <!--通用列表标题—白色字-->
+    <style name="lib_style_common_itemtitle_white" parent="@style/lib_style_text_size4">
+        <item name="android:textColor">@color/lib_color_font7</item>
+    </style>
+
+</resources>

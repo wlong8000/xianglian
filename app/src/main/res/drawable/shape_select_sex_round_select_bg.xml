@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:innerRadius="15dp"
+    android:shape="oval" >
+
+    <solid android:color="@color/select_sex_round_color_select" />
+
+    <stroke
+        android:width="0.3dp"
+        android:color="@color/colorAccent" />
+
+</shape>

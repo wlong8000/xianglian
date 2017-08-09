@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ImageView
+    android:id="@+id/back"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_vertical"
+    android:background="@drawable/title_btn_bg"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:visibility="gone"
+    android:src="@drawable/return_btn_style"/>

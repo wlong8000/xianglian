@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:alpha="0.7"
+    android:padding="15dp">
+
+    <RelativeLayout
+        android:id="@+id/bottom_rl_cancel_select_photo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/shape_round_fifth_corner_bg">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:text="取消"
+            android:textColor="@color/cancel_blue"
+            android:textSize="22sp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/bottom_rl_cancel_select_photo"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/shape_round_fifth_corner_bg"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/select_photo_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:text="选择投降"
+            android:textSize="16sp" />
+
+        <include layout="@layout/common_cut_line" />
+
+        <RelativeLayout
+            android:id="@+id/cancel_select_photo_take_photo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:text="拍照"
+                android:textColor="@color/cancel_blue"
+                android:textSize="20sp" />
+        </RelativeLayout>
+
+        <include layout="@layout/common_cut_line" />
+
+        <RelativeLayout
+            android:id="@+id/cancel_select_photo_package"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+               android:layout_centerInParent="true"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:text="用户相册"
+                android:textColor="@color/colorAccent"
+                android:textSize="20sp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</RelativeLayout>

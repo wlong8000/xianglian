@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="#ff000000"
+             android:orientation="vertical">
+
+    <com.wl.lianba.view.MyViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#11000000" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:fitsSystemWindows="true"
+        android:layout_alignParentBottom="true"
+
+        android:layout_marginBottom="20dp">
+
+        <TextView
+            android:id="@+id/saveBtn"
+            style="@style/lib_style_button5_middle"
+            android:layout_gravity="center"
+            android:onClick="run"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="@string/save"/>
+
+        <TextView
+            android:id="@+id/pageNum"
+            style="@style/lib_style_common_itemtitle_white"
+            android:layout_gravity="center_vertical|right"
+            android:layout_marginRight="30dp"
+            android:textStyle="bold" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#00000000"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_gravity="top|left">
+        <include
+            layout="@layout/view_collapsing_title_back_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</RelativeLayout>

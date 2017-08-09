@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/v_status_bar"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@android:color/transparent" />
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:id="@+id/refresh"
+        android:layout_height="wrap_content">
+
+
+        <com.wl.lianba.multirecyclerview.MultiRecyclerView
+            android:layout_width="match_parent"
+            android:id="@+id/recycler_view"
+            app:emptyView="@layout/empty"
+            app:errorView="@layout/error"
+            app:loadingView="@layout/loading"
+            android:layout_height="match_parent">
+
+
+        </com.wl.lianba.multirecyclerview.MultiRecyclerView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</LinearLayout>

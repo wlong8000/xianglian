@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.wl.lianba">
+
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
+    <!-- BmobSDK权限 -->
+    <!-- 允许联网 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 获取GSM（2g）、WCDMA（联通3g）等网络状态的信息 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 获取wifi网络状态的信息 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 保持CPU 运转，屏幕和键盘灯有可能是关闭的,用于文件上传和下载 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- 获取sd卡写的权限，用于文件上传和下载 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- 推送权限 -->
+    <!-- 允许读取手机状态 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 允许接收屏幕解锁广播 -->
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <!-- 允许接收开机广播 -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <!-- 其他权限 -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <application
+        android:name=".BaseApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".SplashActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:alwaysRetainTaskState="true"
+            android:configChanges="orientation|keyboardHidden|screenSize|locale"
+            android:exported="true"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".user.LoginActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".user.UserInfoEditActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".user.AuthenticationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".user.SelectPayMethodActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".user.RegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".user.ForgetPwdActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".user.RegisterCodeActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".user.SelectSexActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".user.MarkTagActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.CutPictureAty"
+            android:screenOrientation="portrait" />
+        <activity android:name=".main.home.PersonDetailActivity" />
+        <activity
+            android:name=".user.IntroduceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.home.SelectActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.me.BaseInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.meet.MeMeetActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.meet.LastVisitActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.meet.HeartContactActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.meet.TaMeetActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.meet.HeartRecordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.me.GalleryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ShowPicActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".library.photo.MediaChoseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".library.photo.CropImageActivity"
+            android:screenOrientation="portrait" />
+        <service
+            android:name=".AppService"
+            android:enabled="true"
+            android:exported="false"/>
+    </application>
+
+</manifest>

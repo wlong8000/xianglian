@@ -1,0 +1,203 @@
+<resources>
+    <string name="app_name">享恋</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">请输入用户名</string>
+    <string name="prompt_password">密码</string>
+    <string name="action_sign_in">登录</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+
+    <string name="hint_username_limit">用户名2–15位，且不能是纯数字</string>
+    <string name="forth_position_title">身份认证</string>
+    <string name="hint_pwd_limit">密码(6–16位)</string>
+    <string name="hint_confirm_pwd_limit">确认密码(6–16位)</string>
+    <string name="confirm">确定</string>
+    <string name="username_no_empty">用户名不能为空</string>
+    <string name="pwd_no_empty">密码不能为空</string>
+    <string name="username_or_pwd_error">用户名或密码错误</string>
+    <string name="confirm_twice_pwd_sample">"密码输入不一致"</string>
+    <string name="enter_new_pwd">请输入您的新密码</string>
+    <string name="enter_phone_number">请输入您的手机号码</string>
+    <string name="confirm_pwd">请确认密码</string>
+    <string name="hint_pwd">请输入密码</string>
+    <string name="get_code">获取验证码</string>
+    <string name="enter_code">输入验证码</string>
+    <string name="network_disable">网络已断开，请检查网络设置</string>
+    <string name="login_hit_username">请输入用户名</string>
+    <string name="login_hint_password">密码</string>
+    <string name="please_connect_network">请连接网络</string>
+
+
+    <!-- 登录注册 -->
+    <string name="login_cancel">取消登录</string>
+    <string name="login_exception">登录异常</string>
+    <string name="register">注册</string>
+    <string name="login">登录</string>
+    <string name="forgot_pwd">忘记密码?</string>
+    <string name="reset_pwd">重置密码</string>
+    <string name="apply">申请认证</string>
+    <string name="login_err">用户名或密码不正确</string>
+    <string name="login_success">登录成功</string>
+    <string name="next">下一步</string>
+    <string name="sms_code_err">验证码错误</string>
+    <string name="sms_code_null">验证码不能为空</string>
+    <string name="phone_null">手机号不能为空</string>
+
+    <string name="maxsupport_num">只能上传%1$s张图啦</string>
+    <string name="send_error">发送失败,请重试</string>
+    <string name="second">秒</string>
+
+    <string name="main_home">首页</string>
+    <string name="main_special">专刊</string>
+    <string name="main_meet">约见</string>
+    <string name="main_my">我的</string>
+    <string name="meet_you">享恋</string>
+    <string name="mark">个人标签</string>
+    <string name="introduce">个人介绍</string>
+    <string name="my_album">我的相册</string>
+    <string name="my_info">个人信息</string>
+    <string name="person_identity">身份认证</string>
+    <string name="phone">联系方式</string>
+    <string name="set_vip">成为会员</string>
+    <string name="buy_house">是否购房</string>
+    <string name="buy_car">是否购车</string>
+    <string name="experience_love">情感经历</string>
+    <string name="condition_friend">择偶标准</string>
+    <string name="hobby">兴趣爱好</string>
+    <string name="please_write_introduce">请输入简介</string>
+    <string name="birth">出生日期</string>
+    <string name="age">年龄</string>
+    <string name="nick_name">昵称</string>
+    <string name="apartment">居住地(工作所在地)</string>
+    <string name="height">身高 (单位: cm)</string>
+    <string name="education">学历</string>
+    <string name="profession">职业</string>
+    <string name="income">年收入</string>
+    <string name="home_town">出生地(籍贯)</string>
+
+    <string name="hope_marry">期望结婚时间</string>
+    <string name="nation">民族</string>
+    <string name="marry_state">婚姻状况</string>
+    <string name="raking">家中排行</string>
+    <string name="has_child">有无子女</string>
+    <string name="weight">体重(单位：kg)</string>
+
+
+    <string name="please_select">请选择</string>
+    <string name="no_limit">不限</string>
+
+    <string name="meet_me">有人想约我</string>
+    <string name="me_meet">我发出去的约见</string>
+    <string name="last_come">最近来访</string>
+    <string name="heart_record">心动记录</string>
+    <string name="heart_address_book">心动通讯录</string>
+
+    <string name="my_send_visit">我发出的</string>
+    <string name="ta_send_visit">TA发出的</string>
+
+    <string name="love_me">谁对我心动</string>
+    <string name="ta_love">我对TA心动</string>
+
+    <!--滚动选择器-->
+    <string-array name="items">
+        <item>城市选择器</item>
+        <item>日期选择器 </item>
+        <item>其他</item>
+    </string-array>
+
+    <string name="province_and_city">
+        "北京!!东城区!西城区!崇文区!宣武区!朝阳区!丰台区!石景山区!海淀区!门头沟区!房山区!通州区!顺义区!昌平区!大兴区!怀柔区!平谷区!密云县!延庆县!!!天津!!和平区!河东区!河西区!南开区!河北区!红桥区!塘沽区!汉沽区!大港区!东丽区!西青区!津南区!北辰区!武清区!宝坻区!宁河县!静海县!蓟县!!!河北!!石家庄!唐山!秦皇岛!邯郸!邢台!保定!张家口!承德!沧州!廊坊!衡水!!!山西!!太原!大同!阳泉!长治!晋城!朔州!晋中!运城!忻州!临汾!吕梁!!!内蒙古!!呼和浩特!包头!乌海!赤峰!通辽!鄂尔多斯!呼伦贝尔!兴安盟!锡林郭勒盟!乌兰察布盟!巴彦淖尔盟!阿拉善盟!!!辽宁!!沈阳!大连!鞍山!抚顺!本溪!丹东!锦州!营口!阜新!辽阳!盘锦!铁岭!朝阳!葫芦岛!!!吉林!!长春!吉林!四平!辽源!通化!白山!松原!白城!延边朝鲜族自治州!!!黑龙江!!哈尔滨!齐齐哈尔!鸡西!鹤岗!双鸭山!大庆!伊春!佳木斯!七台河!牡丹江!黑河!绥化!大兴安岭!!!上海!!黄浦区!卢湾区!徐汇区!长宁区!静安区!普陀区!闸北区!虹口区!杨浦区!闵行区!宝山区!嘉定区!浦东新区!金山区!松江区!青浦区!南汇区!奉贤区!崇明县!!!江苏!!南京!无锡!徐州!常州!苏州!南通!连云港!淮安!盐城!扬州!镇江!泰州!宿迁!!!浙江!!杭州!宁波!温州!嘉兴!湖州!绍兴!金华!衢州!舟山!台州!丽水!!!安徽!!合肥!芜湖!蚌埠!淮南!马鞍山!淮北!铜陵!安庆!黄山!滁州!阜阳!宿州!巢湖!六安!亳州!池州!宣城!!!福建!!福州!厦门!莆田!三明!泉州!漳州!南平!龙岩!宁德!!!江西!!南昌!景德镇!萍乡!九江!新余!鹰潭!赣州!吉安!宜春!抚州!上饶!!!山东!!济南!青岛!淄博!枣庄!东营!烟台!潍坊!济宁!泰安!威海!日照!莱芜!临沂!德州!聊城!滨州!菏泽!!!河南!!郑州!开封!洛阳!平顶山!安阳!鹤壁!新乡!焦作!濮阳!许昌!漯河!三门峡!南阳!商丘!信阳!周口!驻马店!!!湖北!!武汉!黄石!十堰!宜昌!襄樊!鄂州!荆门!孝感!荆州!黄冈!咸宁!随州!恩施土家族苗族自治州!!!湖南!!长沙!株洲!湘潭!衡阳!邵阳!岳阳!常德!张家界!益阳!郴州!永州!怀化!娄底!湘西土家族苗族自治州!!!广东!!广州!韶关!深圳!珠海!汕头!佛山!江门!湛江!茂名!肇庆!惠州!梅州!汕尾!河源!阳江!清远!东莞!中山!潮州!揭阳!云浮!!!广西!!南宁!柳州!桂林!梧州!北海!防城港!钦州!贵港!玉林!百色!贺州!河池!南宁!柳州!!!海南!!海口!三亚!其他!!!重庆!!万州区!涪陵区!渝中区!大渡口区!江北区!沙坪坝区!九龙坡区!南岸区!北碚区!万盛区!双桥区!渝北区!巴南区!黔江区!长寿区!綦江县!潼南县!铜梁县!大足县!荣昌县!璧山县!梁平县!城口县!丰都县!垫江县!武隆县!忠县!开县!云阳县!奉节县!巫山县!巫溪县!石柱土家族自治县!秀山土家族苗族自治县!酉阳土家族苗族自治县!彭水苗族土家族自治县!江津市!合川市!永川区!南川市!!!四川!!成都!自贡!攀枝花!泸州!德阳!绵阳!广元!遂宁!内江!乐山!南充!眉山!宜宾!广安!达州!雅安!巴中!资阳!阿坝!甘孜!凉山!!!贵州!!贵阳!六盘水!遵义!安顺!铜仁!黔西南!毕节!黔东南!黔南!!!云南!!昆明!曲靖!玉溪!保山!昭通!楚雄!红河!文山!思茅!西双版纳!大理!德宏!丽江!怒江!迪庆!临沧!!!西藏!!拉萨!昌都!山南!日喀则!那曲!阿里!林芝!!!陕西!!西安!铜川!宝鸡!咸阳!渭南!延安!汉中!榆林!安康!商洛!!!甘肃!!兰州!嘉峪关!金昌!白银!天水!武威!张掖!平凉!酒泉!庆阳!定西!陇南!临夏!甘南!!!青海!!西宁!海东!海北!黄南!海南!果洛!玉树!海西!!!宁夏!!银川!石嘴山!吴忠!固原!!!新疆!!乌鲁木齐!克拉玛依!吐鲁番!哈密!昌吉!博尔塔拉!巴音郭楞!阿克苏!克孜勒苏!喀什!和田!伊犁!塔城!阿勒泰!!!台湾!!台北!高雄!其他!!!香港!!香港!!!澳门!!澳门!!!海外!!美国!英国!法国!俄罗斯!加拿大!巴西!澳大利亚!印尼!泰国!马来西亚!新加坡!菲律宾!越南!印度!日本!其他"
+    </string>
+    <string name="work_and_position">
+        "高中级管理!!高级管理!中层管理!!!产品与项目管理!!产品管理!项目管理!!!计算机软硬件!!计算机软件开发!计算机软件架构!计算机软件测试!计算机硬件开发!计算机硬件架构!计算机硬件测试!视觉交换!UI/UE!!!产品与工艺研发设计!!产品研发!产品设计!产品工艺研发!生产工艺研发!工艺技术!!!生产制造维修!!生产管理!生产计划!生产技术支持!生产设备维护与调试!维修!!!质量检验安全!!质量管理!质量控制!质检!检验检测!化验!安全!!!计量测量测绘!!测量测绘!计量!!!文化演艺创意媒体!!文化!媒体!文娱!新闻!演艺!创意/设计（产品设计除外）!体育!!!金融投资!!金融!投资/融资!理财!!!人力资源与行政!!人力资源!行政!培训!!!财务审计法律!!财务!会计!审计!风险管理与控制!法律/法务!!!销售市场运维技术支持!!销售!客户管理!商务拓展!渠道/分销!市场!客户服务!售前/售后!运营维护!技术支持!!!公关/政府管理!!公关!政府关系!!!采购物流供应商!!采购!物流!供应商管理!!!广告编辑文案!!广告!编辑/文案!!!贸易进出口!!贸易!进出口!!!咨询/顾问/分析!!咨询/顾问!分析!!!房地产建筑工程物业安装!!房地产!建筑!工程!安装!物业!!!规划监理!!规划!监理!!!教育科研公务员!!教育!科研!公务员!!!卫生医护!!卫生!医生!护士!!!种植养殖!!种植!养殖!!!经纪代理翻译!!经纪代理翻译!经纪/代理!翻译!!!蓝领!!蓝领!!!其他!!其他"
+    </string>
+    <string name="selected_sex">请选择性别</string>
+    <string name="selected">条件筛选</string>
+    <string name="selected_user_info">填写个人信息</string>
+    <string name="complete">完成</string>
+    <string name="reset">重置</string>
+    <string name="set_avatar">设置头像</string>
+    <string name="upload_avatar">上传头像</string>
+    <string name="upload_complete">上传完成</string>
+    <string name="upload_avatar_desc">一张好看清晰的头像可以让自己更有吸引力</string>
+    <string name="person_des_text_hint">请输入个人简介 （200字以内)</string>
+    <string name="my_photos">我的相册</string>
+    <string name="my_introduce">个人简介</string>
+    <string name="text_upload_avatar_success">头像上传成功</string>
+    <string name="text_update_avatar_success">头像修改成功</string>
+    <string name="text_upload_avatar_fail">头像上传失败</string>
+    <string name="text_save_user_info_success">保存信息成功</string>
+    <string name="text_save_user_info_fail">保存信息失败</string>
+    <string name="empty_pic">图片没找到</string>
+    <string name="no_data">暂无数据</string>
+    <string name="network_not_good">网络不是很好</string>
+    <string name="refresh_retry">刷新重试</string>
+    <string name="cancel">取消</string>
+    <string name="alt_takepic">拍照</string>
+    <string name="use_localpic">从手机相册选择</string>
+    <string name="set_avt">设置头像</string>
+    <string name="gallery_unable">相册不可用</string>
+    <string name="unaccess_pic">无权限访问选定的图片</string>
+    <string name="hint_introduce">最多100字</string>
+    <string name="introduce_null">个人介绍不能为空</string>
+    <string name="introduce_little">个人介绍太少</string>
+    <string name="save">保存</string>
+    <string name="save_fail">保存失败</string>
+    <string name="save_success">保存成功</string>
+    <string name="setting">设置</string>
+    <string name="customer_agent">客服</string>
+    <string name="most_mark">最多可选8个标签</string>
+    <string name="mark_error">太多的人生标签，何尝不是一种负担</string>
+    <string name="base_info">基本资料</string>
+    <string name="choose_mate">择偶要求</string>
+
+    <string name="wait_reply">待回复</string>
+    <string name="has_agree">已同意</string>
+    <string name="has_refuse">已拒绝</string>
+    <string name="talk_first">先聊聊</string>
+    <string name="loading">正在加载中</string>
+    <string name="loading_empty">暂无更多数据</string>
+    <string name="start_at_now">立即体验</string>
+
+    <string name="exit_message">再按一次退出享恋</string>
+
+    <string name="title_activity_media_chose">选择图片</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_crop_image">CropImageActivity</string>
+
+    <string name="ucrop_label_original">原始比例</string>
+    <string name="ucrop_label_edit_photo">裁剪</string>
+
+    <string name="ucrop_menu_crop">裁剪</string>
+    <string name="ucrop_error_input_data_is_absent">Both input and output Uri must be specified</string>
+
+    <string name="upload_success">上传成功</string>
+    <string name="upload_err">上传失败</string>
+    <string name="parameter_error_retry">参数错误，请重试</string>
+    <string name="pic_not_ready_to_save">图片未准备好，请稍后再试</string>
+    <string name="image_url_empty">图片地址错误</string>
+    <string name="savepic_to">已保存至：</string>
+    <string name="no_enough_space">手机空间不足，保存图片失败</string>
+    <string name="save_pic_error">保存图片异常</string>
+    <string name="select_one_mark">最少选择一个标签</string>
+    <string name="hide_case">隐藏示例</string>
+    <string name="show_case">隐藏示例</string>
+
+    <string name="ok_notifyTitle">提示</string>
+    <string name="ok_notifyMsg">当前应用缺少必要权限。\n\n请点击\"设置\"-\"权限\"-打开所需权限。</string>
+    <string name="ok_setting">设置</string>
+    <string name="ok_cancel">取消</string>
+
+</resources>
