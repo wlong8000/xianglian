@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerInParent="true"
+    android:background="@drawable/common_dialog_bg"
+    android:orientation="vertical">
+
+    <include layout="@layout/dialog_title_line" />
+
+    <TextView
+        android:id="@+id/takephoto"
+        style="@style/Style_TextViewDialog"
+        android:background="@drawable/user_info_button_drawable"
+        android:gravity="center"
+        android:paddingBottom="15dp"
+        android:paddingLeft="10dip"
+        android:paddingTop="15dp"
+        android:text="@string/alt_takepic"
+        android:textColor="#333333" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="#dcdcdf" />
+
+    <TextView
+        android:id="@+id/usenativegalley"
+        style="@style/Style_TextViewDialog"
+        android:background="@drawable/user_info_button_drawable"
+        android:gravity="center"
+        android:paddingBottom="15dp"
+        android:paddingLeft="10dip"
+        android:paddingTop="15dp"
+        android:text="@string/use_localpic"
+        android:textColor="#333333" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#dcdcdf" />
+
+    <TextView
+        android:id="@+id/cancelphoto"
+        style="@style/Button_DialogConfirmNew"
+        android:background="@drawable/btn_dialog_one"
+        android:gravity="center"
+        android:text="@string/cancel"
+        android:textColor="@drawable/text_gray_blue1" />
+</LinearLayout>

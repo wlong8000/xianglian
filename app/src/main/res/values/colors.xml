@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="base">#F040f1</color>
+
+    <!--5.0使用的color-->
+    <color name="cut_line_color_gray">#DBDBDB</color>
+    <color name="select_sex_round_color_select">#fee8eb</color>
+    <color name="color_mark_bg_round">#FF4081</color>
+
+    <!--字体颜色-->
+    <!--懂球绿-->
+    <color name="lib_color_font1">#71c673</color>
+    <color name="lib_color_font1_trans60">#9916B13A</color>
+    <!--高蓝灰-->
+    <color name="lib_color_font2">#333333</color>
+    <color name="lib_color_font2_trans60">#99333333</color>
+    <!--中蓝灰-->
+    <color name="lib_color_font3">#555555</color>
+    <color name="lib_color_font3_trans60">#99555555</color>
+    <!--低蓝灰-->
+    <color name="lib_color_font4">#888888</color>
+    <color name="lib_color_font4_trans60">#99888888</color>
+    <!--死蓝灰-->
+    <color name="lib_color_font5">#999999</color>
+    <color name="lib_color_font5_trans60">#99999999</color>
+    <!--数据蓝-->
+    <color name="lib_color_font6">#929cad</color>
+    <color name="lib_color_font6_trans60">#99929cad</color>
+    <!--天空白-->
+    <color name="lib_color_font7">#FFFFFF</color>
+    <color name="lib_color_font7_trans60">#99FFFFFF</color>
+    <color name="lib_color_font7_trans80">#BBFFFFFF</color>
+    <!--魔力红 主色-->
+    <color name="lib_color_font8">#fe2b44</color>
+    <color name="lib_color_font8_trans60">#99E0371B</color>
+    <color name="lib_color_font9">#88e89e</color>
+    <color name="lib_color_font9_trans60">#9988e89e</color>
+
+    <color name="lib_color_font10">#aaa7a7</color>
+
+    <color name="lib_color_font11">#ff2a44</color>
+    <color name="lib_color_font11_trans40">#66ff2a44</color>
+
+    <!--透明-->
+    <color name="lib_transparent">#00000000</color>
+
+
+    <!--背景色-->
+    <!--天空白-->
+    <color name="lib_color_bg1">#F7F7F7</color>
+    <color name="lib_color_bg1_trans40">#66F7F7F7</color>
+    <color name="lib_color_bg1_trans60">#99F7F7F7</color>
+    <!--天空蓝-->
+    <color name="lib_color_bg2">#ECECEC</color>
+    <!--懂球绿-toolbar颜色-->
+    <color name="lib_color_bg3">#16B13A</color>
+    <color name="lib_color_bg3_trans40">#6616B13A</color>
+    <!--低蓝灰-->
+    <color name="lib_color_bg4">#999999</color>
+    <color name="lib_color_bg4_trans40">#66999999</color>
+
+    <color name="lib_color_bg5">#333D46</color>
+    <color name="lib_color_bg6">#404C57</color>
+    <color name="lib_color_bg7">#1D2328</color>
+    <color name="lib_color_bg8">#262E35</color>
+    <color name="lib_color_bg9">#FAFAFA</color>
+    <color name="lib_color_bg9_trans60">#99FAFAFA</color>
+    <color name="lib_color_bg_player_team">#33000000</color>
+
+    <color name="lib_color_bg10">#fdfdfa</color>
+    <color name="lib_color_bg11">#c8c8c8</color>
+    <color name="lib_color_bg12">#4c4c4c</color>
+    <color name="lib_color_bg13">#fee9eb</color>
+
+    <!--特殊-系统社区消息未读背景色-->
+    <color name="lib_color_bg_msg">#FFFCDB</color>
+    <!-- 透明 -->
+    <color name="lib_color_bg_half_transparent">#33000000</color>
+    <color name="lib_color_bg_transparent">#00000000</color>
+
+    <!--分割线色-->
+    <color name="lib_color_divider">#E9E9E9</color>
+    <color name="lib_color_divider2">#2B353D</color>
+    <color name="lib_color_divider3">#1E973C</color>
+    <color name="lib_color_divider4">#1D2328</color>
+
+    <color name="lib_color_title_divider">@color/lib_color_divider3</color>
+    <color name="lib_color_title_divider_immersive">@color/lib_color_divider</color>
+    <color name="lib_color_title_divider_transparent">@color/lib_color_divider2</color>
+
+    <!--＝＝＝＝＝＝特殊，只在侧拉界面用到了一次-->
+    <color name="lib_color_slide_line">#99FFFFFF</color>
+    <color name="lib_color_slide_subtitle">#99FFFFFF</color>
+
+    <color name="lib_color_title">@color/lib_color_bg3</color>
+    <!--沉浸式标题背景色-->
+    <color name="lib_color_title_immersive">@color/lib_color_bg1</color>
+    <color name="lib_color_title_transparent">@color/lib_color_bg_half_transparent</color>
+
+
+    <!--首页右侧tab字体选中色-->
+    <color name="lib_color_mail_title_right_tab_selected">#66e483</color>
+
+    <!--圈子 精华tag颜色-->
+    <color name="lib_color_elite">#F36566</color>
+    <color name="lib_color_avatar_holder_image_color">#eaeaea</color>
+
+    <color name="lib_color_bg_group_gallery">@color/lib_color_bg2</color>
+
+    <!--黑色 50%透明-->
+    <color name="lib_color_black_transform50">#80000000</color>
+
+    <color name="lib_color_bg_green_pk">#24be48</color>
+
+    <color name="register_divider">#44DDDDDD</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="transparent">#00000000</color>
+
+    <color name="share_bg">#F5F5F5</color>
+    <color name="main_bg">#f8f8f8</color>
+
+    <color name="show_bg">#FEF2F4</color>
+    <color name="lib_color_font9_trans61">#EC5184</color>
+    <color name="please_select_pre_color">#BDBCBC</color>
+    <color name="please_after_select_color">#727272</color>
+    <color name="select_sex_text_bg_round_color">#CACAC7</color>
+    <color name="fill_personal_info_bg_color">#F8F8F8</color>
+    <color name="cancel_blue">#0079FF</color>
+    <color name="cut_line_color">#E295CC</color>
+    <color name="bg_code">#00C5A3</color>
+    <color name="title">#16B13A</color>
+    <!-- 透明 -->
+    <color name="half_transparent">#26000000</color>
+
+    <color name="divider">#B6B6B6</color>
+    <color name="primary">#F44336</color>
+
+    <color name="grey51">#666666</color>
+    <color name="common_dialog_top">#16B13A</color>
+    <color name="wheel_text">#333333</color>
+    <color name="login_title">#222222</color>
+    <color name="comment_title">#DDDDDD</color>
+    <color name="register_title">#5ca5f4</color>
+
+    <!-- 红色 -->
+    <color name="red">#FF0000</color>
+
+
+    <!--uCrop Activity-->
+    <color name="ucrop_color_toolbar">#FF6E40</color>
+    <color name="ucrop_color_statusbar">#CC5833</color>
+    <color name="ucrop_color_title">#fff</color>
+    <color name="ucrop_color_widget">#000</color>
+    <color name="ucrop_color_widget_active">#FF6E40</color>
+    <color name="ucrop_color_widget_background">#fff</color>
+    <color name="ucrop_color_widget_text">#000</color>
+    <color name="ucrop_color_progress_wheel_line">#808080</color>
+    <color name="ucrop_color_crop_background">#000</color>
+
+    <!--Crop View-->
+    <color name="ucrop_color_default_crop_grid">#80ffffff</color>
+    <color name="ucrop_color_default_crop_frame">#ffffff</color>
+    <color name="ucrop_color_default_dimmed">#8c000000</color>
+
+</resources>

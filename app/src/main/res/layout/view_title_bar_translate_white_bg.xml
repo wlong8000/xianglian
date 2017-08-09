@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.wl.lianba.view.TitleBarView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/title_bar_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:padding="12dp"
+    >
+    <ImageView
+        android:id="@+id/tv_left_back"
+        android:src="@drawable/icon_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/tv_title"
+        android:text="@string/login"
+        android:textColor="#222222"
+        android:textSize="17sp"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/tv_right_action"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textColor="#5ca5f4"
+        android:text=""/>
+</com.wl.lianba.view.TitleBarView>

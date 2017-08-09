@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="RoundImage">
+        <attr name="radius" />
+        <attr name="round_mode" />
+    </declare-styleable>
+
+    <attr name="radius" format="dimension"/>
+    <attr name="round_mode">
+        <enum name="auto" value="0" />
+        <enum name="manual" value="1" />
+    </attr>
+</resources>

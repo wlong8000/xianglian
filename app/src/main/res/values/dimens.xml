@@ -1,0 +1,53 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!--5.0使用-->
+    <!--字体大小-->
+    <dimen name="lib_font_size1">22sp</dimen>
+    <dimen name="lib_font_size2">15sp</dimen>
+    <dimen name="lib_font_size3">16sp</dimen>
+    <dimen name="lib_font_size4">14sp</dimen>
+    <dimen name="lib_font_size5">12sp</dimen>
+    <dimen name="lib_font_size6">10sp</dimen>
+    <dimen name="lib_font_size7">18sp</dimen>
+    <dimen name="lib_font_size8">13sp</dimen>
+    <dimen name="lib_font_size9">11sp</dimen>
+
+    <!--行间距-->
+    <dimen name="lib_line_space1">11dp</dimen>
+    <dimen name="lib_line_space2">9dp</dimen>
+    <dimen name="lib_line_space3">4dp</dimen>
+    <dimen name="lib_line_space4">6dp</dimen>
+    <dimen name="lib_line_space5">4dp</dimen>
+    <dimen name="lib_line_space6">4dp</dimen>
+
+    <!--头像大小-->
+    <dimen name="lib_user_icon_small">30dp</dimen>
+    <dimen name="lib_user_icon_middle">45dp</dimen>
+    <dimen name="lib_team_icon">54dp</dimen>
+    <dimen name="lib_user_icon_big">60dp</dimen>
+
+    <!--距离左侧距离-->
+    <dimen name="margin_left_and_right">15dp</dimen>
+
+    <!--uCrop Activity-->
+    <dimen name="ucrop_padding_crop_frame">16dp</dimen>
+    <dimen name="ucrop_size_dot_scale_text_view">8dp</dimen>
+    <dimen name="ucrop_height_horizontal_wheel_progress_line">20dp</dimen>
+    <dimen name="ucrop_width_horizontal_wheel_progress_line">2dp</dimen>
+    <dimen name="ucrop_margin_horizontal_wheel_progress_line">10dp</dimen>
+    <dimen name="ucrop_height_wrapper_controls">64dp</dimen>
+    <dimen name="ucrop_height_wrapper_states">72dp</dimen>
+    <dimen name="ucrop_height_divider_shadow">3dp</dimen>
+    <dimen name="ucrop_text_size_widget_text">13sp</dimen>
+    <dimen name="ucrop_margit_top_widget_text">10sp</dimen>
+    <dimen name="ucrop_size_wrapper_rotate_button">50dp</dimen>
+    <dimen name="ucrop_height_crop_aspect_ratio_text">40dp</dimen>
+
+    <!--Crop View-->
+    <dimen name="ucrop_default_crop_grid_stoke_width">1dp</dimen>
+    <dimen name="ucrop_default_crop_frame_stoke_width">1dp</dimen>
+
+</resources>

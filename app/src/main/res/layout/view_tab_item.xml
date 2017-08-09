@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.wl.lianba.view.TabItemView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+
+                <TextView
+                    android:id="@+id/tab_name"
+                    style="@style/lib_style_second_tab_title"
+                    android:layout_gravity="center"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="6dp"/>
+
+                <TextView
+                    android:id="@+id/tab_count"
+                    style="@style/lib_style_second_tab_title"
+                    android:layout_below="@+id/tab_name"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="-6dp"
+                    android:paddingBottom="6dp"
+                    android:textSize="12dp"
+                    android:textColor="@drawable/lib_selector_font_tab_count"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/tab_num"
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
+                    android:layout_alignRight="@+id/tab_name"
+                    android:gravity="center"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/lib_font_size5" />
+
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/tab_line"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_gravity="bottom"
+                android:background="@color/lib_color_bg3" />
+        </LinearLayout>
+    </LinearLayout>
+
+</com.wl.lianba.view.TabItemView>

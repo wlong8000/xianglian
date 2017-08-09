@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.wl.lianba.view.EmptyView
+    android:id="@+id/view_list_empty_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lib_color_bg2"
+    android:clickable="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/empty_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <com.wl.lianba.view.ProgressImageView
+            android:id="@+id/view_list_empty_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/loading_dark"/>
+
+        <TextView
+            android:id="@+id/view_list_empty_text"
+            style="@style/Style_TextViewListEmpty_View"
+            android:gravity="center"
+            android:lineSpacingExtra="5dp"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip"
+            android:background="@drawable/empty_bg"/>
+    </LinearLayout>
+
+    <ViewStub
+        android:id="@+id/newtwork"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:layout="@layout/network_not_good"/>
+
+    <FrameLayout
+        android:id="@+id/bottom_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:visibility="gone"/>
+
+</com.wl.lianba.view.EmptyView>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/mark_tag_grid_adapter_background_ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:alpha="0.5"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/mark_tag_grid_adapter_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#4c4c4c"
+                android:text="测试"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/lib_font_size6"
+                android:layout_marginBottom="@dimen/lib_font_size6"
+                android:textSize="@dimen/lib_font_size4"/>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</LinearLayout>

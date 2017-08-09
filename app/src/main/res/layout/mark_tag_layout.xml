@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/title_bar_layout"
+        layout="@layout/view_title_bar_translate" />
+
+    <GridView
+        android:id="@+id/mark_tag_grid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_bar_layout"
+        android:layout_marginLeft="@dimen/margin_left_and_right"
+        android:layout_marginRight="@dimen/margin_left_and_right"
+        android:layout_marginTop="10dp"
+        android:numColumns="4"
+        android:scrollbars="none" />
+
+    <LinearLayout
+        android:id="@+id/bottom_next_position_mark_page"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/margin_left_and_right"
+        android:layout_marginLeft="@dimen/margin_left_and_right"
+        android:layout_marginRight="@dimen/margin_left_and_right"
+        android:background="@drawable/lib_selector_btn5_bg">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/lib_font_size5"
+            android:layout_marginTop="@dimen/lib_font_size5"
+            android:gravity="center"
+            android:text="@string/confirm"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottom_next_position_mark_page"
+        android:layout_below="@id/mark_tag_grid">
+
+        <TextView
+            android:id="@+id/most_can_mark_tag_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/most_mark"
+            android:textColor="@color/lib_color_bg12"
+            android:textSize="@dimen/lib_font_size4" />
+    </RelativeLayout>
+</RelativeLayout>

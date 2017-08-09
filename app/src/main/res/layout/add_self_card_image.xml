@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="128dp">
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="128dp"
+        android:layout_marginRight="15dp"
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/personal_first_page"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/add_personal_card_image"/>
+
+        <LinearLayout
+            android:id="@+id/personal_first_page_alpha_content"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.4"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="证件仅供"
+                android:layout_marginTop="30dp"
+                android:textSize="22sp"
+                android:layout_gravity="center_horizontal"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="恋8认证使用"
+                android:layout_marginTop="15dp"
+                android:textSize="22sp"
+                android:layout_gravity="center_horizontal"/>
+        </LinearLayout>
+    </FrameLayout>
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="128dp"
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/personal_second_page"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="invisible"
+            android:src="@drawable/add_personal_card_image"/>
+
+        <LinearLayout
+            android:id="@+id/personal_second_page_alpha_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.4"
+            android:visibility="invisible"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="证件仅供"
+                android:layout_marginTop="30dp"
+                android:textSize="22sp"
+                android:layout_gravity="center_horizontal"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="恋8认证使用"
+                android:layout_marginTop="15dp"
+                android:textSize="22sp"
+                android:layout_gravity="center_horizontal"/>
+        </LinearLayout>
+    </FrameLayout>
+
+</LinearLayout>
