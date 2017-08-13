@@ -109,7 +109,7 @@ public class LoginActivity extends BaseLoginActivity implements OnClickListener 
         Map<String, String> params = new HashMap<>();
         params.put("mobile", userName);
         params.put("password", passWord);
-        OkHttpUtil.getDefault(this).doGetAsync(
+        OkHttpUtil.getDefault(this).doPostAsync(
                 HttpInfo.Builder().setUrl(url).addHeads(getHeader()).addParams(params).build(),
                 new Callback() {
                     @Override

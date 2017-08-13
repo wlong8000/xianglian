@@ -69,7 +69,7 @@ public class ForgetPwdActivity extends BaseLoginActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget_pwd);
-        setupTitle(getString(R.string.reset_pwd));
+        setupTitle(getString(R.string.forgot_pwd));
 
         mUserNameView = (AutoCompleteTextView) findViewById(R.id.tv_phone);
         mCodeView = (EditText) findViewById(R.id.sms_code);

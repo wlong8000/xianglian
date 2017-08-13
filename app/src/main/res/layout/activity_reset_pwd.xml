@@ -1,0 +1,74 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_login"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_title_bar_translate" />
+
+
+    <LinearLayout
+        android:id="@+id/email_login_form"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin">
+
+        <EditText
+            android:id="@+id/password_old"
+            style="@style/lib_style_button4_large"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:drawableLeft="@drawable/icon_password"
+            android:drawablePadding="8dp"
+            android:hint="@string/hint_pwd"
+            android:imeActionId="@+id/login"
+            android:imeOptions="actionUnspecified"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:singleLine="true" />
+
+        <EditText
+            android:id="@+id/password_new"
+            style="@style/lib_style_button4_large"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:drawableLeft="@drawable/icon_password"
+            android:drawablePadding="8dp"
+            android:hint="@string/enter_new_pwd"
+            android:imeActionId="@+id/login"
+            android:imeOptions="actionUnspecified"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:singleLine="true" />
+
+        <EditText
+            android:id="@+id/re_password"
+            style="@style/lib_style_button4_large"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:drawableLeft="@drawable/icon_password"
+            android:drawablePadding="8dp"
+            android:hint="@string/confirm_pwd"
+            android:imeActionId="@+id/login"
+            android:imeOptions="actionUnspecified"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:singleLine="true" />
+
+        <TextView
+            android:id="@+id/reset_pwd_btn"
+            style="@style/lib_style_button5_large"
+            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginTop="22dp"
+            android:gravity="center"
+            android:text="@string/reset_pwd" />
+
+    </LinearLayout>
+</LinearLayout>

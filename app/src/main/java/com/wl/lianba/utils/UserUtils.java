@@ -1,5 +1,7 @@
 package com.wl.lianba.utils;
 
+import android.content.Context;
+
 import java.util.ArrayList;
 
 /**
@@ -120,6 +122,10 @@ public class UserUtils {
         }
         data.add("100kg以上");
         return data;
+    }
+
+    public static String getPhone(Context context) {
+        return "";
     }
 
 
