@@ -43,11 +43,9 @@ dependencies {
     compile project(path: ':pickerview')
     compile project(path: ':fastjson')
     compile 'com.github.bumptech.glide:glide:3.6.1'
-    compile 'com.facebook.stetho:stetho:1.3.1'
-    compile 'com.facebook.stetho:stetho-okhttp3:1.3.1'
-    compile 'com.squareup.retrofit2:retrofit:2.0.0-beta4'
-    compile 'com.squareup.okhttp3:okhttp:3.2.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
+    compile 'com.facebook.stetho:stetho:1.5.0'
+    compile 'com.facebook.stetho:stetho-okhttp3:1.5.0'
+    compile 'com.zhousf.lib:okhttp3:2.8.9'
     //    compile ('top.zibin:Luban:1.1.2')
     //    compile 'com.qiniu:qiniu-android-sdk:7.3.+'
 }
