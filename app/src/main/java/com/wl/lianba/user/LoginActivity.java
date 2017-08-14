@@ -18,7 +18,6 @@ import com.wl.lianba.utils.ACache;
 import com.wl.lianba.utils.AppSharePreferences;
 import com.wl.lianba.utils.AppUtils;
 import com.okhttplib.callback.Callback;
-import com.wl.lianba.utils.MyLog;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -116,14 +115,12 @@ public class LoginActivity extends BaseLoginActivity implements OnClickListener 
                     public void onFailure(HttpInfo info) throws IOException {
                         dialogDisMiss();
                         String result = info.getRetDetail();
-                        MyLog.d("TAG", "&& login fail= " + result);
                     }
 
                     @Override
                     public void onSuccess(HttpInfo info) throws IOException {
                         dialogDisMiss();
                         String result = info.getRetDetail();
-                        MyLog.d("TAG", "&& login success= " + result);
                         ACache.get(LoginActivity.this).put(Config.KEY_USER, result);
                         boolean isEditInfo = AppSharePreferences.getBoolValue(LoginActivity.this, AppSharePreferences.USER_INFO);
                         if (isEditInfo) {

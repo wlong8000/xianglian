@@ -18,4 +18,5 @@
 
 -keep class com.qiniu.**{*;}
 -keep class com.qiniu.**{public <init>();}
+-dontwarn okio.**
 -ignorewarnings

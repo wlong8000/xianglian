@@ -1,8 +1,14 @@
 package base;
-
 import com.okhttplib.HttpInfo;
 import com.okhttplib.interceptor.ExceptionInterceptor;
 import com.okhttplib.interceptor.ResultInterceptor;
+import com.wl.lianba.utils.Trace;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Map;
 
 /**
  * Http拦截器
@@ -12,7 +18,7 @@ import com.okhttplib.interceptor.ResultInterceptor;
  * @author zhousf
  */
 public class HttpInterceptor {
-
+    public static final String TAG = "HttpInterceptor";
 
     /**
      * 请求结果统一预处理拦截器
@@ -22,9 +28,41 @@ public class HttpInterceptor {
         @Override
         public HttpInfo intercept(HttpInfo info) throws Exception {
             //请求结果预处理：可以进行GSon过滤与解析
+            openRequestLog(info);
             return info;
         }
     };
+
+    private static void openRequestLog(HttpInfo info) throws JSONException {
+        Map<String, String> header = info.getHeads();
+        JSONObject obj = new JSONObject();
+        obj.put("url", info.getUrl());
+        if (header != null) {
+            JSONArray array = new JSONArray();
+            for (String key : header.keySet()) {
+                String value = header.get(key);
+                JSONObject o = new JSONObject();
+                o.put(key, value);
+                array.put(o);
+            }
+            obj.put("header", array);
+        }
+
+        Map<String, String> params = info.getParams();
+        if (params != null) {
+            JSONArray array = new JSONArray();
+            for (String key : params.keySet()) {
+                String value = params.get(key);
+                JSONObject o = new JSONObject();
+                o.put(key, value);
+                array.put(o);
+            }
+            obj.put("params", array);
+        }
+        obj.put("response", info.getRetDetail());
+        obj.put("response_code", info.getNetCode());
+        Trace.d(TAG, "request log = " + obj.toString());
+    }
 
     /**
      * 请求链路异常信息拦截器
