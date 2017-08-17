@@ -376,7 +376,7 @@ public class AppUtils {
 				.getSystemService(Context.TELEPHONY_SERVICE);
 		switch (type) {
 			case 1:// 设备唯一标识
-				return telephonyManager.getDeviceId();
+//				return telephonyManager.getDeviceId();
 			case 2:// 系统版本号
 				return Build.VERSION.RELEASE;
 			case 3:// 设备型号
