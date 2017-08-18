@@ -1,5 +1,6 @@
 package com.wl.lianba.user.been;
 
+import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.wl.lianba.main.home.been.PersonInfo;
 
 import java.util.ArrayList;
@@ -7,7 +8,7 @@ import java.util.ArrayList;
 /**
  * 针对 用户信息编辑类
  */
-public class ItemInfo {
+public class ItemInfo implements MultiItemEntity {
 
 	private String text;
 	private String rightText;
@@ -18,6 +19,11 @@ public class ItemInfo {
 	private boolean showLine;
 	private PersonInfo info;
 	private ArrayList<String> items;
+
+	@Override
+	public int getItemType() {
+		return viewType;
+	}
 
 	/**
 	 * 个人信息编辑页 分类

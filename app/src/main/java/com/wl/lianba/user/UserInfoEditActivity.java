@@ -290,7 +290,7 @@ public class UserInfoEditActivity extends BaseUserInfoActivity implements View.O
     private void setupRecyclerView() {
         mLayoutManager = new CommonLinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new UserInfoEditAdapter(this, itemClickListener);
+        mAdapter = new UserInfoEditAdapter(this, null);
         mRecyclerView.setAdapter(mAdapter);
 
         addData();
@@ -307,11 +307,11 @@ public class UserInfoEditActivity extends BaseUserInfoActivity implements View.O
             case ItemInfo.ViewType.AVATAR: {
                 ItemInfo info = new ItemInfo();
                 info.setViewType(type);
-                mAdapter.getInfo().add(info);
+//                mAdapter.getInfo().add(info);
                 break;
             }
             case ItemInfo.ViewType.PICK_SELECT: {
-                mAdapter.getInfo().addAll(getData());
+//                mAdapter.getInfo().addAll(getData());
                 break;
             }
         }

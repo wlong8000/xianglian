@@ -91,7 +91,7 @@
             android:name=".user.IntroduceActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".main.home.SelectActivity"
+            android:name=".main.home.SearchActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".main.me.BaseInfoActivity"

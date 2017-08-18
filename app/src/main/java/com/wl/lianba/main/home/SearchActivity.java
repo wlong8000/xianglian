@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lvfq.pickerview.TimePickerView;
 import com.wl.lianba.R;
 import com.wl.lianba.dialog.FirstChooseDialog;
@@ -32,7 +33,7 @@ import butterknife.InjectView;
  * Created by wl on 2017/8/4.
  * 条件筛选
  */
-public class SelectActivity extends BaseUserInfoActivity implements View.OnClickListener {
+public class SearchActivity extends BaseUserInfoActivity implements BaseQuickAdapter.OnItemClickListener,View.OnClickListener {
 
 
     @InjectView(R.id.recycler_view)
@@ -52,35 +53,7 @@ public class SelectActivity extends BaseUserInfoActivity implements View.OnClick
 
     private int mType = -1;
 
-    private View.OnClickListener itemClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            int position = mRecyclerView.getChildAdapterPosition(view);
-            mEntity = mAdapter.getItem(position);
-            if (mEntity == null) return;
-            mType = mEntity.getType();
-            if (ItemInfo.ViewType.PICK_SELECT == mEntity.getViewType()) {
-                switch (mType) {
-                    case ItemInfo.Type.BIRTHDAY: {
-                        showDateDialog(mEntity);
-                        break;
-                    }
-                    case ItemInfo.Type.HOMETOWN:
-                    case ItemInfo.Type.APARTMENT: {
-                        showOptions(mEntity);
-                        break;
-                    }
-                    case ItemInfo.Type.INCOME:
-                    case ItemInfo.Type.EDUCATION:
-                    case ItemInfo.Type.PROFESSION:
-                    case ItemInfo.Type.HEIGHT: {
-                        showBottomDialog(mEntity);
-                        break;
-                    }
-                }
-            }
-        }
-    };
+    private List<ItemInfo> mItemInfo = new ArrayList<>();
 
 
     @Override
@@ -194,9 +167,9 @@ public class SelectActivity extends BaseUserInfoActivity implements View.OnClick
     private void setupRecyclerView() {
         mLayoutManager = new CommonLinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new UserInfoEditAdapter(this, itemClickListener);
+        mAdapter = new UserInfoEditAdapter(this, mItemInfo);
         mRecyclerView.setAdapter(mAdapter);
-
+        mAdapter.setOnItemClickListener(this);
         addData();
     }
 
@@ -207,7 +180,8 @@ public class SelectActivity extends BaseUserInfoActivity implements View.OnClick
     private void addDataByType(int type) {
         switch (type) {
             case ItemInfo.ViewType.PICK_SELECT: {
-                mAdapter.getInfo().addAll(getData());
+                mItemInfo.clear();
+                mItemInfo.addAll(getData());
                 break;
             }
         }
@@ -267,5 +241,32 @@ public class SelectActivity extends BaseUserInfoActivity implements View.OnClick
         data.setType(type);
         data.setItems(list);
         return data;
+    }
+
+    @Override
+    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        mEntity = mAdapter.getItem(position);
+        if (mEntity == null) return;
+        mType = mEntity.getType();
+        if (ItemInfo.ViewType.PICK_SELECT == mEntity.getViewType()) {
+            switch (mType) {
+                case ItemInfo.Type.BIRTHDAY: {
+                    showDateDialog(mEntity);
+                    break;
+                }
+                case ItemInfo.Type.HOMETOWN:
+                case ItemInfo.Type.APARTMENT: {
+                    showOptions(mEntity);
+                    break;
+                }
+                case ItemInfo.Type.INCOME:
+                case ItemInfo.Type.EDUCATION:
+                case ItemInfo.Type.PROFESSION:
+                case ItemInfo.Type.HEIGHT: {
+                    showBottomDialog(mEntity);
+                    break;
+                }
+            }
+        }
     }
 }
