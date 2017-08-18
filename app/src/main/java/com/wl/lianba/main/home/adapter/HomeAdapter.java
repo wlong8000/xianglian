@@ -36,8 +36,8 @@ public class HomeAdapter extends BaseAdapter {
         this.mContext = context;
     }
 
-    public void setInfo(List<PersonInfo> personInfos) {
-        this.mPersons = personInfos;
+    public void setInfo(List<PersonInfo> personInfo) {
+        this.mPersons = personInfo;
     }
 
     @Override
