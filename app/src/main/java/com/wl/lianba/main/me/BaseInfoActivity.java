@@ -8,7 +8,6 @@ import android.text.TextUtils;
 import android.view.View;
 
 
-import com.lvfq.pickerview.TimePickerView;
 import com.wl.lianba.BaseActivity;
 import com.wl.lianba.R;
 import com.wl.lianba.dialog.EditDialog;
@@ -20,7 +19,6 @@ import com.wl.lianba.user.been.ItemInfo;
 import com.wl.lianba.utils.AppUtils;
 import com.wl.lianba.utils.CommonLinearLayoutManager;
 import com.wl.lianba.utils.UserUtils;
-import com.wl.lianba.utils.Util;
 import com.wl.lianba.view.MyRecyclerView;
 
 import java.util.ArrayList;
@@ -226,15 +224,15 @@ public class BaseInfoActivity extends BaseActivity {
      * 时间选择
      */
     private void showDateDialog(final ItemInfo entity) {
-        Util.alertTimerPicker(this, TimePickerView.Type.YEAR_MONTH_DAY, "yyyy-MM-dd", new Util.TimerPickerCallBack() {
-            @Override
-            public void onTimeSelect(String date) {
-                if (TextUtils.isEmpty(date)) return;
-                entity.setRightText(date);
-                mAdapter.notifyDataSetChanged();
-                getInfo().setBirthday(date);
-            }
-        });
+//        Util.alertTimerPicker(this, TimePickerView.Type.YEAR_MONTH_DAY, "yyyy-MM-dd", new Util.TimerPickerCallBack() {
+//            @Override
+//            public void onTimeSelect(String date) {
+//                if (TextUtils.isEmpty(date)) return;
+//                entity.setRightText(date);
+//                mAdapter.notifyDataSetChanged();
+//                getInfo().setBirthday(date);
+//            }
+//        });
     }
 
     /**

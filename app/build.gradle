@@ -40,7 +40,6 @@ dependencies {
         exclude module: 'bolts-android'
     }
     compile 'com.jakewharton:butterknife:6.1.0'
-    compile project(path: ':pickerview')
     compile project(path: ':fastjson')
     compile 'com.github.bumptech.glide:glide:3.6.1'
     compile 'com.facebook.stetho:stetho:1.5.0'
@@ -48,4 +47,5 @@ dependencies {
     compile 'com.zhousf.lib:okhttp3:2.8.9'
     //    compile ('top.zibin:Luban:1.1.2')
     //    compile 'com.qiniu:qiniu-android-sdk:7.3.+'
+    compile project(path: ':library')
 }

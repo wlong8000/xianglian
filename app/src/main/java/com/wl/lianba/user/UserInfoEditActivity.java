@@ -12,11 +12,9 @@ import android.support.v7.widget.LinearLayoutManager;
 
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.lvfq.pickerview.TimePickerView;
 //import com.qiniu.android.http.ResponseInfo;
 //import com.qiniu.android.storage.UpCompletionHandler;
 //import com.qiniu.android.storage.UploadManager;
@@ -34,10 +32,7 @@ import com.wl.lianba.utils.AppUtils;
 import com.wl.lianba.utils.CommonLinearLayoutManager;
 import com.wl.lianba.utils.FileOperate;
 import com.wl.lianba.utils.UserUtils;
-import com.wl.lianba.utils.Util;
 
-
-import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -202,15 +197,15 @@ public class UserInfoEditActivity extends BaseUserInfoActivity implements View.O
      * 时间选择
      */
     private void showDateDialog(final ItemInfo entity) {
-        Util.alertTimerPicker(this, TimePickerView.Type.YEAR_MONTH_DAY, "yyyy-MM-dd", new Util.TimerPickerCallBack() {
-            @Override
-            public void onTimeSelect(String date) {
-                if (TextUtils.isEmpty(date)) return;
-                entity.setRightText(date);
-                mAdapter.notifyDataSetChanged();
-                saveDate(date);
-            }
-        });
+//        Util.alertTimerPicker(this, TimePickerView.Type.YEAR_MONTH_DAY, "yyyy-MM-dd", new Util.TimerPickerCallBack() {
+//            @Override
+//            public void onTimeSelect(String date) {
+//                if (TextUtils.isEmpty(date)) return;
+//                entity.setRightText(date);
+//                mAdapter.notifyDataSetChanged();
+//                saveDate(date);
+//            }
+//        });
     }
 
     /**
@@ -290,7 +285,7 @@ public class UserInfoEditActivity extends BaseUserInfoActivity implements View.O
     private void setupRecyclerView() {
         mLayoutManager = new CommonLinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new UserInfoEditAdapter(this, itemClickListener);
+        mAdapter = new UserInfoEditAdapter(this, null);
         mRecyclerView.setAdapter(mAdapter);
 
         addData();
@@ -307,11 +302,11 @@ public class UserInfoEditActivity extends BaseUserInfoActivity implements View.O
             case ItemInfo.ViewType.AVATAR: {
                 ItemInfo info = new ItemInfo();
                 info.setViewType(type);
-                mAdapter.getInfo().add(info);
+//                mAdapter.getInfo().add(info);
                 break;
             }
             case ItemInfo.ViewType.PICK_SELECT: {
-                mAdapter.getInfo().addAll(getData());
+//                mAdapter.getInfo().addAll(getData());
                 break;
             }
         }

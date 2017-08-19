@@ -8,7 +8,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import com.wl.lianba.main.home.BaseHomeFragment;
-import com.wl.lianba.main.home.SelectActivity;
+import com.wl.lianba.main.home.SearchActivity;
 import com.wl.lianba.main.me.BaseMeFragment;
 import com.wl.lianba.main.meet.BaseMeetFragment;
 import com.wl.lianba.main.special.BaseSpecialFragment;
@@ -116,7 +116,7 @@ public class MainActivity extends BaseFragmentActivity {
 
     @Override
     public void rightClick() {
-        startActivity(new Intent(MainActivity.this, SelectActivity.class));
+        startActivity(new Intent(MainActivity.this, SearchActivity.class));
     }
 
     @Override

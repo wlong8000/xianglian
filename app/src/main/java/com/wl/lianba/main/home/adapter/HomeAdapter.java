@@ -1,21 +1,12 @@
 package com.wl.lianba.main.home.adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
-import android.view.View;
-import android.widget.TextView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
+import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.wl.lianba.R;
 import com.wl.lianba.config.Config;
-import com.wl.lianba.main.home.PersonDetailActivity;
-import com.wl.lianba.main.home.been.PersonInfo;
-import com.wl.lianba.multirecyclerview.adapter.BaseAdapter;
-import com.wl.lianba.multirecyclerview.adapter.BaseViewHolder;
-import com.wl.lianba.user.LoginActivity;
-import com.wl.lianba.user.UserInfoEditActivity;
-import com.wl.lianba.utils.AppSharePreferences;
+import com.wl.lianba.main.home.been.UserEntity;
 import com.wl.lianba.utils.AppUtils;
 
 import java.util.List;
@@ -25,67 +16,37 @@ import java.util.List;
  *
  */
 
-public class HomeAdapter extends BaseAdapter {
-    private SimpleDraweeView mImageView;
-    private TextView mName;
-
+public class HomeAdapter extends BaseMultiItemQuickAdapter<UserEntity, BaseViewHolder> {
     private Context mContext;
-    private List<PersonInfo> mPersons;
-
-    public HomeAdapter(Context context) {
+    public HomeAdapter(Context context, List<UserEntity> data) {
+        super(data);
         this.mContext = context;
-    }
-
-    public void setInfo(List<PersonInfo> personInfos) {
-        this.mPersons = personInfos;
+        addItemType(UserEntity.TYPE_NORMAL, R.layout.item_home_main);
     }
 
     @Override
-    public void onBindView(BaseViewHolder holder, int position) {
-        if (mPersons == null || mPersons.size() == 0) return;
-        PersonInfo info = mPersons.get(position);
-        if (info == null) return;
-        mImageView = holder.getView(R.id.img);
-        mName = holder.getView(R.id.tv_name);
-        mImageView.setAspectRatio(1);
+    protected void convert(BaseViewHolder helper, UserEntity item) {
+        if (item == null) return;
+        switch (helper.getItemViewType()) {
+            case UserEntity.TYPE_NORMAL:
+                helper.setText(R.id.tv_name, item.getNickname());
+                helper.setText(R.id.like, item.getLike() + "");
+                helper.setText(R.id.tv_locate, item.getWork_area());
 
-        Uri uri = AppUtils.parse(info.getAvatar());
-        mImageView.setImageURI(uri);
+                StringBuilder builder = new StringBuilder();
+                builder.append(item.getAge()).append(mContext.getString(R.string.age2)).append(" ");
+                builder.append(mContext.getString(R.string.height2)).append(" ").append(item.getHeight()).append(" ");
+                builder.append(AppUtils.getCareer(mContext, item.getCareer())).append(" ");
+                builder.append(mContext.getString(R.string.income)).append(" ").append(item.getIncome());
+                helper.setText(R.id.tv_user_head_info, builder.toString());
 
-        mName.setText(info.getNick_name());
-    }
+                helper.setText(R.id.tv_user_desc, item.getPerson_intro());
+                helper.setText(R.id.tv_id, mContext.getString(R.string.id, item.getAccount()));
+//                helper.setImageURI(R.id.img, item.getAvatar());
+                helper.setImageURI(R.id.img, "http://img0.imgtn.bdimg.com/it/u=4128355576,3453965016&fm=214&gp=0.jpg");
+                helper.setImageVisible(R.id.identity, Config.VISIBLE == item.getIdentity_verified());
 
-    @Override
-    public int getLayoutID(int position) {
-        return R.layout.item_home_main;
-    }
-
-    @Override
-    public boolean clickable() {
-        return true;
-    }
-
-    @Override
-    public int getItemCount() {
-        return mPersons != null ? mPersons.size() : 0;
-    }
-
-    @Override
-    public void onItemClick(View v, int position) {
-        super.onItemClick(v, position);
-        boolean isEditInfo = AppSharePreferences.getBoolValue(mContext, AppSharePreferences.USER_INFO);
-        if (!AppUtils.isLogin()) {
-            Intent intent = new Intent(mContext, LoginActivity.class);
-            mContext.startActivity(intent);
-        } else if (!isEditInfo) {
-            mContext.startActivity(new Intent(mContext, UserInfoEditActivity.class));
-        } else {
-            Intent intent = new Intent(mContext, PersonDetailActivity.class);
-            PersonInfo info = mPersons.get(position);
-            if (info != null)
-//                intent.putExtra(Config.USER_INFO_KEY, info);
-            mContext.startActivity(intent);
+                break;
         }
-
     }
 }

@@ -61,4 +61,6 @@ public class Config {
 
     public static final String KEY_USER = "key_user";
 
+    public static final int VISIBLE = 1;
+
 }
