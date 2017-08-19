@@ -415,4 +415,14 @@ public class AppUtils {
 		return arr[career];
 	}
 
+	public static int stringToInt(String num) {
+		if (TextUtils.isEmpty(num)) return 0;
+		try {
+			return Integer.parseInt(num);
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
 }

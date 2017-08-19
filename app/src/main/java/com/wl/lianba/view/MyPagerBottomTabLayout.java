@@ -11,9 +11,9 @@ import me.majiajie.pagerbottomtabstrip.PagerBottomTabLayout;
  * Created by wanglong on 17/3/12.
  */
 
-public class MyPagerBottomTabLayout extends PagerBottomTabLayout
-{
+public class MyPagerBottomTabLayout extends PagerBottomTabLayout {
     private Context mContext;
+
     public MyPagerBottomTabLayout(Context context) {
         super(context);
         this.mContext = context;
@@ -32,6 +32,6 @@ public class MyPagerBottomTabLayout extends PagerBottomTabLayout
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        setMeasuredDimension(getMeasuredWidth(), AppUtils.dip2px(mContext,50));
+        setMeasuredDimension(getMeasuredWidth(), AppUtils.dip2px(mContext, 50));
     }
 }

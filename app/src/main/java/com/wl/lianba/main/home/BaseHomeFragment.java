@@ -1,7 +1,7 @@
 package com.wl.lianba.main.home;
 
-import android.content.Intent;
-import android.os.Bundle;
+   import android.content.Intent;
+   import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -124,21 +124,12 @@ public class BaseHomeFragment extends BaseFragment implements BaseQuickAdapter.O
         mAdapter.notifyDataSetChanged();
     }
 
-
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-        boolean isEditInfo = AppSharePreferences.getBoolValue(getContext(), AppSharePreferences.USER_INFO);
-//        if (!AppUtils.isLogin()) {
-//            Intent intent = new Intent(getContext(), LoginActivity.class);
-//            this.startActivity(intent);
-//        } else if (!isEditInfo) {
-//            getContext().startActivity(new Intent(getContext(), UserInfoEditActivity.class));
-//        } else {
-            Intent intent = new Intent(getContext(), PersonDetailActivity.class);
-            UserEntity info = mAdapter.getItem(position);
-            if (info != null)
-                getContext().startActivity(intent);
-//        }
-
+        UserEntity info = mAdapter.getItem(position);
+        if (info != null) {
+            Intent intent = PersonDetailActivity.getIntent(getContext(), info.getUid());
+            getContext().startActivity(intent);
+        }
     }
 }

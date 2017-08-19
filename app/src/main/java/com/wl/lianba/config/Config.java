@@ -63,4 +63,6 @@ public class Config {
 
     public static final int VISIBLE = 1;
 
+    public static final String EXTRA_ID = "id";
+
 }
