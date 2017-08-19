@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
@@ -400,6 +401,18 @@ public class AppUtils {
 		}
 		headers.put("platform", "android");
 		return headers;
+	}
+
+	/**
+	 * 职业 (0, '未透露'), (1, "在校学生"), (2, "私营业主"), (3, "农业劳动者"), (4, "企业职工"), (5, "政府机关/事业单位"), (6, "自由职业")
+	 * @param career
+	 * @return
+     */
+	public static String getCareer(Context context, int career) {
+		Resources res = context.getResources();
+		String[] arr = res.getStringArray(R.array.profession_array);
+		if (arr.length <= career) return null;
+		return arr[career];
 	}
 
 }

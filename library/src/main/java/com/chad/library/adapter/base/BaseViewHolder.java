@@ -143,6 +143,12 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
         return this;
     }
 
+    public BaseViewHolder setImageVisible(@IdRes int viewId, boolean visible) {
+        ImageView view = getView(viewId);
+        view.setVisibility(visible ? View.VISIBLE : View.GONE);
+        return this;
+    }
+
     /**
      * Will set the image of an SimpleDraweeView from a url.
      *

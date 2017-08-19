@@ -15,7 +15,7 @@ import java.util.List;
  * 用户信息编辑页
  */
 
-public class UserInfoEditAdapter extends BaseMultiItemQuickAdapter<ItemInfo, BaseViewHolder>{
+public class UserInfoEditAdapter extends BaseMultiItemQuickAdapter<ItemInfo, BaseViewHolder> {
     private Context mContext;
 
     public UserInfoEditAdapter(Context context, List<ItemInfo> data) {

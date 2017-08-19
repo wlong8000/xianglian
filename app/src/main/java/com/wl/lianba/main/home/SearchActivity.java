@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.lvfq.pickerview.TimePickerView;
 import com.wl.lianba.R;
 import com.wl.lianba.dialog.FirstChooseDialog;
 import com.wl.lianba.dialog.LocationSettingDialog;
@@ -19,7 +18,6 @@ import com.wl.lianba.user.been.ItemInfo;
 import com.wl.lianba.utils.AppUtils;
 import com.wl.lianba.utils.CommonLinearLayoutManager;
 import com.wl.lianba.utils.UserUtils;
-import com.wl.lianba.utils.Util;
 
 
 import java.util.ArrayList;
@@ -89,15 +87,15 @@ public class SearchActivity extends BaseUserInfoActivity implements BaseQuickAda
      * 时间选择
      */
     private void showDateDialog(final ItemInfo entity) {
-        Util.alertTimerPicker(this, TimePickerView.Type.YEAR_MONTH_DAY, "yyyy-MM-dd", new Util.TimerPickerCallBack() {
-            @Override
-            public void onTimeSelect(String date) {
-                if (TextUtils.isEmpty(date)) return;
-                entity.setRightText(date);
-                mAdapter.notifyDataSetChanged();
-                saveDate(date);
-            }
-        });
+//        Util.alertTimerPicker(this, TimePickerView.Type.YEAR_MONTH_DAY, "yyyy-MM-dd", new Util.TimerPickerCallBack() {
+//            @Override
+//            public void onTimeSelect(String date) {
+//                if (TextUtils.isEmpty(date)) return;
+//                entity.setRightText(date);
+//                mAdapter.notifyDataSetChanged();
+//                saveDate(date);
+//            }
+//        });
     }
 
     /**

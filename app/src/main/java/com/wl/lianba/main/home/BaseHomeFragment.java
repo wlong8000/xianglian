@@ -5,22 +5,30 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.alibaba.json.JSON;
+import com.alibaba.json.JSONException;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.okhttplib.HttpInfo;
+import com.okhttplib.OkHttpUtil;
+import com.okhttplib.callback.Callback;
 import com.wl.lianba.BaseFragment;
 import com.wl.lianba.R;
+import com.wl.lianba.config.Config;
 import com.wl.lianba.main.home.adapter.HomeAdapter;
-import com.wl.lianba.main.home.been.PersonInfo;
-import com.wl.lianba.multirecyclerview.MultiRecyclerView;
-import com.wl.lianba.multirecyclerview.inter.OnLoadMoreListener;
-import com.wl.lianba.user.SelectSexActivity;
+import com.wl.lianba.main.home.been.UserEntity;
 import com.wl.lianba.utils.AppSharePreferences;
 import com.wl.lianba.utils.CommonLinearLayoutManager;
-import com.wl.lianba.view.EmptyView;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -28,10 +36,10 @@ import java.util.List;
  * 首页
  */
 
-public class BaseHomeFragment extends BaseFragment {
+public class BaseHomeFragment extends BaseFragment implements BaseQuickAdapter.OnItemClickListener {
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
-    private MultiRecyclerView mRecyclerView;
+    private RecyclerView mRecyclerView;
 
     private CommonLinearLayoutManager mLayoutManager;
 
@@ -39,36 +47,28 @@ public class BaseHomeFragment extends BaseFragment {
 
     private int mSex;
 
-    private EmptyView mEmptyView;
+    private List<UserEntity> mUserEntities = new ArrayList<>();
 
     public static BaseHomeFragment newInstance() {
-        BaseHomeFragment fragment = new BaseHomeFragment();
-        return fragment;
+        return new BaseHomeFragment();
     }
 
     private void setupView(View view) {
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refresh);
-        mRecyclerView = (MultiRecyclerView) view.findViewById(R.id.recycler_view);
-        mEmptyView = (EmptyView) view.findViewById(R.id.view_list_empty_layout);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        mAdapter = new HomeAdapter(getContext(), mUserEntities);
         mLayoutManager = new CommonLinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        mAdapter = new HomeAdapter(getContext());
-        mRecyclerView.config(mLayoutManager, mAdapter);
-
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setAdapter(mAdapter);
+        mAdapter.setOnItemClickListener(this);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                request();
+                doRequest(true);
             }
         });
 
-        mRecyclerView.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore() {
-//                mRecyclerView.loadMoreComplete();
-            }
-        });
-
-        request();
+        doRequest(true);
     }
 
     @Override
@@ -84,31 +84,61 @@ public class BaseHomeFragment extends BaseFragment {
         return view;
     }
 
-    private void request() {
-        if (mSex < 0) {
-            startActivity(new Intent(getActivity(), SelectSexActivity.class));
-            getActivity().finish();
-            return;
-        }
-//        BmobQuery<PersonInfo> query = new BmobQuery<>();
-//
-//        query.setLimit(20);
-//        query.findObjects(new FindListener<PersonInfo>() {
-//            @Override
-//            public void done(List<PersonInfo> list, BmobException e) {
-//                hideLoading();
-//                if (list == null) {
-//                    mEmptyView.onEmpty();
-//                } else {
-//                    mAdapter.setInfo(list);
-//                    mRecyclerView.setViewState(MultiRecyclerView.ViewState.CONTENT);
-//                }
-//            }
-//        });
+    private void doRequest(final boolean refresh) {
+        final String url = Config.PATH + "user/persons";
+        Map<String, String> params = new HashMap<>();
+        OkHttpUtil.getDefault(this).doGetAsync(
+                HttpInfo.Builder().setUrl(url).addHeads(getHeader()).addParams(params).build(),
+                new Callback() {
+                    @Override
+                    public void onFailure(HttpInfo info) throws IOException {
+                        String result = info.getRetDetail();
+                        mSwipeRefreshLayout.setRefreshing(false);
+                    }
+
+                    @Override
+                    public void onSuccess(HttpInfo info) throws IOException {
+                        mSwipeRefreshLayout.setRefreshing(false);
+                        String result = info.getRetDetail();
+                        if (result != null) {
+                            try {
+                                UserEntity userEntity = JSON.parseObject(result, UserEntity.class);
+                                if (userEntity == null || userEntity.getResult() == null) return;
+                                List<UserEntity> userEntities = userEntity.getResult().getPerson_list();
+                                dealItemData(userEntities, refresh);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                });
     }
 
-    private void hideLoading() {
-        mEmptyView.show(false);
-        mSwipeRefreshLayout.setRefreshing(false);
+    private void dealItemData(List<UserEntity> userEntities, boolean refresh) {
+        if (userEntities == null || userEntities.size() == 0) return;
+        if (refresh) mUserEntities.clear();
+        for (UserEntity entity : userEntities) {
+            entity.setViewType(UserEntity.TYPE_NORMAL);
+        }
+        mUserEntities.addAll(userEntities);
+        mAdapter.notifyDataSetChanged();
+    }
+
+
+    @Override
+    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        boolean isEditInfo = AppSharePreferences.getBoolValue(getContext(), AppSharePreferences.USER_INFO);
+//        if (!AppUtils.isLogin()) {
+//            Intent intent = new Intent(getContext(), LoginActivity.class);
+//            this.startActivity(intent);
+//        } else if (!isEditInfo) {
+//            getContext().startActivity(new Intent(getContext(), UserInfoEditActivity.class));
+//        } else {
+            Intent intent = new Intent(getContext(), PersonDetailActivity.class);
+            UserEntity info = mAdapter.getItem(position);
+            if (info != null)
+                getContext().startActivity(intent);
+//        }
+
     }
 }

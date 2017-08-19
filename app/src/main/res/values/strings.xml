@@ -33,6 +33,7 @@
     <string name="login_hit_username">请输入用户名</string>
     <string name="login_hint_password">密码</string>
     <string name="please_connect_network">请连接网络</string>
+    <string name="id">ID %1$s</string>
 
 
     <!-- 登录注册 -->
@@ -74,9 +75,11 @@
     <string name="please_write_introduce">请输入简介</string>
     <string name="birth">出生日期</string>
     <string name="age">年龄</string>
+    <string name="age2">岁</string>
     <string name="nick_name">昵称</string>
     <string name="apartment">居住地(工作所在地)</string>
     <string name="height">身高 (单位: cm)</string>
+    <string name="height2">身高</string>
     <string name="education">学历</string>
     <string name="profession">职业</string>
     <string name="income">年收入</string>
@@ -199,5 +202,14 @@
     <string name="ok_notifyMsg">当前应用缺少必要权限。\n\n请点击\"设置\"-\"权限\"-打开所需权限。</string>
     <string name="ok_setting">设置</string>
     <string name="ok_cancel">取消</string>
+    <string-array name="profession_array">
+        <item>未透露</item>
+        <item>学生</item>
+        <item>私营业主</item>
+        <item>农业劳动者</item>
+        <item>企业职工</item>
+        <item>政府机关/事业单位</item>
+        <item>自由职业</item>
+    </string-array>
 
 </resources>
