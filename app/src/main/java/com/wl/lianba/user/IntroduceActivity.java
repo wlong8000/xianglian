@@ -44,10 +44,10 @@ public class IntroduceActivity extends BaseUserInfoActivity {
         String content = null;
         if (INTRODUCE == mType) {
             setupTitle(getString(R.string.my_introduce), getString(R.string.save));
-            content = AppUtils.getIntroduce(this);
+//            content = AppUtils.getIntroduce(this);
         } else if (EXPERIENCE == mType) {
             setupTitle(getString(R.string.experience_love), getString(R.string.save));
-            content = AppUtils.getExperience(this);
+//            content = AppUtils.getExperience(this);
         }
         if (!TextUtils.isEmpty(content)) {
             mIntroduceView.setText(content);

@@ -9,13 +9,15 @@ import android.view.View.OnClickListener;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 
+import com.alibaba.json.JSON;
+import com.alibaba.json.JSONException;
 import com.okhttplib.HttpInfo;
 import com.okhttplib.OkHttpUtil;
 import com.wl.lianba.MainActivity;
 import com.wl.lianba.R;
 import com.wl.lianba.config.Config;
+import com.wl.lianba.user.been.OwnerEntity;
 import com.wl.lianba.utils.ACache;
-import com.wl.lianba.utils.AppSharePreferences;
 import com.wl.lianba.utils.AppUtils;
 import com.okhttplib.callback.Callback;
 
@@ -121,13 +123,21 @@ public class LoginActivity extends BaseLoginActivity implements OnClickListener 
                     public void onSuccess(HttpInfo info) throws IOException {
                         dialogDisMiss();
                         String result = info.getRetDetail();
-                        ACache.get(LoginActivity.this).put(Config.KEY_USER, result);
-                        boolean isEditInfo = AppSharePreferences.getBoolValue(LoginActivity.this, AppSharePreferences.USER_INFO);
-                        if (isEditInfo) {
-                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                        } else {
-                            startActivity(new Intent(LoginActivity.this, UserInfoEditActivity.class));
+                        if (result == null) return;
+                        OwnerEntity ownerEntity = null;
+                        try {
+                            ownerEntity = JSON.parseObject(result, OwnerEntity.class);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
+                        if (ownerEntity == null) return;
+                        int code = ownerEntity.getCode();
+                        if (code == Config.FAIL) {
+                            toast(TextUtils.isEmpty(ownerEntity.getMsg()) ? getString(R.string.request_fail) : ownerEntity.getMsg());
+                            return;
+                        }
+                        ACache.get(LoginActivity.this).put(Config.KEY_USER, result);
+                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         finish();
                     }
                 });

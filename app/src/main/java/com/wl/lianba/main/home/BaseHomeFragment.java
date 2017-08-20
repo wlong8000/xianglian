@@ -6,7 +6,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
+   import android.text.TextUtils;
+   import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -103,7 +104,8 @@ public class BaseHomeFragment extends BaseFragment implements BaseQuickAdapter.O
                         if (result != null) {
                             try {
                                 UserEntity userEntity = JSON.parseObject(result, UserEntity.class);
-                                if (userEntity == null || userEntity.getResult() == null) return;
+                                if (userEntity == null) return;
+                                if (userEntity.getResult() == null) return;
                                 List<UserEntity> userEntities = userEntity.getResult().getPerson_list();
                                 dealItemData(userEntities, refresh);
                             } catch (JSONException e) {

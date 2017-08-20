@@ -18,7 +18,7 @@ public class BaseUserInfoActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        if (mPersonInfo == null) {
-//            mPersonInfo = AppUtils.getPersonInfo(this);
+//            mPersonInfo = AppUtils.getOwnerInfo(this);
 //            if (mPersonInfo.getOwner() == null) {
 //                MyUser user = BmobUser.getCurrentUser(MyUser.class);
 //                mPersonInfo.setOwner(user);

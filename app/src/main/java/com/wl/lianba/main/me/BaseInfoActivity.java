@@ -18,7 +18,6 @@ import com.wl.lianba.main.me.adapter.MyInfoAdapter;
 import com.wl.lianba.user.been.ItemInfo;
 import com.wl.lianba.utils.AppUtils;
 import com.wl.lianba.utils.CommonLinearLayoutManager;
-import com.wl.lianba.utils.UserUtils;
 import com.wl.lianba.view.MyRecyclerView;
 
 import java.util.ArrayList;
@@ -43,11 +42,11 @@ public class BaseInfoActivity extends BaseActivity {
 
     private PersonInfo mInfo;
 
-    private PersonInfo getInfo() {
-        if (mInfo == null)
-            mInfo = AppUtils.getPersonInfo(this);
-        return mInfo;
-    }
+//    private PersonInfo getInfo() {
+//        if (mInfo == null)
+////            mInfo = AppUtils.getOwnerInfo(this);
+//        return mInfo;
+//    }
 
 
     private View.OnClickListener mItemClickListener = new View.OnClickListener() {
@@ -143,7 +142,7 @@ public class BaseInfoActivity extends BaseActivity {
     private void addDataByType(int type) {
         switch (type) {
             case ItemInfo.ViewType.PICK_SELECT: {
-                mAdapter.getInfo().addAll(getData());
+//                mAdapter.getInfo().addAll(getData());
                 break;
             }
         }
@@ -163,7 +162,7 @@ public class BaseInfoActivity extends BaseActivity {
             public void onConfirm(String data) {
                 entity.setRightText(data);
                 mAdapter.notifyDataSetChanged();
-                getInfo().setNick_name(data);
+//                getInfo().setNick_name(data);
             }
         };
         dialog.show();
@@ -181,44 +180,44 @@ public class BaseInfoActivity extends BaseActivity {
             public void onConfirm(String data) {
                 entity.setRightText(data);
                 mAdapter.notifyDataSetChanged();
-                saveSingleDate(data, entity.getType());
+//                saveSingleDate(data, entity.getType());
             }
         };
         dialog.show();
     }
 
-    private void saveSingleDate(String data, int type) {
-        switch (type) {
-            case ItemInfo.MyInfoType.INCOME: {
-                getInfo().setIncome(data);
-                break;
-            }
-            case ItemInfo.MyInfoType.EDUCATION: {
-                getInfo().setEducation(data);
-                break;
-            }
-            case ItemInfo.MyInfoType.PROFESSION: {
-                getInfo().setJobs(data);
-                break;
-            }
-            case ItemInfo.MyInfoType.NATION: {
-                getInfo().setNative_place(data);
-                break;
-            }
-            case ItemInfo.MyInfoType.MARRY_STATE: {
-                getInfo().setMarryState(data);
-                break;
-            }
-            case ItemInfo.MyInfoType.WEIGHT: {
-                getInfo().setWeight(Integer.parseInt(data));
-                break;
-            }
-            case ItemInfo.MyInfoType.HEIGHT: {
-                getInfo().setHeight(Integer.parseInt(data));
-                break;
-            }
-        }
-    }
+//    private void saveSingleDate(String data, int type) {
+//        switch (type) {
+//            case ItemInfo.MyInfoType.INCOME: {
+//                getInfo().setIncome(data);
+//                break;
+//            }
+//            case ItemInfo.MyInfoType.EDUCATION: {
+//                getInfo().setEducation(data);
+//                break;
+//            }
+//            case ItemInfo.MyInfoType.PROFESSION: {
+//                getInfo().setJobs(data);
+//                break;
+//            }
+//            case ItemInfo.MyInfoType.NATION: {
+//                getInfo().setNative_place(data);
+//                break;
+//            }
+//            case ItemInfo.MyInfoType.MARRY_STATE: {
+//                getInfo().setMarryState(data);
+//                break;
+//            }
+//            case ItemInfo.MyInfoType.WEIGHT: {
+//                getInfo().setWeight(Integer.parseInt(data));
+//                break;
+//            }
+//            case ItemInfo.MyInfoType.HEIGHT: {
+//                getInfo().setHeight(Integer.parseInt(data));
+//                break;
+//            }
+//        }
+//    }
 
     /**
      * 时间选择
@@ -249,11 +248,11 @@ public class BaseInfoActivity extends BaseActivity {
                 mAdapter.notifyDataSetChanged();
                 switch (entity.getType()) {
                     case ItemInfo.MyInfoType.HOMETOWN: {
-                        getInfo().setNative_place(region);
+//                        getInfo().setNative_place(region);
                         break;
                     }
                     case ItemInfo.MyInfoType.APARTMENT: {
-                        getInfo().setApartment(region);
+//                        getInfo().setApartment(region);
                         break;
                     }
                 }
@@ -264,50 +263,50 @@ public class BaseInfoActivity extends BaseActivity {
 
 
 
-    private List<ItemInfo> getData() {
-        List<ItemInfo> data = new ArrayList<>();
-        PersonInfo info = AppUtils.getPersonInfo(this);
-        //昵称
-        data.add(getInfo(getString(R.string.nick_name), info.getNick_name(), ItemInfo.MyInfoType.NICK_NAME, null));
-
-        //出生日期
-        data.add(getInfo(getString(R.string.birth), info.getBirthday(), ItemInfo.MyInfoType.BIRTHDAY, null));
-
-        //居住地
-        data.add(getInfo(getString(R.string.apartment), info.getApartment(), ItemInfo.MyInfoType.APARTMENT, null));
-
-        //家乡
-        data.add(getInfo(getString(R.string.home_town), info.getNative_place(), ItemInfo.MyInfoType.HOMETOWN, null));
-
-        //身高
-        data.add(getInfo(getString(R.string.height), info.getHeight() > 0 ? info.getHeight() + "" :
-                null, ItemInfo.MyInfoType.HEIGHT, UserUtils.getHighData()));
-
-        //学历
-        data.add(getInfo(getString(R.string.education), info.getEducation(), ItemInfo.MyInfoType.EDUCATION, UserUtils.getEduData()));
-
-        //职业
-        data.add(getInfo(getString(R.string.profession), info.getJobs(), ItemInfo.MyInfoType.PROFESSION, UserUtils.getProfessionData()));
-
-        //年收入
-        data.add(getInfo(getString(R.string.income), info.getIncome(), ItemInfo.MyInfoType.INCOME, UserUtils.getComingData()));
-
-
-        //婚姻状况
-        data.add(getInfo(getString(R.string.marry_state), info.getMarryState(), ItemInfo.MyInfoType.MARRY_STATE, UserUtils.getMarryState()));
-
-        //体重(单位：kg)
-        data.add(getInfo(getString(R.string.weight), info.getWeight() > 0 ? info.getWeight() + "" :
-                null, ItemInfo.MyInfoType.WEIGHT, UserUtils.getWeight()));
-
-        //完成
-        ItemInfo complete = new ItemInfo();
-        complete.setViewType(ItemInfo.ViewType.COMPLETE);
-        data.add(complete);
-
-        return data;
-
-    }
+//    private List<ItemInfo> getData() {
+//        List<ItemInfo> data = new ArrayList<>();
+//        PersonInfo info = AppUtils.getOwnerInfo(this);
+//        //昵称
+//        data.add(getInfo(getString(R.string.nick_name), info.getNick_name(), ItemInfo.MyInfoType.NICK_NAME, null));
+//
+//        //出生日期
+//        data.add(getInfo(getString(R.string.birth), info.getBirthday(), ItemInfo.MyInfoType.BIRTHDAY, null));
+//
+//        //居住地
+//        data.add(getInfo(getString(R.string.apartment), info.getApartment(), ItemInfo.MyInfoType.APARTMENT, null));
+//
+//        //家乡
+//        data.add(getInfo(getString(R.string.home_town), info.getNative_place(), ItemInfo.MyInfoType.HOMETOWN, null));
+//
+//        //身高
+//        data.add(getInfo(getString(R.string.height), info.getHeight() > 0 ? info.getHeight() + "" :
+//                null, ItemInfo.MyInfoType.HEIGHT, UserUtils.getHighData()));
+//
+//        //学历
+//        data.add(getInfo(getString(R.string.education), info.getEducation(), ItemInfo.MyInfoType.EDUCATION, UserUtils.getEduData()));
+//
+//        //职业
+//        data.add(getInfo(getString(R.string.profession), info.getJobs(), ItemInfo.MyInfoType.PROFESSION, UserUtils.getProfessionData()));
+//
+//        //年收入
+//        data.add(getInfo(getString(R.string.income), info.getIncome(), ItemInfo.MyInfoType.INCOME, UserUtils.getComingData()));
+//
+//
+//        //婚姻状况
+//        data.add(getInfo(getString(R.string.marry_state), info.getMarryState(), ItemInfo.MyInfoType.MARRY_STATE, UserUtils.getMarryState()));
+//
+//        //体重(单位：kg)
+//        data.add(getInfo(getString(R.string.weight), info.getWeight() > 0 ? info.getWeight() + "" :
+//                null, ItemInfo.MyInfoType.WEIGHT, UserUtils.getWeight()));
+//
+//        //完成
+//        ItemInfo complete = new ItemInfo();
+//        complete.setViewType(ItemInfo.ViewType.COMPLETE);
+//        data.add(complete);
+//
+//        return data;
+//
+//    }
 
 
     public ItemInfo getInfo(String text, int type, ArrayList<String> list) {
