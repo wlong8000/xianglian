@@ -18,6 +18,8 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
 import android.provider.MediaStore;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.IdRes;
 import android.telephony.TelephonyManager;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -33,6 +35,9 @@ import com.alibaba.json.JSONException;
 import com.facebook.binaryresource.BinaryResource;
 import com.facebook.binaryresource.FileBinaryResource;
 import com.facebook.cache.common.CacheKey;
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.interfaces.DraweeController;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.cache.DefaultCacheKeyFactory;
 import com.facebook.imagepipeline.core.ImagePipelineFactory;
 import com.facebook.imagepipeline.request.ImageRequest;
@@ -434,6 +439,15 @@ public class AppUtils {
 			e.printStackTrace();
 		}
 		return 0;
+	}
+
+	public static void loadLocalGif(Context context, SimpleDraweeView img, @DrawableRes int res) {
+		Uri uri = Uri.parse("res://" + context.getPackageName() + "/" + R.drawable.loading);
+		DraweeController draweeController = Fresco.newDraweeControllerBuilder()
+						.setUri(uri)
+						.setAutoPlayAnimations(true) // 设置加载图片完成后是否直接进行播放
+						.build();
+		img.setController(draweeController);
 	}
 
 }

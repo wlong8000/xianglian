@@ -8,11 +8,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
-import com.wl.lianba.BaseFragment;
+import com.wl.lianba.BaseListFragment;
 import com.wl.lianba.R;
 import com.wl.lianba.main.home.been.PersonInfo;
 import com.wl.lianba.main.meet.adapter.HeardRecordAdapter;
-import com.wl.lianba.main.meet.adapter.TalkMeetAdapter;
 import com.wl.lianba.main.meet.model.MeetInfo;
 import com.wl.lianba.utils.CommonLinearLayoutManager;
 import com.wl.lianba.view.MyRecyclerView;
@@ -23,7 +22,7 @@ import java.util.List;
 /**
  * 我对谁心动、我对TA心动
  */
-public class HeardRecordFragment extends BaseFragment implements OnClickListener{
+public class HeardRecordFragment extends BaseListFragment implements OnClickListener{
     private CommonLinearLayoutManager mLayoutManager;
 
     private MyRecyclerView mRecyclerView;

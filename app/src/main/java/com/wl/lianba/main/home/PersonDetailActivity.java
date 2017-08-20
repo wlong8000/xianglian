@@ -108,7 +108,7 @@ public class PersonDetailActivity extends BaseActivity implements View.OnClickLi
 
     private void setHeader(UserDetailEntity entity) {
         if (entity == null) return;
-        mPicView.setImageURI("http://img0.imgtn.bdimg.com/it/u=4128355576,3453965016&fm=214&gp=0.jpg");
+        mPicView.setImageURI(entity.getAvatar());
         mHeartCountView.setText(AppUtils.stringToInt(entity.getLike()) + "");
     }
 

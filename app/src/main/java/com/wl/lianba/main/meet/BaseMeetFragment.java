@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.wl.lianba.BaseFragment;
+import com.wl.lianba.BaseListFragment;
 import com.wl.lianba.R;
 import com.wl.lianba.main.home.been.PersonInfo;
 import com.wl.lianba.main.meet.adapter.MeetAdapter;
@@ -23,7 +23,7 @@ import java.util.List;
  * 专刊
  */
 
-public class BaseMeetFragment extends BaseFragment {
+public class BaseMeetFragment extends BaseListFragment {
 
     private RecyclerView mRecyclerView;
 
@@ -85,7 +85,7 @@ public class BaseMeetFragment extends BaseFragment {
         return view;
     }
 
-    private void setupRecyclerView(View view) {
+    public void setupRecyclerView(View view) {
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         mLayoutManager = new CommonLinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);

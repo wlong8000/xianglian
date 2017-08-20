@@ -13,7 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.wl.lianba.BaseFragment;
+import com.wl.lianba.BaseListFragment;
 import com.wl.lianba.R;
 import com.wl.lianba.dialog.SelectPicAlertDialog;
 import com.wl.lianba.main.home.been.PersonInfo;
@@ -40,7 +40,7 @@ import java.util.List;
  * 我的
  */
 
-public class BaseMeFragment extends BaseFragment {
+public class BaseMeFragment extends BaseListFragment {
 
     private RecyclerView mRecyclerView;
 
@@ -157,7 +157,7 @@ public class BaseMeFragment extends BaseFragment {
         return view;
     }
 
-    private void setupRecyclerView(View view) {
+    public void setupRecyclerView(View view) {
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         mLayoutManager = new CommonLinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);

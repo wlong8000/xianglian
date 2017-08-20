@@ -1,13 +1,10 @@
 package com.wl.lianba.main.home;
 
-   import android.content.Intent;
-   import android.os.Bundle;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-   import android.text.TextUtils;
-   import android.view.LayoutInflater;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -17,13 +14,12 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.okhttplib.HttpInfo;
 import com.okhttplib.OkHttpUtil;
 import com.okhttplib.callback.Callback;
-import com.wl.lianba.BaseFragment;
+import com.wl.lianba.BaseListFragment;
 import com.wl.lianba.R;
 import com.wl.lianba.config.Config;
 import com.wl.lianba.main.home.adapter.HomeAdapter;
 import com.wl.lianba.main.home.been.UserEntity;
 import com.wl.lianba.utils.AppSharePreferences;
-import com.wl.lianba.utils.CommonLinearLayoutManager;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,12 +33,7 @@ import java.util.Map;
  * 首页
  */
 
-public class BaseHomeFragment extends BaseFragment implements BaseQuickAdapter.OnItemClickListener {
-    private SwipeRefreshLayout mSwipeRefreshLayout;
-
-    private RecyclerView mRecyclerView;
-
-    private CommonLinearLayoutManager mLayoutManager;
+public class BaseHomeFragment extends BaseListFragment implements BaseQuickAdapter.OnItemClickListener {
 
     private HomeAdapter mAdapter;
 
@@ -55,11 +46,8 @@ public class BaseHomeFragment extends BaseFragment implements BaseQuickAdapter.O
     }
 
     private void setupView(View view) {
-        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refresh);
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        setupRecyclerView(view);
         mAdapter = new HomeAdapter(getContext(), mUserEntities);
-        mLayoutManager = new CommonLinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener(this);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -68,7 +56,7 @@ public class BaseHomeFragment extends BaseFragment implements BaseQuickAdapter.O
                 doRequest(true);
             }
         });
-
+        mAdapter.setEmptyView(loadingView);
         doRequest(true);
     }
 
