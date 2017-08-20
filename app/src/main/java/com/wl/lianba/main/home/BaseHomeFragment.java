@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.alibaba.json.JSON;
 import com.alibaba.json.JSONException;
@@ -18,8 +20,10 @@ import com.wl.lianba.BaseListFragment;
 import com.wl.lianba.R;
 import com.wl.lianba.config.Config;
 import com.wl.lianba.main.home.adapter.HomeAdapter;
+import com.wl.lianba.main.home.been.UserDetailEntity;
 import com.wl.lianba.main.home.been.UserEntity;
 import com.wl.lianba.utils.AppSharePreferences;
+import com.wl.lianba.utils.AppUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,7 +37,7 @@ import java.util.Map;
  * 首页
  */
 
-public class BaseHomeFragment extends BaseListFragment implements BaseQuickAdapter.OnItemClickListener {
+public class BaseHomeFragment extends BaseListFragment implements BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemChildClickListener {
 
     private HomeAdapter mAdapter;
 
@@ -50,6 +54,7 @@ public class BaseHomeFragment extends BaseListFragment implements BaseQuickAdapt
         mAdapter = new HomeAdapter(getContext(), mUserEntities);
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener(this);
+        mAdapter.setOnItemChildClickListener(this);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -104,6 +109,44 @@ public class BaseHomeFragment extends BaseListFragment implements BaseQuickAdapt
                 });
     }
 
+    private void doLikeRequest(final String id) {
+        final String url = Config.PATH + "user/like/" + id;
+        Map<String, String> params = new HashMap<>();
+        params.put("uid", id);
+        OkHttpUtil.getDefault(this).doPostAsync(
+                HttpInfo.Builder().setUrl(url).addHeads(getHeader()).addParams(params).build(),
+                new Callback() {
+                    @Override
+                    public void onFailure(HttpInfo info) throws IOException {
+                        toast(getString(R.string.request_fail));
+                    }
+
+                    @Override
+                    public void onSuccess(HttpInfo info) throws IOException {
+                        String result = info.getRetDetail();
+                        if (result != null) {
+                            try {
+                                UserDetailEntity userEntity = JSON.parseObject(result, UserDetailEntity.class);
+                                if (userEntity == null) return;
+                                if (userEntity.getCode() == Config.FAIL) {
+                                    toast(TextUtils.isEmpty(userEntity.getMsg()) ?
+                                            getString(R.string.request_fail) : userEntity.getMsg());
+                                } else {
+                                    TextView likeView = (TextView) mRecyclerView.findViewWithTag(id);
+                                    if (likeView != null) {
+                                        int num = AppUtils.stringToInt(likeView.getText().toString()) + 1;
+                                        likeView.setText(num + "");
+                                    }
+                                }
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                });
+    }
+
     private void dealItemData(List<UserEntity> userEntities, boolean refresh) {
         if (userEntities == null || userEntities.size() == 0) return;
         if (refresh) mUserEntities.clear();
@@ -120,6 +163,17 @@ public class BaseHomeFragment extends BaseListFragment implements BaseQuickAdapt
         if (info != null) {
             Intent intent = PersonDetailActivity.getIntent(getContext(), info.getUid());
             getContext().startActivity(intent);
+        }
+    }
+
+    @Override
+    public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+        UserEntity info = mAdapter.getItem(position);
+        switch (view.getId()) {
+            case R.id.heart_layout:
+                if (info != null)
+                    doLikeRequest(info.getUid());
+                break;
         }
     }
 }

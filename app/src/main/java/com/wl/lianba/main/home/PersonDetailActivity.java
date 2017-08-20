@@ -137,7 +137,6 @@ public class PersonDetailActivity extends BaseActivity implements View.OnClickLi
     private void addDataByType(int type, UserDetailEntity entity) {
         UserDetailEntity info = new UserDetailEntity();
         info.setViewType(type);
-        entity.setPerson_intro("hhhhhhh");
         info.setResult(entity);
         mUserDetailEntities.add(info);
     }
