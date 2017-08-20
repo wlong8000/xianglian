@@ -355,7 +355,7 @@ public class BaseMeFragment extends BaseFragment {
 //            public void done(BmobException e) {
 //                if (e == null) {
 //                    toast(R.string.text_update_avatar_success);
-//                    PersonInfo info = AppUtils.getPersonInfo(getContext());
+//                    PersonInfo info = AppUtils.getOwnerInfo(getContext());
 //                    info.setAvatar(path);
 //                    ACache.get(getContext()).put(Config.SAVE_USER_KEY, info);
 //                    mAdapter.notifyDataSetChanged();

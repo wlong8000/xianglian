@@ -42,14 +42,14 @@ public class GalleryActivity extends BaseUserInfoActivity implements AlumView.On
         mAlumView = (AlumView) findViewById(R.id.layout_alum);
         mAlumView.setOnItemClickListener(this);
         mAlumView.initAdapter(3);
-        addData();
+//        addData();
     }
 
-    private void addData() {
-        addDataByType(PhotoInfo.AlumViewType.ALUM_ADD, null);
-        addAlumData(AppUtils.getPhotoInfo(this));
-        mAlumView.notifyDataSetChanged();
-    }
+//    private void addData() {
+//        addDataByType(PhotoInfo.AlumViewType.ALUM_ADD, null);
+//        addAlumData(AppUtils.getPhotoInfo(this));
+//        mAlumView.notifyDataSetChanged();
+//    }
 
     private void addAlumData(List<PhotoInfo> paths) {
         if (paths == null) return;

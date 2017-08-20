@@ -63,4 +63,12 @@ public class Config {
 
     public static final int VISIBLE = 1;
 
+    public static final String EXTRA_ID = "id";
+
+    public static String TOKEN;
+
+    public static final int FAIL = 1;
+
+    public static final int SUCCESS = 0;
+
 }

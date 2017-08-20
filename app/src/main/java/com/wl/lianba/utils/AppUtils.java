@@ -14,7 +14,6 @@ import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
@@ -30,6 +29,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.alibaba.json.JSON;
+import com.alibaba.json.JSONException;
 import com.facebook.binaryresource.BinaryResource;
 import com.facebook.binaryresource.FileBinaryResource;
 import com.facebook.cache.common.CacheKey;
@@ -39,19 +39,15 @@ import com.facebook.imagepipeline.request.ImageRequest;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.wl.lianba.R;
 import com.wl.lianba.config.Config;
-import com.wl.lianba.main.home.been.PersonInfo;
-import com.wl.lianba.main.home.been.PhotoInfo;
 import com.wl.lianba.model.RegionGsonModel;
 import com.wl.lianba.model.RegionsListModel;
-
-import org.apache.http.protocol.HTTP;
+import com.wl.lianba.user.been.OwnerEntity;
 
 import java.io.File;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -343,31 +339,44 @@ public class AppUtils {
 		return (freeBlocks * blockSize); // 单位byte
 	}
 
-	public static PersonInfo getPersonInfo(Context context) {
-		return  (PersonInfo) ACache.get(context).getAsObject(Config.SAVE_USER_KEY);
+	public static OwnerEntity getOwnerInfo(Context context) {
+		String cache =  ACache.get(context).getAsString(Config.KEY_USER);
+		if (TextUtils.isEmpty(cache)) return null;
+		try {
+			return JSON.parseObject(cache, OwnerEntity.class);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
-	public static String getObjectId(Context context) {
-		return ACache.get(context).getAsString(Config.USER_ID_KEY);
+	public static String getToken(Context context) {
+//		if (Config.TOKEN != null) return Config.TOKEN;
+		OwnerEntity entity = getOwnerInfo(context);
+		if (entity != null && entity.getResult() != null) {
+			Config.TOKEN = "JWT " + entity.getResult().getToken();
+			return Config.TOKEN;
+		}
+		return null;
 	}
 
-	public static List<PhotoInfo> getPhotoInfo(Context context) {
-		PersonInfo info = getPersonInfo(context);
-		if (info == null) return null;
-		return info.getAlbum();
-	}
-
-	public static String getIntroduce(Context context) {
-		PersonInfo info = getPersonInfo(context);
-		if (info == null) return null;
-		return info.getIntroduce();
-	}
-
-	public static String getExperience(Context context) {
-		PersonInfo info = getPersonInfo(context);
-		if (info == null) return null;
-		return info.getExperience();
-	}
+//	public static List<PhotoInfo> getPhotoInfo(Context context) {
+//		OwnerEntity info = getOwnerInfo(context);
+//		if (info == null) return null;
+//		return info.getAlbum();
+//	}
+//
+//	public static String getIntroduce(Context context) {
+//		OwnerEntity info = getOwnerInfo(context);
+//		if (info == null) return null;
+//		return info.getIntroduce();
+//	}
+//
+//	public static String getExperience(Context context) {
+//		OwnerEntity info = getOwnerInfo(context);
+//		if (info == null) return null;
+//		return info.getExperience();
+//	}
 
 	/*
  * 获取手机信息
@@ -392,7 +401,9 @@ public class AppUtils {
 
 	public static Map<String, String> getOAuthMap(Context context) {
 		Map<String, String> headers = new HashMap<>();
-		headers.put("Authorization", "");
+		if (!TextUtils.isEmpty(AppUtils.getToken(context))) {
+			headers.put("Authorization", AppUtils.getToken(context));
+		}
 		try {
 			headers.put("device_id", getPhoneInfo(context, 1));
 			headers.put("version_code", getPhoneInfo(context, 4));
@@ -413,6 +424,16 @@ public class AppUtils {
 		String[] arr = res.getStringArray(R.array.profession_array);
 		if (arr.length <= career) return null;
 		return arr[career];
+	}
+
+	public static int stringToInt(String num) {
+		if (TextUtils.isEmpty(num)) return 0;
+		try {
+			return Integer.parseInt(num);
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		}
+		return 0;
 	}
 
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/white"
     android:orientation="vertical">
 
@@ -12,6 +12,7 @@
         android:padding="12dp">
 
         <TextView
+            android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
@@ -35,6 +36,7 @@
             android:textSize="14sp" />
 
         <TextView
+            android:id="@+id/tv_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
@@ -43,6 +45,7 @@
             android:textSize="14sp" />
 
         <ImageView
+            android:id="@+id/ver"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -83,7 +86,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:paddingLeft="12dp"
-        android:paddingRight="12dp">
+        android:paddingRight="12dp"
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/iv_middle"
@@ -111,25 +115,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
+            android:text="匹配度"
             android:textColor="@color/lib_color_font10"
-            android:text="匹配度" />
+            android:textSize="12sp" />
+
         <TextView
             android:id="@+id/tv_middle_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
             android:layout_marginLeft="3dp"
+            android:text="80%"
             android:textColor="@color/lib_color_font10"
-            android:text="80%" />
+            android:textSize="12sp" />
     </LinearLayout>
+
     <View
-        android:layout_marginTop="20dp"
-        style="@style/lib_style_divider5" />
+        style="@style/lib_style_divider5"
+        android:layout_marginTop="20dp" />
 
 </LinearLayout>

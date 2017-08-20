@@ -33,20 +33,24 @@ public class HomeAdapter extends BaseMultiItemQuickAdapter<UserEntity, BaseViewH
                 helper.setText(R.id.like, item.getLike() + "");
                 helper.setText(R.id.tv_locate, item.getWork_area());
 
-                StringBuilder builder = new StringBuilder();
-                builder.append(item.getAge()).append(mContext.getString(R.string.age2)).append(" ");
-                builder.append(mContext.getString(R.string.height2)).append(" ").append(item.getHeight()).append(" ");
-                builder.append(AppUtils.getCareer(mContext, item.getCareer())).append(" ");
-                builder.append(mContext.getString(R.string.income)).append(" ").append(item.getIncome());
-                helper.setText(R.id.tv_user_head_info, builder.toString());
+                setBaseInfo(helper, item);
 
                 helper.setText(R.id.tv_user_desc, item.getPerson_intro());
                 helper.setText(R.id.tv_id, mContext.getString(R.string.id, item.getAccount()));
-//                helper.setImageURI(R.id.img, item.getAvatar());
-                helper.setImageURI(R.id.img, "http://img0.imgtn.bdimg.com/it/u=4128355576,3453965016&fm=214&gp=0.jpg");
+                helper.setImageURI(R.id.img, item.getAvatar());
+//                helper.setImageURI(R.id.img, "http://img0.imgtn.bdimg.com/it/u=4128355576,3453965016&fm=214&gp=0.jpg");
                 helper.setImageVisible(R.id.identity, Config.VISIBLE == item.getIdentity_verified());
 
                 break;
         }
+    }
+
+    private void setBaseInfo(BaseViewHolder helper, UserEntity item) {
+        StringBuilder builder = new StringBuilder();
+        builder.append(item.getAge()).append(mContext.getString(R.string.age2)).append(" ");
+        builder.append(mContext.getString(R.string.height2)).append(" ").append(item.getHeight()).append(" ");
+        builder.append(AppUtils.getCareer(mContext, item.getCareer())).append(" ");
+        builder.append(mContext.getString(R.string.income)).append(" ").append(item.getIncome());
+        helper.setText(R.id.tv_user_head_info, builder.toString());
     }
 }

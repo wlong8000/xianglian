@@ -11,8 +11,8 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.wl.lianba.R;
-import com.wl.lianba.main.home.been.PersonInfo;
 import com.wl.lianba.user.been.ItemInfo;
+import com.wl.lianba.user.been.OwnerEntity;
 import com.wl.lianba.utils.AppUtils;
 
 import java.util.ArrayList;
@@ -78,11 +78,10 @@ public class MineAdapter extends RecyclerView.Adapter {
             case ItemInfo.ViewType.AVATAR: {
                 if (mInfo == null) return;
                 AvatarHolder avatarHolder = (AvatarHolder) holder;
-                PersonInfo p = AppUtils.getPersonInfo(mContext);
+                OwnerEntity p = AppUtils.getOwnerInfo(mContext);
                 if (p == null) return;
-                avatarHolder.mAvatar.setImageURI(AppUtils.parse(p.getAvatar()));
-                avatarHolder.mNickNameView.setText(TextUtils.isEmpty(p.getNick_name()) ? "" : p.getNick_name());
-//                avatarHolder.mIdView.setText(TextUtils.isEmpty(p.getObjectId()) ? "" : p.getObjectId());
+//                avatarHolder.mAvatar.setImageURI(AppUtils.parse(p.getAvatar()));
+//                avatarHolder.mNickNameView.setText(TextUtils.isEmpty(p.getNick_name()) ? "" : p.getNick_name());
                 break;
             }
             case ItemInfo.ViewType.PICK_SELECT: {
