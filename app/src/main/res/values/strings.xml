@@ -34,6 +34,11 @@
     <string name="login_hint_password">密码</string>
     <string name="please_connect_network">请连接网络</string>
     <string name="id">ID %1$s</string>
+    <string name="change_qq">交换QQ</string>
+    <string name="change_wx">交换微信</string>
+    <string name="leave_message">我要留言</string>
+    <string name="look_more">查看更多</string>
+    <string name="publish">发布</string>
 
 
     <!-- 登录注册 -->
@@ -159,7 +164,7 @@
     <string name="most_mark">最多可选8个标签</string>
     <string name="mark_error">太多的人生标签，何尝不是一种负担</string>
     <string name="base_info">基本资料</string>
-    <string name="choose_mate">择偶要求</string>
+    <string name="write_message">请输入留言</string>
 
     <string name="wait_reply">待回复</string>
     <string name="has_agree">已同意</string>

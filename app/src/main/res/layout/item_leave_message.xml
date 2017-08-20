@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:background="@color/main_bg">
+
+    <LinearLayout
+        android:id="@+id/head_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/head"
+            android:layout_width="@dimen/lib_user_icon_small"
+            android:layout_height="@dimen/lib_user_icon_small"
+            android:layout_centerVertical="true"
+            android:layout_margin="10dp"
+            app:failureImageScaleType="centerCrop"
+            app:placeholderImage="@color/common_head_default"
+            app:progressBarImageScaleType="centerCrop"
+            app:roundAsCircle="true"
+            app:roundedCornerRadius="2dp" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:maxLines="1"
+            android:text="张三"
+            android:textColor="#999999"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/head_layout"
+        android:layout_marginLeft="10dp"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:text="张三水电费水电费等方式是地方反倒是反倒是反倒是电风扇水电费第三方第三sfd封禅大典多多多多多多多多多多多多多多多多多多多多多多多多多多多多多多多多多多多多多多多多多多多多多多多多付所多付方"
+        android:textColor="#999999"
+        android:textSize="12sp"
+        android:layout_marginBottom="10dp"
+        android:visibility="visible" />
+
+    <TextView
+        android:id="@+id/more"
+        style="@style/lib_style_button1_small"
+        android:layout_gravity="center_vertical"
+        android:maxLines="1"
+        android:layout_marginBottom="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/content"
+        android:text="@string/look_more"
+        android:textColor="@color/lib_color_font11_trans40"
+        android:textSize="12sp" />
+
+</RelativeLayout>

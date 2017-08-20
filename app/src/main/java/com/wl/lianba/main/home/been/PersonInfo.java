@@ -50,6 +50,16 @@ public class PersonInfo {
          * 基本资料
          */
         int BASE_INFO = 6;
+
+        /**
+         * 留言
+         */
+        int LEAVE_MESSAGE = 7;
+
+        /**
+         * 标题
+         */
+        int TITLE = 8;
     }
 
     public interface Sex {

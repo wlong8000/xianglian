@@ -74,6 +74,7 @@
     <color name="lib_color_bg11">#c8c8c8</color>
     <color name="lib_color_bg12">#4c4c4c</color>
     <color name="lib_color_bg13">#fee9eb</color>
+    <color name="lib_color_bg14">#ffeeef</color>
 
     <!--特殊-系统社区消息未读背景色-->
     <color name="lib_color_bg_msg">#FFFCDB</color>
@@ -165,5 +166,7 @@
     <color name="ucrop_color_default_crop_grid">#80ffffff</color>
     <color name="ucrop_color_default_crop_frame">#ffffff</color>
     <color name="ucrop_color_default_dimmed">#8c000000</color>
+
+    <color name="common_head_default">#ffeaeaea</color>
 
 </resources>

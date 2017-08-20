@@ -12,7 +12,55 @@ import java.util.List;
  */
 
 public class UserDetailEntity implements Parcelable, MultiItemEntity {
-    public static final int TYPE_NORMAL = 1;
+    /**
+     * 详情页 分类
+     */
+    public interface ViewType {
+        /**
+         * 头部信息
+         */
+        int TOP_INFO = 0;
+
+        /**
+         * 个人简介
+         */
+        int INTRODUCE = 1;
+
+        /**
+         * 情感经历
+         */
+        int EXPERIENCE_EMOTION = 2;
+
+        /**
+         * 兴趣爱好
+         */
+        int FAVORITE = 3;
+
+        /**
+         * 个人标签
+         */
+        int MARK = 4;
+
+        /**
+         * 相册
+         */
+        int ALBUM = 5;
+
+        /**
+         * 基本资料
+         */
+        int BASE_INFO = 6;
+
+        /**
+         * 留言
+         */
+        int LEAVE_MESSAGE = 7;
+
+        /**
+         * 标题
+         */
+        int TITLE = 8;
+    }
     private String msg;
     private int code;
     private String error;
