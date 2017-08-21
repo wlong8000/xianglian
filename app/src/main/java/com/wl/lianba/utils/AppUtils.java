@@ -45,12 +45,14 @@ import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.wl.lianba.R;
 import com.wl.lianba.config.Config;
 import com.wl.lianba.main.home.been.PhotoInfo;
+import com.wl.lianba.main.home.been.UserDetailEntity;
 import com.wl.lianba.model.RegionGsonModel;
 import com.wl.lianba.model.RegionsListModel;
 import com.wl.lianba.user.been.OwnerEntity;
 
 import java.io.File;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -458,6 +460,24 @@ public class AppUtils {
 			urls[i] = list.get(i).getPhoto_url();
 		}
 		return urls;
+	}
+
+	public static List<String> getTags(List<UserDetailEntity> list) {
+		if (list == null || list.size() == 0) return null;
+		List<String> tags = new ArrayList<>();
+		for (int i = 0; i < list.size(); i++) {
+			tags.add(i, list.get(i).getTag_name());
+		}
+		return tags;
+	}
+
+	public static List<String> getInterests(List<UserDetailEntity> list) {
+		if (list == null || list.size() == 0) return null;
+		List<String> interests = new ArrayList<>();
+		for (int i = 0; i < list.size(); i++) {
+			interests.add(i, list.get(i).getInterest_name());
+		}
+		return interests;
 	}
 
 }

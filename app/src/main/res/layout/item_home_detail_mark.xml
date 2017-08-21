@@ -5,6 +5,8 @@
     android:background="@color/white"
     android:orientation="vertical">
 
+    <View style="@style/lib_style_divider5" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,10 +23,11 @@
             android:background="@color/lib_color_font1" />
 
         <TextView
+            android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
-            android:text="@string/ta_alums"
+            android:text="@string/mark"
             android:textColor="@color/lib_color_bg12"
             android:textSize="16sp" />
 
@@ -32,17 +35,18 @@
 
     <View
         style="@style/lib_style_divider"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp" />
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:visibility="gone" />
 
-    <com.wl.lianba.view.AlumView
-        android:id="@+id/alum_layout"
+    <com.wl.lianba.view.FavoriteView
+        android:id="@+id/favorite_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fadingEdge="none"
-        android:paddingBottom="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="10dp" />
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/main_bg"
+        android:padding="10dp" />
 
 
 </LinearLayout>

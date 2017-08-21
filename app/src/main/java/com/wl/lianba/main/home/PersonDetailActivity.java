@@ -146,14 +146,24 @@ public class PersonDetailActivity extends BaseActivity implements View.OnClickLi
 
     private void addData(UserDetailEntity entity) {
         addDataByType(UserDetailEntity.ViewType.TOP_INFO, entity);
-        addDataByType(UserDetailEntity.ViewType.INTRODUCE, entity);
-        addDataByType(UserDetailEntity.ViewType.ALBUM, entity);
+        if (!TextUtils.isEmpty(entity.getPerson_intro())) {
+            addDataByType(UserDetailEntity.ViewType.INTRODUCE, entity);
+        }
+        if (entity.getAlbums() != null && entity.getAlbums().size() > 0) {
+            addDataByType(UserDetailEntity.ViewType.ALBUM, entity);
+        }
         addDataByType(UserDetailEntity.ViewType.BASE_INFO, entity);
-        addDataByType(UserDetailEntity.ViewType.MARK, entity);
-        addDataByType(UserDetailEntity.ViewType.EXPERIENCE_EMOTION, entity);
-        addDataByType(UserDetailEntity.ViewType.FAVORITE, entity);
-        addDataByType(UserDetailEntity.ViewType.TITLE, entity);
-        addDataByType(UserDetailEntity.ViewType.LEAVE_MESSAGE, entity);
+        if (entity.getTags() != null && entity.getTags().size() > 0) {
+            addDataByType(UserDetailEntity.ViewType.MARK, entity);
+        }
+        if (!TextUtils.isEmpty(entity.getRelationship_desc())) {
+            addDataByType(UserDetailEntity.ViewType.EXPERIENCE_EMOTION, entity);
+        }
+        if (entity.getInterests() != null && entity.getInterests().size() > 0) {
+            addDataByType(UserDetailEntity.ViewType.FAVORITE, entity);
+        }
+//        addDataByType(UserDetailEntity.ViewType.TITLE, entity);
+//        addDataByType(UserDetailEntity.ViewType.LEAVE_MESSAGE, entity);
         mAdapter.notifyDataSetChanged();
     }
 

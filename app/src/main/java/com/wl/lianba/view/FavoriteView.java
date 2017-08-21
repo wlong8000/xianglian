@@ -31,14 +31,14 @@ public class FavoriteView extends RecyclerView implements View.OnClickListener {
         super(context, attrs);
         mContext = context;
         setLayoutManager(new GridLayoutManager(mContext, 4));
-        addItemDecoration(new SpaceItemDecoration(mContext, 10, 4));
+//        addItemDecoration(new SpaceItemDecoration(mContext, 10, 4));
     }
 
     public void initAdapter(int spanCount) {
         if (spanCount > 0)
             this.mSpanCount = spanCount;
         setLayoutManager(new GridLayoutManager(mContext, mSpanCount));
-        addItemDecoration(new SpaceItemDecoration(mContext, 8, mSpanCount));
+//        addItemDecoration(new SpaceItemDecoration(mContext, 8, mSpanCount));
         initAdapter();
     }
 

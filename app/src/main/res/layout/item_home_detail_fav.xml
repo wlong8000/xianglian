@@ -4,8 +4,8 @@
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:orientation="vertical">
-    <View
-        style="@style/lib_style_divider5"/>
+
+    <View style="@style/lib_style_divider5" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,10 +23,11 @@
             android:background="@color/lib_color_font1" />
 
         <TextView
+            android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
-            android:text="兴趣爱好"
+            android:text="@string/hobby"
             android:textColor="@color/lib_color_bg12"
             android:textSize="16sp" />
 
@@ -42,9 +43,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fadingEdge="none"
-        android:paddingBottom="10dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp" />
+        android:padding="10dp" />
+
+    <View style="@style/lib_style_divider" />
 
 
 </LinearLayout>
