@@ -44,6 +44,7 @@ import com.facebook.imagepipeline.request.ImageRequest;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.wl.lianba.R;
 import com.wl.lianba.config.Config;
+import com.wl.lianba.main.home.been.PhotoInfo;
 import com.wl.lianba.model.RegionGsonModel;
 import com.wl.lianba.model.RegionsListModel;
 import com.wl.lianba.user.been.OwnerEntity;
@@ -391,7 +392,7 @@ public class AppUtils {
 				.getSystemService(Context.TELEPHONY_SERVICE);
 		switch (type) {
 			case 1:// 设备唯一标识
-				return telephonyManager.getDeviceId();
+//				return telephonyManager.getDeviceId();
 			case 2:// 系统版本号
 				return Build.VERSION.RELEASE;
 			case 3:// 设备型号
@@ -448,6 +449,15 @@ public class AppUtils {
 						.setAutoPlayAnimations(true) // 设置加载图片完成后是否直接进行播放
 						.build();
 		img.setController(draweeController);
+	}
+
+	public static String[] getUrls(List<PhotoInfo> list) {
+		if (list == null || list.size() == 0) return null;
+		String[] urls = new String[list.size()];
+		for (int i = 0; i < list.size(); i++) {
+			urls[i] = list.get(i).getPhoto_url();
+		}
+		return urls;
 	}
 
 }

@@ -78,7 +78,7 @@ public class AlumAdapter extends RecyclerView.Adapter {
                 PhotoInfo info = getItem(position);
                 if (info == null) return;
                 FavoriteViewHolder favoriteViewHolder = (FavoriteViewHolder) holder;
-                favoriteViewHolder.mPhotoView.setImageURI(AppUtils.parse(info.getPath()));
+                favoriteViewHolder.mPhotoView.setImageURI(AppUtils.parse(info.getPhoto_url()));
                 break;
             }
         }

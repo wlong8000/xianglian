@@ -71,6 +71,7 @@
             android:textSize="14sp" />
 
         <TextView
+            android:id="@+id/tv_user_head_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"

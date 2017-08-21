@@ -6,7 +6,8 @@ import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.wl.lianba.R;
 import com.wl.lianba.main.home.been.UserDetailEntity;
-import com.wl.lianba.utils.AppUtils;
+import com.wl.lianba.view.AlumView;
+
 import java.util.List;
 
 
@@ -61,6 +62,9 @@ public class PersonDetailAdapter extends BaseMultiItemQuickAdapter<UserDetailEnt
             case UserDetailEntity.ViewType.FAVORITE:
                 break;
             case UserDetailEntity.ViewType.ALBUM:
+                AlumView alumView = helper.getView(R.id.alum_layout);
+                alumView.initAdapter(4);
+                alumView.setData(item.getAlbums());
                 break;
             case UserDetailEntity.ViewType.BASE_INFO:
                 break;
@@ -75,9 +79,9 @@ public class PersonDetailAdapter extends BaseMultiItemQuickAdapter<UserDetailEnt
         StringBuilder builder = new StringBuilder();
         builder.append(item.getAge()).append(mContext.getString(R.string.age2)).append(" ");
         builder.append(mContext.getString(R.string.height2)).append(" ").append(item.getHeight()).append(" ");
-        builder.append(AppUtils.getCareer(mContext, AppUtils.stringToInt(item.getCareer()))).append(" ");
+        builder.append(item.getCareer()).append(" ");
         builder.append(mContext.getString(R.string.income)).append(" ").append(item.getIncome());
-//        helper.setText(R.id.tv_user_head_info, builder.toString());
+        helper.setText(R.id.tv_user_head_info, builder.toString());
     }
 
 //    private List<UserDetailEntity> mInfoList;
@@ -231,7 +235,7 @@ public class PersonDetailAdapter extends BaseMultiItemQuickAdapter<UserDetailEnt
 //        if (mInfo == null) return;
 //        String[] arr = new String[mInfo.size()];
 //        for (int i = 0; i < mInfo.size(); i++) {
-//            arr[i] = mInfo.get(i).getPath();
+//            arr[i] = mInfo.get(i).getPhoto_url();
 //        }
 //        ShowPicActivity.showPictures(mContext, arr, position);
 //    }

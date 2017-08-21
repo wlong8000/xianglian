@@ -24,6 +24,7 @@ import com.wl.lianba.bottomttabs.StatusbarUtil;
 import com.wl.lianba.config.Config;
 import com.wl.lianba.main.home.adapter.PersonDetailAdapter;
 import com.wl.lianba.main.home.been.UserDetailEntity;
+import com.wl.lianba.main.home.been.UserEntity;
 import com.wl.lianba.utils.AppUtils;
 import com.wl.lianba.utils.CommonLinearLayoutManager;
 
@@ -37,7 +38,7 @@ import base.EditDialog;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class PersonDetailActivity extends BaseActivity implements View.OnClickListener{
+public class PersonDetailActivity extends BaseActivity implements View.OnClickListener {
 
     private RecyclerView mRecyclerView;
 
@@ -71,11 +72,19 @@ public class PersonDetailActivity extends BaseActivity implements View.OnClickLi
 
     private String mId;
 
+    private UserEntity mEntity;
+
     private List<UserDetailEntity> mUserDetailEntities = new ArrayList<>();
 
     public static Intent getIntent(Context context, String id) {
         Intent intent = new Intent(context, PersonDetailActivity.class);
         intent.putExtra(Config.EXTRA_ID, id);
+        return intent;
+    }
+
+    public static Intent getIntent(Context context, UserEntity entity) {
+        Intent intent = new Intent(context, PersonDetailActivity.class);
+        intent.putExtra(Config.EXTRA_ENTITY, entity);
         return intent;
     }
 
@@ -85,8 +94,16 @@ public class PersonDetailActivity extends BaseActivity implements View.OnClickLi
         setContentView(R.layout.activity_person_detail);
         StatusbarUtil.setStatusBarTranslucent(this);
         ButterKnife.inject(this);
-        mId = getIntent().getStringExtra(Config.EXTRA_ID);
+        mEntity = getIntent().getParcelableExtra(Config.EXTRA_ENTITY);
+        if (mEntity == null) {
+            mId = getIntent().getStringExtra(Config.EXTRA_ID);
+        } else {
+            mId = mEntity.getUid();
+        }
         setupView();
+        if (mEntity != null) {
+            setHeader(mEntity);
+        }
         doRequest();
     }
 
@@ -110,6 +127,12 @@ public class PersonDetailActivity extends BaseActivity implements View.OnClickLi
         if (entity == null) return;
         mPicView.setImageURI(entity.getAvatar());
         mHeartCountView.setText(AppUtils.stringToInt(entity.getLike()) + "");
+    }
+
+    private void setHeader(UserEntity entity) {
+        if (entity == null) return;
+        mPicView.setImageURI(entity.getAvatar());
+        mHeartCountView.setText(entity.getLike() + "");
     }
 
     private void setupRecyclerView() {
@@ -171,17 +194,16 @@ public class PersonDetailActivity extends BaseActivity implements View.OnClickLi
                 });
     }
 
-    private void doLikeRequest() {
-        final String url = Config.PATH + "user/like/" + mId;
+    private void doLikeRequest(final String id) {
+        final String url = Config.PATH + "user/like/" + id;
         Map<String, String> params = new HashMap<>();
-        params.put("uid", mId);
+        params.put("uid", id);
         OkHttpUtil.getDefault(this).doPostAsync(
                 HttpInfo.Builder().setUrl(url).addHeads(getHeader()).addParams(params).build(),
                 new Callback() {
                     @Override
                     public void onFailure(HttpInfo info) throws IOException {
-                        String result = info.getRetDetail();
-
+                        toast(getString(R.string.request_fail));
                     }
 
                     @Override
@@ -191,15 +213,14 @@ public class PersonDetailActivity extends BaseActivity implements View.OnClickLi
                             try {
                                 UserDetailEntity userEntity = JSON.parseObject(result, UserDetailEntity.class);
                                 if (userEntity == null) return;
-                                if (!TextUtils.isEmpty(userEntity.getMsg())) {
-                                    showToast(userEntity.getMsg());
+                                if (userEntity.getCode() == Config.FAIL) {
+                                    toast(TextUtils.isEmpty(userEntity.getMsg()) ?
+                                            getString(R.string.request_fail) : userEntity.getMsg());
+                                } else {
+                                    int num = AppUtils.stringToInt(mHeartCountView.getText().toString()) + 1;
+                                    mHeartCountView.setText(num + "");
                                 }
-                                String num = mHeartCountView.getText().toString();
-                                if (userEntity.getCode() == 0) {
-                                    mHeartCountView.setText((AppUtils.stringToInt(num) + 1) + "");
-                                } else if (userEntity.getCode() ==1) {
-                                    mHeartCountView.setText((AppUtils.stringToInt(num) - 1) + "");
-                                }
+
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -244,7 +265,7 @@ public class PersonDetailActivity extends BaseActivity implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.heart:
-                doLikeRequest();
+                doLikeRequest(mId);
                 break;
             case R.id.change_qq:
                 break;

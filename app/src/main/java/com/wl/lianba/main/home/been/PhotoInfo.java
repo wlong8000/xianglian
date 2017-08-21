@@ -10,17 +10,17 @@ public class PhotoInfo {
     /**
      * 路径
      */
-    private String path;
+    private String photo_url;
 
 
     private int viewType;
 
-    public String getPath() {
-        return path;
+    public String getPhoto_url() {
+        return photo_url;
     }
 
-    public void setPath(String path) {
-        this.path = path;
+    public void setPhoto_url(String photo_url) {
+        this.photo_url = photo_url;
     }
 
     public int getViewType() {
@@ -35,8 +35,8 @@ public class PhotoInfo {
      * 相册type
      */
     public interface AlumViewType {
-        int ALUM_ADD = 0;
-        int ALUM_COMMON = 1;
+        int ALUM_ADD = 1;
+        int ALUM_COMMON = 0;
     }
 
 }

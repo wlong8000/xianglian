@@ -161,7 +161,7 @@ public class BaseHomeFragment extends BaseListFragment implements BaseQuickAdapt
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         UserEntity info = mAdapter.getItem(position);
         if (info != null) {
-            Intent intent = PersonDetailActivity.getIntent(getContext(), info.getUid());
+            Intent intent = PersonDetailActivity.getIntent(getContext(), info);
             getContext().startActivity(intent);
         }
     }
