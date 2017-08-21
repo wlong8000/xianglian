@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.wl.lianba.BaseFragment;
+import com.wl.lianba.BaseListFragment;
 import com.wl.lianba.R;
 import com.wl.lianba.main.special.adapter.SpecialAdapter;
 import com.wl.lianba.main.special.model.SpecialInfo;
@@ -19,7 +19,7 @@ import com.wl.lianba.utils.CommonLinearLayoutManager;
  * 专刊
  */
 
-public class BaseSpecialFragment extends BaseFragment {
+public class BaseSpecialFragment extends BaseListFragment {
 
     private RecyclerView mRecyclerView;
 
@@ -56,7 +56,7 @@ public class BaseSpecialFragment extends BaseFragment {
         return view;
     }
 
-    private void setupRecyclerView(View view) {
+    public void setupRecyclerView(View view) {
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         mLayoutManager = new CommonLinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);

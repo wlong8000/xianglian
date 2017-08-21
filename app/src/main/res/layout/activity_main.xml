@@ -5,9 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.wl.lianba.SplashActivity">
+
     <com.wl.lianba.when_page.PageFrameLayout
         android:id="@+id/contentFrameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <include android:id="@+id/splash_img" layout="@layout/base_splash_layout" />
 
 </RelativeLayout>

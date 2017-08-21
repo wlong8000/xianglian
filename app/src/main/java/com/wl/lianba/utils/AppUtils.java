@@ -18,6 +18,8 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
 import android.provider.MediaStore;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.IdRes;
 import android.telephony.TelephonyManager;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -33,18 +35,24 @@ import com.alibaba.json.JSONException;
 import com.facebook.binaryresource.BinaryResource;
 import com.facebook.binaryresource.FileBinaryResource;
 import com.facebook.cache.common.CacheKey;
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.interfaces.DraweeController;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.cache.DefaultCacheKeyFactory;
 import com.facebook.imagepipeline.core.ImagePipelineFactory;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.wl.lianba.R;
 import com.wl.lianba.config.Config;
+import com.wl.lianba.main.home.been.PhotoInfo;
+import com.wl.lianba.main.home.been.UserDetailEntity;
 import com.wl.lianba.model.RegionGsonModel;
 import com.wl.lianba.model.RegionsListModel;
 import com.wl.lianba.user.been.OwnerEntity;
 
 import java.io.File;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -386,7 +394,7 @@ public class AppUtils {
 				.getSystemService(Context.TELEPHONY_SERVICE);
 		switch (type) {
 			case 1:// 设备唯一标识
-				return telephonyManager.getDeviceId();
+//				return telephonyManager.getDeviceId();
 			case 2:// 系统版本号
 				return Build.VERSION.RELEASE;
 			case 3:// 设备型号
@@ -434,6 +442,42 @@ public class AppUtils {
 			e.printStackTrace();
 		}
 		return 0;
+	}
+
+	public static void loadLocalGif(Context context, SimpleDraweeView img, @DrawableRes int res) {
+		Uri uri = Uri.parse("res://" + context.getPackageName() + "/" + R.drawable.loading);
+		DraweeController draweeController = Fresco.newDraweeControllerBuilder()
+						.setUri(uri)
+						.setAutoPlayAnimations(true) // 设置加载图片完成后是否直接进行播放
+						.build();
+		img.setController(draweeController);
+	}
+
+	public static String[] getUrls(List<PhotoInfo> list) {
+		if (list == null || list.size() == 0) return null;
+		String[] urls = new String[list.size()];
+		for (int i = 0; i < list.size(); i++) {
+			urls[i] = list.get(i).getPhoto_url();
+		}
+		return urls;
+	}
+
+	public static List<String> getTags(List<UserDetailEntity> list) {
+		if (list == null || list.size() == 0) return null;
+		List<String> tags = new ArrayList<>();
+		for (int i = 0; i < list.size(); i++) {
+			tags.add(i, list.get(i).getTag_name());
+		}
+		return tags;
+	}
+
+	public static List<String> getInterests(List<UserDetailEntity> list) {
+		if (list == null || list.size() == 0) return null;
+		List<String> interests = new ArrayList<>();
+		for (int i = 0; i < list.size(); i++) {
+			interests.add(i, list.get(i).getInterest_name());
+		}
+		return interests;
 	}
 
 }

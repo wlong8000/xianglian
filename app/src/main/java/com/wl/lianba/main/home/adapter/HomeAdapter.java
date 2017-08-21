@@ -31,6 +31,7 @@ public class HomeAdapter extends BaseMultiItemQuickAdapter<UserEntity, BaseViewH
             case UserEntity.TYPE_NORMAL:
                 helper.setText(R.id.tv_name, item.getNickname());
                 helper.setText(R.id.like, item.getLike() + "");
+                helper.setTag(R.id.like, item.getUid());
                 helper.setText(R.id.tv_locate, item.getWork_area());
 
                 setBaseInfo(helper, item);
@@ -38,8 +39,9 @@ public class HomeAdapter extends BaseMultiItemQuickAdapter<UserEntity, BaseViewH
                 helper.setText(R.id.tv_user_desc, item.getPerson_intro());
                 helper.setText(R.id.tv_id, mContext.getString(R.string.id, item.getAccount()));
                 helper.setImageURI(R.id.img, item.getAvatar());
-//                helper.setImageURI(R.id.img, "http://img0.imgtn.bdimg.com/it/u=4128355576,3453965016&fm=214&gp=0.jpg");
                 helper.setImageVisible(R.id.identity, Config.VISIBLE == item.getIdentity_verified());
+
+                helper.addOnClickListener(R.id.heart_layout);
 
                 break;
         }

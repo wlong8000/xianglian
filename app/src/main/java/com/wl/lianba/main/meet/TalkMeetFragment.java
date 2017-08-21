@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
-import com.wl.lianba.BaseFragment;
+import com.wl.lianba.BaseListFragment;
 import com.wl.lianba.R;
 import com.wl.lianba.main.home.been.PersonInfo;
 import com.wl.lianba.main.meet.adapter.TalkMeetAdapter;
@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * 待回复、已同意、已拒绝、先聊聊
  */
-public class TalkMeetFragment extends BaseFragment implements OnClickListener{
+public class TalkMeetFragment extends BaseListFragment implements OnClickListener{
     private CommonLinearLayoutManager mLayoutManager;
 
     private MyRecyclerView mRecyclerView;

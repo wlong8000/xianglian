@@ -1,15 +1,14 @@
 package com.wl.lianba.main.home;
 
-   import android.content.Intent;
-   import android.os.Bundle;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-   import android.text.TextUtils;
-   import android.view.LayoutInflater;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.alibaba.json.JSON;
 import com.alibaba.json.JSONException;
@@ -17,13 +16,14 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.okhttplib.HttpInfo;
 import com.okhttplib.OkHttpUtil;
 import com.okhttplib.callback.Callback;
-import com.wl.lianba.BaseFragment;
+import com.wl.lianba.BaseListFragment;
 import com.wl.lianba.R;
 import com.wl.lianba.config.Config;
 import com.wl.lianba.main.home.adapter.HomeAdapter;
+import com.wl.lianba.main.home.been.UserDetailEntity;
 import com.wl.lianba.main.home.been.UserEntity;
 import com.wl.lianba.utils.AppSharePreferences;
-import com.wl.lianba.utils.CommonLinearLayoutManager;
+import com.wl.lianba.utils.AppUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,12 +37,7 @@ import java.util.Map;
  * 首页
  */
 
-public class BaseHomeFragment extends BaseFragment implements BaseQuickAdapter.OnItemClickListener {
-    private SwipeRefreshLayout mSwipeRefreshLayout;
-
-    private RecyclerView mRecyclerView;
-
-    private CommonLinearLayoutManager mLayoutManager;
+public class BaseHomeFragment extends BaseListFragment implements BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemChildClickListener {
 
     private HomeAdapter mAdapter;
 
@@ -55,20 +50,18 @@ public class BaseHomeFragment extends BaseFragment implements BaseQuickAdapter.O
     }
 
     private void setupView(View view) {
-        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refresh);
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        setupRecyclerView(view);
         mAdapter = new HomeAdapter(getContext(), mUserEntities);
-        mLayoutManager = new CommonLinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener(this);
+        mAdapter.setOnItemChildClickListener(this);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 doRequest(true);
             }
         });
-
+        mAdapter.setEmptyView(loadingView);
         doRequest(true);
     }
 
@@ -116,6 +109,44 @@ public class BaseHomeFragment extends BaseFragment implements BaseQuickAdapter.O
                 });
     }
 
+    private void doLikeRequest(final String id) {
+        final String url = Config.PATH + "user/like/" + id;
+        Map<String, String> params = new HashMap<>();
+        params.put("uid", id);
+        OkHttpUtil.getDefault(this).doPostAsync(
+                HttpInfo.Builder().setUrl(url).addHeads(getHeader()).addParams(params).build(),
+                new Callback() {
+                    @Override
+                    public void onFailure(HttpInfo info) throws IOException {
+                        toast(getString(R.string.request_fail));
+                    }
+
+                    @Override
+                    public void onSuccess(HttpInfo info) throws IOException {
+                        String result = info.getRetDetail();
+                        if (result != null) {
+                            try {
+                                UserDetailEntity userEntity = JSON.parseObject(result, UserDetailEntity.class);
+                                if (userEntity == null) return;
+                                if (userEntity.getCode() == Config.FAIL) {
+                                    toast(TextUtils.isEmpty(userEntity.getMsg()) ?
+                                            getString(R.string.request_fail) : userEntity.getMsg());
+                                } else {
+                                    TextView likeView = (TextView) mRecyclerView.findViewWithTag(id);
+                                    if (likeView != null) {
+                                        int num = AppUtils.stringToInt(likeView.getText().toString()) + 1;
+                                        likeView.setText(num + "");
+                                    }
+                                }
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                });
+    }
+
     private void dealItemData(List<UserEntity> userEntities, boolean refresh) {
         if (userEntities == null || userEntities.size() == 0) return;
         if (refresh) mUserEntities.clear();
@@ -130,8 +161,19 @@ public class BaseHomeFragment extends BaseFragment implements BaseQuickAdapter.O
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         UserEntity info = mAdapter.getItem(position);
         if (info != null) {
-            Intent intent = PersonDetailActivity.getIntent(getContext(), info.getUid());
+            Intent intent = PersonDetailActivity.getIntent(getContext(), info);
             getContext().startActivity(intent);
+        }
+    }
+
+    @Override
+    public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+        UserEntity info = mAdapter.getItem(position);
+        switch (view.getId()) {
+            case R.id.heart_layout:
+                if (info != null)
+                    doLikeRequest(info.getUid());
+                break;
         }
     }
 }

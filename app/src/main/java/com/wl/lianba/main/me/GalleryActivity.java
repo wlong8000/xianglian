@@ -7,14 +7,11 @@ import android.text.TextUtils;
 
 import com.wl.lianba.R;
 import com.wl.lianba.ShowPicActivity;
-import com.wl.lianba.config.Config;
 import com.wl.lianba.library.photo.widget.PickConfig;
 import com.wl.lianba.library.ucrop.UCrop;
 import com.wl.lianba.main.home.been.PhotoInfo;
 
 import com.wl.lianba.user.BaseUserInfoActivity;
-import com.wl.lianba.utils.ACache;
-import com.wl.lianba.utils.AppUtils;
 import com.wl.lianba.view.AlumView;
 
 import java.util.ArrayList;
@@ -57,7 +54,7 @@ public class GalleryActivity extends BaseUserInfoActivity implements AlumView.On
         for (int i = 0; i < paths.size(); i++) {
             PhotoInfo info = new PhotoInfo();
             info.setViewType(PhotoInfo.AlumViewType.ALUM_COMMON);
-            info.setPath(paths.get(i).getPath());
+            info.setPhoto_url(paths.get(i).getPhoto_url());
             items.add(info);
         }
         mAlumView.addData(items);
@@ -76,7 +73,7 @@ public class GalleryActivity extends BaseUserInfoActivity implements AlumView.On
             case PhotoInfo.AlumViewType.ALUM_COMMON: {
                 PhotoInfo info = new PhotoInfo();
                 info.setViewType(PhotoInfo.AlumViewType.ALUM_COMMON);
-                info.setPath(path);
+                info.setPhoto_url(path);
                 mAlumView.addData(info);
                 break;
             }
@@ -109,7 +106,7 @@ public class GalleryActivity extends BaseUserInfoActivity implements AlumView.On
             if (data == null) return;
             String[] arr = new String[data.size()];
             for (int i = 0; i < data.size(); i++) {
-                arr[i] = data.get(i).getPath();
+                arr[i] = data.get(i).getPhoto_url();
             }
             ShowPicActivity.showPictures(GalleryActivity.this, arr, position - 1);
         }
@@ -157,7 +154,7 @@ public class GalleryActivity extends BaseUserInfoActivity implements AlumView.On
         for (String url : urls) {
             PhotoInfo photo = new PhotoInfo();
             photo.setViewType(PhotoInfo.AlumViewType.ALUM_COMMON);
-            photo.setPath(url);
+            photo.setPhoto_url(url);
             list.add(photo);
         }
         mPersonInfo.getAlbum().addAll(list);

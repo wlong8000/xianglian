@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
-import com.wl.lianba.BaseFragment;
+import com.wl.lianba.BaseListFragment;
 import com.wl.lianba.R;
 import com.wl.lianba.dialog.FirstChooseDialog;
 import com.wl.lianba.dialog.LocationSettingDialog;
@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * 基本资料
  */
-public class MyInfoFragment extends BaseFragment implements OnClickListener{
+public class MyInfoFragment extends BaseListFragment implements OnClickListener{
     private CommonLinearLayoutManager mLayoutManager;
 
     private MyRecyclerView mRecyclerView;

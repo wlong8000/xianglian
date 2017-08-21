@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -95,7 +96,7 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
     private String birth_date;
     private String can_leave_message;
 
-    private List<UserDetailEntity> albums;
+    private List<PhotoInfo> albums;
     private String id;
     private String photo_url;
 
@@ -328,11 +329,11 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
         this.can_leave_message = can_leave_message;
     }
 
-    public List<UserDetailEntity> getAlbums() {
+    public List<PhotoInfo> getAlbums() {
         return albums;
     }
 
-    public void setAlbums(List<UserDetailEntity> albums) {
+    public void setAlbums(List<PhotoInfo> albums) {
         this.albums = albums;
     }
 
@@ -519,7 +520,7 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
         dest.writeString(this.constellation);
         dest.writeString(this.birth_date);
         dest.writeString(this.can_leave_message);
-        dest.writeTypedList(this.albums);
+        dest.writeList(this.albums);
         dest.writeString(this.id);
         dest.writeString(this.photo_url);
         dest.writeTypedList(this.tags);
@@ -567,7 +568,8 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
         this.constellation = in.readString();
         this.birth_date = in.readString();
         this.can_leave_message = in.readString();
-        this.albums = in.createTypedArrayList(UserDetailEntity.CREATOR);
+        this.albums = new ArrayList<PhotoInfo>();
+        in.readList(this.albums, PhotoInfo.class.getClassLoader());
         this.id = in.readString();
         this.photo_url = in.readString();
         this.tags = in.createTypedArrayList(UserDetailEntity.CREATOR);
