@@ -113,6 +113,10 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
     private String status;
     private String content;
 
+    private List<MessageEntity> messages;
+    private String messages_count;
+    private String is_like;
+
     public String getMsg() {
         return msg;
     }
@@ -473,6 +477,30 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
         this.content = content;
     }
 
+    public List<MessageEntity> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<MessageEntity> messages) {
+        this.messages = messages;
+    }
+
+    public String getMessages_count() {
+        return messages_count;
+    }
+
+    public void setMessages_count(String messages_count) {
+        this.messages_count = messages_count;
+    }
+
+    public String getIs_like() {
+        return is_like;
+    }
+
+    public void setIs_like(String is_like) {
+        this.is_like = is_like;
+    }
+
     @Override
     public int getItemType() {
         return viewType;
@@ -533,6 +561,9 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
         dest.writeString(this.type_name);
         dest.writeString(this.status);
         dest.writeString(this.content);
+        dest.writeTypedList(this.messages);
+        dest.writeString(this.messages_count);
+        dest.writeString(this.is_like);
     }
 
     protected UserDetailEntity(Parcel in) {
@@ -582,6 +613,9 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
         this.type_name = in.readString();
         this.status = in.readString();
         this.content = in.readString();
+        this.messages = in.createTypedArrayList(MessageEntity.CREATOR);
+        this.messages_count = in.readString();
+        this.is_like = in.readString();
     }
 
     public static final Creator<UserDetailEntity> CREATOR = new Creator<UserDetailEntity>() {
