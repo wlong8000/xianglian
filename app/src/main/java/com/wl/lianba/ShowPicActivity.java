@@ -31,7 +31,7 @@ import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.imagepipeline.image.ImageInfo;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
-import com.wl.lianba.bottomttabs.StatusbarUtil;
+import com.wl.lianba.utils.StatusbarUtil;
 import com.wl.lianba.fresco.zoomable.ZoomableDraweeView;
 import com.wl.lianba.utils.AppUtils;
 import com.wl.lianba.view.MyViewPager;

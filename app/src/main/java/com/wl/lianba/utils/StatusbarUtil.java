@@ -1,4 +1,4 @@
-package com.wl.lianba.bottomttabs;
+package com.wl.lianba.utils;
 
 import android.annotation.TargetApi;
 import android.app.Activity;

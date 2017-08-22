@@ -10,7 +10,7 @@ import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.wl.lianba.bottomttabs.StatusbarUtil;
+import com.wl.lianba.utils.StatusbarUtil;
 import com.wl.lianba.utils.AppUtils;
 import com.wl.lianba.utils.MyLog;
 import com.wl.lianba.view.ProgressDialog;

@@ -20,7 +20,7 @@ import com.okhttplib.OkHttpUtil;
 import com.okhttplib.callback.Callback;
 import com.wl.lianba.BaseActivity;
 import com.wl.lianba.R;
-import com.wl.lianba.bottomttabs.StatusbarUtil;
+import com.wl.lianba.utils.StatusbarUtil;
 import com.wl.lianba.config.Config;
 import com.wl.lianba.main.home.adapter.PersonDetailAdapter;
 import com.wl.lianba.main.home.been.UserDetailEntity;
