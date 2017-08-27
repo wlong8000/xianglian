@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.json.JSON;
@@ -136,6 +137,10 @@ public class BaseHomeFragment extends BaseListFragment implements BaseQuickAdapt
                                     if (likeView != null) {
                                         int num = AppUtils.stringToInt(likeView.getText().toString()) + 1;
                                         likeView.setText(num + "");
+                                    }
+                                    ImageView likeIcon = (ImageView) mRecyclerView.findViewWithTag(id + "_iv");
+                                    if (likeIcon != null) {
+                                        likeIcon.setImageResource(R.drawable.icon_follow);
                                     }
                                 }
 

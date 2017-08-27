@@ -31,7 +31,7 @@ public class UserEntity implements Parcelable, MultiItemEntity {
     private String nickname;
     private String work_area;
     private String age;
-    private int height;
+    private String height;
     /**
      * 职业 (0, '未透露'), (1, "在校学生"), (2, "私营业主"), (3, "农业劳动者"), (4, "企业职工"), (5, "政府机关/事业单位"), (6, "自由职业")
      */
@@ -39,7 +39,7 @@ public class UserEntity implements Parcelable, MultiItemEntity {
     /**
      * 收入 (0, '未透露'), (1, "3k以下"), (2, "3k-5k"), (3, "58k"), (4, "8k-12k"), (5, "12k-20k"), (6, "20k-30k"), (7, "30k以上")
      */
-    private int income;
+    private String income;
     private String person_intro;
     private int like;
     private String avatar;
@@ -53,6 +53,7 @@ public class UserEntity implements Parcelable, MultiItemEntity {
     private String name;
     private String img;
     private String desc;
+    private boolean is_like;
 
     public String getMsg() {
         return msg;
@@ -150,11 +151,11 @@ public class UserEntity implements Parcelable, MultiItemEntity {
         this.age = age;
     }
 
-    public int getHeight() {
+    public String getHeight() {
         return height;
     }
 
-    public void setHeight(int height) {
+    public void setHeight(String height) {
         this.height = height;
     }
 
@@ -166,11 +167,11 @@ public class UserEntity implements Parcelable, MultiItemEntity {
         this.career = career;
     }
 
-    public int getIncome() {
+    public String getIncome() {
         return income;
     }
 
-    public void setIncome(int income) {
+    public void setIncome(String income) {
         this.income = income;
     }
 
@@ -254,6 +255,14 @@ public class UserEntity implements Parcelable, MultiItemEntity {
         this.avatar = avatar;
     }
 
+    public boolean is_like() {
+        return is_like;
+    }
+
+    public void setIs_like(boolean is_like) {
+        this.is_like = is_like;
+    }
+
     public UserEntity() {
     }
 
@@ -282,9 +291,9 @@ public class UserEntity implements Parcelable, MultiItemEntity {
         dest.writeString(this.nickname);
         dest.writeString(this.work_area);
         dest.writeString(this.age);
-        dest.writeInt(this.height);
+        dest.writeString(this.height);
         dest.writeInt(this.career);
-        dest.writeInt(this.income);
+        dest.writeString(this.income);
         dest.writeString(this.person_intro);
         dest.writeInt(this.like);
         dest.writeString(this.avatar);
@@ -294,6 +303,7 @@ public class UserEntity implements Parcelable, MultiItemEntity {
         dest.writeString(this.name);
         dest.writeString(this.img);
         dest.writeString(this.desc);
+        dest.writeByte(this.is_like ? (byte) 1 : (byte) 0);
     }
 
     protected UserEntity(Parcel in) {
@@ -310,9 +320,9 @@ public class UserEntity implements Parcelable, MultiItemEntity {
         this.nickname = in.readString();
         this.work_area = in.readString();
         this.age = in.readString();
-        this.height = in.readInt();
+        this.height = in.readString();
         this.career = in.readInt();
-        this.income = in.readInt();
+        this.income = in.readString();
         this.person_intro = in.readString();
         this.like = in.readInt();
         this.avatar = in.readString();
@@ -322,6 +332,7 @@ public class UserEntity implements Parcelable, MultiItemEntity {
         this.name = in.readString();
         this.img = in.readString();
         this.desc = in.readString();
+        this.is_like = in.readByte() != 0;
     }
 
     public static final Creator<UserEntity> CREATOR = new Creator<UserEntity>() {
