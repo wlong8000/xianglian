@@ -2,6 +2,7 @@ package com.xianglian.love.main.home;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
@@ -23,6 +24,7 @@ import com.xianglian.love.config.Config;
 import com.xianglian.love.main.home.adapter.HomeAdapter;
 import com.xianglian.love.main.home.been.UserDetailEntity;
 import com.xianglian.love.main.home.been.UserEntity;
+import com.xianglian.love.user.been.ItemInfo;
 import com.xianglian.love.utils.AppSharePreferences;
 import com.xianglian.love.utils.AppUtils;
 
@@ -79,14 +81,12 @@ public class BaseHomeFragment extends BaseListFragment implements BaseQuickAdapt
         return view;
     }
 
-    private void doRequest(final boolean refresh) {
-        String userId = AppUtils.getUserId(getContext());
-        String url;
-        if (!TextUtils.isEmpty(userId)) {
-            url = Config.PATH + "user/persons?uid=" + userId;
-        } else {
-            url = Config.PATH + "user/persons";
-        }
+    private void doRequest(boolean refresh) {
+        doRequest(refresh, null);
+    }
+
+    private void doRequest(final boolean refresh, String selection) {
+        String url = getUrl(selection);
         Map<String, String> params = new HashMap<>();
         OkHttpUtil.getDefault(this).doGetAsync(
                 HttpInfo.Builder().setUrl(url).addHeads(getHeader()).addParams(params).build(),
@@ -114,6 +114,22 @@ public class BaseHomeFragment extends BaseListFragment implements BaseQuickAdapt
                         }
                     }
                 });
+    }
+
+    @NonNull
+    private String getUrl(String selection) {
+        String userId = AppUtils.getUserId(getContext());
+        String url;
+        if (!TextUtils.isEmpty(userId) && TextUtils.isEmpty(selection)) {
+            url = Config.PATH + "user/persons?uid=" + userId;
+        } else if (TextUtils.isEmpty(userId) && TextUtils.isEmpty(selection)) {
+            url = Config.PATH + "user/persons";
+        } else if (TextUtils.isEmpty(userId) && !TextUtils.isEmpty(selection)) {
+            url = Config.PATH + "user/persons?" + selection;
+        } else {
+            url = Config.PATH + "user/persons?uid=" + userId + "&" + selection;
+        }
+        return url;
     }
 
     private void doLikeRequest(final String id) {
@@ -185,6 +201,14 @@ public class BaseHomeFragment extends BaseListFragment implements BaseQuickAdapt
                 if (info != null)
                     doLikeRequest(info.getUid());
                 break;
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        ItemInfo itemInfo = data.getParcelableExtra(Config.EXTRA_SEARCH_ENTITY);
+        if (itemInfo != null) {
+            doRequest(true, itemInfo.toString());
         }
     }
 }

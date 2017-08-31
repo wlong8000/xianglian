@@ -1,8 +1,11 @@
 package com.xianglian.love.main.home;
 
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -15,6 +18,7 @@ import com.bigkoo.pickerview.TimePickerView;
 import com.bigkoo.pickerview.listener.CustomListener;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.xianglian.love.R;
+import com.xianglian.love.config.Config;
 import com.xianglian.love.dialog.LocationSettingDialog;
 import com.xianglian.love.user.BaseUserInfoActivity;
 import com.xianglian.love.user.adapter.UserInfoEditAdapter;
@@ -44,9 +48,6 @@ public class SearchActivity extends BaseUserInfoActivity implements
     @InjectView(R.id.recycler_view)
     RecyclerView mRecyclerView;
 
-    @InjectView(R.id.reset)
-    TextView mResetView;
-
     @InjectView(R.id.save)
     TextView mSaveView;
 
@@ -64,6 +65,11 @@ public class SearchActivity extends BaseUserInfoActivity implements
 
     private List<ItemInfo> mItemInfo = new ArrayList<>();
 
+    private ItemInfo mItem;
+
+    public static Intent getIntent(Context context) {
+        return new Intent(context, SearchActivity.class);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,9 +77,9 @@ public class SearchActivity extends BaseUserInfoActivity implements
         setContentView(R.layout.select_activity);
         setupCommonTitle(getString(R.string.selected));
         ButterKnife.inject(this);
+        mItem = new ItemInfo();
         initView();
         mSaveView.setOnClickListener(this);
-        mResetView.setOnClickListener(this);
         initTimePicker();
         initCustomOptionPicker();
     }
@@ -82,6 +88,9 @@ public class SearchActivity extends BaseUserInfoActivity implements
         pvCustomOptions = new OptionsPickerView.Builder(this, new OptionsPickerView.OnOptionsSelectListener() {
             @Override
             public void onOptionsSelect(int options1, int option2, int options3, View v) {
+                String text = dealAge(options1, option2);
+                mEntity.setRightText(text);
+                mAdapter.notifyDataSetChanged();
             }
         }).setLayoutRes(R.layout.pickerview_custom_options, new CustomListener() {
             @Override
@@ -92,12 +101,13 @@ public class SearchActivity extends BaseUserInfoActivity implements
                     @Override
                     public void onClick(View v) {
                         pvCustomOptions.dismiss();
+                        pvCustomOptions.returnData();
                     }
                 });
                 ivCancel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                    pvCustomOptions.dismiss();
+                        pvCustomOptions.dismiss();
                     }
                 });
             }
@@ -105,6 +115,17 @@ public class SearchActivity extends BaseUserInfoActivity implements
                 .isDialog(true)
                 .build();
 
+    }
+
+    @NonNull
+    private String dealAge(int options1, int option2) {
+        String minAge = UserUtils.getAge().get(options1);
+        String maxAge = UserUtils.getSubAge().get(options1).get(option2);
+
+        mItem.min_age = minAge;
+        mItem.max_age = maxAge;
+
+        return minAge + "-" + maxAge;
     }
 
     private void initTimePicker() {
@@ -120,7 +141,7 @@ public class SearchActivity extends BaseUserInfoActivity implements
                 if (date == null) return;
                 mEntity.setRightText(getTime(date));
                 mAdapter.notifyDataSetChanged();
-                saveDate(getTime(date));
+//                saveDate(getTime(date));
 
             }
         })
@@ -152,53 +173,9 @@ public class SearchActivity extends BaseUserInfoActivity implements
             public void onConfirm(String region, int position) {
                 entity.setRightText(region);
                 mAdapter.notifyDataSetChanged();
-                saveDate(region);
             }
         };
         dialog.show();
-    }
-
-    private void saveDate(String data) {
-        if (TextUtils.isEmpty(data)) return;
-        switch (mType) {
-            case ItemInfo.Type.INTRODUCE: {
-                break;
-            }
-            case ItemInfo.Type.BIRTHDAY: {
-                mPersonInfo.setBirthday(data);
-                break;
-            }
-            case ItemInfo.Type.APARTMENT: {
-                mPersonInfo.setApartment(data);
-                break;
-            }
-            case ItemInfo.Type.HOMETOWN: {
-                mPersonInfo.setNative_place(data);
-                break;
-            }
-            case ItemInfo.Type.HEIGHT: {
-                try {
-                    int height = Integer.parseInt(data);
-                    mPersonInfo.setHeight(height);
-                } catch (NumberFormatException e) {
-                    mPersonInfo.setHeight(0);
-                    e.printStackTrace();
-                }
-                break;
-            }
-            case ItemInfo.Type.EDUCATION: {
-                mPersonInfo.setEducation(data);
-                break;
-            }
-            case ItemInfo.Type.PROFESSION: {
-                mPersonInfo.setJobs(data);
-                break;
-            }
-            case ItemInfo.Type.INCOME: {
-                mPersonInfo.setIncome(data);
-                break;
-            }
-        }
     }
 
     private void initView() {
@@ -236,6 +213,10 @@ public class SearchActivity extends BaseUserInfoActivity implements
             case R.id.reset:
                 break;
             case R.id.save:
+                Intent intent = new Intent();
+                intent.putExtra(Config.EXTRA_SEARCH_ENTITY, mItem);
+                setResult(RESULT_OK, intent);
+                finish();
                 break;
         }
     }
@@ -244,7 +225,7 @@ public class SearchActivity extends BaseUserInfoActivity implements
         List<ItemInfo> data = new ArrayList<>();
 
         //年龄
-        data.add(getInfo(getString(R.string.age), ItemInfo.Type.AGE, null));
+        data.add(getInfo(getString(R.string.age), ItemInfo.Type.AGE, UserUtils.getAge(), UserUtils.getSubAge()));
 
         //身高
         data.add(getInfo(getString(R.string.height), ItemInfo.Type.HEIGHT, UserUtils.getHighData()));
@@ -266,13 +247,18 @@ public class SearchActivity extends BaseUserInfoActivity implements
     }
 
     public ItemInfo getInfo(String text, int type, ArrayList<String> list) {
-        return getInfo(text, null, type, list);
+        return getInfo(text, type, list, null);
+    }
+
+    public ItemInfo getInfo(String text, int type, ArrayList<String> list, List<List<String>> list2) {
+        return getInfo(text, null, type, list, list2);
     }
 
     /**
      * @param type 0默认 1：带5dp的分割线
      */
-    public ItemInfo getInfo(String text, String rightText, int type, ArrayList<String> list) {
+    public ItemInfo getInfo(String text, String rightText, int type, ArrayList<String> list,
+                            List<List<String>> list2) {
         if (TextUtils.isEmpty(rightText))
             rightText = getResources().getString(R.string.no_limit);
         ItemInfo data = new ItemInfo();
@@ -281,6 +267,7 @@ public class SearchActivity extends BaseUserInfoActivity implements
         data.setRightText(rightText);
         data.setType(type);
         data.setItems(list);
+        data.setSubItems(list2);
         return data;
     }
 
@@ -291,13 +278,14 @@ public class SearchActivity extends BaseUserInfoActivity implements
         mType = mEntity.getType();
         if (ItemInfo.ViewType.PICK_SELECT == mEntity.getViewType()) {
             switch (mType) {
-                case ItemInfo.Type.AGE: {
-                    break;
-                }
                 case ItemInfo.Type.BIRTHDAY: {
                     mPvTime.show();
                     break;
                 }
+                case ItemInfo.Type.AGE:
+                    pvCustomOptions.setPicker(mEntity.getItems(), mEntity.getSubItems());//添加数据
+                    pvCustomOptions.show();
+                    break;
                 case ItemInfo.Type.HOMETOWN:
                 case ItemInfo.Type.APARTMENT: {
                     showOptions(mEntity);

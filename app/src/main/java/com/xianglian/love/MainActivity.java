@@ -36,6 +36,8 @@ public class MainActivity extends BaseFragmentActivity {
 
     private long exitTime = 0;
 
+    public static final int REQUEST_CODE_SEARCH = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -128,7 +130,21 @@ public class MainActivity extends BaseFragmentActivity {
 
     @Override
     public void rightClick() {
-        startActivity(new Intent(MainActivity.this, SearchActivity.class));
+        Intent intent = SearchActivity.getIntent(this);
+        startActivityForResult(intent, REQUEST_CODE_SEARCH);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (data == null && requestCode != RESULT_OK) return;
+        switch (requestCode) {
+            case REQUEST_CODE_SEARCH:
+                Fragment fragment =  mFragments.get(0);
+                if (fragment != null && fragment instanceof BaseHomeFragment) {
+                    ((BaseHomeFragment) fragment).onActivityResult(requestCode, resultCode, data);
+                }
+                break;
+        }
     }
 
     @Override

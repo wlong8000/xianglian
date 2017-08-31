@@ -58,7 +58,7 @@ public class ResetPwdActivity extends BaseLoginActivity implements View.OnClickL
 
         String url = Config.PATH + "user/reset/password";
         Map<String, String> params = new HashMap<>();
-        params.put("mobile", UserUtils.getPhone(this));
+        params.put("mobile", null);
         params.put("old_pwd", oldPwd);
         params.put("password", newPwd);
         params.put("password1", rePwd);

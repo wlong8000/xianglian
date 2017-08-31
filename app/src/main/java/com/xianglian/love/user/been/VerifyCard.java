@@ -1,9 +1,12 @@
 package com.xianglian.love.user.been;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * 身份验证
  */
-public class VerifyCard {
+public class VerifyCard implements Parcelable {
 	/**
 	 * 真实姓名
 	 */
@@ -55,4 +58,39 @@ public class VerifyCard {
 	public void setReverse_pic(String reverse_pic) {
 		this.reverse_pic = reverse_pic;
 	}
+
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeString(this.real_name);
+		dest.writeString(this.id_card);
+		dest.writeString(this.front_pic);
+		dest.writeString(this.reverse_pic);
+	}
+
+	public VerifyCard() {
+	}
+
+	protected VerifyCard(Parcel in) {
+		this.real_name = in.readString();
+		this.id_card = in.readString();
+		this.front_pic = in.readString();
+		this.reverse_pic = in.readString();
+	}
+
+	public static final Creator<VerifyCard> CREATOR = new Creator<VerifyCard>() {
+		@Override
+		public VerifyCard createFromParcel(Parcel source) {
+			return new VerifyCard(source);
+		}
+
+		@Override
+		public VerifyCard[] newArray(int size) {
+			return new VerifyCard[size];
+		}
+	};
 }

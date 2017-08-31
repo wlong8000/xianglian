@@ -1,14 +1,19 @@
 package com.xianglian.love.user.been;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.text.TextUtils;
+
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.xianglian.love.main.home.been.PersonInfo;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 针对 用户信息编辑类
  */
-public class ItemInfo implements MultiItemEntity {
+public class ItemInfo implements MultiItemEntity, Parcelable {
 
 	private String text;
 	private String rightText;
@@ -18,7 +23,31 @@ public class ItemInfo implements MultiItemEntity {
 	private int viewType;
 	private boolean showLine;
 	private PersonInfo info;
-	private ArrayList<String> items;
+	private List<String> items;
+	private List<List<String>> subItems;
+
+	public String sex;
+	public String min_age;
+	public String max_age;
+	public String min_height;
+	public String max_height;
+	public String education;
+	public String career;
+	public String income;
+	public String expect_marry_date;
+	public String marriage_status;
+	public String min_weight;
+	public String max_weight;
+	public String has_car;
+	public String has_children;
+	public String has_house;
+	public String is_student;
+	public String vip;
+
+	public String work_area_code;
+	public String born_area_code;
+	public String nationality;
+	public String birth_index;
 
 	@Override
 	public int getItemType() {
@@ -316,11 +345,11 @@ public class ItemInfo implements MultiItemEntity {
 		this.viewType = viewType;
 	}
 
-	public ArrayList<String> getItems() {
+	public List<String> getItems() {
 		return items;
 	}
 
-	public void setItems(ArrayList<String> items) {
+	public void setItems(List<String> items) {
 		this.items = items;
 	}
 
@@ -346,5 +375,114 @@ public class ItemInfo implements MultiItemEntity {
 
 	public void setShowLine(boolean showLine) {
 		this.showLine = showLine;
+	}
+
+	public List<List<String>> getSubItems() {
+		return subItems;
+	}
+
+	public void setSubItems(List<List<String>> subItems) {
+		this.subItems = subItems;
+	}
+
+	public ItemInfo() {
+	}
+
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeString(this.sex);
+		dest.writeString(this.min_age);
+		dest.writeString(this.max_age);
+		dest.writeString(this.min_height);
+		dest.writeString(this.max_height);
+		dest.writeString(this.education);
+		dest.writeString(this.career);
+		dest.writeString(this.income);
+		dest.writeString(this.expect_marry_date);
+		dest.writeString(this.marriage_status);
+		dest.writeString(this.min_weight);
+		dest.writeString(this.max_weight);
+		dest.writeString(this.has_car);
+		dest.writeString(this.has_children);
+		dest.writeString(this.has_house);
+		dest.writeString(this.is_student);
+		dest.writeString(this.vip);
+		dest.writeString(this.work_area_code);
+		dest.writeString(this.born_area_code);
+		dest.writeString(this.nationality);
+		dest.writeString(this.birth_index);
+	}
+
+	protected ItemInfo(Parcel in) {
+		this.sex = in.readString();
+		this.min_age = in.readString();
+		this.max_age = in.readString();
+		this.min_height = in.readString();
+		this.max_height = in.readString();
+		this.education = in.readString();
+		this.career = in.readString();
+		this.income = in.readString();
+		this.expect_marry_date = in.readString();
+		this.marriage_status = in.readString();
+		this.min_weight = in.readString();
+		this.max_weight = in.readString();
+		this.has_car = in.readString();
+		this.has_children = in.readString();
+		this.has_house = in.readString();
+		this.is_student = in.readString();
+		this.vip = in.readString();
+		this.work_area_code = in.readString();
+		this.born_area_code = in.readString();
+		this.nationality = in.readString();
+		this.birth_index = in.readString();
+	}
+
+	public static final Creator<ItemInfo> CREATOR = new Creator<ItemInfo>() {
+		@Override
+		public ItemInfo createFromParcel(Parcel source) {
+			return new ItemInfo(source);
+		}
+
+		@Override
+		public ItemInfo[] newArray(int size) {
+			return new ItemInfo[size];
+		}
+	};
+
+	@Override
+	public String toString() {
+		StringBuffer buffer = new StringBuffer();
+		setParam("sex", sex, buffer);
+		setParam("min_age", min_age, buffer);
+		setParam("max_age", max_age, buffer);
+		setParam("work_area_code", work_area_code, buffer);
+		setParam("born_area_code", born_area_code, buffer);
+		setParam("min_height", min_height, buffer);
+		setParam("max_height", max_height, buffer);
+		setParam("education", education, buffer);
+		setParam("career", career, buffer);
+		setParam("income", income, buffer);
+		setParam("expect_marry_date", expect_marry_date, buffer);
+		setParam("nationality", nationality, buffer);
+		setParam("marriage_status", marriage_status, buffer);
+		setParam("birth_index", birth_index, buffer);
+		setParam("min_weight", min_weight, buffer);
+		setParam("max_weight", max_weight, buffer);
+		setParam("has_car", has_car, buffer);
+		setParam("has_children", has_children, buffer);
+		setParam("has_house", has_house, buffer);
+		setParam("is_student", is_student, buffer);
+		setParam("vip", vip, buffer);
+		return buffer.toString();
+	}
+
+	private void setParam(String key, String value, StringBuffer buffer) {
+		if (TextUtils.isEmpty(value)) return;
+		buffer.append(key).append("=").append(value).append("&");
 	}
 }

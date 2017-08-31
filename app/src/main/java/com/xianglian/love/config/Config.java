@@ -67,6 +67,8 @@ public class Config {
 
     public static final String EXTRA_ENTITY = "entity";
 
+    public static final String EXTRA_SEARCH_ENTITY = "search_info";
+
     public static String TOKEN;
 
     public static final int FAIL = 1;

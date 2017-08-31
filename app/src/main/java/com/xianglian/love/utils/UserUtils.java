@@ -7,6 +7,7 @@ import com.xianglian.love.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by wanglong on 17/3/30.
@@ -21,6 +22,29 @@ public class UserUtils {
         }
         data.add("200cm以上");
         return data;
+    }
+
+    public static ArrayList<String> getAge() {
+        ArrayList<String> data = new ArrayList<>();
+        for (int i = 18; i < 60; i++) {
+            data.add(String.valueOf(i));
+        }
+        return data;
+    }
+
+    public static List<List<String>> getSubAge() {
+        List<List<String>> subData = new ArrayList<>();
+
+        List<String> list = getAge();
+        int count = list.size();
+        for (int i = 0; i < count; i++) {
+            List<String> temp = new ArrayList<>();
+            for (int q = i + 1; q < count; q++) {
+                temp.add(list.get(q));
+            }
+            subData.add(temp);
+        }
+        return subData;
     }
 
 
@@ -119,10 +143,5 @@ public class UserUtils {
         data.add("100kg以上");
         return data;
     }
-
-    public static String getPhone(Context context) {
-        return "";
-    }
-
 
 }

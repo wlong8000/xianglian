@@ -1,5 +1,8 @@
 package com.xianglian.love.main.home.been;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.xianglian.love.user.been.VerifyCard;
 
 import java.util.ArrayList;
@@ -11,7 +14,8 @@ import java.util.List;
  * 对应首页-home model
  */
 
-public class PersonInfo {
+public class PersonInfo implements Parcelable {
+
     /**
      * 详情页 分类
      */
@@ -327,4 +331,71 @@ public class PersonInfo {
         this.viewType = viewType;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.nick_name);
+        dest.writeValue(this.user_state);
+        dest.writeInt(this.height);
+        dest.writeString(this.jobs);
+        dest.writeString(this.income);
+        dest.writeString(this.introduce);
+        dest.writeInt(this.sex);
+        dest.writeString(this.birthday);
+        dest.writeString(this.apartment);
+        dest.writeString(this.native_place);
+        dest.writeInt(this.weight);
+        dest.writeString(this.marryState);
+        dest.writeString(this.education);
+        dest.writeString(this.avatar);
+        dest.writeString(this.experience);
+        dest.writeList(this.album);
+        dest.writeStringList(this.mark);
+        dest.writeStringList(this.hobby);
+        dest.writeParcelable(this.verify_card, flags);
+        dest.writeInt(this.viewType);
+    }
+
+    public PersonInfo() {
+    }
+
+    protected PersonInfo(Parcel in) {
+        this.nick_name = in.readString();
+        this.user_state = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.height = in.readInt();
+        this.jobs = in.readString();
+        this.income = in.readString();
+        this.introduce = in.readString();
+        this.sex = in.readInt();
+        this.birthday = in.readString();
+        this.apartment = in.readString();
+        this.native_place = in.readString();
+        this.weight = in.readInt();
+        this.marryState = in.readString();
+        this.education = in.readString();
+        this.avatar = in.readString();
+        this.experience = in.readString();
+        this.album = new ArrayList<PhotoInfo>();
+        in.readList(this.album, PhotoInfo.class.getClassLoader());
+        this.mark = in.createStringArrayList();
+        this.hobby = in.createStringArrayList();
+        this.verify_card = in.readParcelable(VerifyCard.class.getClassLoader());
+        this.viewType = in.readInt();
+    }
+
+    public static final Creator<PersonInfo> CREATOR = new Creator<PersonInfo>() {
+        @Override
+        public PersonInfo createFromParcel(Parcel source) {
+            return new PersonInfo(source);
+        }
+
+        @Override
+        public PersonInfo[] newArray(int size) {
+            return new PersonInfo[size];
+        }
+    };
 }
