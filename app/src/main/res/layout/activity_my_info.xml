@@ -15,7 +15,7 @@
         style="@style/lib_style_divider5"/>
 
 
-    <com.wl.lianba.view.FlingLeftViewPager
+    <com.xianglian.love.view.FlingLeftViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

@@ -5,7 +5,7 @@
              android:background="#ff000000"
              android:orientation="vertical">
 
-    <com.wl.lianba.view.MyViewPager
+    <com.xianglian.love.view.MyViewPager
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

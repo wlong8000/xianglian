@@ -6,7 +6,7 @@
     android:clipChildren="false">
 
 
-    <com.wl.lianba.view.BannerViewPager
+    <com.xianglian.love.view.BannerViewPager
         android:id="@id/bannerViewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

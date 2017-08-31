@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.wl.lianba.pullzoom.PullZoomView
+<com.xianglian.love.pullzoom.PullZoomView
     android:id="@+id/pzv"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -19,4 +19,4 @@
             android:tag="content"/>
     </LinearLayout>
 
-</com.wl.lianba.pullzoom.PullZoomView>
+</com.xianglian.love.pullzoom.PullZoomView>

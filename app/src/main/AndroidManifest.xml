@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.wl.lianba">
+    package="com.xianglian.love">
 
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
@@ -35,7 +35,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".SplashActivity"
+            android:name="com.xianglian.love.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -44,87 +44,87 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name="com.xianglian.love.MainActivity"
             android:alwaysRetainTaskState="true"
             android:configChanges="orientation|keyboardHidden|screenSize|locale"
             android:exported="true"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".user.LoginActivity"
+            android:name="com.xianglian.love.user.LoginActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".user.UserInfoEditActivity"
+            android:name="com.xianglian.love.user.UserInfoEditActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".user.AuthenticationActivity"
+            android:name="com.xianglian.love.user.AuthenticationActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".user.SelectPayMethodActivity"
+            android:name="com.xianglian.love.user.SelectPayMethodActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".user.RegisterActivity"
+            android:name="com.xianglian.love.user.RegisterActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".user.ForgetPwdActivity"
+            android:name="com.xianglian.love.user.ForgetPwdActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".user.RegisterCodeActivity"
+            android:name="com.xianglian.love.user.RegisterCodeActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".user.SelectSexActivity"
+            android:name="com.xianglian.love.user.SelectSexActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".user.MarkTagActivity"
+            android:name="com.xianglian.love.user.MarkTagActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.CutPictureAty"
+            android:name="com.xianglian.love.view.CutPictureAty"
             android:screenOrientation="portrait" />
-        <activity android:name=".main.home.PersonDetailActivity" />
+        <activity android:name="com.xianglian.love.main.home.PersonDetailActivity" />
         <activity
-            android:name=".user.IntroduceActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".main.home.SearchActivity"
+            android:name="com.xianglian.love.user.IntroduceActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".main.me.BaseInfoActivity"
+            android:name="com.xianglian.love.main.home.SearchActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".main.meet.MeMeetActivity"
+            android:name="com.xianglian.love.main.me.BaseInfoActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".main.meet.LastVisitActivity"
+            android:name="com.xianglian.love.main.meet.MeMeetActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".main.meet.HeartContactActivity"
+            android:name="com.xianglian.love.main.meet.LastVisitActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".main.meet.TaMeetActivity"
+            android:name="com.xianglian.love.main.meet.HeartContactActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".main.meet.HeartRecordActivity"
+            android:name="com.xianglian.love.main.meet.TaMeetActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".main.me.GalleryActivity"
+            android:name="com.xianglian.love.main.meet.HeartRecordActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ShowPicActivity"
+            android:name="com.xianglian.love.main.me.GalleryActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".library.photo.MediaChoseActivity"
+            android:name="com.xianglian.love.ShowPicActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".library.photo.CropImageActivity"
+            android:name="com.xianglian.love.library.photo.MediaChoseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.xianglian.love.library.photo.CropImageActivity"
             android:screenOrientation="portrait" />
         <service
-            android:name=".AppService"
+            android:name="com.xianglian.love.AppService"
             android:enabled="true"
             android:exported="false"/>
     </application>

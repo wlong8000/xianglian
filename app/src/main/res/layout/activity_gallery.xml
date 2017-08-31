@@ -7,7 +7,7 @@
 
     <include layout="@layout/view_title_bar_translate" />
 
-    <com.wl.lianba.view.AlumView
+    <com.xianglian.love.view.AlumView
         android:id="@+id/layout_alum"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

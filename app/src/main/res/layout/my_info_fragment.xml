@@ -9,7 +9,7 @@
         android:id="@+id/title_bar_layout"
         layout="@layout/view_title_bar_translate" />
 
-    <com.wl.lianba.view.MyRecyclerView
+    <com.xianglian.love.view.MyRecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -18,6 +18,6 @@
         app:errorView="@layout/error"
         app:loadingView="@layout/loading">
 
-    </com.wl.lianba.view.MyRecyclerView>
+    </com.xianglian.love.view.MyRecyclerView>
 
 </RelativeLayout>

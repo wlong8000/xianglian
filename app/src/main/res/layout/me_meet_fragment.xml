@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.wl.lianba.view.MyRecyclerView
+    <com.xianglian.love.view.MyRecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -13,6 +13,6 @@
         app:errorView="@layout/error"
         app:loadingView="@layout/loading">
 
-    </com.wl.lianba.view.MyRecyclerView>
+    </com.xianglian.love.view.MyRecyclerView>
 
 </RelativeLayout>
