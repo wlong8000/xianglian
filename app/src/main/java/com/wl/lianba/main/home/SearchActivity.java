@@ -1,16 +1,20 @@
 package com.wl.lianba.main.home;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.bigkoo.pickerview.OptionsPickerView;
+import com.bigkoo.pickerview.TimePickerView;
+import com.bigkoo.pickerview.listener.CustomListener;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.wl.lianba.R;
-import com.wl.lianba.dialog.FirstChooseDialog;
 import com.wl.lianba.dialog.LocationSettingDialog;
 import com.wl.lianba.user.BaseUserInfoActivity;
 import com.wl.lianba.user.adapter.UserInfoEditAdapter;
@@ -20,8 +24,12 @@ import com.wl.lianba.utils.CommonLinearLayoutManager;
 import com.wl.lianba.utils.UserUtils;
 
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -31,9 +39,8 @@ import butterknife.InjectView;
  * Created by wl on 2017/8/4.
  * 条件筛选
  */
-public class SearchActivity extends BaseUserInfoActivity implements BaseQuickAdapter.OnItemClickListener,View.OnClickListener {
-
-
+public class SearchActivity extends BaseUserInfoActivity implements
+        BaseQuickAdapter.OnItemClickListener, View.OnClickListener {
     @InjectView(R.id.recycler_view)
     RecyclerView mRecyclerView;
 
@@ -49,7 +56,11 @@ public class SearchActivity extends BaseUserInfoActivity implements BaseQuickAda
 
     private ItemInfo mEntity;
 
+    private TimePickerView mPvTime;
+
     private int mType = -1;
+
+    private OptionsPickerView pvCustomOptions;
 
     private List<ItemInfo> mItemInfo = new ArrayList<>();
 
@@ -63,44 +74,76 @@ public class SearchActivity extends BaseUserInfoActivity implements BaseQuickAda
         initView();
         mSaveView.setOnClickListener(this);
         mResetView.setOnClickListener(this);
+        initTimePicker();
+        initCustomOptionPicker();
     }
 
-
-    /**
-     * 单项选择
-     *
-     */
-    private void showBottomDialog(final ItemInfo entity) {
-        if (entity == null || entity.getItems() == null) return;
-        FirstChooseDialog dialog = new FirstChooseDialog(this, entity.getItems()) {
+    private void initCustomOptionPicker() {//条件选择器初始化，自定义布局
+        pvCustomOptions = new OptionsPickerView.Builder(this, new OptionsPickerView.OnOptionsSelectListener() {
             @Override
-            public void onConfirm(String data) {
-                entity.setRightText(data);
-                mAdapter.notifyDataSetChanged();
-                saveDate(data);
+            public void onOptionsSelect(int options1, int option2, int options3, View v) {
             }
-        };
-        dialog.show();
+        }).setLayoutRes(R.layout.pickerview_custom_options, new CustomListener() {
+            @Override
+            public void customLayout(View v) {
+                final Button tvSubmit = (Button) v.findViewById(R.id.tv_finish);
+                Button ivCancel = (Button) v.findViewById(R.id.iv_cancel);
+                tvSubmit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        pvCustomOptions.dismiss();
+                    }
+                });
+                ivCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                    pvCustomOptions.dismiss();
+                    }
+                });
+            }
+        })
+                .isDialog(true)
+                .build();
+
     }
 
-    /**
-     * 时间选择
-     */
-    private void showDateDialog(final ItemInfo entity) {
-//        Util.alertTimerPicker(this, TimePickerView.Type.YEAR_MONTH_DAY, "yyyy-MM-dd", new Util.TimerPickerCallBack() {
-//            @Override
-//            public void onTimeSelect(String date) {
-//                if (TextUtils.isEmpty(date)) return;
-//                entity.setRightText(date);
-//                mAdapter.notifyDataSetChanged();
-//                saveDate(date);
-//            }
-//        });
+    private void initTimePicker() {
+        Calendar selectedDate = Calendar.getInstance();
+        Calendar startDate = Calendar.getInstance();
+        startDate.set(1950, 0, 23);
+        Calendar endDate = Calendar.getInstance();
+        endDate.set(2020, 11, 28);
+        //时间选择器
+        mPvTime = new TimePickerView.Builder(this, new TimePickerView.OnTimeSelectListener() {
+            @Override
+            public void onTimeSelect(Date date, View v) {//选中事件回调
+                if (date == null) return;
+                mEntity.setRightText(getTime(date));
+                mAdapter.notifyDataSetChanged();
+                saveDate(getTime(date));
+
+            }
+        })
+                //年月日时分秒 的显示与否，不设置则默认全部显示
+                .setType(new boolean[]{true, true, true, false, false, false})
+                .setLabel("", "", "", "", "", "")
+                .isCenterLabel(false)
+                .setDividerColor(Color.DKGRAY)
+                .setContentSize(21)
+                .setDate(selectedDate)
+                .setRangDate(startDate, endDate)
+                .setBackgroundId(0x00FFFFFF) //设置外部遮罩颜色
+                .setDecorView(null)
+                .build();
+    }
+
+    private String getTime(Date date) {//可根据需要自行截取数据显示
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        return format.format(date);
     }
 
     /**
      * 多项选择
-     *
      */
     private void showOptions(final ItemInfo entity) {
         LocationSettingDialog dialog = new LocationSettingDialog(this,
@@ -213,7 +256,7 @@ public class SearchActivity extends BaseUserInfoActivity implements BaseQuickAda
         data.add(getInfo(getString(R.string.home_town), ItemInfo.Type.HOMETOWN, null));
 
         //学历
-        data.add(getInfo(getString(R.string.education), ItemInfo.Type.EDUCATION, UserUtils.getEduData()));
+        data.add(getInfo(getString(R.string.education), ItemInfo.Type.EDUCATION, UserUtils.getEduData(this)));
 
         //收入
         data.add(getInfo(getString(R.string.income), ItemInfo.Type.INCOME, UserUtils.getComingData()));
@@ -227,7 +270,7 @@ public class SearchActivity extends BaseUserInfoActivity implements BaseQuickAda
     }
 
     /**
-     * @param type      0默认 1：带5dp的分割线
+     * @param type 0默认 1：带5dp的分割线
      */
     public ItemInfo getInfo(String text, String rightText, int type, ArrayList<String> list) {
         if (TextUtils.isEmpty(rightText))
@@ -248,8 +291,11 @@ public class SearchActivity extends BaseUserInfoActivity implements BaseQuickAda
         mType = mEntity.getType();
         if (ItemInfo.ViewType.PICK_SELECT == mEntity.getViewType()) {
             switch (mType) {
+                case ItemInfo.Type.AGE: {
+                    break;
+                }
                 case ItemInfo.Type.BIRTHDAY: {
-                    showDateDialog(mEntity);
+                    mPvTime.show();
                     break;
                 }
                 case ItemInfo.Type.HOMETOWN:
@@ -261,7 +307,8 @@ public class SearchActivity extends BaseUserInfoActivity implements BaseQuickAda
                 case ItemInfo.Type.EDUCATION:
                 case ItemInfo.Type.PROFESSION:
                 case ItemInfo.Type.HEIGHT: {
-                    showBottomDialog(mEntity);
+                    pvCustomOptions.setPicker(mEntity.getItems());//添加数据
+                    pvCustomOptions.show();
                     break;
                 }
             }

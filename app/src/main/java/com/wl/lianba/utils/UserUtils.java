@@ -1,8 +1,13 @@
 package com.wl.lianba.utils;
 
 import android.content.Context;
+import android.content.res.Resources;
+
+import com.wl.lianba.R;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by wanglong on 17/3/30.
@@ -20,17 +25,9 @@ public class UserUtils {
     }
 
 
-    public static ArrayList<String> getEduData() {
-        ArrayList<String> data = new ArrayList<>();
-        data.add("自幼立志不上学");
-        data.add("小学");
-        data.add("初中");
-        data.add("高中");
-        data.add("大专");
-        data.add("本科");
-        data.add("研究生");
-        data.add("博士");
-        return data;
+    public static ArrayList<String> getEduData(Context context) {
+        Resources res =context.getResources();
+        return new ArrayList<>(Arrays.asList(res.getStringArray(R.array.edu)));
     }
 
     public static ArrayList<String> getComingData() {

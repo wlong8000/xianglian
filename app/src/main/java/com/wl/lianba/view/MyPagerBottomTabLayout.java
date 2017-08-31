@@ -5,13 +5,13 @@ import android.util.AttributeSet;
 
 import com.wl.lianba.utils.AppUtils;
 
-import me.majiajie.pagerbottomtabstrip.PagerBottomTabLayout;
+import me.majiajie.pagerbottomtabstrip.PageNavigationView;
 
 /**
  * Created by wanglong on 17/3/12.
  */
 
-public class MyPagerBottomTabLayout extends PagerBottomTabLayout {
+public class MyPagerBottomTabLayout extends PageNavigationView {
     private Context mContext;
 
     public MyPagerBottomTabLayout(Context context) {

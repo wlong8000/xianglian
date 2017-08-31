@@ -358,8 +358,15 @@ public class AppUtils {
 		return null;
 	}
 
+	public static String getUserId(Context context) {
+		OwnerEntity entity = getOwnerInfo(context);
+		if (entity != null && entity.getResult() != null && entity.getResult().getUser_info() != null) {
+			return entity.getResult().getUser_info().getUid();
+		}
+		return null;
+	}
+
 	public static String getToken(Context context) {
-//		if (Config.TOKEN != null) return Config.TOKEN;
 		OwnerEntity entity = getOwnerInfo(context);
 		if (entity != null && entity.getResult() != null) {
 			Config.TOKEN = "JWT " + entity.getResult().getToken();

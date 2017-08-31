@@ -221,4 +221,13 @@
         <item>自由职业</item>
     </string-array>
 
+    <string-array name="edu">
+        <item>初中</item>
+        <item>高中</item>
+        <item>大专</item>
+        <item>本科</item>
+        <item>研究生</item>
+        <item>博士</item>
+    </string-array>
+
 </resources>

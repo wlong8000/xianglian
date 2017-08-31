@@ -187,7 +187,7 @@ public class MyInfoFragment extends BaseListFragment implements OnClickListener{
         data.add(getInfo(getString(R.string.height), ItemInfo.MyInfoType.HEIGHT, UserUtils.getHighData()));
 
         //学历
-        data.add(getInfo(getString(R.string.education), ItemInfo.MyInfoType.EDUCATION, UserUtils.getEduData()));
+        data.add(getInfo(getString(R.string.education), ItemInfo.MyInfoType.EDUCATION, UserUtils.getEduData(getContext())));
 
         //职业
         data.add(getInfo(getString(R.string.profession), ItemInfo.MyInfoType.PROFESSION, UserUtils.getProfessionData()));

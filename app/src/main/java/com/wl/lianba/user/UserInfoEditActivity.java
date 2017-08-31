@@ -348,7 +348,7 @@ public class UserInfoEditActivity extends BaseUserInfoActivity implements View.O
         data.add(getInfo(getString(R.string.height), ItemInfo.Type.HEIGHT, UserUtils.getHighData()));
 
         //学历
-        data.add(getInfo(getString(R.string.education), ItemInfo.Type.EDUCATION, UserUtils.getEduData()));
+        data.add(getInfo(getString(R.string.education), ItemInfo.Type.EDUCATION, UserUtils.getEduData(this)));
 
         //职业
         data.add(getInfo(getString(R.string.profession), ItemInfo.Type.PROFESSION, UserUtils.getProfessionData()));

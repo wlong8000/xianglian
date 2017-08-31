@@ -1,6 +1,7 @@
 package com.wl.lianba;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,24 +13,26 @@ import com.wl.lianba.main.home.SearchActivity;
 import com.wl.lianba.main.me.BaseMeFragment;
 import com.wl.lianba.main.meet.BaseMeetFragment;
 import com.wl.lianba.main.special.BaseSpecialFragment;
-import com.wl.lianba.view.MyPagerBottomTabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import me.majiajie.pagerbottomtabstrip.Controller;
-import me.majiajie.pagerbottomtabstrip.listener.OnTabItemSelectListener;
+import me.majiajie.pagerbottomtabstrip.NavigationController;
+import me.majiajie.pagerbottomtabstrip.PageNavigationView;
+import me.majiajie.pagerbottomtabstrip.item.BaseTabItem;
+import me.majiajie.pagerbottomtabstrip.item.NormalItemView;
+import me.majiajie.pagerbottomtabstrip.listener.OnTabItemSelectedListener;
 
 public class MainActivity extends BaseFragmentActivity {
     private ViewPager mViewPager;
 
-    private MyPagerBottomTabLayout mBottomTabLayout;
+    private PageNavigationView mBottomTabLayout;
 
     private List<Fragment> mFragments;
 
     private MainAdapter mAdapter;
 
-    private Controller controller;
+    private NavigationController navigationController;
 
     private long exitTime = 0;
 
@@ -40,7 +43,7 @@ public class MainActivity extends BaseFragmentActivity {
 
         setupTitle(getString(R.string.meet_you), R.drawable.btn_menu_normal);
         mViewPager = (ViewPager) findViewById(R.id.vp_container);
-        mBottomTabLayout = (MyPagerBottomTabLayout) findViewById(R.id.tab);
+        mBottomTabLayout = (PageNavigationView) findViewById(R.id.tab);
 
         initFragment();
         initTabs();
@@ -49,24 +52,33 @@ public class MainActivity extends BaseFragmentActivity {
     }
 
     private void initTabs() {
-        controller = mBottomTabLayout.builder()
-                .addTabItem(R.drawable.main_home_selected, getResources().getString(R.string.main_home))
-                .addTabItem(R.drawable.main_specal_selected, getResources().getString(R.string.main_special))
-                .addTabItem(R.drawable.main_meet_selected, getResources().getString(R.string.main_meet))
-                .addTabItem(R.drawable.main_me_selected, getResources().getString(R.string.main_my))
+        navigationController = mBottomTabLayout.custom()
+                .addItem(newItem(R.drawable.main_home, R.drawable.main_home_selected, getResources().getString(R.string.main_home)))
+                .addItem(newItem(R.drawable.main_specal, R.drawable.main_specal_selected, getResources().getString(R.string.main_special)))
+                .addItem(newItem(R.drawable.main_meet, R.drawable.main_meet_selected, getResources().getString(R.string.main_meet)))
+                .addItem(newItem(R.drawable.main_me, R.drawable.main_me_selected, getResources().getString(R.string.main_my)))
                 .build();
 
-        controller.addTabItemClickListener(new OnTabItemSelectListener() {
+        navigationController.addTabItemSelectedListener(new OnTabItemSelectedListener() {
             @Override
-            public void onSelected(int index, Object tag) {
+            public void onSelected(int index, int old) {
                 mViewPager.setCurrentItem(index, false);
             }
 
             @Override
-            public void onRepeatClick(int index, Object tag) {
+            public void onRepeat(int index) {
 
             }
         });
+    }
+
+    //创建一个Item
+    private BaseTabItem newItem(int drawable, int checkedDrawable, String text){
+        NormalItemView normalItemView = new NormalItemView(this);
+        normalItemView.initialize(drawable,checkedDrawable,text);
+        normalItemView.setTextDefaultColor(Color.parseColor("#4C4C4C"));
+        normalItemView.setTextCheckedColor(Color.parseColor("#FF2A44"));
+        return normalItemView;
     }
 
     private void initFragment() {
@@ -79,7 +91,7 @@ public class MainActivity extends BaseFragmentActivity {
             @Override
             public void onPageSelected(int position) {
                 //viewpager滑动时改变bab选择
-                controller.setSelect(position);
+                navigationController.setSelect(position);
             }
 
             @Override

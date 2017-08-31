@@ -16,26 +16,22 @@ import com.wl.lianba.wheel.widget.WheelView;
 
 import java.util.List;
 
-
-/**
- * Created by akira on 2015/1/29.
- */
 public abstract class LocationSettingDialog extends BaseDialog implements View.OnClickListener {
 
     private WheelView mProvince;
 
     private WheelView mCity;
 
-    private List<RegionGsonModel> data;
+    private List<RegionGsonModel> mData;
 
-    private ProvinceAdapter provinceAdapter;
+    private ProvinceAdapter mProvinceAdapter;
 
-    private CityAdapter cityAdapter;
+    private CityAdapter mCityAdapter;
 
     private OnWheelChangedListener onWheelChangedListener = new OnWheelChangedListener() {
         @Override
         public void onChanged(WheelView wheel, int oldValue, int newValue) {
-            cityAdapter.setData(data.get(newValue).list);
+            mCityAdapter.setData(mData.get(newValue).list);
             mCity.invalidateWheel(true);
             mCity.setCurrentItem(0, true);
         }
@@ -43,7 +39,7 @@ public abstract class LocationSettingDialog extends BaseDialog implements View.O
 
     public LocationSettingDialog(Context context, List<RegionGsonModel> data) {
         super(context);
-        this.data = data;
+        this.mData = data;
     }
 
     @Override
@@ -54,11 +50,11 @@ public abstract class LocationSettingDialog extends BaseDialog implements View.O
         mCity = (WheelView) findViewById(R.id.city);
         findViewById(R.id.cancel).setOnClickListener(this);
         findViewById(R.id.confirm).setOnClickListener(this);
-        provinceAdapter = new ProvinceAdapter(getContext(), data);
-        cityAdapter = new CityAdapter(getContext(), data.get(0).list);
+        mProvinceAdapter = new ProvinceAdapter(getContext(), mData);
+        mCityAdapter = new CityAdapter(getContext(), mData.get(0).list);
 
-        mProvince.setViewAdapter(provinceAdapter);
-        mCity.setViewAdapter(cityAdapter);
+        mProvince.setViewAdapter(mProvinceAdapter);
+        mCity.setViewAdapter(mCityAdapter);
 
         mProvince.setVisibleItems(5);
         mCity.setVisibleItems(5);
@@ -70,11 +66,11 @@ public abstract class LocationSettingDialog extends BaseDialog implements View.O
             public void run() {
                 int position = AppSharePreferences.getRegionPosition(getContext());
                 if (position > 0) {
-                    for (int i = 0, j = data.size(); i < j; i++) {
-                        for (int a = 0, b = data.get(i).list.size(); a < b; a++) {
-                            if (data.get(i).list.get(a).id == position) {
+                    for (int i = 0, j = mData.size(); i < j; i++) {
+                        for (int a = 0, b = mData.get(i).list.size(); a < b; a++) {
+                            if (mData.get(i).list.get(a).id == position) {
                                 mProvince.setCurrentItem(i, true);
-                                cityAdapter.setData(data.get(i).list);
+                                mCityAdapter.setData(mData.get(i).list);
                                 mCity.setCurrentItem(a, true);
                             }
                         }
@@ -89,7 +85,7 @@ public abstract class LocationSettingDialog extends BaseDialog implements View.O
         switch (v.getId()) {
             case R.id.confirm:
                 cancel();
-                RegionGsonModel model = data.get(mProvince.getCurrentItem());
+                RegionGsonModel model = mData.get(mProvince.getCurrentItem());
                 String region = model.province + " " + model.list.get(mCity.getCurrentItem()).city;
                 onConfirm(region, model.list.get(mCity.getCurrentItem()).id);
                 break;

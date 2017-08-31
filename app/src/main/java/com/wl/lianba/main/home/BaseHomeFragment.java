@@ -23,6 +23,7 @@ import com.wl.lianba.config.Config;
 import com.wl.lianba.main.home.adapter.HomeAdapter;
 import com.wl.lianba.main.home.been.UserDetailEntity;
 import com.wl.lianba.main.home.been.UserEntity;
+import com.wl.lianba.user.been.OwnerEntity;
 import com.wl.lianba.utils.AppSharePreferences;
 import com.wl.lianba.utils.AppUtils;
 
@@ -80,7 +81,13 @@ public class BaseHomeFragment extends BaseListFragment implements BaseQuickAdapt
     }
 
     private void doRequest(final boolean refresh) {
-        final String url = Config.PATH + "user/persons";
+        String userId = AppUtils.getUserId(getContext());
+        String url;
+        if (!TextUtils.isEmpty(userId)) {
+            url = Config.PATH + "user/persons?uid=" + userId;
+        } else {
+            url = Config.PATH + "user/persons";
+        }
         Map<String, String> params = new HashMap<>();
         OkHttpUtil.getDefault(this).doGetAsync(
                 HttpInfo.Builder().setUrl(url).addHeads(getHeader()).addParams(params).build(),
