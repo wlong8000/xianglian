@@ -15,7 +15,7 @@
         android:id="@+id/crop_aspect_ratio_1_1"
         style="@style/ucrop_WrapperIconState">
 
-        <com.wl.lianba.library.ucrop.view.widget.AspectRatioTextView
+        <com.xianglian.love.library.ucrop.view.widget.AspectRatioTextView
             style="@style/ucrop_TextViewCropAspectRatio"
             app:ucrop_artv_ratio_x="1"
             app:ucrop_artv_ratio_y="1"/>
@@ -26,7 +26,7 @@
         android:id="@+id/crop_aspect_ratio_3_4"
         style="@style/ucrop_WrapperIconState">
 
-        <com.wl.lianba.library.ucrop.view.widget.AspectRatioTextView
+        <com.xianglian.love.library.ucrop.view.widget.AspectRatioTextView
             style="@style/ucrop_TextViewCropAspectRatio"
             app:ucrop_artv_ratio_x="4"
             app:ucrop_artv_ratio_y="3"/>
@@ -37,7 +37,7 @@
         android:id="@+id/crop_aspect_ratio_original"
         style="@style/ucrop_WrapperIconState">
 
-        <com.wl.lianba.library.ucrop.view.widget.AspectRatioTextView
+        <com.xianglian.love.library.ucrop.view.widget.AspectRatioTextView
             style="@style/ucrop_TextViewCropAspectRatio"
             android:textAllCaps="true"
             app:ucrop_artv_ratio_title="@string/ucrop_label_original"/>
@@ -48,7 +48,7 @@
         android:id="@+id/crop_aspect_ratio_3_2"
         style="@style/ucrop_WrapperIconState">
 
-        <com.wl.lianba.library.ucrop.view.widget.AspectRatioTextView
+        <com.xianglian.love.library.ucrop.view.widget.AspectRatioTextView
             style="@style/ucrop_TextViewCropAspectRatio"
             app:ucrop_artv_ratio_x="3"
             app:ucrop_artv_ratio_y="2"/>
@@ -59,7 +59,7 @@
         android:id="@+id/crop_aspect_ratio_16_9"
         style="@style/ucrop_WrapperIconState">
 
-        <com.wl.lianba.library.ucrop.view.widget.AspectRatioTextView
+        <com.xianglian.love.library.ucrop.view.widget.AspectRatioTextView
             style="@style/ucrop_TextViewCropAspectRatio"
             app:ucrop_artv_ratio_x="16"
             app:ucrop_artv_ratio_y="9"/>

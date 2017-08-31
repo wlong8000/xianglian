@@ -39,7 +39,7 @@
         android:layout_marginRight="12dp"
         android:visibility="gone" />
 
-    <com.wl.lianba.view.FavoriteView
+    <com.xianglian.love.view.FavoriteView
         android:id="@+id/favorite_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

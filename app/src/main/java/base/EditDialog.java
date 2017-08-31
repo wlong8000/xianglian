@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
-import com.wl.lianba.R;
+import com.xianglian.love.R;
 
 /**
  * Created by wanglong on 17/8/20.

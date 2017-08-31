@@ -16,7 +16,7 @@
     </LinearLayout>
 
 
- 	<com.wl.lianba.widght.ClipImageLayout
+ 	<com.xianglian.love.widght.ClipImageLayout
         android:id="@+id/id_clipImageLayout"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"

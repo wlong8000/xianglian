@@ -4,15 +4,12 @@
     <!-- Application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
 
-        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
         <item name="colorPrimary">@color/lib_color_font8</item>
         <item name="colorPrimaryDark">@color/lib_color_font8</item>
         <item name="colorAccent">@color/lib_color_font8</item>
 
-        <!--<item name="android:windowAnimationStyle">@style/AnimationActivity</item>-->
-        <!--<item name="android:windowNoTitle">true</item>-->
-        <!--<item name="android:windowBackground">@color/share_bg</item>-->
-        <!--<item name="android:windowIsTranslucent">true</item>-->
+        <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
+        <item name="android:windowIsTranslucent">true</item>
     </style>
 
     <style name="AnimationActivity" mce_bogus="1" parent="@android:style/Animation.Activity">

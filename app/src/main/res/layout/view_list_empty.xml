@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.wl.lianba.view.EmptyView
+<com.xianglian.love.view.EmptyView
     android:id="@+id/view_list_empty_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -16,7 +16,7 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <com.wl.lianba.view.ProgressImageView
+        <com.xianglian.love.view.ProgressImageView
             android:id="@+id/view_list_empty_progress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -52,4 +52,4 @@
         android:layout_weight="1"
         android:visibility="gone"/>
 
-</com.wl.lianba.view.EmptyView>
+</com.xianglian.love.view.EmptyView>

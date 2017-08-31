@@ -9,7 +9,7 @@
     android:padding="10dp"
     >
 
-    <com.wl.lianba.view.WheelView
+    <com.xianglian.love.view.WheelView
         android:id="@+id/province_wv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -25,7 +25,7 @@
         app:normalTextColor="@android:color/holo_orange_dark"
         app:selectedTextColor="@android:color/holo_purple"/>
 
-    <com.wl.lianba.view.WheelView
+    <com.xianglian.love.view.WheelView
         android:id="@+id/city_wv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

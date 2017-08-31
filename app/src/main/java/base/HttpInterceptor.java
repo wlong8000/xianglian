@@ -2,7 +2,7 @@ package base;
 import com.okhttplib.HttpInfo;
 import com.okhttplib.interceptor.ExceptionInterceptor;
 import com.okhttplib.interceptor.ResultInterceptor;
-import com.wl.lianba.utils.Trace;
+import com.xianglian.love.utils.Trace;
 
 import org.json.JSONArray;
 import org.json.JSONException;

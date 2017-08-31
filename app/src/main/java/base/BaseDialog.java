@@ -6,7 +6,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.WindowManager;
 
-import com.wl.lianba.R;
+import com.xianglian.love.R;
 
 public class BaseDialog extends Dialog {
     public BaseDialog(Context context) {

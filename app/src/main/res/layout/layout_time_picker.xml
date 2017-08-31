@@ -8,7 +8,7 @@
     android:orientation="horizontal"
     >
 
-    <com.wl.lianba.view.WheelView
+    <com.xianglian.love.view.WheelView
         android:id="@+id/year"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="5dp"
@@ -34,7 +34,7 @@
         android:textSize="13sp"
         />-->
 
-    <com.wl.lianba.view.WheelView
+    <com.xianglian.love.view.WheelView
         android:id="@+id/month"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="5dp"
@@ -60,7 +60,7 @@
         android:textSize="13sp"
         />-->
 
-    <com.wl.lianba.view.WheelView
+    <com.xianglian.love.view.WheelView
         android:id="@+id/day"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"

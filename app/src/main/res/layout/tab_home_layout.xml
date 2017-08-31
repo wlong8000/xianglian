@@ -17,7 +17,7 @@
         android:layout_height="wrap_content">
 
 
-        <com.wl.lianba.multirecyclerview.MultiRecyclerView
+        <com.xianglian.love.multirecyclerview.MultiRecyclerView
             android:layout_width="match_parent"
             android:id="@+id/recycler_view"
             app:emptyView="@layout/empty"
@@ -26,7 +26,7 @@
             android:layout_height="match_parent">
 
 
-        </com.wl.lianba.multirecyclerview.MultiRecyclerView>
+        </com.xianglian.love.multirecyclerview.MultiRecyclerView>
     </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>

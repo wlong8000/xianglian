@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.wl.lianba.view.Banner xmlns:android="http://schemas.android.com/apk/res/android"
+<com.xianglian.love.view.Banner xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/banner"
     android:background="@color/base"
     android:layout_width="match_parent"

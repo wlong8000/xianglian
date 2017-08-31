@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1">
 
-            <com.wl.lianba.wheel.widget.WheelView
+            <com.xianglian.love.wheel.widget.WheelView
                 android:id="@+id/province"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1">
 
-            <com.wl.lianba.wheel.widget.WheelView
+            <com.xianglian.love.wheel.widget.WheelView
                 android:id="@+id/city"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />

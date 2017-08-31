@@ -41,7 +41,7 @@
                             android:layout_centerHorizontal="true"
                             android:src="@drawable/default_image"
                             android:layout_marginTop="22dp"/>
-                        <com.wl.lianba.utils.RoundImage
+                        <com.xianglian.love.utils.RoundImage
                             android:id="@+id/set_photo_round_image"
                             android:layout_width="80dp"
                             android:layout_height="80dp"
@@ -497,27 +497,27 @@
                     </RelativeLayout>
 
                 </RelativeLayout>
-                <com.wl.lianba.widght.TimePickerLayout
+                <com.xianglian.love.widght.TimePickerLayout
                     android:id="@+id/time_picker_three_select"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:visibility="gone"/>
-                <com.wl.lianba.widght.CityPickerLayout
+                <com.xianglian.love.widght.CityPickerLayout
                     android:id="@+id/city_picker_two_select"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:visibility="gone"/>
-                <com.wl.lianba.widght.WorkPickerLayout
+                <com.xianglian.love.widght.WorkPickerLayout
                     android:id="@+id/work_picker_two_select"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:visibility="gone"/>
-                <com.wl.lianba.view.WheelView
+                <com.xianglian.love.view.WheelView
                     android:id="@+id/wheelView_one_select"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

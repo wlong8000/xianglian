@@ -4,9 +4,9 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.wl.lianba.SplashActivity">
+    tools:context="com.xianglian.love.SplashActivity">
 
-    <com.wl.lianba.when_page.PageFrameLayout
+    <com.xianglian.love.when_page.PageFrameLayout
         android:id="@+id/contentFrameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.wl.lianba.wheel.widget.WheelView
+            <com.xianglian.love.wheel.widget.WheelView
                 android:id="@+id/wheel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
