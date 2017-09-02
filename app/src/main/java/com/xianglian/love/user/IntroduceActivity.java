@@ -6,9 +6,18 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.EditText;
 
+import com.okhttplib.HttpInfo;
+import com.okhttplib.OkHttpUtil;
+import com.okhttplib.callback.Callback;
 import com.xianglian.love.R;
 import com.xianglian.love.config.Config;
-import com.xianglian.love.view.ProgressDialog;
+import com.xianglian.love.utils.AppUtils;
+
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -17,8 +26,6 @@ import com.xianglian.love.view.ProgressDialog;
 public class IntroduceActivity extends BaseUserInfoActivity {
 
     private EditText mIntroduceView;
-
-    private ProgressDialog mDialog;
 
     //个人介绍
     public static final int INTRODUCE = 0;
@@ -43,10 +50,10 @@ public class IntroduceActivity extends BaseUserInfoActivity {
         String content = null;
         if (INTRODUCE == mType) {
             setupTitle(getString(R.string.my_introduce), getString(R.string.save));
-//            content = AppUtils.getIntroduce(this);
+            content = AppUtils.getIntroduce(this);
         } else if (EXPERIENCE == mType) {
             setupTitle(getString(R.string.experience_love), getString(R.string.save));
-//            content = AppUtils.getExperience(this);
+            content = AppUtils.getExperience(this);
         }
         if (!TextUtils.isEmpty(content)) {
             mIntroduceView.setText(content);
@@ -68,44 +75,67 @@ public class IntroduceActivity extends BaseUserInfoActivity {
 
     private void updateContent(final String content) {
         if (TextUtils.isEmpty(content)) return;
+        doRequest(content);
+    }
+
+    private void doRequest(final String input) {
         dialogShow();
-
-        if (INTRODUCE == mType) {
-            mPersonInfo.setIntroduce(content);
-        } else if (EXPERIENCE == mType) {
-            mPersonInfo.setExperience(content);
+        final String url = Config.PATH + "user/set/basic-info";
+        Map<String, String> params = new HashMap<>();
+        params.put("uid", getUserId(this));
+        switch (mType) {
+            case INTRODUCE:
+                params.put("person_intro", input);
+                break;
+            case EXPERIENCE:
+                params.put("relationship_desc", input);
+                break;
         }
-//
-//        mPersonInfo.update(AppUtils.getObjectId(this), new UpdateListener() {
-//            @Override
-//            public void done(BmobException e) {
-//                dialogDisMiss();
-//                if (e == null) {
-//                    showToast(R.string.save_success);
-//                    ACache.get(IntroduceActivity.this).put(Config.SAVE_USER_KEY, mPersonInfo);
-//                    Intent intent = new Intent();
-//                    intent.putExtra(Config.INTRODUCE_RESULT_KEY, content);
-//                    setResult(RESULT_OK, intent);
-//                    finish();
-//                } else {
-//                    showToast(R.string.save_fail);
-//                }
-//            }
-//        });
+        OkHttpUtil.getDefault(this).doPostAsync(
+                HttpInfo.Builder().setUrl(url).addHeads(getHeader()).addParams(params).build(),
+                new Callback() {
+                    @Override
+                    public void onFailure(HttpInfo info) throws IOException {
+                        dialogDisMiss();
+                        toast(getString(R.string.request_fail));
+                    }
+
+                    @Override
+                    public void onSuccess(HttpInfo info) throws IOException {
+                        dialogDisMiss();
+                        String result = info.getRetDetail();
+                        if (result != null) {
+                            try {
+                                JSONObject obj = new JSONObject(result);
+                                String msg = obj.getString("msg");
+                                int code = obj.getInt("code");
+                                if (!TextUtils.isEmpty(msg)) {
+                                    showToast(msg);
+                                }
+                                if (code == 0) {
+                                    updateUserInfo(input);
+                                    Intent intent = new Intent();
+                                    intent.putExtra(Config.INTRODUCE_RESULT_KEY, input);
+                                    setResult(RESULT_OK, intent);
+                                    finish();
+                                }
+
+                            } catch (org.json.JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                });
     }
 
-    public void dialogShow() {
-        if (mDialog == null) {
-            mDialog = new ProgressDialog(this);
-            mDialog.setCanceledOnTouchOutside(false);
+    private void updateUserInfo(String input) {
+        switch (mType) {
+            case INTRODUCE:
+                AppUtils.parseData(this, "person_intro", input);
+                break;
+            case EXPERIENCE:
+                AppUtils.parseData(this, "relationship_desc", input);
+                break;
         }
-
-        if (!mDialog.isShowing())
-            mDialog.show();
-    }
-
-    public void dialogDisMiss() {
-        if (mDialog != null)
-            mDialog.dismiss();
     }
 }

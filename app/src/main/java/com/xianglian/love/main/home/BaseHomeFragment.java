@@ -40,7 +40,8 @@ import java.util.Map;
  * 首页
  */
 
-public class BaseHomeFragment extends BaseListFragment implements BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemChildClickListener {
+public class BaseHomeFragment extends BaseListFragment implements BaseQuickAdapter.OnItemClickListener,
+        BaseQuickAdapter.OnItemChildClickListener {
 
     private HomeAdapter mAdapter;
 
@@ -105,6 +106,11 @@ public class BaseHomeFragment extends BaseListFragment implements BaseQuickAdapt
                             try {
                                 UserEntity userEntity = JSON.parseObject(result, UserEntity.class);
                                 if (userEntity == null) return;
+                                if (userEntity.getResult().getTotal() <= 0) {
+                                    mAdapter.setNewData(null);
+                                    mAdapter.setEmptyView(emptyView);
+                                    return;
+                                }
                                 if (userEntity.getResult() == null) return;
                                 List<UserEntity> userEntities = userEntity.getResult().getPerson_list();
                                 dealItemData(userEntities, refresh);

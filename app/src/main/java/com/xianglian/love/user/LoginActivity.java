@@ -50,6 +50,10 @@ public class LoginActivity extends BaseLoginActivity implements OnClickListener 
         return intent;
     }
 
+    public static Intent getIntent(Context context) {
+        return new Intent(context, LoginActivity.class);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

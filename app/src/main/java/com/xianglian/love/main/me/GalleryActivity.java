@@ -31,7 +31,7 @@ public class GalleryActivity extends BaseUserInfoActivity implements AlumView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
         setupCommonTitle(getString(R.string.my_album));
-        mMaxPicCount = mMaxPicCount - mPersonInfo.getAlbum().size();
+//        mMaxPicCount = mMaxPicCount - mPersonInfo.getAlbum().size();
         setupViews();
     }
 
@@ -102,13 +102,13 @@ public class GalleryActivity extends BaseUserInfoActivity implements AlumView.On
                     .spanCount(3)
                     .pickMode(chose_mode).build();
         } else {
-            List<PhotoInfo> data = mPersonInfo.getAlbum();
-            if (data == null) return;
-            String[] arr = new String[data.size()];
-            for (int i = 0; i < data.size(); i++) {
-                arr[i] = data.get(i).getPhoto_url();
-            }
-            ShowPicActivity.showPictures(GalleryActivity.this, arr, position - 1);
+//            List<PhotoInfo> data = mPersonInfo.getAlbum();
+//            if (data == null) return;
+//            String[] arr = new String[data.size()];
+//            for (int i = 0; i < data.size(); i++) {
+//                arr[i] = data.get(i).getPhoto_url();
+//            }
+//            ShowPicActivity.showPictures(GalleryActivity.this, arr, position - 1);
         }
     }
 
@@ -157,7 +157,7 @@ public class GalleryActivity extends BaseUserInfoActivity implements AlumView.On
             photo.setPhoto_url(url);
             list.add(photo);
         }
-        mPersonInfo.getAlbum().addAll(list);
+//        mPersonInfo.getAlbum().addAll(list);
 //        mPersonInfo.update(id, new UpdateListener() {
 //            @Override
 //            public void done(BmobException e) {

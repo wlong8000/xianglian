@@ -3,146 +3,110 @@ package com.xianglian.love.main.me;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
-
-
-import com.xianglian.love.BaseActivity;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.xianglian.love.BaseEditUserInfoActivity;
 import com.xianglian.love.R;
 import com.xianglian.love.dialog.EditDialog;
-import com.xianglian.love.dialog.FirstChooseDialog;
-import com.xianglian.love.dialog.LocationSettingDialog;
-import com.xianglian.love.main.home.been.PersonInfo;
-import com.xianglian.love.main.me.adapter.MyInfoAdapter;
+import com.xianglian.love.main.home.been.UserDetailEntity;
+import com.xianglian.love.user.LoginActivity;
+import com.xianglian.love.user.adapter.UserInfoEditAdapter;
 import com.xianglian.love.user.been.ItemInfo;
 import com.xianglian.love.utils.AppUtils;
-import com.xianglian.love.utils.CommonLinearLayoutManager;
-import com.xianglian.love.view.MyRecyclerView;
-
+import com.xianglian.love.utils.UserUtils;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
  * 基本资料&择偶要求
  */
-public class BaseInfoActivity extends BaseActivity {
+public class BaseInfoActivity extends BaseEditUserInfoActivity implements BaseQuickAdapter.OnItemClickListener {
 
-    private CommonLinearLayoutManager mLayoutManager;
+    private UserInfoEditAdapter mAdapter;
 
-    private MyRecyclerView mRecyclerView;
-
-    private List<PersonInfo> mEntities;
-
-    private MyInfoAdapter mAdapter;
-
-    private ItemInfo mEntity;
-
-    private int mType = -1;
-
-    private PersonInfo mInfo;
-
-//    private PersonInfo getInfo() {
-//        if (mInfo == null)
-////            mInfo = AppUtils.getOwnerInfo(this);
-//        return mInfo;
-//    }
-
-
-    private View.OnClickListener mItemClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if (mEntities == null) return;
-            int position = mRecyclerView.getChildAdapterPosition(v);
-            mEntity = mAdapter.getItem(position);
-            if (mEntity == null) return;
-            mType = mEntity.getType();
-            if (ItemInfo.ViewType.PICK_SELECT == mEntity.getViewType()) {
-                switch (mType) {
-                    case ItemInfo.MyInfoType.BIRTHDAY: {
-                        showDateDialog(mEntity);
-                        break;
-                    }
-                    case ItemInfo.MyInfoType.HOMETOWN:
-                    case ItemInfo.MyInfoType.APARTMENT: {
-                        showOptions(mEntity);
-                        break;
-                    }
-                    case ItemInfo.MyInfoType.INCOME:
-                    case ItemInfo.MyInfoType.EDUCATION:
-                    case ItemInfo.MyInfoType.PROFESSION:
-                    case ItemInfo.MyInfoType.HOPE_MARRY:
-                    case ItemInfo.MyInfoType.NATION:
-                    case ItemInfo.MyInfoType.MARRY_STATE:
-                    case ItemInfo.MyInfoType.RANKING:
-                    case ItemInfo.MyInfoType.HAS_CHILD:
-                    case ItemInfo.MyInfoType.WEIGHT:
-                    case ItemInfo.MyInfoType.HEIGHT: {
-                        showBottomDialog(mEntity);
-                        break;
-                    }
-                    case ItemInfo.MyInfoType.NICK_NAME: {
-                        showEditDialog(mEntity);
-                        break;
-                    }
-                }
-            } else if (ItemInfo.ViewType.COMPLETE == mEntity.getViewType()) {
-                dialogShow();
-//                getInfo().update(AppUtils.getObjectId(BaseInfoActivity.this), new UpdateListener() {
-//                    @Override
-//                    public void done(BmobException e) {
-//                        dialogDisMiss();
-//                        if (e == null) {
-//                            toast(R.string.save_success);
-//                            ACache.get(BaseInfoActivity.this).put(Config.SAVE_USER_KEY, getInfo());
-//                            finish();
-//                        } else {
-//                            toast(R.string.save_fail);
-//                        }
-//                    }
-//                });
-            }
-
-        }
-    };
+    private List<ItemInfo> mItemInfo = new ArrayList<>();
 
     public static Intent getIntent(Context context) {
-        Intent intent = new Intent(context, BaseInfoActivity.class);
-        return intent;
+        return new Intent(context, BaseInfoActivity.class);
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_info_fragment);
         setupCommonTitle(getString(R.string.base_info));
-        init();
+        setupRecyclerView();
     }
 
-    private void init() {
-        mEntities = new ArrayList<>();
-        mAdapter = new MyInfoAdapter(this, mItemClickListener);
-        this.setupViews();
-
+    @Override
+    public void onSelectComplete(int options1, int option2, int options3, Date date, View v) {
+        String text = null;
+        UserDetailEntity entity = new UserDetailEntity();
+        switch (mEntity.getType()) {
+            case ItemInfo.MyInfoType.BIRTHDAY:
+                text = dealDate(date);
+                entity.setBirth_date(text);
+                break;
+            case ItemInfo.MyInfoType.APARTMENT:
+                text = dealRegion(options1, option2, options3, true);
+                entity.setWork_area_code(mItem.work_area_code);
+                entity.setWork_area_name(mItem.work_area_name);
+                break;
+            case ItemInfo.MyInfoType.HOMETOWN:
+                text = dealRegion(options1, option2, options3, true);
+                entity.setBorn_area_code(mItem.born_area_code);
+                entity.setBorn_area_name(mItem.born_area_name);
+                break;
+            case ItemInfo.MyInfoType.HEIGHT:
+                text = dealHeight(options1);
+                entity.setHeight(text);
+                break;
+            case ItemInfo.MyInfoType.EDUCATION:
+                text = dealEdu(options1);
+                entity.setEducation(mItem.education);
+                break;
+            case ItemInfo.MyInfoType.PROFESSION:
+                text = dealProfession(options1);
+                entity.setCareer(mItem.career);
+                break;
+            case ItemInfo.MyInfoType.INCOME:
+                text = dealIncome(options1);
+                entity.setIncome(mItem.income);
+                break;
+            case ItemInfo.MyInfoType.MARRY_STATE:
+                text = dealMarryState(options1);
+                entity.setMarriage_status(mItem.marriage_status);
+                break;
+            case ItemInfo.MyInfoType.WEIGHT:
+                text = dealWeight(options1);
+                entity.setWeight(text);
+                break;
+        }
+        if (TextUtils.isEmpty(text)) return;
+        doRequest(entity, text);
+        mEntity.setRightText(text);
+        mAdapter.notifyDataSetChanged();
     }
 
-    private void setupViews() {
-        mRecyclerView = (MyRecyclerView) findViewById(R.id.recycler_view);
-        mLayoutManager = new CommonLinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        mRecyclerView.setLayoutManager(mLayoutManager);
+    @Override
+    public void setupRecyclerView() {
+        super.setupRecyclerView();
+        mAdapter = new UserInfoEditAdapter(this, mItemInfo);
         mRecyclerView.setAdapter(mAdapter);
+        mAdapter.setOnItemClickListener(this);
         addData();
     }
 
     private void addData() {
         addDataByType(ItemInfo.ViewType.PICK_SELECT);
-
     }
 
     private void addDataByType(int type) {
         switch (type) {
             case ItemInfo.ViewType.PICK_SELECT: {
-//                mAdapter.getInfo().addAll(getData());
+                setData();
                 break;
             }
         }
@@ -152,184 +116,141 @@ public class BaseInfoActivity extends BaseActivity {
 
     /**
      * 编辑器
-     *
-     * @param entity
-     */
-    private void showEditDialog(final ItemInfo entity) {
-        if (entity == null) return;
+     **/
+    private void showEditDialog() {
+        if (mEntity == null) return;
         EditDialog dialog = new EditDialog(this) {
             @Override
             public void onConfirm(String data) {
-                entity.setRightText(data);
-                mAdapter.notifyDataSetChanged();
-//                getInfo().setNick_name(data);
+                UserDetailEntity entity1 = new UserDetailEntity();
+                entity1.setNickname(data);
+                doRequest(entity1, data);
             }
         };
         dialog.show();
     }
 
-    /**
-     * 单项选择
-     *
-     * @param entity
-     */
-    private void showBottomDialog(final ItemInfo entity) {
-        if (entity == null || entity.getItems() == null) return;
-        FirstChooseDialog dialog = new FirstChooseDialog(this, entity.getItems()) {
-            @Override
-            public void onConfirm(String data) {
-                entity.setRightText(data);
-                mAdapter.notifyDataSetChanged();
-//                saveSingleDate(data, entity.getType());
-            }
-        };
-        dialog.show();
+    private void setData() {
+        UserDetailEntity info = AppUtils.getUserInfo(this);
+        if (info == null) {
+            startActivity(LoginActivity.getIntent(this));
+            return;
+        }
+        //昵称
+        mItemInfo.add(getInfo(getString(R.string.nick_name), info.getNickname(), ItemInfo.MyInfoType.NICK_NAME, null));
+
+        //出生日期
+        mItemInfo.add(getInfo(getString(R.string.birth), info.getBirth_date(), ItemInfo.MyInfoType.BIRTHDAY, null));
+
+        //居住地
+        mItemInfo.add(getInfo(getString(R.string.apartment), info.getWork_area_name(), ItemInfo.MyInfoType.APARTMENT, null));
+
+        //家乡
+        mItemInfo.add(getInfo(getString(R.string.home_town), info.getBorn_area_name(), ItemInfo.MyInfoType.HOMETOWN, null));
+
+        //身高
+        mItemInfo.add(getInfo(getString(R.string.height), AppUtils.stringToInt(info.getHeight()) > 0 ? info.getHeight() :
+                null, ItemInfo.MyInfoType.HEIGHT, UserUtils.getHighData()));
+
+        //学历
+        mItemInfo.add(getInfo(getString(R.string.education), info.getEducation(), ItemInfo.MyInfoType.EDUCATION, UserUtils.getEduData(this)));
+
+        //职业
+        mItemInfo.add(getInfo(getString(R.string.profession), info.getCareer(), ItemInfo.MyInfoType.PROFESSION, UserUtils.getProfessionData()));
+
+        //月收入
+        mItemInfo.add(getInfo(getString(R.string.income), info.getIncome(), ItemInfo.MyInfoType.INCOME, UserUtils.getComingData(this)));
+
+
+        //婚姻状况
+        mItemInfo.add(getInfo(getString(R.string.marry_state), info.getMarriage_status(), ItemInfo.MyInfoType.MARRY_STATE, UserUtils.getMarryState(this)));
+
+        //体重(单位：kg)
+        mItemInfo.add(getInfo(getString(R.string.weight), AppUtils.stringToInt(info.getWeight()) > 0 ? info.getWeight() :
+                null, ItemInfo.MyInfoType.WEIGHT, UserUtils.getWeight()));
+
     }
-
-//    private void saveSingleDate(String data, int type) {
-//        switch (type) {
-//            case ItemInfo.MyInfoType.INCOME: {
-//                getInfo().setIncome(data);
-//                break;
-//            }
-//            case ItemInfo.MyInfoType.EDUCATION: {
-//                getInfo().setEducation(data);
-//                break;
-//            }
-//            case ItemInfo.MyInfoType.PROFESSION: {
-//                getInfo().setJobs(data);
-//                break;
-//            }
-//            case ItemInfo.MyInfoType.NATION: {
-//                getInfo().setNative_place(data);
-//                break;
-//            }
-//            case ItemInfo.MyInfoType.MARRY_STATE: {
-//                getInfo().setMarryState(data);
-//                break;
-//            }
-//            case ItemInfo.MyInfoType.WEIGHT: {
-//                getInfo().setWeight(Integer.parseInt(data));
-//                break;
-//            }
-//            case ItemInfo.MyInfoType.HEIGHT: {
-//                getInfo().setHeight(Integer.parseInt(data));
-//                break;
-//            }
-//        }
-//    }
-
-    /**
-     * 时间选择
-     */
-    private void showDateDialog(final ItemInfo entity) {
-//        Util.alertTimerPicker(this, TimePickerView.Type.YEAR_MONTH_DAY, "yyyy-MM-dd", new Util.TimerPickerCallBack() {
-//            @Override
-//            public void onTimeSelect(String date) {
-//                if (TextUtils.isEmpty(date)) return;
-//                entity.setRightText(date);
-//                mAdapter.notifyDataSetChanged();
-//                getInfo().setBirthday(date);
-//            }
-//        });
-    }
-
-    /**
-     * 多项选择
-     *
-     * @param entity
-     */
-    private void showOptions(final ItemInfo entity) {
-        LocationSettingDialog dialog = new LocationSettingDialog(this,
-                AppUtils.getRegionFromCache(this)) {
-            @Override
-            public void onConfirm(String region, int position) {
-                entity.setRightText(region);
-                mAdapter.notifyDataSetChanged();
-                switch (entity.getType()) {
-                    case ItemInfo.MyInfoType.HOMETOWN: {
-//                        getInfo().setNative_place(region);
-                        break;
-                    }
-                    case ItemInfo.MyInfoType.APARTMENT: {
-//                        getInfo().setApartment(region);
-                        break;
-                    }
-                }
-            }
-        };
-        dialog.show();
-    }
-
-
-
-//    private List<ItemInfo> getData() {
-//        List<ItemInfo> data = new ArrayList<>();
-//        PersonInfo info = AppUtils.getOwnerInfo(this);
-//        //昵称
-//        data.add(getInfo(getString(R.string.nick_name), info.getNick_name(), ItemInfo.MyInfoType.NICK_NAME, null));
-//
-//        //出生日期
-//        data.add(getInfo(getString(R.string.birth), info.getBirthday(), ItemInfo.MyInfoType.BIRTHDAY, null));
-//
-//        //居住地
-//        data.add(getInfo(getString(R.string.apartment), info.getApartment(), ItemInfo.MyInfoType.APARTMENT, null));
-//
-//        //家乡
-//        data.add(getInfo(getString(R.string.home_town), info.getNative_place(), ItemInfo.MyInfoType.HOMETOWN, null));
-//
-//        //身高
-//        data.add(getInfo(getString(R.string.height), info.getHeight() > 0 ? info.getHeight() + "" :
-//                null, ItemInfo.MyInfoType.HEIGHT, UserUtils.getHighData()));
-//
-//        //学历
-//        data.add(getInfo(getString(R.string.education), info.getEducation(), ItemInfo.MyInfoType.EDUCATION, UserUtils.getEduData()));
-//
-//        //职业
-//        data.add(getInfo(getString(R.string.profession), info.getJobs(), ItemInfo.MyInfoType.PROFESSION, UserUtils.getProfessionData()));
-//
-//        //年收入
-//        data.add(getInfo(getString(R.string.income), info.getIncome(), ItemInfo.MyInfoType.INCOME, UserUtils.getComingData()));
-//
-//
-//        //婚姻状况
-//        data.add(getInfo(getString(R.string.marry_state), info.getMarryState(), ItemInfo.MyInfoType.MARRY_STATE, UserUtils.getMarryState()));
-//
-//        //体重(单位：kg)
-//        data.add(getInfo(getString(R.string.weight), info.getWeight() > 0 ? info.getWeight() + "" :
-//                null, ItemInfo.MyInfoType.WEIGHT, UserUtils.getWeight()));
-//
-//        //完成
-//        ItemInfo complete = new ItemInfo();
-//        complete.setViewType(ItemInfo.ViewType.COMPLETE);
-//        data.add(complete);
-//
-//        return data;
-//
-//    }
 
 
     public ItemInfo getInfo(String text, int type, ArrayList<String> list) {
         return getInfo(text, null, type, list);
     }
 
-    /**
-     * @param text
-     * @param rightText
-     * @param type      0默认 1：带5dp的分割线
-     * @return
-     */
-    public ItemInfo getInfo(String text, String rightText, int type, ArrayList<String> list) {
-        if (TextUtils.isEmpty(rightText))
-            rightText = getResources().getString(R.string.please_select);
-        ItemInfo data = new ItemInfo();
-        data.setViewType(ItemInfo.ViewType.PICK_SELECT);
-        data.setText(text);
-        data.setRightText(rightText);
-        data.setType(type);
-        data.setItems(list);
-        return data;
+    @Override
+    public void onRequestSuccess(String response, int type, String data) {
+        switch (type) {
+            case ItemInfo.MyInfoType.NICK_NAME:
+                parseData("nickname", data);
+                break;
+            case ItemInfo.MyInfoType.BIRTHDAY:
+                parseData("birth_date", data);
+                break;
+            case ItemInfo.MyInfoType.APARTMENT:
+                parseData("work_area_name", mItem.work_area_name);
+                break;
+            case ItemInfo.MyInfoType.HOMETOWN:
+                parseData("born_area_name", mItem.born_area_name);
+                break;
+            case ItemInfo.MyInfoType.HEIGHT:
+                parseData("height", data);
+                break;
+            case ItemInfo.MyInfoType.EDUCATION:
+                parseData("education", data);
+                break;
+            case ItemInfo.MyInfoType.PROFESSION:
+                parseData("career", data);
+                break;
+            case ItemInfo.MyInfoType.INCOME:
+                parseData("income", data);
+                break;
+            case ItemInfo.MyInfoType.MARRY_STATE:
+                parseData("marriage_status", data);
+                break;
+            case ItemInfo.MyInfoType.WEIGHT:
+                parseData("weight", data);
+                break;
+            case ItemInfo.MyInfoType.RANKING:
+                parseData("birth_index", data);
+                break;
+        }
+        mEntity.setRightText(data);
+        mAdapter.notifyDataSetChanged();
     }
 
-
+    @Override
+    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        mEntity = mAdapter.getItem(position);
+        if (mEntity == null) return;
+        if (ItemInfo.ViewType.PICK_SELECT == mEntity.getViewType()) {
+            switch (mEntity.getType()) {
+                case ItemInfo.MyInfoType.BIRTHDAY: {
+                    pvCustomTime.show();
+                    break;
+                }
+                case ItemInfo.MyInfoType.HOMETOWN:
+                case ItemInfo.MyInfoType.APARTMENT: {
+                    showRegion(true);
+                    break;
+                }
+                case ItemInfo.MyInfoType.INCOME:
+                case ItemInfo.MyInfoType.EDUCATION:
+                case ItemInfo.MyInfoType.PROFESSION:
+                case ItemInfo.MyInfoType.HOPE_MARRY:
+                case ItemInfo.MyInfoType.NATION:
+                case ItemInfo.MyInfoType.MARRY_STATE:
+                case ItemInfo.MyInfoType.RANKING:
+                case ItemInfo.MyInfoType.HAS_CHILD:
+                case ItemInfo.MyInfoType.WEIGHT:
+                case ItemInfo.MyInfoType.HEIGHT: {
+                    pvCustomOptions.setPicker(mEntity.getItems());//添加数据
+                    pvCustomOptions.show();
+                    break;
+                }
+                case ItemInfo.MyInfoType.NICK_NAME: {
+                    showEditDialog();
+                    break;
+                }
+            }
+        }
+    }
 }

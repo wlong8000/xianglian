@@ -46,7 +46,7 @@ dependencies {
     compile 'com.facebook.stetho:stetho-okhttp3:1.5.0'
     compile 'com.zhousf.lib:okhttp3:2.8.9'
     compile 'com.contrarywind:Android-PickerView:3.2.6'
-    //    compile ('top.zibin:Luban:1.1.2')
-    //    compile 'com.qiniu:qiniu-android-sdk:7.3.+'
+    compile('top.zibin:Luban:1.1.2')
+    compile 'com.qiniu:qiniu-android-sdk:7.3.+'
     compile project(path: ':library')
 }

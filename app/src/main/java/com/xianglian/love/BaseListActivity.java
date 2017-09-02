@@ -20,7 +20,7 @@ import java.util.Map;
  * Created by wanglong on 17/3/11.
  */
 
-public class BaseListFragment extends Fragment {
+public class BaseListActivity extends BaseActivity {
     public View emptyView;
 
     public View errorView;
@@ -39,7 +39,7 @@ public class BaseListFragment extends Fragment {
     }
 
     public void toast(String message) {
-        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     public void toast(int res) {
@@ -47,28 +47,28 @@ public class BaseListFragment extends Fragment {
     }
 
     public Map<String, String> getHeader() {
-        return AppUtils.getOAuthMap(getContext());
+        return AppUtils.getOAuthMap(this);
     }
 
-    public void setupRecyclerView(View view) {
+    public void setupRecyclerView() {
         try {
-            mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refresh);
+            mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.refresh);
         } catch (Exception e) {
             e.printStackTrace();
         }
         try {
-            mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
-            mLayoutManager = new CommonLinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+            mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+            mLayoutManager = new CommonLinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
             mRecyclerView.setLayoutManager(mLayoutManager);
 
-            emptyView = getActivity().getLayoutInflater().inflate(R.layout.empty,
+            emptyView = getLayoutInflater().inflate(R.layout.empty,
                     (ViewGroup) mRecyclerView.getParent(), false);
-            errorView = getActivity().getLayoutInflater().inflate(R.layout.loading_view,
+            errorView = getLayoutInflater().inflate(R.layout.loading_view,
                     (ViewGroup) mRecyclerView.getParent(), false);
-            loadingView = getActivity().getLayoutInflater().inflate(R.layout.loading_view,
+            loadingView = getLayoutInflater().inflate(R.layout.loading_view,
                     (ViewGroup) mRecyclerView.getParent(), false);
             SimpleDraweeView loadView = (SimpleDraweeView) loadingView.findViewById(R.id.loading_icon);
-            AppUtils.loadLocalGif(getContext(), loadView, R.drawable.loading);
+            AppUtils.loadLocalGif(this, loadView, R.drawable.loading);
         } catch (Exception e) {
             e.printStackTrace();
         }

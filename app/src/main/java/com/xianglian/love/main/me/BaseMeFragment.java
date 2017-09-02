@@ -7,70 +7,70 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.alibaba.json.JSON;
+import com.alibaba.json.JSONException;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.okhttplib.HttpInfo;
+import com.okhttplib.OkHttpUtil;
+import com.okhttplib.callback.Callback;
+import com.qiniu.android.http.ResponseInfo;
+import com.qiniu.android.storage.UpCompletionHandler;
+import com.qiniu.android.storage.UploadManager;
 import com.xianglian.love.BaseListFragment;
 import com.xianglian.love.R;
+import com.xianglian.love.config.Config;
 import com.xianglian.love.dialog.SelectPicAlertDialog;
 import com.xianglian.love.main.home.been.PersonInfo;
-import com.xianglian.love.main.me.adapter.MineAdapter;
+import com.xianglian.love.main.home.been.UserDetailEntity;
 import com.xianglian.love.model.Album;
 import com.xianglian.love.model.AttachmentEntity;
 import com.xianglian.love.model.TakePhoto;
 import com.xianglian.love.user.AuthenticationActivity;
 import com.xianglian.love.user.IntroduceActivity;
+import com.xianglian.love.user.LoginActivity;
 import com.xianglian.love.user.MarkTagActivity;
+import com.xianglian.love.user.adapter.UserInfoEditAdapter;
 import com.xianglian.love.user.been.ItemInfo;
 import com.xianglian.love.utils.AppUtils;
-import com.xianglian.love.utils.CommonLinearLayoutManager;
 import com.xianglian.love.utils.FileOperate;
 import com.xianglian.love.utils.PhotoUtils;
+import com.xianglian.love.utils.Trace;
+
+import org.json.JSONObject;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 
 /**
  * Created by wanglong on 17/3/11.
  * 我的
  */
 
-public class BaseMeFragment extends BaseListFragment {
+public class BaseMeFragment extends BaseListFragment implements BaseQuickAdapter.OnItemClickListener {
 
-    private RecyclerView mRecyclerView;
+    private UserInfoEditAdapter mAdapter;
 
-    private CommonLinearLayoutManager mLayoutManager;
-
-    private MineAdapter mAdapter;
+    private List<ItemInfo> mItemInfo = new ArrayList<>();
 
     private ItemInfo mEntity;
 
     //个人介绍 request code
-    private final int REQUEST_CODE_INTRODUCE = 5;
+    private static final int REQUEST_CODE_INTRODUCE = 5;
 
     private TakePhoto mTakePhoto;
 
     private Album mAlbum;
-
-    private View.OnClickListener itemClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            int position = mRecyclerView.getChildAdapterPosition(view);
-            mEntity = mAdapter.getItem(position);
-            if (mEntity == null) return;
-            if (ItemInfo.ViewType.AVATAR == mEntity.getViewType()) {
-                changeHead();
-            } else {
-                intoDetail();
-            }
-
-        }
-    };
 
     private TakePhoto getTakePhoto() {
         if (mTakePhoto == null) {
@@ -141,8 +141,7 @@ public class BaseMeFragment extends BaseListFragment {
     }
 
     public static BaseMeFragment newInstance() {
-        BaseMeFragment fragment = new BaseMeFragment();
-        return fragment;
+        return new BaseMeFragment();
     }
 
     @Override
@@ -158,11 +157,10 @@ public class BaseMeFragment extends BaseListFragment {
     }
 
     public void setupRecyclerView(View view) {
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
-        mLayoutManager = new CommonLinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new MineAdapter(getContext(), itemClickListener);
+        super.setupRecyclerView(view);
+        mAdapter = new UserInfoEditAdapter(getContext(), mItemInfo);
         mRecyclerView.setAdapter(mAdapter);
+        mAdapter.setOnItemClickListener(this);
         addData();
     }
 
@@ -176,57 +174,54 @@ public class BaseMeFragment extends BaseListFragment {
             case ItemInfo.ViewType.AVATAR: {
                 ItemInfo info = new ItemInfo();
                 info.setViewType(type);
-                mAdapter.getInfo().add(info);
+                mItemInfo.add(info);
                 break;
             }
             case ItemInfo.ViewType.PICK_SELECT: {
-                mAdapter.getInfo().addAll(getData());
+                setData();
                 break;
             }
         }
         mAdapter.notifyDataSetChanged();
     }
 
-    private List<ItemInfo> getData() {
-        List<ItemInfo> data = new ArrayList<>();
+    private void setData() {
 
         //相册
-        data.add(getInfo(getString(R.string.my_album), ItemInfo.SettingType.MY_ALBUM, null, true));
+        mItemInfo.add(getInfo(getString(R.string.my_album), ItemInfo.SettingType.MY_ALBUM, null, true));
 
         //个人简介
-        data.add(getInfo(getString(R.string.introduce), ItemInfo.SettingType.INTRODUCE, null));
+        mItemInfo.add(getInfo(getString(R.string.introduce), ItemInfo.SettingType.INTRODUCE, null));
 
         //个人信息
-        data.add(getInfo(getString(R.string.my_info), ItemInfo.SettingType.MY_INFO, null));
+        mItemInfo.add(getInfo(getString(R.string.my_info), ItemInfo.SettingType.MY_INFO, null));
 
         //成为会员
-        data.add(getInfo(getString(R.string.set_vip), ItemInfo.SettingType.SET_VIP, null, true));
+        mItemInfo.add(getInfo(getString(R.string.set_vip), ItemInfo.SettingType.SET_VIP, null, true));
 
         //身份认证
-        data.add(getInfo(getString(R.string.person_identity), ItemInfo.SettingType.IDENTITY, null));
+        mItemInfo.add(getInfo(getString(R.string.person_identity), ItemInfo.SettingType.IDENTITY, null));
 
         //联系方式
-        data.add(getInfo(getString(R.string.phone), ItemInfo.SettingType.PHONE, null));
+        mItemInfo.add(getInfo(getString(R.string.phone), ItemInfo.SettingType.PHONE, null));
 
         //情感经历
-        data.add(getInfo(getString(R.string.experience_love), ItemInfo.SettingType.EXPERIENCE_LOVE, null, true));
+        mItemInfo.add(getInfo(getString(R.string.experience_love), ItemInfo.SettingType.EXPERIENCE_LOVE, null, true));
 
         //择偶标准
-        data.add(getInfo(getString(R.string.condition_friend), ItemInfo.SettingType.CHOOSE_FRIEND_STANDARD, null));
+        mItemInfo.add(getInfo(getString(R.string.condition_friend), ItemInfo.SettingType.CHOOSE_FRIEND_STANDARD, null));
 
         //个人标签
-        data.add(getInfo(getString(R.string.mark), ItemInfo.SettingType.MARK, null, true));
+        mItemInfo.add(getInfo(getString(R.string.mark), ItemInfo.SettingType.MARK, null, true));
 
         //兴趣爱好
-        data.add(getInfo(getString(R.string.hobby), ItemInfo.SettingType.HOBBY, null));
+        mItemInfo.add(getInfo(getString(R.string.hobby), ItemInfo.SettingType.HOBBY, null));
 
         //设置
-        data.add(getInfo(getString(R.string.setting), ItemInfo.SettingType.SETTING, null));
+        mItemInfo.add(getInfo(getString(R.string.setting), ItemInfo.SettingType.SETTING, null));
 
         //客服
-        data.add(getInfo(getString(R.string.customer_agent), ItemInfo.SettingType.CUSTOMER_AGENT, null));
-
-        return data;
+        mItemInfo.add(getInfo(getString(R.string.customer_agent), ItemInfo.SettingType.CUSTOMER_AGENT, null));
 
     }
 
@@ -267,7 +262,6 @@ public class BaseMeFragment extends BaseListFragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case PhotoUtils.PHOTO:
-
                 if (new File(getTakePhoto().getFileName()).exists()) {
                     Intent intent = PhotoUtils.getCropImageIntent(
                             Uri.fromFile(new File(getTakePhoto().getFileName())),
@@ -315,11 +309,11 @@ public class BaseMeFragment extends BaseListFragment {
                 getTakePhoto().getThumbPhoto(AppUtils.getPicturePath(getContext()) + "avatar/",
                         "thumb_" + getTakePhoto().getName());
                 AttachmentEntity entity = getTakePhoto().getAttachment();
-                uploadAvatar(entity.getUrl());
+//                uploadAvatar(entity.getUrl());
                 break;
             case PhotoUtils.REQUEST_CODE_ALBUM_CUT:
                 if (resultCode != 0) {
-                    uploadAvatar(AppUtils.getPicturePath(getContext()) + "avatar/thumb_" + getAlbum().getName());
+//                    uploadAvatar(AppUtils.getPicturePath(getContext()) + "avatar/thumb_" + getAlbum().getName());
                 }
                 break;
         }
@@ -330,39 +324,85 @@ public class BaseMeFragment extends BaseListFragment {
      *
      * @param path
      */
-    private void uploadAvatar(String path) {
-//        final BmobFile bmobFile = new BmobFile(new File(path));
-//
-//        bmobFile.uploadblock(new UploadFileListener() {
-//            @Override
-//            public void done(BmobException e) {
-//                String url = bmobFile.getFileUrl();
-//                if (!TextUtils.isEmpty(url)) {
-//                    updateAvatar(url);
-//                } else {
-//                    toast(R.string.text_upload_avatar_fail);
-//                }
-//            }
-//        });
+    private void uploadAvatar(String token, String path, String fileName) {
+        UploadManager uploadManager = new UploadManager();
+        uploadManager.put(path, fileName, token,
+                new UpCompletionHandler() {
+                    @Override
+                    public void complete(String key, ResponseInfo info, JSONObject res) {
+                        //res包含hash、key等信息，具体字段取决于上传策略的设置
+                        if (info.isOK()) {
+                            Trace.i("qiniu", "Upload Success");
+                            //                String url = bmobFile.getFileUrl();
+                            //                if (!TextUtils.isEmpty(url)) {
+                            //                    updateAvatar(url);
+                            //                } else {
+                            //                    toast(R.string.text_upload_avatar_fail);
+                            //                }
+                        } else {
+                            Trace.i("qiniu", "Upload Fail");
+                            //如果失败，这里可以把info信息上报自己的服务器，便于后面分析上传错误原因
+                        }
+                        Trace.i("qiniu", key + ",\r\n " + info + ",\r\n " + res);
+                    }
+                }, null);
     }
 
-    private void updateAvatar(final String path) {
-//        if (TextUtils.isEmpty(path)) return;
-//        final PersonInfo info = new PersonInfo();
-//        info.setAvatar(path);
-//        info.update(AppUtils.getObjectId(getContext()), new UpdateListener() {
-//            @Override
-//            public void done(BmobException e) {
-//                if (e == null) {
-//                    toast(R.string.text_update_avatar_success);
-//                    PersonInfo info = AppUtils.getOwnerInfo(getContext());
-//                    info.setAvatar(path);
-//                    ACache.get(getContext()).put(Config.SAVE_USER_KEY, info);
-//                    mAdapter.notifyDataSetChanged();
-//                } else {
-//                    toast(R.string.text_upload_avatar_fail);
-//                }
-//            }
-//        });
+    private void doGetTokenRequest(final String id) {
+        final String url = Config.PATH + "user/like/" + id;
+        Map<String, String> params = new HashMap<>();
+        params.put("uid", id);
+        OkHttpUtil.getDefault(this).doPostAsync(
+                HttpInfo.Builder().setUrl(url).addHeads(getHeader()).addParams(params).build(),
+                new Callback() {
+                    @Override
+                    public void onFailure(HttpInfo info) throws IOException {
+                        toast(getString(R.string.request_fail));
+                    }
+
+                    @Override
+                    public void onSuccess(HttpInfo info) throws IOException {
+                        String result = info.getRetDetail();
+                        if (result != null) {
+                            try {
+                                UserDetailEntity userEntity = JSON.parseObject(result, UserDetailEntity.class);
+                                if (userEntity == null) return;
+                                if (userEntity.getCode() == Config.FAIL) {
+                                    toast(TextUtils.isEmpty(userEntity.getMsg()) ?
+                                            getString(R.string.request_fail) : userEntity.getMsg());
+                                } else {
+                                    TextView likeView = (TextView) mRecyclerView.findViewWithTag(id);
+                                    if (likeView != null) {
+                                        int num = AppUtils.stringToInt(likeView.getText().toString()) + 1;
+                                        likeView.setText(num + "");
+                                    }
+                                    ImageView likeIcon = (ImageView) mRecyclerView.findViewWithTag(id + "_iv");
+                                    if (likeIcon != null) {
+                                        likeIcon.setImageResource(R.drawable.icon_follow);
+                                    }
+                                }
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        if (!AppUtils.isLogin(getContext())) {
+            Intent intent = LoginActivity.getIntent(getContext());
+            startActivity(intent);
+            return;
+        }
+        mEntity = mAdapter.getItem(position);
+        if (mEntity == null) return;
+        if (ItemInfo.ViewType.AVATAR == mEntity.getViewType()) {
+            changeHead();
+        } else {
+            intoDetail();
+        }
     }
 }
