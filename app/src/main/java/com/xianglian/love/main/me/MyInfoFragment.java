@@ -203,7 +203,7 @@ public class MyInfoFragment extends BaseListFragment implements OnClickListener{
         data.add(getInfo(getString(R.string.nation), ItemInfo.MyInfoType.NATION, UserUtils.getNation()));
 
         //婚姻状况
-        data.add(getInfo(getString(R.string.marry_state), ItemInfo.MyInfoType.MARRY_STATE, UserUtils.getMarryState()));
+        data.add(getInfo(getString(R.string.marry_state), ItemInfo.MyInfoType.MARRY_STATE, UserUtils.getMarryState(getContext())));
 
         //家中排行
         data.add(getInfo(getString(R.string.raking), ItemInfo.MyInfoType.RANKING, UserUtils.getRankings()));

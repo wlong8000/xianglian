@@ -94,6 +94,7 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
     private String mate_preference;
     private String constellation;
     private String birth_date;
+    private String education;
     private String can_leave_message;
 
     private List<PhotoInfo> albums;
@@ -501,6 +502,14 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
         this.is_like = is_like;
     }
 
+    public String getEducation() {
+        return education;
+    }
+
+    public void setEducation(String education) {
+        this.education = education;
+    }
+
     @Override
     public int getItemType() {
         return viewType;
@@ -547,6 +556,7 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
         dest.writeString(this.mate_preference);
         dest.writeString(this.constellation);
         dest.writeString(this.birth_date);
+        dest.writeString(this.education);
         dest.writeString(this.can_leave_message);
         dest.writeList(this.albums);
         dest.writeString(this.id);
@@ -598,6 +608,7 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
         this.mate_preference = in.readString();
         this.constellation = in.readString();
         this.birth_date = in.readString();
+        this.education = in.readString();
         this.can_leave_message = in.readString();
         this.albums = new ArrayList<PhotoInfo>();
         in.readList(this.albums, PhotoInfo.class.getClassLoader());

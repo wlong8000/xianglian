@@ -36,6 +36,19 @@ public class UserUtils {
         return data;
     }
 
+    /**
+     * 体重
+     */
+    public static ArrayList<String> getWeight() {
+        ArrayList<String> data = new ArrayList<>();
+        data.add("40kg以下");
+        for (int i = 40; i < 100; i++) {
+            data.add(String.valueOf(i));
+        }
+        data.add("100kg以上");
+        return data;
+    }
+
     static List<List<String>> getSubData(Context context, int type) {
         List<List<String>> subData = new ArrayList<>();
 
@@ -89,6 +102,13 @@ public class UserUtils {
         return getResources(context, R.array.income);
     }
 
+    /**
+     * 婚姻状况
+     */
+    public static ArrayList<String> getMarryState(Context context) {
+        return getResources(context, R.array.marry_state);
+    }
+
     public static ArrayList<String> getProfessionData() {
         ArrayList<String> data = new ArrayList<>();
         data.add("在校学生");
@@ -124,17 +144,6 @@ public class UserUtils {
     }
 
     /**
-     * 婚姻状况
-     */
-    public static ArrayList<String> getMarryState() {
-        ArrayList<String> data = new ArrayList<>();
-        data.add("未婚");
-        data.add("离异");
-        data.add("丧偶");
-        return data;
-    }
-
-    /**
      * 家中排行
      */
     public static ArrayList<String> getRankings() {
@@ -156,17 +165,5 @@ public class UserUtils {
         return data;
     }
 
-    /**
-     * 体重
-     */
-    public static ArrayList<String> getWeight() {
-        ArrayList<String> data = new ArrayList<>();
-        data.add("40kg以下");
-        for (int i = 40; i < 100; i++) {
-            data.add(String.valueOf(i));
-        }
-        data.add("100kg以上");
-        return data;
-    }
 
 }

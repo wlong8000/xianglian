@@ -239,4 +239,10 @@
         <item>30000以上</item>
     </string-array>
 
+    <string-array name="marry_state">
+        <item>未婚</item>
+        <item>离异</item>
+        <item>丧偶</item>
+    </string-array>
+
 </resources>
