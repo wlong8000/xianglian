@@ -60,19 +60,19 @@ public class MarkTagActivity extends BaseUserInfoActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mark_tag_layout);
         mType = getIntent().getIntExtra(Config.MARK_KEY, MARK);
-        if (MARK == mType) {
-            setupCommonTitle(getString(R.string.mark));
-            mSelectTagData = new ArrayList<>(mPersonInfo.getMark());
-            Collections.addAll(mTagListData, "孝顺", "随和", "安静", "爱吃", "顾家", "理智", "善良", "小资", "可爱", "直爽", "强势",
-                    "活泼", "各种宅", "幽默", "乐观", "低调", "阳光", "执着", "体贴", "八卦", "纠结",
-                    "强迫症", "洁癖", "粗心", "细腻", "工作狂", "颜控", "胆小", "起床气", "好奇", "购物狂", "单纯");
-        } else if (HOBBY == mType) {
-            setupCommonTitle(getString(R.string.hobby));
-            mSelectTagData = new ArrayList<>(mPersonInfo.getHobby());
-            Collections.addAll(mTagListData, "看书", "运动", "电影", "音乐", "星座", "英语", "游戏", "各种吃",
-                    "旅游", "休闲", "社交", "网络", "跳舞", "摄影", "画画", "养花", "追星", "睡觉",
-                    "慈善", "玩牌", "唱歌", "DIY", "逛街", "抽烟", "喝酒", "汽车", "数码", "烹饪", "茶艺", "宠物", "宗教", "写作");
-        }
+//        if (MARK == mType) {
+//            setupCommonTitle(getString(R.string.mark));
+//            mSelectTagData = new ArrayList<>(mPersonInfo.getMark());
+//            Collections.addAll(mTagListData, "孝顺", "随和", "安静", "爱吃", "顾家", "理智", "善良", "小资", "可爱", "直爽", "强势",
+//                    "活泼", "各种宅", "幽默", "乐观", "低调", "阳光", "执着", "体贴", "八卦", "纠结",
+//                    "强迫症", "洁癖", "粗心", "细腻", "工作狂", "颜控", "胆小", "起床气", "好奇", "购物狂", "单纯");
+//        } else if (HOBBY == mType) {
+//            setupCommonTitle(getString(R.string.hobby));
+//            mSelectTagData = new ArrayList<>(mPersonInfo.getHobby());
+//            Collections.addAll(mTagListData, "看书", "运动", "电影", "音乐", "星座", "英语", "游戏", "各种吃",
+//                    "旅游", "休闲", "社交", "网络", "跳舞", "摄影", "画画", "养花", "追星", "睡觉",
+//                    "慈善", "玩牌", "唱歌", "DIY", "逛街", "抽烟", "喝酒", "汽车", "数码", "烹饪", "茶艺", "宠物", "宗教", "写作");
+//        }
 
         initView();
     }
@@ -160,11 +160,11 @@ public class MarkTagActivity extends BaseUserInfoActivity implements View.OnClic
     }
 
     private void updateTag() {
-        if (MARK == mType) {
-            mPersonInfo.setMark(mSelectTagData);
-        } else if (HOBBY == mType) {
-            mPersonInfo.setHobby(mSelectTagData);
-        }
+//        if (MARK == mType) {
+//            mPersonInfo.setMark(mSelectTagData);
+//        } else if (HOBBY == mType) {
+//            mPersonInfo.setHobby(mSelectTagData);
+//        }
         dialogShow();
 //        mPersonInfo.update(AppUtils.getObjectId(this), new UpdateListener() {
 //            @Override

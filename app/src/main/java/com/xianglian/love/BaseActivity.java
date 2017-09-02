@@ -1,5 +1,6 @@
 package com.xianglian.love;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
@@ -135,5 +136,9 @@ public class BaseActivity extends AppCompatActivity implements TitleBarView.OnTi
 
     public Map<String, String> getHeader() {
         return AppUtils.getOAuthMap(this);
+    }
+
+    public String getUserId(Context context) {
+        return AppUtils.getUserId(context);
     }
 }

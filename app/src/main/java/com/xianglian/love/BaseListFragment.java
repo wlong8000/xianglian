@@ -31,7 +31,7 @@ public class BaseListFragment extends Fragment {
 
     public RecyclerView mRecyclerView;
 
-    private CommonLinearLayoutManager mLayoutManager;
+    public CommonLinearLayoutManager mLayoutManager;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

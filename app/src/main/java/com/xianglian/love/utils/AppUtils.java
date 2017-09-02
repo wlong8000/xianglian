@@ -47,6 +47,7 @@ import com.xianglian.love.main.home.been.PhotoInfo;
 import com.xianglian.love.main.home.been.UserDetailEntity;
 import com.xianglian.love.model.RegionGsonModel;
 import com.xianglian.love.model.RegionsListModel;
+import com.xianglian.love.user.IntroduceActivity;
 import com.xianglian.love.user.been.OwnerEntity;
 
 import java.io.File;
@@ -168,8 +169,8 @@ public class AppUtils {
 	/**
 	 * 判断用户是否登录
 	 */
-	public static boolean isLogin() {
-		return false;
+	public static boolean isLogin(Context context) {
+		return !TextUtils.isEmpty(AppUtils.getUserId(context));
 	}
 
 
@@ -368,6 +369,8 @@ public class AppUtils {
 		return null;
 	}
 
+
+
 	public static String getToken(Context context) {
 		OwnerEntity entity = getOwnerInfo(context);
 		if (entity != null && entity.getResult() != null) {
@@ -377,23 +380,30 @@ public class AppUtils {
 		return null;
 	}
 
-//	public static List<PhotoInfo> getPhotoInfo(Context context) {
-//		OwnerEntity info = getOwnerInfo(context);
-//		if (info == null) return null;
-//		return info.getAlbum();
-//	}
-//
-//	public static String getIntroduce(Context context) {
-//		OwnerEntity info = getOwnerInfo(context);
-//		if (info == null) return null;
-//		return info.getIntroduce();
-//	}
-//
-//	public static String getExperience(Context context) {
-//		OwnerEntity info = getOwnerInfo(context);
-//		if (info == null) return null;
-//		return info.getExperience();
-//	}
+	/**
+	 * 获取用户信息
+     */
+	public static UserDetailEntity getUserInfo(Context context) {
+		OwnerEntity entity = getOwnerInfo(context);
+		if (entity != null && entity.getResult() != null && entity.getResult().getUser_info() != null
+				&& entity.getResult().getUser_info().getProfile() != null) {
+			return entity.getResult().getUser_info().getProfile();
+		}
+		return null;
+	}
+
+	public static String getIntroduce(Context context) {
+		UserDetailEntity entity = getUserInfo(context);
+		if (entity == null) return null;
+		return entity.getPerson_intro();
+	}
+
+	public static String getExperience(Context context) {
+		UserDetailEntity entity = getUserInfo(context);
+		if (entity == null) return null;
+		return entity.getRelationship_desc();
+	}
+
 
 	/*
  * 获取手机信息
@@ -493,4 +503,5 @@ public class AppUtils {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 		return format.format(date);
 	}
+
 }
