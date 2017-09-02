@@ -61,7 +61,7 @@ public class BaseListFragment extends Fragment {
             mLayoutManager = new CommonLinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
             mRecyclerView.setLayoutManager(mLayoutManager);
 
-            emptyView = getActivity().getLayoutInflater().inflate(R.layout.loading_view,
+            emptyView = getActivity().getLayoutInflater().inflate(R.layout.empty,
                     (ViewGroup) mRecyclerView.getParent(), false);
             errorView = getActivity().getLayoutInflater().inflate(R.layout.loading_view,
                     (ViewGroup) mRecyclerView.getParent(), false);

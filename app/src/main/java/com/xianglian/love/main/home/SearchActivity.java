@@ -35,6 +35,8 @@ import butterknife.InjectView;
 /**
  * Created by wl on 2017/8/4.
  * 条件筛选
+ *
+ * 省市联动 先开二级
  */
 public class SearchActivity extends BaseUserInfoActivity implements
         BaseQuickAdapter.OnItemClickListener, View.OnClickListener {
@@ -55,6 +57,12 @@ public class SearchActivity extends BaseUserInfoActivity implements
     private List<ItemInfo> mItemInfo = new ArrayList<>();
 
     private ItemInfo mItem;
+
+    private List<JsonBean> mOptions1Items;
+
+    private List<List<CityBean>> mOptions2Items;
+
+    private List<List<List<CityBean>>> mOptions3Items;
 
     public static Intent getIntent(Context context) {
         return new Intent(context, SearchActivity.class);
@@ -113,6 +121,10 @@ public class SearchActivity extends BaseUserInfoActivity implements
                     case ItemInfo.Type.EDUCATION:
                         text = dealEdu(options1, option2);
                         break;
+                    case ItemInfo.Type.HOMETOWN:
+                    case ItemInfo.Type.APARTMENT:
+                        text = dealRegion(options1, option2, options3);
+                        break;
                 }
                 mEntity.setRightText(text);
                 mAdapter.notifyDataSetChanged();
@@ -165,6 +177,23 @@ public class SearchActivity extends BaseUserInfoActivity implements
         String min = UserUtils.getEduData(this).get(options1);
         String max = UserUtils.getSubEdu(this).get(options1).get(option2);
         return min + "-" + max;
+    }
+
+    @NonNull
+    private String dealRegion(int options1, int option2, int option3) {
+        String one = mOptions1Items.get(options1).getName();
+        CityBean cityBean = mOptions2Items.get(options1).get(option2);
+        String two = cityBean.getName();
+//        String three = mOptions3Items.get(options1).get(option2).get(option3).getName();
+        switch (mEntity.getType()) {
+            case ItemInfo.Type.HOMETOWN:
+                mItem.born_area_code = cityBean.getCode();
+                break;
+            case ItemInfo.Type.APARTMENT:
+                mItem.work_area_code = cityBean.getCode();
+                break;
+        }
+        return one + "/" + two;
     }
 
     private void initView() {
@@ -255,7 +284,10 @@ public class SearchActivity extends BaseUserInfoActivity implements
                         public void onRegionResult(List<JsonBean> options1Items,
                                                    List<List<CityBean>> options2Items,
                                                    List<List<List<CityBean>>> options3Items) {
-                            pvCustomOptions.setPicker(options1Items, options2Items, options3Items);
+                            mOptions1Items = options1Items;
+                            mOptions2Items = options2Items;
+                            mOptions3Items = options3Items;
+                            pvCustomOptions.setPicker(options1Items, options2Items);
                             pvCustomOptions.show();
                         }
                     }).execute();
