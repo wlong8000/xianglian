@@ -2,8 +2,11 @@ package com.xianglian.love.utils;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.support.annotation.ArrayRes;
+import android.support.annotation.NonNull;
 
 import com.xianglian.love.R;
+import com.xianglian.love.user.been.ItemInfo;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,16 +14,17 @@ import java.util.List;
 
 /**
  * Created by wanglong on 17/3/30.
+ * 个人信息数据
  */
 
 public class UserUtils {
+
+
     public static ArrayList<String> getHighData() {
         ArrayList<String> data = new ArrayList<>();
-        data.add("140cm以下");
         for (int i = 140; i < 200; i++) {
             data.add(String.valueOf(i));
         }
-        data.add("200cm以上");
         return data;
     }
 
@@ -32,14 +36,26 @@ public class UserUtils {
         return data;
     }
 
-    public static List<List<String>> getSubAge() {
+    static List<List<String>> getSubData(Context context, int type) {
         List<List<String>> subData = new ArrayList<>();
 
-        List<String> list = getAge();
+        List<String> list = null;
+        switch (type) {
+            case ItemInfo.Type.AGE:
+                list = getAge();
+                break;
+            case ItemInfo.Type.HEIGHT:
+                list = getHighData();
+                break;
+            case ItemInfo.Type.EDUCATION:
+                list = getEduData(context);
+                break;
+        }
+        if (list == null) return null;
         int count = list.size();
         for (int i = 0; i < count; i++) {
             List<String> temp = new ArrayList<>();
-            for (int q = i + 1; q < count; q++) {
+            for (int q = i; q < count; q++) {
                 temp.add(list.get(q));
             }
             subData.add(temp);
@@ -47,21 +63,30 @@ public class UserUtils {
         return subData;
     }
 
-
-    public static ArrayList<String> getEduData(Context context) {
-        Resources res =context.getResources();
-        return new ArrayList<>(Arrays.asList(res.getStringArray(R.array.edu)));
+    public static List<List<String>> getSubAge(Context context) {
+        return getSubData(context, ItemInfo.Type.AGE);
     }
 
-    public static ArrayList<String> getComingData() {
-        ArrayList<String> data = new ArrayList<>();
-        data.add("3000以下");
-        data.add("3000~5000");
-        data.add("5000~8000");
-        data.add("8000~10000");
-        data.add("10000~20000");
-        data.add("20000以上");
-        return data;
+    public static List<List<String>> getSubHeight(Context context) {
+        return getSubData(context, ItemInfo.Type.HEIGHT);
+    }
+
+    public static ArrayList<String> getEduData(Context context) {
+        return getResources(context, R.array.edu);
+    }
+
+    @NonNull
+    public static ArrayList<String> getResources(Context context, @ArrayRes int id) {
+        Resources res =context.getResources();
+        return new ArrayList<>(Arrays.asList(res.getStringArray(id)));
+    }
+
+    public static List<List<String>> getSubEdu(Context context) {
+        return getSubData(context, ItemInfo.Type.EDUCATION);
+    }
+
+    public static ArrayList<String> getComingData(Context context) {
+        return getResources(context, R.array.income);
     }
 
     public static ArrayList<String> getProfessionData() {

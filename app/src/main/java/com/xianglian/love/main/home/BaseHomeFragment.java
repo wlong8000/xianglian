@@ -40,7 +40,8 @@ import java.util.Map;
  * 首页
  */
 
-public class BaseHomeFragment extends BaseListFragment implements BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemChildClickListener {
+public class BaseHomeFragment extends BaseListFragment implements BaseQuickAdapter.OnItemClickListener,
+        BaseQuickAdapter.OnItemChildClickListener {
 
     private HomeAdapter mAdapter;
 

@@ -51,9 +51,12 @@ import com.xianglian.love.user.been.OwnerEntity;
 
 import java.io.File;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -486,4 +489,8 @@ public class AppUtils {
 		return interests;
 	}
 
+	public static String getTime(Date date) {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+		return format.format(date);
+	}
 }

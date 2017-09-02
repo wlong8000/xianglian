@@ -193,7 +193,7 @@ public class MyInfoFragment extends BaseListFragment implements OnClickListener{
         data.add(getInfo(getString(R.string.profession), ItemInfo.MyInfoType.PROFESSION, UserUtils.getProfessionData()));
 
         //年收入
-        data.add(getInfo(getString(R.string.income), ItemInfo.MyInfoType.INCOME, UserUtils.getComingData()));
+        data.add(getInfo(getString(R.string.income), ItemInfo.MyInfoType.INCOME, UserUtils.getComingData(getContext())));
 
 
         //期望结婚时间

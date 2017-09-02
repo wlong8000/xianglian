@@ -222,12 +222,21 @@
     </string-array>
 
     <string-array name="edu">
-        <item>初中</item>
         <item>高中</item>
         <item>大专</item>
         <item>本科</item>
-        <item>研究生</item>
+        <item>硕士</item>
         <item>博士</item>
+    </string-array>
+
+    <string-array name="income">
+        <item>3000以下</item>
+        <item>3000~5000</item>
+        <item>5000~8000</item>
+        <item>8000~12000</item>
+        <item>12000~20000</item>
+        <item>20000~30000</item>
+        <item>30000以上</item>
     </string-array>
 
 </resources>
