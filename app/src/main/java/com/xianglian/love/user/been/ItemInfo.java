@@ -9,6 +9,7 @@ import com.xianglian.love.main.home.been.PersonInfo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 针对 用户信息编辑类
@@ -46,6 +47,10 @@ public class ItemInfo implements MultiItemEntity, Parcelable {
 
 	public String work_area_code;
 	public String born_area_code;
+
+	public String work_area_name;
+	public String born_area_name;
+
 	public String nationality;
 	public String birth_index;
 
@@ -389,72 +394,6 @@ public class ItemInfo implements MultiItemEntity, Parcelable {
 	}
 
 	@Override
-	public int describeContents() {
-		return 0;
-	}
-
-	@Override
-	public void writeToParcel(Parcel dest, int flags) {
-		dest.writeString(this.sex);
-		dest.writeString(this.min_age);
-		dest.writeString(this.max_age);
-		dest.writeString(this.min_height);
-		dest.writeString(this.max_height);
-		dest.writeString(this.education);
-		dest.writeString(this.career);
-		dest.writeString(this.income);
-		dest.writeString(this.expect_marry_date);
-		dest.writeString(this.marriage_status);
-		dest.writeString(this.min_weight);
-		dest.writeString(this.max_weight);
-		dest.writeString(this.has_car);
-		dest.writeString(this.has_children);
-		dest.writeString(this.has_house);
-		dest.writeString(this.is_student);
-		dest.writeString(this.vip);
-		dest.writeString(this.work_area_code);
-		dest.writeString(this.born_area_code);
-		dest.writeString(this.nationality);
-		dest.writeString(this.birth_index);
-	}
-
-	protected ItemInfo(Parcel in) {
-		this.sex = in.readString();
-		this.min_age = in.readString();
-		this.max_age = in.readString();
-		this.min_height = in.readString();
-		this.max_height = in.readString();
-		this.education = in.readString();
-		this.career = in.readString();
-		this.income = in.readString();
-		this.expect_marry_date = in.readString();
-		this.marriage_status = in.readString();
-		this.min_weight = in.readString();
-		this.max_weight = in.readString();
-		this.has_car = in.readString();
-		this.has_children = in.readString();
-		this.has_house = in.readString();
-		this.is_student = in.readString();
-		this.vip = in.readString();
-		this.work_area_code = in.readString();
-		this.born_area_code = in.readString();
-		this.nationality = in.readString();
-		this.birth_index = in.readString();
-	}
-
-	public static final Creator<ItemInfo> CREATOR = new Creator<ItemInfo>() {
-		@Override
-		public ItemInfo createFromParcel(Parcel source) {
-			return new ItemInfo(source);
-		}
-
-		@Override
-		public ItemInfo[] newArray(int size) {
-			return new ItemInfo[size];
-		}
-	};
-
-	@Override
 	public String toString() {
 		StringBuffer buffer = new StringBuffer();
 		setParam("sex", sex, buffer);
@@ -485,4 +424,94 @@ public class ItemInfo implements MultiItemEntity, Parcelable {
 		if (TextUtils.isEmpty(value)) return;
 		buffer.append(key).append("=").append(value).append("&");
 	}
+
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeString(this.text);
+		dest.writeString(this.rightText);
+		dest.writeString(this.scheme);
+		dest.writeString(this.avatar);
+		dest.writeInt(this.type);
+		dest.writeInt(this.viewType);
+		dest.writeByte(this.showLine ? (byte) 1 : (byte) 0);
+		dest.writeParcelable(this.info, flags);
+		dest.writeStringList(this.items);
+		dest.writeList(this.subItems);
+		dest.writeString(this.sex);
+		dest.writeString(this.min_age);
+		dest.writeString(this.max_age);
+		dest.writeString(this.min_height);
+		dest.writeString(this.max_height);
+		dest.writeString(this.education);
+		dest.writeString(this.career);
+		dest.writeString(this.income);
+		dest.writeString(this.expect_marry_date);
+		dest.writeString(this.marriage_status);
+		dest.writeString(this.min_weight);
+		dest.writeString(this.max_weight);
+		dest.writeString(this.has_car);
+		dest.writeString(this.has_children);
+		dest.writeString(this.has_house);
+		dest.writeString(this.is_student);
+		dest.writeString(this.vip);
+		dest.writeString(this.work_area_code);
+		dest.writeString(this.born_area_code);
+		dest.writeString(this.work_area_name);
+		dest.writeString(this.born_area_name);
+		dest.writeString(this.nationality);
+		dest.writeString(this.birth_index);
+	}
+
+	protected ItemInfo(Parcel in) {
+		this.text = in.readString();
+		this.rightText = in.readString();
+		this.scheme = in.readString();
+		this.avatar = in.readString();
+		this.type = in.readInt();
+		this.viewType = in.readInt();
+		this.showLine = in.readByte() != 0;
+		this.info = in.readParcelable(PersonInfo.class.getClassLoader());
+		this.items = in.createStringArrayList();
+		this.subItems = new ArrayList<>();
+		this.sex = in.readString();
+		this.min_age = in.readString();
+		this.max_age = in.readString();
+		this.min_height = in.readString();
+		this.max_height = in.readString();
+		this.education = in.readString();
+		this.career = in.readString();
+		this.income = in.readString();
+		this.expect_marry_date = in.readString();
+		this.marriage_status = in.readString();
+		this.min_weight = in.readString();
+		this.max_weight = in.readString();
+		this.has_car = in.readString();
+		this.has_children = in.readString();
+		this.has_house = in.readString();
+		this.is_student = in.readString();
+		this.vip = in.readString();
+		this.work_area_code = in.readString();
+		this.born_area_code = in.readString();
+		this.work_area_name = in.readString();
+		this.born_area_name = in.readString();
+		this.nationality = in.readString();
+		this.birth_index = in.readString();
+	}
+
+	public static final Creator<ItemInfo> CREATOR = new Creator<ItemInfo>() {
+		@Override
+		public ItemInfo createFromParcel(Parcel source) {
+			return new ItemInfo(source);
+		}
+
+		@Override
+		public ItemInfo[] newArray(int size) {
+			return new ItemInfo[size];
+		}
+	};
 }

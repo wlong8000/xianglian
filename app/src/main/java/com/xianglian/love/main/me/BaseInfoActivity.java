@@ -3,6 +3,7 @@ package com.xianglian.love.main.me;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.xianglian.love.BaseEditUserInfoActivity;
@@ -25,8 +26,6 @@ public class BaseInfoActivity extends BaseEditUserInfoActivity implements BaseQu
 
     private UserInfoEditAdapter mAdapter;
 
-    private ItemInfo mEntity;
-
     private List<ItemInfo> mItemInfo = new ArrayList<>();
 
     public static Intent getIntent(Context context) {
@@ -44,21 +43,49 @@ public class BaseInfoActivity extends BaseEditUserInfoActivity implements BaseQu
     @Override
     public void onSelectComplete(int options1, int option2, int options3, Date date, View v) {
         String text = null;
+        UserDetailEntity entity = new UserDetailEntity();
         switch (mEntity.getType()) {
-            case ItemInfo.Type.AGE:
-                text = dealAge(options1, option2);
+            case ItemInfo.MyInfoType.BIRTHDAY:
+                text = dealDate(date);
+                entity.setBirth_date(text);
                 break;
-            case ItemInfo.Type.HEIGHT:
-                text = dealHeight(options1, option2);
-                break;
-            case ItemInfo.Type.EDUCATION:
-                text = dealEdu(options1, option2);
-                break;
-            case ItemInfo.Type.HOMETOWN:
-            case ItemInfo.Type.APARTMENT:
+            case ItemInfo.MyInfoType.APARTMENT:
                 text = dealRegion(options1, option2, options3, true);
+                entity.setWork_area_code(mItem.work_area_code);
+                entity.setWork_area_name(mItem.work_area_name);
+                break;
+            case ItemInfo.MyInfoType.HOMETOWN:
+                text = dealRegion(options1, option2, options3, true);
+                entity.setBorn_area_code(mItem.born_area_code);
+                entity.setBorn_area_name(mItem.born_area_name);
+                break;
+            case ItemInfo.MyInfoType.HEIGHT:
+                text = dealHeight(options1);
+                entity.setHeight(text);
+                break;
+            case ItemInfo.MyInfoType.EDUCATION:
+                text = dealEdu(options1);
+                entity.setEducation(mItem.education);
+                break;
+            case ItemInfo.MyInfoType.PROFESSION:
+                text = dealProfession(options1);
+                entity.setCareer(mItem.career);
+                break;
+            case ItemInfo.MyInfoType.INCOME:
+                text = dealIncome(options1);
+                entity.setIncome(mItem.income);
+                break;
+            case ItemInfo.MyInfoType.MARRY_STATE:
+                text = dealMarryState(options1);
+                entity.setMarriage_status(mItem.marriage_status);
+                break;
+            case ItemInfo.MyInfoType.WEIGHT:
+                text = dealWeight(options1);
+                entity.setWeight(text);
                 break;
         }
+        if (TextUtils.isEmpty(text)) return;
+        doRequest(entity, text);
         mEntity.setRightText(text);
         mAdapter.notifyDataSetChanged();
     }
@@ -90,13 +117,14 @@ public class BaseInfoActivity extends BaseEditUserInfoActivity implements BaseQu
     /**
      * 编辑器
      **/
-    private void showEditDialog(final ItemInfo entity) {
-        if (entity == null) return;
+    private void showEditDialog() {
+        if (mEntity == null) return;
         EditDialog dialog = new EditDialog(this) {
             @Override
             public void onConfirm(String data) {
-                entity.setRightText(data);
-                mAdapter.notifyDataSetChanged();
+                UserDetailEntity entity1 = new UserDetailEntity();
+                entity1.setNickname(data);
+                doRequest(entity1, data);
             }
         };
         dialog.show();
@@ -148,6 +176,46 @@ public class BaseInfoActivity extends BaseEditUserInfoActivity implements BaseQu
         return getInfo(text, null, type, list);
     }
 
+    @Override
+    public void onRequestSuccess(String response, int type, String data) {
+        switch (type) {
+            case ItemInfo.MyInfoType.NICK_NAME:
+                parseData("nickname", data);
+                break;
+            case ItemInfo.MyInfoType.BIRTHDAY:
+                parseData("birth_date", data);
+                break;
+            case ItemInfo.MyInfoType.APARTMENT:
+                parseData("work_area_name", mItem.work_area_name);
+                break;
+            case ItemInfo.MyInfoType.HOMETOWN:
+                parseData("born_area_name", mItem.born_area_name);
+                break;
+            case ItemInfo.MyInfoType.HEIGHT:
+                parseData("height", data);
+                break;
+            case ItemInfo.MyInfoType.EDUCATION:
+                parseData("education", data);
+                break;
+            case ItemInfo.MyInfoType.PROFESSION:
+                parseData("career", data);
+                break;
+            case ItemInfo.MyInfoType.INCOME:
+                parseData("income", data);
+                break;
+            case ItemInfo.MyInfoType.MARRY_STATE:
+                parseData("marriage_status", data);
+                break;
+            case ItemInfo.MyInfoType.WEIGHT:
+                parseData("weight", data);
+                break;
+            case ItemInfo.MyInfoType.RANKING:
+                parseData("birth_index", data);
+                break;
+        }
+        mEntity.setRightText(data);
+        mAdapter.notifyDataSetChanged();
+    }
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -179,7 +247,7 @@ public class BaseInfoActivity extends BaseEditUserInfoActivity implements BaseQu
                     break;
                 }
                 case ItemInfo.MyInfoType.NICK_NAME: {
-                    showEditDialog(mEntity);
+                    showEditDialog();
                     break;
                 }
             }

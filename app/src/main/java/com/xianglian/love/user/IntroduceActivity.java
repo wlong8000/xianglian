@@ -11,7 +11,6 @@ import com.okhttplib.OkHttpUtil;
 import com.okhttplib.callback.Callback;
 import com.xianglian.love.R;
 import com.xianglian.love.config.Config;
-import com.xianglian.love.utils.ACache;
 import com.xianglian.love.utils.AppUtils;
 
 import org.json.JSONObject;
@@ -132,33 +131,11 @@ public class IntroduceActivity extends BaseUserInfoActivity {
     private void updateUserInfo(String input) {
         switch (mType) {
             case INTRODUCE:
-                parseData("person_intro", input);
+                AppUtils.parseData(this, "person_intro", input);
                 break;
             case EXPERIENCE:
-                parseData("relationship_desc", input);
+                AppUtils.parseData(this, "relationship_desc", input);
                 break;
-        }
-    }
-
-    private void parseData(String key, String value) {
-        JSONObject object = ACache.get(IntroduceActivity.this).getAsJSONObject(Config.KEY_USER);
-        try {
-            if (object != null) {
-                JSONObject result1 = object.getJSONObject("result");
-                if (result1 != null) {
-                    JSONObject user_obj = result1.getJSONObject("user_info");
-                    if (user_obj != null) {
-                        JSONObject profile = user_obj.getJSONObject("profile");
-                        if (profile != null) {
-                            profile.put(key, value);
-                        }
-
-                    }
-                }
-                ACache.get(IntroduceActivity.this).put(Config.KEY_USER, object);
-            }
-        } catch (org.json.JSONException e) {
-            e.printStackTrace();
         }
     }
 }

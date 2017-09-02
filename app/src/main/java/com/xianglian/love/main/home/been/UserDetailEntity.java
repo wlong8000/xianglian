@@ -2,11 +2,15 @@ package com.xianglian.love.main.home.been;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by wanglong on 17/8/19.
@@ -74,6 +78,8 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
     private String nickname;
     private String work_area_name;
     private String born_area_name;
+    private String work_area_code;
+    private String born_area_code;
     private String age;
     private String height;
     private String career;
@@ -204,6 +210,22 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
 
     public void setBorn_area_name(String born_area_name) {
         this.born_area_name = born_area_name;
+    }
+
+    public String getWork_area_code() {
+        return work_area_code;
+    }
+
+    public void setWork_area_code(String work_area_code) {
+        this.work_area_code = work_area_code;
+    }
+
+    public String getBorn_area_code() {
+        return born_area_code;
+    }
+
+    public void setBorn_area_code(String born_area_code) {
+        this.born_area_code = born_area_code;
     }
 
     public String getPerson_intro() {
@@ -518,6 +540,82 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
     public UserDetailEntity() {
     }
 
+    public Map<String, String> getParams() {
+        Map<String, String> params = new HashMap<>();
+        if (!TextUtils.isEmpty(nickname)) {
+            params.put("nickname", nickname);
+        }
+        if (!TextUtils.isEmpty(work_area_name)) {
+            params.put("work_area_name", work_area_name);
+        }
+        if (!TextUtils.isEmpty(born_area_name)) {
+            params.put("born_area_name", born_area_name);
+        }
+
+        if (!TextUtils.isEmpty(work_area_code)) {
+            params.put("work_area_code", work_area_code);
+        }
+        if (!TextUtils.isEmpty(born_area_code)) {
+            params.put("born_area_code", born_area_code);
+        }
+
+        if (!TextUtils.isEmpty(height)) {
+            params.put("height", height);
+        }
+        if (!TextUtils.isEmpty(education)) {
+            params.put("education", education);
+        }
+        if (!TextUtils.isEmpty(career)) {
+            params.put("career", career);
+        }
+
+        if (!TextUtils.isEmpty(income)) {
+            params.put("income", income);
+        }
+        if (!TextUtils.isEmpty(expect_marry_date)) {
+            params.put("expect_marry_date", expect_marry_date);
+        }
+        if (!TextUtils.isEmpty(nationality)) {
+            params.put("nationality", nationality);
+        }
+
+        if (!TextUtils.isEmpty(marriage_status)) {
+            params.put("marriage_status", marriage_status);
+        }
+        if (!TextUtils.isEmpty(birth_index)) {
+            params.put("birth_index", birth_index);
+        }
+        if (!TextUtils.isEmpty(has_children)) {
+            params.put("has_children", has_children);
+        }
+
+        if (!TextUtils.isEmpty(weight)) {
+            params.put("weight", weight);
+        }
+        if (!TextUtils.isEmpty(relationship_desc)) {
+            params.put("relationship_desc", relationship_desc);
+        }
+        if (!TextUtils.isEmpty(mate_preference)) {
+            params.put("mate_preference", mate_preference);
+        }
+
+        if (!TextUtils.isEmpty(has_car)) {
+            params.put("has_car", has_car);
+        }
+        if (!TextUtils.isEmpty(has_house)) {
+            params.put("has_house", has_house);
+        }
+        if (!TextUtils.isEmpty(birth_date)) {
+            params.put("birth_date", birth_date);
+        }
+
+        if (!TextUtils.isEmpty(person_intro)) {
+            params.put("person_intro", person_intro);
+        }
+        return params;
+
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -536,6 +634,8 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
         dest.writeString(this.nickname);
         dest.writeString(this.work_area_name);
         dest.writeString(this.born_area_name);
+        dest.writeString(this.work_area_code);
+        dest.writeString(this.born_area_code);
         dest.writeString(this.age);
         dest.writeString(this.height);
         dest.writeString(this.career);
@@ -588,6 +688,8 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
         this.nickname = in.readString();
         this.work_area_name = in.readString();
         this.born_area_name = in.readString();
+        this.work_area_code = in.readString();
+        this.born_area_code = in.readString();
         this.age = in.readString();
         this.height = in.readString();
         this.career = in.readString();

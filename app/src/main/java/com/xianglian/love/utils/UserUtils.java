@@ -41,11 +41,9 @@ public class UserUtils {
      */
     public static ArrayList<String> getWeight() {
         ArrayList<String> data = new ArrayList<>();
-        data.add("40kg以下");
-        for (int i = 40; i < 100; i++) {
+        for (int i = 35; i < 150; i++) {
             data.add(String.valueOf(i));
         }
-        data.add("100kg以上");
         return data;
     }
 

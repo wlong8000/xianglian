@@ -35,6 +35,11 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/lib_font_size6"
             android:layout_toLeftOf="@id/right_go_more_img"
+            android:layout_toRightOf="@id/tv_left_text"
+            android:ellipsize="end"
+            android:gravity="right"
+            android:maxLines="1"
+            android:paddingLeft="10dp"
             android:textColor="@color/please_select_pre_color"
             android:textSize="@dimen/lib_font_size4" />
     </RelativeLayout>

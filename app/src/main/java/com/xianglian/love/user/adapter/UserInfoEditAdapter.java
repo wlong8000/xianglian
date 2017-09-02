@@ -16,6 +16,7 @@ import java.util.List;
  */
 
 public class UserInfoEditAdapter extends BaseMultiItemQuickAdapter<ItemInfo, BaseViewHolder> {
+
     private Context mContext;
 
     public UserInfoEditAdapter(Context context, List<ItemInfo> data) {

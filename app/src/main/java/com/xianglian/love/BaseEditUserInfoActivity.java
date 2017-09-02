@@ -10,15 +10,26 @@ import android.widget.Button;
 import com.bigkoo.pickerview.OptionsPickerView;
 import com.bigkoo.pickerview.TimePickerView;
 import com.bigkoo.pickerview.listener.CustomListener;
+import com.okhttplib.HttpInfo;
+import com.okhttplib.OkHttpUtil;
+import com.okhttplib.callback.Callback;
+import com.xianglian.love.config.Config;
+import com.xianglian.love.main.home.been.UserDetailEntity;
 import com.xianglian.love.model.JsonBean;
 import com.xianglian.love.user.been.ItemInfo;
+import com.xianglian.love.utils.ACache;
 import com.xianglian.love.utils.LoadRegionTask;
+import com.xianglian.love.utils.TimeUtils;
 import com.xianglian.love.utils.UserUtils;
 
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by wanglong on 17/9/2.
@@ -135,12 +146,28 @@ public abstract class BaseEditUserInfoActivity extends BaseListActivity {
     }
 
     @NonNull
+    public String dealAge(int options1) {
+        return UserUtils.getAge().get(options1);
+    }
+
+    @NonNull
     public String dealHeight(int options1, int option2) {
         String min = UserUtils.getHighData().get(options1);
         String max = UserUtils.getSubHeight(this).get(options1).get(option2);
         mItem.min_height = min;
         mItem.max_height = max;
         return min + "-" + max;
+    }
+
+    @NonNull
+    public String dealHeight(int options1) {
+        return UserUtils.getHighData().get(options1);
+    }
+
+    @NonNull
+    public String dealProfession(int options1) {
+        mItem.career = (options1 + 1) + "";
+        return UserUtils.getProfessionData().get(options1);
     }
 
     @NonNull
@@ -151,23 +178,53 @@ public abstract class BaseEditUserInfoActivity extends BaseListActivity {
     }
 
     @NonNull
+    public String dealEdu(int options1) {
+        mItem.education = (options1 + 1) + "";
+        return UserUtils.getEduData(this).get(options1);
+    }
+
+    @NonNull
+    public String dealIncome(int options1) {
+        mItem.income = (options1 + 1) + "";
+        return UserUtils.getComingData(this).get(options1);
+    }
+
+    @NonNull
+    public String dealMarryState(int options1) {
+        mItem.marriage_status = (options1 + 1) + "";
+        return UserUtils.getMarryState(this).get(options1);
+    }
+
+    @NonNull
+    public String dealWeight(int options1) {
+        return UserUtils.getWeight().get(options1);
+    }
+
+    @NonNull
     public String dealRegion(int options1, int option2, int option3, boolean hasOption3) {
         String one = mOptions1Items.get(options1).getName();
         JsonBean.CityBean cityBean = mOptions2Items.get(options1).get(option2);
         JsonBean.CityBean city2Bean = mOptions3Items.get(options1).get(option2).get(option3);
         String two = cityBean.getName();
-        String three =city2Bean.getName();
+        String three = city2Bean.getName();
         switch (mEntity.getType()) {
             case ItemInfo.Type.HOMETOWN:
                 mItem.born_area_code = !hasOption3 ? cityBean.getCode() : city2Bean.getCode();
+                mItem.born_area_name = !hasOption3 ? cityBean.getName() : city2Bean.getName();
                 break;
             case ItemInfo.Type.APARTMENT:
                 mItem.work_area_code = !hasOption3 ? cityBean.getCode() : city2Bean.getCode();
+                mItem.work_area_name = !hasOption3 ? cityBean.getName() : city2Bean.getName();
                 break;
         }
         if (hasOption3)
             return one + "/" + two + "/" + three;
         return one + "/" + two;
+    }
+
+    @NonNull
+    public String dealDate(Date date) {
+        return TimeUtils.date2String(date);
     }
 
     public void showRegion(final boolean hasOptions3) {
@@ -207,5 +264,57 @@ public abstract class BaseEditUserInfoActivity extends BaseListActivity {
         return data;
     }
 
+    public void parseData(String key, String value) {
+        JSONObject object = ACache.get(this).getAsJSONObject(Config.KEY_USER);
+        try {
+            if (object != null) {
+                JSONObject result1 = object.getJSONObject("result");
+                if (result1 != null) {
+                    JSONObject user_obj = result1.getJSONObject("user_info");
+                    if (user_obj != null) {
+                        JSONObject profile = user_obj.getJSONObject("profile");
+                        if (profile != null) {
+                            profile.put(key, value);
+                        }
+
+                    }
+                }
+                ACache.get(this).put(Config.KEY_USER, object);
+            }
+        } catch (org.json.JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void doRequest(final UserDetailEntity entity, final String data) {
+        if (entity == null) return;
+        dialogShow();
+        final String url = Config.PATH + "user/set/basic-info";
+        Map<String, String> params = entity.getParams();
+        params.put("uid", getUserId(this));
+
+        OkHttpUtil.getDefault(this).doPostAsync(
+                HttpInfo.Builder().setUrl(url).addHeads(getHeader()).addParams(params).build(),
+                new Callback() {
+                    @Override
+                    public void onFailure(HttpInfo info) throws IOException {
+                        dialogDisMiss();
+                        toast(getString(R.string.request_fail));
+                    }
+
+                    @Override
+                    public void onSuccess(HttpInfo info) throws IOException {
+                        dialogDisMiss();
+                        String result = info.getRetDetail();
+                        if (result != null && mEntity != null) {
+                            onRequestSuccess(result, mEntity.getType(), data);
+                        }
+                    }
+                });
+    }
+
     public abstract void onSelectComplete(int options1, int option2, int options3, Date date, View v);
+
+    public void onRequestSuccess(String response, int type, String data) {
+    }
 }
