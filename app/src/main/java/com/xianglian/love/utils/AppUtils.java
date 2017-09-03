@@ -406,6 +406,12 @@ public class AppUtils {
 		return entity.getRelationship_desc();
 	}
 
+	public static String getChooseMarry(Context context) {
+		UserDetailEntity entity = getUserInfo(context);
+		if (entity == null) return null;
+		return entity.getMate_preference();
+	}
+
 
 	/*
  * 获取手机信息

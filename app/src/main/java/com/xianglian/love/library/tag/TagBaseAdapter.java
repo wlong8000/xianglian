@@ -48,8 +48,8 @@ public class TagBaseAdapter extends BaseAdapter {
             holder = new ViewHolder();
             holder.tagBtn = (TextView) convertView.findViewById(R.id.tag_btn);
             convertView.setTag(holder);
-        }else{
-            holder = (ViewHolder)convertView.getTag();
+        } else {
+            holder = (ViewHolder) convertView.getTag();
         }
         final String text = getItem(position);
         holder.tagBtn.setText(text);

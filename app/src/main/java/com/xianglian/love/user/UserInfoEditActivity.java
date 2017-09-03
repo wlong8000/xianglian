@@ -360,7 +360,7 @@ public class UserInfoEditActivity extends BaseUserInfoActivity implements View.O
 
     }
 
-    public ItemInfo getInfo(String text, int type, ArrayList<String> list) {
+    public ItemInfo getInfo(String text, int type, List<String> list) {
         return getInfo(text, null, type, list);
     }
 
@@ -370,7 +370,7 @@ public class UserInfoEditActivity extends BaseUserInfoActivity implements View.O
      * @param type      0默认 1：带5dp的分割线
      * @return
      */
-    public ItemInfo getInfo(String text, String rightText, int type, ArrayList<String> list) {
+    public ItemInfo getInfo(String text, String rightText, int type, List<String> list) {
         if (TextUtils.isEmpty(rightText))
             rightText = getResources().getString(R.string.please_select);
         ItemInfo data = new ItemInfo();

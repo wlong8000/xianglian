@@ -18,13 +18,12 @@
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleMarginEnd="64dp"
             app:expandedTitleMarginStart="48dp"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
             <FrameLayout
                 android:id="@+id/layout_banner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/banner"
                 android:descendantFocusability="beforeDescendants"
                 android:fitsSystemWindows="@bool/fits_system_windows"
                 app:layout_collapseMode="parallax"
@@ -35,8 +34,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:scaleType="fitXY"
-                    app:progressBarImageScaleType="centerCrop"
-                    app:viewAspectRatio="2" />
+                    app:progressBarImageScaleType="centerCrop" />
 
                 <LinearLayout
                     android:id="@+id/heart"
@@ -124,61 +122,19 @@
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_view"
-            android:layout_marginBottom="50dp"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            >
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </RelativeLayout>
 
     </RelativeLayout>
 
-    <LinearLayout
-        android:id="@+id/bottom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="@color/lib_color_bg14"
-        android:padding="8dp">
-
-        <TextView
-            android:id="@+id/change_qq"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="8dp"
-            android:layout_weight="1"
-            android:background="@color/lib_color_font8"
-            android:gravity="center_horizontal"
-            android:paddingBottom="8dp"
-            android:paddingTop="8dp"
-            android:text="@string/change_qq"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/change_wx"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="8dp"
-            android:layout_weight="1"
-            android:background="@color/lib_color_font8"
-            android:gravity="center_horizontal"
-            android:paddingBottom="8dp"
-            android:paddingTop="8dp"
-            android:text="@string/change_wx"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/leave_message"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:paddingBottom="8dp"
-            android:paddingTop="8dp"
-            android:text="@string/leave_message"
-            android:textColor="@color/red"
-            android:textSize="16sp" />
-    </LinearLayout>
+    <include layout="@layout/layout_user_detail_bottom" />
 
 </android.support.design.widget.CoordinatorLayout>

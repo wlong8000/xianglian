@@ -139,18 +139,18 @@ public class SearchActivity extends BaseEditUserInfoActivity implements
         }
     }
 
-    public ItemInfo getInfo(String text, int type, ArrayList<String> list) {
+    public ItemInfo getInfo(String text, int type, List<String> list) {
         return getInfo(text, type, list, null);
     }
 
-    public ItemInfo getInfo(String text, int type, ArrayList<String> list, List<List<String>> list2) {
+    public ItemInfo getInfo(String text, int type, List<String> list, List<List<String>> list2) {
         return getInfo(text, null, type, list, list2);
     }
 
     /**
      * @param type 0默认 1：带5dp的分割线
      */
-    public ItemInfo getInfo(String text, String rightText, int type, ArrayList<String> list,
+    public ItemInfo getInfo(String text, String rightText, int type, List<String> list,
                             List<List<String>> list2) {
         if (TextUtils.isEmpty(rightText))
             rightText = getResources().getString(R.string.no_limit);

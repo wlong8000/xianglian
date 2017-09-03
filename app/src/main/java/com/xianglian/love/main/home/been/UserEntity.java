@@ -41,7 +41,7 @@ public class UserEntity implements Parcelable, MultiItemEntity {
      */
     private String income;
     private String person_intro;
-    private int like;
+    private String like;
     private String avatar;
     /**
      * 类型 1 条目 2 广告
@@ -183,11 +183,11 @@ public class UserEntity implements Parcelable, MultiItemEntity {
         this.person_intro = person_intro;
     }
 
-    public int getLike() {
+    public String getLike() {
         return like;
     }
 
-    public void setLike(int like) {
+    public void setLike(String like) {
         this.like = like;
     }
 
@@ -295,7 +295,7 @@ public class UserEntity implements Parcelable, MultiItemEntity {
         dest.writeInt(this.career);
         dest.writeString(this.income);
         dest.writeString(this.person_intro);
-        dest.writeInt(this.like);
+        dest.writeString(this.like);
         dest.writeString(this.avatar);
         dest.writeInt(this.type);
         dest.writeParcelable(this.content, flags);
@@ -324,7 +324,7 @@ public class UserEntity implements Parcelable, MultiItemEntity {
         this.career = in.readInt();
         this.income = in.readString();
         this.person_intro = in.readString();
-        this.like = in.readInt();
+        this.like = in.readString();
         this.avatar = in.readString();
         this.type = in.readInt();
         this.content = in.readParcelable(UserEntity.class.getClassLoader());

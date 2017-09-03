@@ -80,6 +80,10 @@
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".main.home.EditPhoneActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
             android:name="com.xianglian.love.user.MarkTagActivity"
             android:exported="true"
             android:screenOrientation="portrait" />

@@ -53,6 +53,8 @@ public class ItemInfo implements MultiItemEntity, Parcelable {
 
 	public String nationality;
 	public String birth_index;
+	public int phoneType;
+	public Contacts contacts;
 
 	@Override
 	public int getItemType() {
@@ -77,6 +79,21 @@ public class ItemInfo implements MultiItemEntity, Parcelable {
 		 * 完成
 		 */
 		int COMPLETE = 2;
+
+		/**
+		 * 提示
+		 */
+		int TOAST = 3;
+
+		/**
+		 * 提示
+		 */
+		int TOAST2 = 4;
+
+		/**
+		 * 联系方式
+		 */
+		int PHONE = 5;
 	}
 
 	public interface Type {
@@ -308,6 +325,14 @@ public class ItemInfo implements MultiItemEntity, Parcelable {
 		 * 体重
 		 */
 		int WEIGHT = 14;
+	}
+
+	/**
+	 * 联系方式
+     */
+	public interface PhoneType {
+		int QQ = 0;
+		int WEI_XIN = 1;
 	}
 
 	public String getText() {

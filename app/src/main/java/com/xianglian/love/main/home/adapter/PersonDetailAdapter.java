@@ -9,6 +9,7 @@ import com.xianglian.love.library.tag.TagBaseAdapter;
 import com.xianglian.love.library.tag.TagCloudLayout;
 import com.xianglian.love.main.home.been.UserDetailEntity;
 import com.xianglian.love.utils.AppUtils;
+import com.xianglian.love.utils.UserUtils;
 import com.xianglian.love.view.AlumView;
 import com.xianglian.love.view.FavoriteView;
 
@@ -25,12 +26,6 @@ public class PersonDetailAdapter extends BaseMultiItemQuickAdapter<UserDetailEnt
 
     private Context mContext;
 
-    /**
-     * Same as QuickAdapter#QuickAdapter(Context,int) but with
-     * some initialization data.
-     *
-     * @param data A new list is created out of this one to avoid mutable list
-     */
     public PersonDetailAdapter(Context context, List<UserDetailEntity> data) {
         super(data);
         this.mContext = context;
@@ -82,19 +77,23 @@ public class PersonDetailAdapter extends BaseMultiItemQuickAdapter<UserDetailEnt
                 alumView.setData(item.getAlbums());
                 break;
             case UserDetailEntity.ViewType.BASE_INFO:
+                helper.setText(R.id.car, "有".equals(item.getHas_car()) ?
+                        mContext.getString(R.string.has_car) : mContext.getString(R.string.has_no_car));
+                helper.setText(R.id.house, "有".equals(item.getHas_house()) ?
+                        mContext.getString(R.string.has_house) : mContext.getString(R.string.has_no_house));
                 TagCloudLayout tagCloudLayout = helper.getView(R.id.tab_container);
-                List<String> mList = new ArrayList<>();
-                mList.add("出生日期 / 1989-11-15");
-                mList.add("星座 / 金牛座");
-                mList.add("身高 / 158");
-                mList.add("年收入 / 10w-20w");
-                mList.add("工作生活在 / 廊坊");
-                TagBaseAdapter mAdapter = new TagBaseAdapter(mContext, mList);
+                TagBaseAdapter mAdapter = new TagBaseAdapter(mContext, UserUtils.getBaseInfoList(item));
                 tagCloudLayout.setAdapter(mAdapter);
                 break;
             case UserDetailEntity.ViewType.TITLE:
+                helper.setText(R.id.title, mContext.getString(R.string.message));
                 break;
             case UserDetailEntity.ViewType.LEAVE_MESSAGE:
+                helper.setImageURI(R.id.head, AppUtils.parse(result.getSender_avatar()));
+                helper.setText(R.id.name, result.getSender_name());
+                helper.setText(R.id.content, result.getContent());
+                helper.setText(R.id.time, result.getCreate_time());
+                helper.setGone(R.id.more, result.isShow_msg_more());
                 break;
         }
     }

@@ -65,7 +65,7 @@ public class BaseHomeFragment extends BaseListFragment implements BaseQuickAdapt
                 doRequest(true);
             }
         });
-        mAdapter.setEmptyView(loadingView);
+        mSwipeRefreshLayout.setRefreshing(true);
         doRequest(true);
     }
 

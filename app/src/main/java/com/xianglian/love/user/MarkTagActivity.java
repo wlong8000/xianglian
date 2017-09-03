@@ -4,23 +4,28 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.Gravity;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.okhttplib.HttpInfo;
+import com.okhttplib.OkHttpUtil;
+import com.okhttplib.callback.Callback;
 import com.xianglian.love.R;
 import com.xianglian.love.config.Config;
 import com.xianglian.love.user.adapter.CommonObjectAdapter;
+import com.xianglian.love.utils.UserUtils;
 
-import com.xianglian.love.view.ProgressDialog;
+import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -35,9 +40,11 @@ public class MarkTagActivity extends BaseUserInfoActivity implements View.OnClic
 
     private LinearLayout mCompleteView;
 
-    private List<Object> mTagListData = new ArrayList<>();
-    private ArrayList<String> mSelectTagData;
-    private CommonObjectAdapter gridViewAdapter;
+    private List<Object> mTagList = new ArrayList<>();
+
+    private List<String> mSelectTagData = new ArrayList<>();
+
+    private CommonObjectAdapter mGridViewAdapter;
 
     //个人标签
     public static final int MARK = 0;
@@ -46,8 +53,6 @@ public class MarkTagActivity extends BaseUserInfoActivity implements View.OnClic
     public static final int HOBBY = 1;
 
     private int mType;
-
-    private ProgressDialog mDialog;
 
     public static Intent getIntent(Context context, int type) {
         Intent intent = new Intent(context, MarkTagActivity.class);
@@ -60,19 +65,15 @@ public class MarkTagActivity extends BaseUserInfoActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mark_tag_layout);
         mType = getIntent().getIntExtra(Config.MARK_KEY, MARK);
-//        if (MARK == mType) {
-//            setupCommonTitle(getString(R.string.mark));
+        if (MARK == mType) {
+            setupCommonTitle(getString(R.string.mark));
 //            mSelectTagData = new ArrayList<>(mPersonInfo.getMark());
-//            Collections.addAll(mTagListData, "孝顺", "随和", "安静", "爱吃", "顾家", "理智", "善良", "小资", "可爱", "直爽", "强势",
-//                    "活泼", "各种宅", "幽默", "乐观", "低调", "阳光", "执着", "体贴", "八卦", "纠结",
-//                    "强迫症", "洁癖", "粗心", "细腻", "工作狂", "颜控", "胆小", "起床气", "好奇", "购物狂", "单纯");
-//        } else if (HOBBY == mType) {
-//            setupCommonTitle(getString(R.string.hobby));
+            mTagList.addAll(UserUtils.getResources(this, R.array.user_tag));
+        } else if (HOBBY == mType) {
+            setupCommonTitle(getString(R.string.hobby));
 //            mSelectTagData = new ArrayList<>(mPersonInfo.getHobby());
-//            Collections.addAll(mTagListData, "看书", "运动", "电影", "音乐", "星座", "英语", "游戏", "各种吃",
-//                    "旅游", "休闲", "社交", "网络", "跳舞", "摄影", "画画", "养花", "追星", "睡觉",
-//                    "慈善", "玩牌", "唱歌", "DIY", "逛街", "抽烟", "喝酒", "汽车", "数码", "烹饪", "茶艺", "宠物", "宗教", "写作");
-//        }
+            mTagList.addAll(UserUtils.getResources(this, R.array.love_tag));
+        }
 
         initView();
     }
@@ -83,8 +84,8 @@ public class MarkTagActivity extends BaseUserInfoActivity implements View.OnClic
         mCompleteView = (LinearLayout) findViewById(R.id.bottom_next_position_mark_page);
         mCompleteView.setOnClickListener(this);
         mGridView = (GridView) findViewById(R.id.mark_tag_grid);
-        gridViewAdapter = new CommonObjectAdapter(mTagListData);
-        gridViewAdapter.setCommonAdapterCallBack(new CommonObjectAdapter.CommonAdapterCallBack() {
+        mGridViewAdapter = new CommonObjectAdapter(mTagList);
+        mGridViewAdapter.setCommonAdapterCallBack(new CommonObjectAdapter.CommonAdapterCallBack() {
             Holder holder = null;
 
             @Override
@@ -100,32 +101,30 @@ public class MarkTagActivity extends BaseUserInfoActivity implements View.OnClic
                 } else {
                     holder = (Holder) convertView.getTag();
                 }
-                holder.tagView.setText((CharSequence) mTagListData.get(position));
+                holder.tagView.setText((CharSequence) mTagList.get(position));
 
                 holder.backgroundLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (mSelectTagData.contains(mTagListData.get(position).toString())) {
-                            mSelectTagData.remove(mTagListData.get(position));
+                        if (mSelectTagData.contains(mTagList.get(position).toString())) {
+                            mSelectTagData.remove(mTagList.get(position));
                         } else {
                             if (mSelectTagData.size() < 8) {
-                                mSelectTagData.add(mTagListData.get(position).toString());
+                                mSelectTagData.add(mTagList.get(position).toString());
                                 if (mSelectTagData.size() == 8) {
                                     mTagMostView.setTextColor(getResources().getColor(R.color.lib_color_font9_trans61));
                                 }
                             } else {
-                                Toast toast = Toast.makeText(MarkTagActivity.this, R.string.mark_error, Toast.LENGTH_SHORT);
-                                toast.setGravity(Gravity.TOP, 0, 260);
-                                toast.show();
+                                showToast(R.string.mark_error);
                             }
                         }
                         if (mSelectTagData.size() != 8) {
                             mTagMostView.setTextColor(getResources().getColor(R.color.please_select_pre_color));
                         }
-                        gridViewAdapter.notifyDataSetChanged();
+                        mGridViewAdapter.notifyDataSetChanged();
                     }
                 });
-                if (mSelectTagData.contains(mTagListData.get(position).toString())) {
+                if (mSelectTagData.contains(mTagList.get(position).toString())) {
                     holder.backgroundLayout.setBackgroundResource(R.drawable.shape_round_tag_card_bg);
                     holder.backgroundLayout.setAlpha(0.7f);
                     holder.tagView.setTextColor(getResources().getColor(R.color.color_mark_bg_round));
@@ -138,7 +137,7 @@ public class MarkTagActivity extends BaseUserInfoActivity implements View.OnClic
                 return convertView;
             }
         });
-        mGridView.setAdapter(gridViewAdapter);
+        mGridView.setAdapter(mGridViewAdapter);
     }
 
     class Holder {
@@ -153,46 +152,47 @@ public class MarkTagActivity extends BaseUserInfoActivity implements View.OnClic
                 if (mSelectTagData.size() == 0) {
                     toast(R.string.select_one_mark);
                 } else {
-                    updateTag();
+                    StringBuilder buffer = new StringBuilder();
+                    for (String tag : mSelectTagData) {
+                        if (TextUtils.isEmpty(tag)) continue;
+                        buffer.append(tag).append(",");
+                    }
+                    updateTag(buffer.toString());
                 }
                 break;
         }
     }
 
-    private void updateTag() {
-//        if (MARK == mType) {
-//            mPersonInfo.setMark(mSelectTagData);
-//        } else if (HOBBY == mType) {
-//            mPersonInfo.setHobby(mSelectTagData);
-//        }
-        dialogShow();
-//        mPersonInfo.update(AppUtils.getObjectId(this), new UpdateListener() {
-//            @Override
-//            public void done(BmobException e) {
-//                dialogDisMiss();
-//                if (e == null) {
-//                    showToast(R.string.save_success);
-//                    ACache.get(MarkTagActivity.this).put(Config.SAVE_USER_KEY, mPersonInfo);
-//                    finish();
-//                } else {
-//                    showToast(R.string.save_fail);
-//                }
-//            }
-//        });
+    private void updateTag(String tagList) {
+        final String url = Config.PATH + "user/set/tags";
+        Map<String, String> params = new HashMap<>();
+        params.put("uid", getUserId(this));
+        params.put("tag_ids", tagList);
+        OkHttpUtil.getDefault(this).doPostAsync(
+                HttpInfo.Builder().setUrl(url).addHeads(getHeader()).addParams(params).build(),
+                new Callback() {
+                    @Override
+                    public void onFailure(HttpInfo info) throws IOException {
+                        toast(getString(R.string.request_fail));
+                    }
+
+                    @Override
+                    public void onSuccess(HttpInfo info) throws IOException {
+                        String result = info.getRetDetail();
+                        if (result != null) {
+                            try {
+                                JSONObject object = new JSONObject(result);
+                                String msg = object.getString("msg");
+                                if (!TextUtils.isEmpty(msg)) {
+                                    showToast(msg);
+                                }
+                                int code = object.getInt("code");
+                            } catch (org.json.JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                });
     }
 
-    public void dialogShow() {
-        if (mDialog == null) {
-            mDialog = new ProgressDialog(this);
-            mDialog.setCanceledOnTouchOutside(false);
-        }
-
-        if (!mDialog.isShowing())
-            mDialog.show();
-    }
-
-    public void dialogDisMiss() {
-        if (mDialog != null)
-            mDialog.dismiss();
-    }
 }

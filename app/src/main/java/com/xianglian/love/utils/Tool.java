@@ -39,7 +39,7 @@ import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
-import com.xianglian.love.user.been.MyContacts;
+import com.xianglian.love.user.been.Contacts;
 
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
@@ -613,98 +613,6 @@ public class Tool {
         return bitmap;
     }
 
-    public static String calculateDate(int days) {
-        String resultDate = null;
-        GregorianCalendar calendar = new GregorianCalendar();
-        Date date = calendar.getTime();
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-        System.out.println("Today: " + df.format(date));
-
-        calendar.set(Calendar.DATE, calendar.get(Calendar.DATE) - days);
-        date = calendar.getTime();
-        resultDate = (df.format(date)).split(" ")[0];
-        return resultDate;
-    }
-
-    /**
-     * 得到手机通讯录联系人信息
-     **/
-    public static List<MyContacts> getPhoneContacts(Context mContext) {
-        List<MyContacts> data = new ArrayList<MyContacts>();
-        ContentResolver resolver = mContext.getContentResolver();
-
-        // 获取手机联系人
-        Cursor phoneCursor = resolver.query(Phone.CONTENT_URI, PHONES_PROJECTION, null, null, null);
-
-        if (phoneCursor != null) {
-            while (phoneCursor.moveToNext()) {
-
-                // 得到联系人ID
-                Long contactid = phoneCursor.getLong(PHONES_CONTACT_ID_INDEX);
-                // 得到联系人名称
-                String contactName = phoneCursor.getString(PHONES_DISPLAY_NAME_INDEX);
-                // 得到手机号码
-                String phoneNumber = phoneCursor.getString(PHONES_NUMBER_INDEX);
-
-                phoneNumber = phoneNumber.replaceAll("^(\\+86)", "");
-                phoneNumber = phoneNumber.replaceAll("^(86)", "");
-                phoneNumber = phoneNumber.replaceAll("-", "");
-                phoneNumber = phoneNumber.replaceAll(" ", "");
-                phoneNumber = phoneNumber.trim();
-
-                // 当手机号码为空的或者为空字段 跳过当前循环
-                if (TextUtils.isEmpty(phoneNumber))
-                    continue;
-                // 得到联系人头像ID
-                Long photoid = phoneCursor.getLong(PHONES_PHOTO_ID_INDEX);
-
-                MyContacts mc = new MyContacts();
-                mc.setId(contactid);
-                mc.setName(contactName);
-                mc.setPhoneNo(phoneNumber);
-                mc.setAvatarId(photoid);
-                data.add(mc);
-            }
-
-            phoneCursor.close();
-        }
-
-        return data;
-    }
-
-    /**
-     * 得到手机SIM卡联系人人信息【SIM卡中的联系人无头像】
-     **/
-    public static List<MyContacts> getSIMContacts(Context mContext) {
-        List<MyContacts> data = new ArrayList<MyContacts>();
-        ContentResolver resolver = mContext.getContentResolver();
-        // 获取Sims卡联系人
-        Uri uri = Uri.parse("content://icc/adn");
-        Cursor phoneCursor = resolver.query(uri, PHONES_PROJECTION, null, null, null);
-
-        if (phoneCursor != null) {
-            while (phoneCursor.moveToNext()) {
-
-                // 得到手机号码
-                String phoneNumber = phoneCursor.getString(PHONES_NUMBER_INDEX);
-                // 当手机号码为空的或者为空字段 跳过当前循环
-                if (TextUtils.isEmpty(phoneNumber))
-                    continue;
-                // 得到联系人名称
-                String contactName = phoneCursor.getString(PHONES_DISPLAY_NAME_INDEX);
-
-                MyContacts mc = new MyContacts();
-                mc.setName(contactName);
-                mc.setPhoneNo(phoneNumber);
-                data.add(mc);
-            }
-
-            phoneCursor.close();
-        }
-
-        return data;
-    }
 
     /**
      * 为TextView控件设置日期

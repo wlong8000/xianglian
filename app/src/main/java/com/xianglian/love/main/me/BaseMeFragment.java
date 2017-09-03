@@ -27,6 +27,7 @@ import com.xianglian.love.BaseListFragment;
 import com.xianglian.love.R;
 import com.xianglian.love.config.Config;
 import com.xianglian.love.dialog.SelectPicAlertDialog;
+import com.xianglian.love.main.home.EditPhoneActivity;
 import com.xianglian.love.main.home.been.PersonInfo;
 import com.xianglian.love.main.home.been.UserDetailEntity;
 import com.xianglian.love.model.Album;
@@ -90,8 +91,8 @@ public class BaseMeFragment extends BaseListFragment implements BaseQuickAdapter
     private void intoDetail() {
         switch (mEntity.getType()) {
             case ItemInfo.SettingType.MY_ALBUM: {
-                Intent intent = new Intent(getActivity(), GalleryActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(getActivity(), GalleryActivity.class);
+//                startActivity(intent);
                 break;
             }
             case ItemInfo.SettingType.INTRODUCE: {
@@ -99,26 +100,26 @@ public class BaseMeFragment extends BaseListFragment implements BaseQuickAdapter
                 startActivityForResult(intent, REQUEST_CODE_INTRODUCE);
                 break;
             }
-
             case ItemInfo.SettingType.MY_INFO: {
                 Intent intent = new Intent(getActivity(), BaseInfoActivity.class);
                 startActivity(intent);
                 break;
             }
-
             case ItemInfo.SettingType.IDENTITY: {
                 Intent intent = new Intent(getActivity(), AuthenticationActivity.class);
                 startActivity(intent);
                 break;
             }
-
-            case ItemInfo.SettingType.HOUSE: {
-                break;
-            }
-            case ItemInfo.SettingType.CAR: {
+            case ItemInfo.SettingType.PHONE: {
+                startActivity(EditPhoneActivity.getIntent(getContext()));
                 break;
             }
             case ItemInfo.SettingType.EXPERIENCE_LOVE: {
+                Intent intent = IntroduceActivity.getIntent(getContext(), IntroduceActivity.EXPERIENCE);
+                startActivityForResult(intent, REQUEST_CODE_INTRODUCE);
+                break;
+            }
+            case ItemInfo.SettingType.CHOOSE_FRIEND_STANDARD: {
                 Intent intent = IntroduceActivity.getIntent(getContext(), IntroduceActivity.EXPERIENCE);
                 startActivityForResult(intent, REQUEST_CODE_INTRODUCE);
                 break;
@@ -147,6 +148,7 @@ public class BaseMeFragment extends BaseListFragment implements BaseQuickAdapter
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mItemInfo.clear();
     }
 
     @Override
@@ -197,7 +199,7 @@ public class BaseMeFragment extends BaseListFragment implements BaseQuickAdapter
         mItemInfo.add(getInfo(getString(R.string.my_info), ItemInfo.SettingType.MY_INFO, null));
 
         //成为会员
-        mItemInfo.add(getInfo(getString(R.string.set_vip), ItemInfo.SettingType.SET_VIP, null, true));
+//        mItemInfo.add(getInfo(getString(R.string.set_vip), ItemInfo.SettingType.SET_VIP, null, true));
 
         //身份认证
         mItemInfo.add(getInfo(getString(R.string.person_identity), ItemInfo.SettingType.IDENTITY, null));

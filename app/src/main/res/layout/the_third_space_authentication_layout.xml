@@ -33,8 +33,8 @@
         android:id="@+id/out_of_all_scrollview_authentication"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/title_bar_layout"
         android:layout_above="@+id/bottom_next_position_anthentication_page"
+        android:layout_below="@+id/title_bar_layout"
         android:layout_marginBottom="5dp"
         android:layout_marginTop="10dp">
 
@@ -72,8 +72,8 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/author_first_image_why"
                     android:layout_marginLeft="15dp"
-                    android:lineSpacingExtra="3dp"
                     android:layout_marginTop="17dp"
+                    android:lineSpacingExtra="3dp"
                     android:text="恋8作为一个真实、严肃的婚恋平台，所有的恋爱都已结婚为目的，我们要求客户完成身份认证，并未广大客户提供一个无酒托、无婚托的良好恋爱氛围。"
                     android:textColor="#767676"
                     android:textSize="13sp" />
@@ -173,8 +173,8 @@
                 <ImageView
                     android:id="@+id/upload_image"
                     android:layout_width="wrap_content"
-                    android:layout_marginTop="2dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
                     android:src="@drawable/upload_image" />
 
                 <TextView
@@ -195,16 +195,18 @@
                     android:text="(请务必按照示例上传)"
                     android:textColor="#767676"
                     android:textSize="12sp" />
+
                 <RelativeLayout
                     android:id="@+id/show_or_hide_rl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingTop="1dp"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/shape_round_fifth_corner_bg"
                     android:paddingBottom="1dp"
                     android:paddingLeft="3dp"
                     android:paddingRight="3dp"
-                    android:layout_alignParentRight="true"
-                    android:background="@drawable/shape_round_fifth_corner_bg">
+                    android:paddingTop="1dp">
+
                     <TextView
                         android:id="@+id/show_or_hide_text"
                         android:layout_width="wrap_content"
@@ -217,18 +219,19 @@
 
                 <include
                     android:id="@+id/show_or_hide_include"
+                    layout="@layout/show_or_hide_layout"
                     android:layout_width="wrap_content"
-                    android:layout_below="@+id/show_or_hide_rl"
-                    android:layout_marginTop="15dp"
                     android:layout_height="wrap_content"
-                    layout="@layout/show_or_hide_layout"/>
+                    android:layout_below="@+id/show_or_hide_rl"
+                    android:layout_marginTop="15dp" />
+
                 <include
                     android:id="@+id/add_self_card_image"
+                    layout="@layout/add_self_card_image"
                     android:layout_width="wrap_content"
-                    android:layout_below="@+id/show_or_hide_include"
-                    android:layout_marginTop="15dp"
                     android:layout_height="wrap_content"
-                    layout="@layout/add_self_card_image"/>
+                    android:layout_below="@+id/show_or_hide_include"
+                    android:layout_marginTop="15dp" />
 
             </RelativeLayout>
         </LinearLayout>

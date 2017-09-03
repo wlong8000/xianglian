@@ -37,6 +37,7 @@
     <string name="change_qq">交换QQ</string>
     <string name="change_wx">交换微信</string>
     <string name="leave_message">我要留言</string>
+    <string name="message">留言</string>
     <string name="look_more">查看更多</string>
     <string name="publish">发布</string>
     <string name="skip">跳过</string>
@@ -75,6 +76,10 @@
     <string name="set_vip">成为会员</string>
     <string name="buy_house">是否购房</string>
     <string name="buy_car">是否购车</string>
+    <string name="has_car">已购车</string>
+    <string name="has_no_car">未购车</string>
+    <string name="has_house">已购房</string>
+    <string name="has_no_house">未购房</string>
     <string name="experience_love">情感经历</string>
     <string name="condition_friend">择偶标准</string>
     <string name="hobby">兴趣爱好</string>
@@ -98,7 +103,10 @@
     <string name="has_child">有无子女</string>
     <string name="weight">体重(单位：kg)</string>
     <string name="money">%1$s万</string>
-
+    <string name="toast_change_phone">提示：在联系过程中，切勿有钱款往来</string>
+    <string name="toast2_change_phone">为了保证您的信息安全，在对方同意交换联系方式后方可查看您的联系方式，对方拒绝将无权查看您的联系方式</string>
+    <string name="wei_xin">微信号</string>
+    <string name="qq">QQ号</string>
 
     <string name="please_select">请选择</string>
     <string name="no_limit">不限</string>
@@ -157,6 +165,7 @@
     <string name="unaccess_pic">无权限访问选定的图片</string>
     <string name="hint_introduce">最多100字</string>
     <string name="introduce_null">个人介绍不能为空</string>
+    <string name="phone_change_null">QQ或者微信需要至少填写一个</string>
     <string name="introduce_little">个人介绍太少</string>
     <string name="save">保存</string>
     <string name="save_fail">保存失败</string>
@@ -243,6 +252,75 @@
         <item>未婚</item>
         <item>离异</item>
         <item>丧偶</item>
+    </string-array>
+
+    <string-array name="user_tag">
+        <item>孝顺</item>
+        <item>随和</item>
+        <item>安静</item>
+        <item>爱吃</item>
+        <item>顾家</item>
+        <item>理智</item>
+        <item>善良</item>
+        <item>小资</item>
+        <item>可爱</item>
+        <item>直爽</item>
+        <item>强势</item>
+        <item>活泼</item>
+        <item>各种宅</item>
+        <item>乐观</item>
+        <item>低调</item>
+        <item>阳光</item>
+        <item>执着</item>
+        <item>体贴</item>
+        <item>八卦</item>
+        <item>纠结</item>
+        <item>执着</item>
+        <item>强迫症</item>
+        <item>洁癖</item>
+        <item>粗心</item>
+        <item>细腻</item>
+        <item>工作狂</item>
+        <item>胆小</item>
+        <item>起床气</item>
+        <item>好奇</item>
+        <item>购物狂</item>
+        <item>单纯</item>
+    </string-array>
+
+    <string-array name="love_tag">
+        <item>看书</item>
+        <item>运动</item>
+        <item>电影</item>
+        <item>音乐</item>
+        <item>英语</item>
+        <item>星座</item>
+        <item>游戏</item>
+        <item>各种吃</item>
+        <item>旅游</item>
+        <item>休闲</item>
+        <item>社交</item>
+        <item>网络</item>
+        <item>跳舞</item>
+        <item>摄影</item>
+        <item>画画</item>
+        <item>养花</item>
+        <item>追星</item>
+        <item>睡觉</item>
+        <item>慈善</item>
+        <item>玩牌</item>
+        <item>唱歌</item>
+        <item>DIY</item>
+        <item>逛街</item>
+        <item>抽烟</item>
+        <item>喝酒</item>
+        <item>汽车</item>
+        <item>数码</item>
+        <item>烹饪</item>
+        <item>茶艺</item>
+        <item>宠物</item>
+        <item>宗教</item>
+        <item>写作</item>
     </string-array>
 
 </resources>

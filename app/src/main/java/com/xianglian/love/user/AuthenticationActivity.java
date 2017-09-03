@@ -89,7 +89,7 @@ public class AuthenticationActivity extends BaseLoginActivity implements View.On
     }
 
     private void initView() {
-        setupTitle(getString(R.string.person_identity));
+        setupCommonTitle(getString(R.string.person_identity));
         newPos = (LinearLayout) findViewById(R.id.bottom_next_position_anthentication_page);
         newPos.setOnClickListener(this);
 
@@ -140,12 +140,12 @@ public class AuthenticationActivity extends BaseLoginActivity implements View.On
 //            compressImage(originalUri);
             try {
                 mBitmap = MediaStore.Images.Media.getBitmap(resolver, originalUri);
-                if (Tool.isNeedCompress(mBitmap, Constant.IMAGE_MAX_SIZE_200KB)){
+                if (Tool.isNeedCompress(mBitmap, Constant.IMAGE_MAX_SIZE_200KB)) {
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
                             Bitmap newBitmap = Tool.compressImage(mBitmap, Constant.IMAGE_MAX_SIZE_200KB);
-                            Message msg =new Message();
+                            Message msg = new Message();
                             msg.obj = newBitmap;
                             msg.what = 1;
                             mHandler.sendMessage(msg);
@@ -167,7 +167,7 @@ public class AuthenticationActivity extends BaseLoginActivity implements View.On
                 mBitmap2 = MediaStore.Images.Media.getBitmap(resolver, uri);
                 personal_second_page.setImageBitmap(Tool.compressImage(mBitmap2, Constant.IMAGE_MAX_SIZE_200KB));
                 personal_second_page_alpha_content.setVisibility(View.VISIBLE);
-                if (Tool.isNeedCompress(mBitmap2, Constant.IMAGE_MAX_SIZE_200KB)){
+                if (Tool.isNeedCompress(mBitmap2, Constant.IMAGE_MAX_SIZE_200KB)) {
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
@@ -215,7 +215,7 @@ public class AuthenticationActivity extends BaseLoginActivity implements View.On
                 startActivityForResult(intent, IMAGE_CODE2);
                 break;
             case R.id.bottom_next_position_anthentication_page:
-                Intent intent1 = new Intent(this,SelectPayMethodActivity.class);
+                Intent intent1 = new Intent(this, SelectPayMethodActivity.class);
                 startActivity(intent1);
                 break;
             case R.id.show_or_hide_text:
