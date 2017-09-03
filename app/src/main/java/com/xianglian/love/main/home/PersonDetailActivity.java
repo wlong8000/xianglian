@@ -3,12 +3,12 @@ package com.xianglian.love.main.home;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -22,16 +22,12 @@ import com.xianglian.love.BaseActivity;
 import com.xianglian.love.R;
 import com.xianglian.love.utils.StatusbarUtil;
 import com.xianglian.love.config.Config;
-import com.xianglian.love.main.home.adapter.PersonDetailAdapter;
 import com.xianglian.love.main.home.been.UserDetailEntity;
 import com.xianglian.love.main.home.been.UserEntity;
 import com.xianglian.love.utils.AppUtils;
-import com.xianglian.love.utils.CommonLinearLayoutManager;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import base.EditDialog;
@@ -39,12 +35,6 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 public class PersonDetailActivity extends BaseActivity implements View.OnClickListener {
-
-    private RecyclerView mRecyclerView;
-
-    private CommonLinearLayoutManager mLayoutManager;
-
-    private PersonDetailAdapter mAdapter;
 
     //头图
     @InjectView(R.id.img)
@@ -70,11 +60,14 @@ public class PersonDetailActivity extends BaseActivity implements View.OnClickLi
     @InjectView(R.id.tv_heart_count)
     TextView mHeartCountView;
 
+    @InjectView(R.id.view_pager)
+    ViewPager mViewPager;
+
     private String mId;
 
     private UserEntity mEntity;
 
-    private List<UserDetailEntity> mUserDetailEntities = new ArrayList<>();
+    private MyBaseAdapter mBaseAdapter;
 
     public static Intent getIntent(Context context, String id) {
         Intent intent = new Intent(context, PersonDetailActivity.class);
@@ -89,7 +82,7 @@ public class PersonDetailActivity extends BaseActivity implements View.OnClickLi
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_person_detail);
         StatusbarUtil.setStatusBarTranslucent(this);
@@ -104,7 +97,6 @@ public class PersonDetailActivity extends BaseActivity implements View.OnClickLi
         if (mEntity != null) {
             setHeader(mEntity);
         }
-        doRequest();
     }
 
     private void setupView() {
@@ -112,96 +104,24 @@ public class PersonDetailActivity extends BaseActivity implements View.OnClickLi
         mChangeQQView.setOnClickListener(this);
         mChangeWXView.setOnClickListener(this);
         mLeaveMessageView.setOnClickListener(this);
-        FrameLayout banner = (FrameLayout) findViewById(R.id.layout_banner);
-        float height = getResources().getDisplayMetrics().widthPixels;
-        banner.setLayoutParams(new CollapsingToolbarLayout.LayoutParams(
-                CollapsingToolbarLayout.LayoutParams.MATCH_PARENT, Math
-                .round(height)));
-        mPicView.setAspectRatio(1);
+        mPicView.setAspectRatio(2);
 
-        setupRecyclerView();
+        mViewPager.setOffscreenPageLimit(1);
+        mBaseAdapter = new MyBaseAdapter(getSupportFragmentManager());
+        mViewPager.setAdapter(mBaseAdapter);
 
     }
 
     private void setHeader(UserDetailEntity entity) {
         if (entity == null) return;
         mPicView.setImageURI(entity.getAvatar());
-        mHeartCountView.setText(AppUtils.stringToInt(entity.getLike()) + "");
+        mHeartCountView.setText(TextUtils.isEmpty(entity.getLike()) ? "" : entity.getLike());
     }
 
     private void setHeader(UserEntity entity) {
         if (entity == null) return;
         mPicView.setImageURI(entity.getAvatar());
-        mHeartCountView.setText(entity.getLike() + "");
-    }
-
-    private void setupRecyclerView() {
-        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        mLayoutManager = new CommonLinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        mAdapter = new PersonDetailAdapter(this, mUserDetailEntities);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setAdapter(mAdapter);
-
-    }
-
-    private void addData(UserDetailEntity entity) {
-        addDataByType(UserDetailEntity.ViewType.TOP_INFO, entity);
-        if (!TextUtils.isEmpty(entity.getPerson_intro())) {
-            addDataByType(UserDetailEntity.ViewType.INTRODUCE, entity);
-        }
-        if (entity.getAlbums() != null && entity.getAlbums().size() > 0) {
-            addDataByType(UserDetailEntity.ViewType.ALBUM, entity);
-        }
-        addDataByType(UserDetailEntity.ViewType.BASE_INFO, entity);
-        if (entity.getTags() != null && entity.getTags().size() > 0) {
-            addDataByType(UserDetailEntity.ViewType.MARK, entity);
-        }
-        if (!TextUtils.isEmpty(entity.getRelationship_desc())) {
-            addDataByType(UserDetailEntity.ViewType.EXPERIENCE_EMOTION, entity);
-        }
-        if (entity.getInterests() != null && entity.getInterests().size() > 0) {
-            addDataByType(UserDetailEntity.ViewType.FAVORITE, entity);
-        }
-//        addDataByType(UserDetailEntity.ViewType.TITLE, entity);
-//        addDataByType(UserDetailEntity.ViewType.LEAVE_MESSAGE, entity);
-        mAdapter.notifyDataSetChanged();
-    }
-
-    private void addDataByType(int type, UserDetailEntity entity) {
-        UserDetailEntity info = new UserDetailEntity();
-        info.setViewType(type);
-        info.setResult(entity);
-        mUserDetailEntities.add(info);
-    }
-
-    private void doRequest() {
-        final String url = Config.PATH + "user/persons/" + mId;
-        OkHttpUtil.getDefault(this).doGetAsync(
-                HttpInfo.Builder().setUrl(url).addHeads(getHeader()).build(),
-                new Callback() {
-                    @Override
-                    public void onFailure(HttpInfo info) throws IOException {
-                        String result = info.getRetDetail();
-
-                    }
-
-                    @Override
-                    public void onSuccess(HttpInfo info) throws IOException {
-                        String result = info.getRetDetail();
-                        if (result != null) {
-                            try {
-                                UserDetailEntity userEntity = JSON.parseObject(result, UserDetailEntity.class);
-                                if (userEntity == null || userEntity.getResult() == null) return;
-                                UserDetailEntity userDetailEntity = userEntity.getResult();
-                                if (userDetailEntity == null) return;
-                                setHeader(userDetailEntity);
-                                addData(userDetailEntity);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                });
+        mHeartCountView.setText(TextUtils.isEmpty(entity.getLike()) ? "" : entity.getLike());
     }
 
     private void doLikeRequest(final String id) {
@@ -295,5 +215,29 @@ public class PersonDetailActivity extends BaseActivity implements View.OnClickLi
             }
         };
         dialog.show();
+    }
+
+    class MyBaseAdapter extends FragmentStatePagerAdapter {
+        Fragment[] fragments = new Fragment[] {
+                PersonDetailFragment.newInstance(mId)
+        };
+
+        PersonDetailFragment getPersionDetailFragment() {
+            return (PersonDetailFragment)fragments[0];
+        }
+
+        MyBaseAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return fragments[position];
+        }
+
+        @Override
+        public int getCount() {
+            return 1;
+        }
     }
 }

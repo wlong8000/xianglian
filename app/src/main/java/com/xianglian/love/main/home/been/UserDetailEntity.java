@@ -124,6 +124,15 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
     private String messages_count;
     private String is_like;
 
+    private String sender_id;
+    private String sender_name;
+    private String sender_avatar;
+    private String receiver_id;
+    private String receiver_name;
+    private String receiver_avatar;
+    private String create_time;
+    private boolean show_msg_more;
+
     public String getMsg() {
         return msg;
     }
@@ -532,6 +541,70 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
         this.education = education;
     }
 
+    public String getSender_id() {
+        return sender_id;
+    }
+
+    public void setSender_id(String sender_id) {
+        this.sender_id = sender_id;
+    }
+
+    public String getSender_name() {
+        return sender_name;
+    }
+
+    public void setSender_name(String sender_name) {
+        this.sender_name = sender_name;
+    }
+
+    public String getSender_avatar() {
+        return sender_avatar;
+    }
+
+    public void setSender_avatar(String sender_avatar) {
+        this.sender_avatar = sender_avatar;
+    }
+
+    public String getReceiver_id() {
+        return receiver_id;
+    }
+
+    public void setReceiver_id(String receiver_id) {
+        this.receiver_id = receiver_id;
+    }
+
+    public String getReceiver_name() {
+        return receiver_name;
+    }
+
+    public void setReceiver_name(String receiver_name) {
+        this.receiver_name = receiver_name;
+    }
+
+    public String getReceiver_avatar() {
+        return receiver_avatar;
+    }
+
+    public void setReceiver_avatar(String receiver_avatar) {
+        this.receiver_avatar = receiver_avatar;
+    }
+
+    public String getCreate_time() {
+        return create_time;
+    }
+
+    public void setCreate_time(String create_time) {
+        this.create_time = create_time;
+    }
+
+    public boolean isShow_msg_more() {
+        return show_msg_more;
+    }
+
+    public void setShow_msg_more(boolean show_msg_more) {
+        this.show_msg_more = show_msg_more;
+    }
+
     @Override
     public int getItemType() {
         return viewType;
@@ -674,6 +747,14 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
         dest.writeTypedList(this.messages);
         dest.writeString(this.messages_count);
         dest.writeString(this.is_like);
+        dest.writeString(this.sender_id);
+        dest.writeString(this.sender_name);
+        dest.writeString(this.sender_avatar);
+        dest.writeString(this.receiver_id);
+        dest.writeString(this.receiver_name);
+        dest.writeString(this.receiver_avatar);
+        dest.writeString(this.create_time);
+        dest.writeByte(this.show_msg_more ? (byte) 1 : (byte) 0);
     }
 
     protected UserDetailEntity(Parcel in) {
@@ -729,6 +810,14 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
         this.messages = in.createTypedArrayList(MessageEntity.CREATOR);
         this.messages_count = in.readString();
         this.is_like = in.readString();
+        this.sender_id = in.readString();
+        this.sender_name = in.readString();
+        this.sender_avatar = in.readString();
+        this.receiver_id = in.readString();
+        this.receiver_name = in.readString();
+        this.receiver_avatar = in.readString();
+        this.create_time = in.readString();
+        this.show_msg_more = in.readByte() != 0;
     }
 
     public static final Creator<UserDetailEntity> CREATOR = new Creator<UserDetailEntity>() {

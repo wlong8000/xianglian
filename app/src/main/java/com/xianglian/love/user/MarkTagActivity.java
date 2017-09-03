@@ -164,7 +164,7 @@ public class MarkTagActivity extends BaseUserInfoActivity implements View.OnClic
     }
 
     private void updateTag(String tagList) {
-        final String url = Config.PATH + "set/tags";
+        final String url = Config.PATH + "user/set/tags";
         Map<String, String> params = new HashMap<>();
         params.put("uid", getUserId(this));
         params.put("tag_ids", tagList);

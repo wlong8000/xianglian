@@ -4,8 +4,10 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.support.annotation.ArrayRes;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 
 import com.xianglian.love.R;
+import com.xianglian.love.main.home.been.UserDetailEntity;
 import com.xianglian.love.user.been.ItemInfo;
 
 import java.util.ArrayList;
@@ -20,7 +22,7 @@ import java.util.List;
 public class UserUtils {
 
 
-    public static ArrayList<String> getHighData() {
+    public static List<String> getHighData() {
         ArrayList<String> data = new ArrayList<>();
         for (int i = 140; i < 200; i++) {
             data.add(String.valueOf(i));
@@ -28,7 +30,7 @@ public class UserUtils {
         return data;
     }
 
-    public static ArrayList<String> getAge() {
+    public static List<String> getAge() {
         ArrayList<String> data = new ArrayList<>();
         for (int i = 18; i < 60; i++) {
             data.add(String.valueOf(i));
@@ -39,7 +41,7 @@ public class UserUtils {
     /**
      * 体重
      */
-    public static ArrayList<String> getWeight() {
+    public static List<String> getWeight() {
         ArrayList<String> data = new ArrayList<>();
         for (int i = 35; i < 150; i++) {
             data.add(String.valueOf(i));
@@ -82,13 +84,13 @@ public class UserUtils {
         return getSubData(context, ItemInfo.Type.HEIGHT);
     }
 
-    public static ArrayList<String> getEduData(Context context) {
+    public static List<String> getEduData(Context context) {
         return getResources(context, R.array.edu);
     }
 
     @NonNull
-    public static ArrayList<String> getResources(Context context, @ArrayRes int id) {
-        Resources res =context.getResources();
+    public static List<String> getResources(Context context, @ArrayRes int id) {
+        Resources res = context.getResources();
         return new ArrayList<>(Arrays.asList(res.getStringArray(id)));
     }
 
@@ -96,18 +98,18 @@ public class UserUtils {
         return getSubData(context, ItemInfo.Type.EDUCATION);
     }
 
-    public static ArrayList<String> getComingData(Context context) {
+    public static List<String> getComingData(Context context) {
         return getResources(context, R.array.income);
     }
 
     /**
      * 婚姻状况
      */
-    public static ArrayList<String> getMarryState(Context context) {
+    public static List<String> getMarryState(Context context) {
         return getResources(context, R.array.marry_state);
     }
 
-    public static ArrayList<String> getProfessionData() {
+    public static List<String> getProfessionData() {
         ArrayList<String> data = new ArrayList<>();
         data.add("在校学生");
         data.add("私营业主");
@@ -121,7 +123,7 @@ public class UserUtils {
     /**
      * 期望结婚时间
      */
-    public static ArrayList<String> getHopeMarry() {
+    public static List<String> getHopeMarry() {
         ArrayList<String> data = new ArrayList<>();
         data.add("3个月内");
         data.add("6个月内");
@@ -134,7 +136,7 @@ public class UserUtils {
     /**
      * 民族
      */
-    public static ArrayList<String> getNation() {
+    public static List<String> getNation() {
         ArrayList<String> data = new ArrayList<>();
         data.add("汉族");
         data.add("少数民族");
@@ -144,7 +146,7 @@ public class UserUtils {
     /**
      * 家中排行
      */
-    public static ArrayList<String> getRankings() {
+    public static List<String> getRankings() {
         ArrayList<String> data = new ArrayList<>();
         data.add("老大");
         data.add("老二");
@@ -156,12 +158,27 @@ public class UserUtils {
     /**
      * 是否
      */
-    public static ArrayList<String> getRight() {
+    public static List<String> getRight() {
         ArrayList<String> data = new ArrayList<>();
         data.add("是");
         data.add("否");
         return data;
     }
 
+
+    public static List<String> getBaseInfoList(UserDetailEntity entity) {
+        if (entity == null) return null;
+        List<String> list = new ArrayList<>();
+        if (!TextUtils.isEmpty(entity.getConstellation())) {
+            list.add("星座/" + entity.getConstellation());
+        }
+        if (!TextUtils.isEmpty(entity.getWork_area_name())) {
+            list.add("工作地/" + entity.getWork_area_name());
+        }
+        if (!TextUtils.isEmpty(entity.getBorn_area_name())) {
+            list.add("出生地/" + entity.getBorn_area_name());
+        }
+        return list;
+    }
 
 }

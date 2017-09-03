@@ -4,5 +4,4 @@
     style="@style/lib_style_info_mark"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:maxLines="1"
-    android:text="标签" />
+    android:maxLines="1" />

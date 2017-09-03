@@ -19,6 +19,7 @@ import android.graphics.Bitmap;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
@@ -157,6 +158,12 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
      * @return The BaseViewHolder for chaining.
      */
     public BaseViewHolder setImageURI(@IdRes int viewId, String url) {
+        SimpleDraweeView view = getView(viewId);
+        view.setImageURI(url);
+        return this;
+    }
+
+    public BaseViewHolder setImageURI(@IdRes int viewId, Uri url) {
         SimpleDraweeView view = getView(viewId);
         view.setImageURI(url);
         return this;

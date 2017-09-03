@@ -37,6 +37,7 @@
     <string name="change_qq">交换QQ</string>
     <string name="change_wx">交换微信</string>
     <string name="leave_message">我要留言</string>
+    <string name="message">留言</string>
     <string name="look_more">查看更多</string>
     <string name="publish">发布</string>
     <string name="skip">跳过</string>
@@ -75,6 +76,10 @@
     <string name="set_vip">成为会员</string>
     <string name="buy_house">是否购房</string>
     <string name="buy_car">是否购车</string>
+    <string name="has_car">已购车</string>
+    <string name="has_no_car">未购车</string>
+    <string name="has_house">已购房</string>
+    <string name="has_no_house">未购房</string>
     <string name="experience_love">情感经历</string>
     <string name="condition_friend">择偶标准</string>
     <string name="hobby">兴趣爱好</string>

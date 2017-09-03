@@ -252,7 +252,7 @@ public abstract class BaseEditUserInfoActivity extends BaseListActivity {
      * @param type      0默认 1：带5dp的分割线
      * @return
      */
-    public ItemInfo getInfo(String text, String rightText, int type, ArrayList<String> list) {
+    public ItemInfo getInfo(String text, String rightText, int type, List<String> list) {
         if (TextUtils.isEmpty(rightText))
             rightText = getResources().getString(R.string.please_select);
         ItemInfo data = new ItemInfo();
