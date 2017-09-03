@@ -33,6 +33,9 @@ public class IntroduceActivity extends BaseUserInfoActivity {
     //情感经历
     public static final int EXPERIENCE = 1;
 
+    //择偶要求
+    public static final int CHOOSE_FRIEND_STANDARD = 2;
+
     private int mType;
 
     public static Intent getIntent(Context context, int type) {
@@ -54,6 +57,9 @@ public class IntroduceActivity extends BaseUserInfoActivity {
         } else if (EXPERIENCE == mType) {
             setupTitle(getString(R.string.experience_love), getString(R.string.save));
             content = AppUtils.getExperience(this);
+        } else if (CHOOSE_FRIEND_STANDARD == mType) {
+            setupTitle(getString(R.string.condition_friend), getString(R.string.save));
+            content = AppUtils.getChooseMarry(this);
         }
         if (!TextUtils.isEmpty(content)) {
             mIntroduceView.setText(content);
@@ -89,6 +95,9 @@ public class IntroduceActivity extends BaseUserInfoActivity {
                 break;
             case EXPERIENCE:
                 params.put("relationship_desc", input);
+                break;
+            case CHOOSE_FRIEND_STANDARD:
+                params.put("mate_preference", input);
                 break;
         }
         OkHttpUtil.getDefault(this).doPostAsync(
@@ -135,6 +144,9 @@ public class IntroduceActivity extends BaseUserInfoActivity {
                 break;
             case EXPERIENCE:
                 AppUtils.parseData(this, "relationship_desc", input);
+                break;
+            case CHOOSE_FRIEND_STANDARD:
+                AppUtils.parseData(this, "mate_preference", input);
                 break;
         }
     }
