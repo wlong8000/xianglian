@@ -35,7 +35,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.xianglian.love.SplashActivity"
+            android:name=".SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -44,39 +44,39 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.xianglian.love.MainActivity"
+            android:name=".MainActivity"
             android:alwaysRetainTaskState="true"
             android:configChanges="orientation|keyboardHidden|screenSize|locale"
             android:exported="true"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.xianglian.love.user.LoginActivity"
+            android:name=".user.LoginActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.xianglian.love.user.UserInfoEditActivity"
+            android:name=".user.UserInfoEditActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.xianglian.love.user.AuthenticationActivity"
+            android:name=".user.AuthenticationActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.xianglian.love.user.SelectPayMethodActivity"
+            android:name=".user.SelectPayMethodActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.xianglian.love.user.RegisterActivity"
+            android:name=".user.RegisterActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.xianglian.love.user.ForgetPwdActivity"
+            android:name=".user.ForgetPwdActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.xianglian.love.user.RegisterCodeActivity"
+            android:name=".user.RegisterCodeActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.xianglian.love.user.SelectSexActivity"
+            android:name=".user.SelectSexActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
@@ -84,53 +84,58 @@
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.xianglian.love.user.MarkTagActivity"
+            android:name=".user.MarkTagActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.xianglian.love.view.CutPictureAty"
+            android:name=".view.CutPictureAty"
             android:screenOrientation="portrait" />
-        <activity android:name="com.xianglian.love.main.home.PersonDetailActivity" />
+        <activity android:name=".main.home.PersonDetailActivity" />
         <activity
-            android:name="com.xianglian.love.user.IntroduceActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.xianglian.love.main.home.SearchActivity"
+            android:name=".user.IntroduceActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.xianglian.love.main.me.BaseInfoActivity"
+            android:name=".main.home.SearchActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.xianglian.love.main.meet.MeMeetActivity"
+            android:name=".main.me.BaseInfoActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.xianglian.love.main.meet.LastVisitActivity"
+            android:name=".main.meet.MeMeetActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.xianglian.love.main.meet.HeartContactActivity"
+            android:name=".main.meet.LastVisitActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.xianglian.love.main.meet.TaMeetActivity"
+            android:name=".main.meet.HeartContactActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.xianglian.love.main.meet.HeartRecordActivity"
+            android:name=".main.meet.TaMeetActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.xianglian.love.main.me.GalleryActivity"
+            android:name=".main.meet.HeartRecordActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.xianglian.love.ShowPicActivity"
+            android:name=".main.me.GalleryActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.xianglian.love.library.photo.MediaChoseActivity"
+            android:name=".ShowPicActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.xianglian.love.library.photo.CropImageActivity"
+            android:name=".library.photo.MediaChoseActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".library.photo.CropImageActivity"
+            android:screenOrientation="portrait" />
+
         <service
-            android:name="com.xianglian.love.AppService"
+            android:name=".AppService"
             android:enabled="true"
-            android:exported="false"/>
+            android:exported="false" />
+
+        <activity
+            android:name="com.xianglian.love.TestActivity"
+            android:exported="true" />
     </application>
 
 </manifest>

@@ -118,10 +118,10 @@ public class RegisterCodeActivity extends BaseLoginActivity implements View.OnCl
      * 获取验证码
      */
     private void getCode(String phone) {
-        String url = Config.PATH + "user/gen-sms-code";
+        String url = Config.PATH + "codes/";
         Map<String, String> params = new HashMap<>();
         params.put("mobile", phone);
-        OkHttpUtil.getDefault(this).doGetAsync(
+        OkHttpUtil.getDefault(this).doPostAsync(
                 HttpInfo.Builder().setUrl(url).addParams(params).addHeads(getHeader()).build(),
                 new Callback() {
                     @Override

@@ -130,8 +130,9 @@ public class MainActivity extends BaseFragmentActivity {
 
     @Override
     public void rightClick() {
-        Intent intent = SearchActivity.getIntent(this);
-        startActivityForResult(intent, REQUEST_CODE_SEARCH);
+//        Intent intent = SearchActivity.getIntent(this);
+//        startActivityForResult(intent, REQUEST_CODE_SEARCH);
+        startActivity(new Intent(this, TestActivity.class));
     }
 
     @Override
@@ -141,7 +142,7 @@ public class MainActivity extends BaseFragmentActivity {
             case REQUEST_CODE_SEARCH:
                 Fragment fragment =  mFragments.get(0);
                 if (fragment != null && fragment instanceof BaseHomeFragment) {
-                    ((BaseHomeFragment) fragment).onActivityResult(requestCode, resultCode, data);
+                    fragment.onActivityResult(requestCode, resultCode, data);
                 }
                 break;
         }
