@@ -32,11 +32,16 @@ public class RegisterActivity extends BaseLoginActivity implements View.OnClickL
 
     public static final String KEY_PHONE = "phone";
 
+    public static final String KEY_CODE = "code";
+
     private String mPhone;
 
-    public static Intent getIntent(Context context, String phone) {
+    private String mCode;
+
+    public static Intent getIntent(Context context, String phone, String code) {
         Intent intent = new Intent(context, RegisterActivity.class);
         intent.putExtra(KEY_PHONE, phone);
+        intent.putExtra(KEY_CODE, code);
         return intent;
     }
 
@@ -52,6 +57,7 @@ public class RegisterActivity extends BaseLoginActivity implements View.OnClickL
         mRePasswordView = (EditText) findViewById(R.id.re_password);
         findViewById(R.id.register_button).setOnClickListener(this);
         mPhone = getIntent().getStringExtra(KEY_PHONE);
+        mCode = getIntent().getStringExtra(KEY_CODE);
 
     }
 
@@ -82,16 +88,16 @@ public class RegisterActivity extends BaseLoginActivity implements View.OnClickL
             toast(getString(R.string.confirm_twice_pwd_sample));
             return;
         }
-        doRegister(username, pwd, pwd2);
+        doRegister(username, pwd);
     }
 
-    private void doRegister(final String userName, final String passWord, String passWord2) {
-        String url = Config.PATH + "user/register";
+    private void doRegister(final String userName, final String passWord) {
+        String url = Config.PATH + "register/";
         Map<String, String> params = new HashMap<>();
-        params.put("nickname", userName);
-        params.put("mobile", mPhone);
+        params.put("username", userName);
+        params.put("code", "6493");
+        params.put("mobile", "15313433271");
         params.put("password", passWord);
-        params.put("password", passWord2);
         OkHttpUtil.getDefault(this).doPostAsync(
                 HttpInfo.Builder().setUrl(url).addParams(params).build(),
                 new Callback() {

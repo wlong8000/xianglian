@@ -47,7 +47,7 @@ public class TestActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void doLogin(String userName, String passWord) {
-        String url = Config.PATH + "user/login";
+        String url = Config.PATH + "api-token-auth/";
         Map<String, String> params = new HashMap<>();
         params.put("mobile", userName);
         params.put("password", passWord);

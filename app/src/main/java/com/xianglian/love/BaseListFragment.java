@@ -52,12 +52,12 @@ public class BaseListFragment extends Fragment {
 
     public void setupRecyclerView(View view) {
         try {
-            mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refresh);
+            mSwipeRefreshLayout = view.findViewById(R.id.refresh);
         } catch (Exception e) {
             e.printStackTrace();
         }
         try {
-            mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+            mRecyclerView = view.findViewById(R.id.recycler_view);
             mLayoutManager = new CommonLinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
             mRecyclerView.setLayoutManager(mLayoutManager);
 
@@ -67,7 +67,7 @@ public class BaseListFragment extends Fragment {
                     (ViewGroup) mRecyclerView.getParent(), false);
             loadingView = getActivity().getLayoutInflater().inflate(R.layout.loading_view,
                     (ViewGroup) mRecyclerView.getParent(), false);
-            SimpleDraweeView loadView = (SimpleDraweeView) loadingView.findViewById(R.id.loading_icon);
+            SimpleDraweeView loadView = loadingView.findViewById(R.id.loading_icon);
             AppUtils.loadLocalGif(getContext(), loadView, R.drawable.loading);
         } catch (Exception e) {
             e.printStackTrace();

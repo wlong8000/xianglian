@@ -1,13 +1,13 @@
 apply plugin: 'com.android.library'
 android {
-    compileSdkVersion 25
-    buildToolsVersion '26.0.2'
+    compileSdkVersion android2.compileSdkVersion
+    buildToolsVersion android2.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion 11
-        targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion android2.minSdkVersion
+        targetSdkVersion android2.targetSdkVersion
+        versionCode android2.versionCode
+        versionName android2.versionName
     }
     buildTypes {
         release {
@@ -18,8 +18,6 @@ android {
     lintOptions {
         abortOnError false
     }
-
-
 }
 
 // 打包源码jar

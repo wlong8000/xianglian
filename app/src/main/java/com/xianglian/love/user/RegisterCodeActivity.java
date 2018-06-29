@@ -97,7 +97,9 @@ public class RegisterCodeActivity extends BaseLoginActivity implements View.OnCl
                     toast(R.string.sms_code_null);
                     return;
                 }
-                verifyCode(getText(mPhoneView), getText(mSmsCodeView));
+                Intent intent = RegisterActivity.getIntent(RegisterCodeActivity.this,
+                        getText(mPhoneView), getText(mSmsCodeView));
+                startActivity(intent);
                 break;
             case R.id.password_code:
                 getSmsCode();
@@ -140,27 +142,27 @@ public class RegisterCodeActivity extends BaseLoginActivity implements View.OnCl
     /**
      * 校验验证码
      */
-    private void verifyCode(String phone, String smsCode) {
-        String url = Config.PATH + "user/verify-sms-code";
-        Map<String, String> params = new HashMap<>();
-        params.put("mobile", phone);
-        params.put("verify_code", smsCode);
-        OkHttpUtil.getDefault(this).doGetAsync(
-                HttpInfo.Builder().setUrl(url).addParams(params).addHeads(getHeader()).build(),
-                new Callback() {
-                    @Override
-                    public void onFailure(HttpInfo info) throws IOException {
-                        dialogDisMiss();
-                        toast(R.string.sms_code_err);
-                    }
-
-                    @Override
-                    public void onSuccess(HttpInfo info) throws IOException {
-                        dialogDisMiss();
-                        Intent intent = RegisterActivity.getIntent(RegisterCodeActivity.this, getText(mPhoneView));
-                        startActivity(intent);
-                    }
-                });
-    }
+//    private void verifyCode(String phone, String smsCode) {
+//        String url = Config.PATH + "user/verify-sms-code";
+//        Map<String, String> params = new HashMap<>();
+//        params.put("mobile", phone);
+//        params.put("verify_code", smsCode);
+//        OkHttpUtil.getDefault(this).doGetAsync(
+//                HttpInfo.Builder().setUrl(url).addParams(params).addHeads(getHeader()).build(),
+//                new Callback() {
+//                    @Override
+//                    public void onFailure(HttpInfo info) throws IOException {
+//                        dialogDisMiss();
+//                        toast(R.string.sms_code_err);
+//                    }
+//
+//                    @Override
+//                    public void onSuccess(HttpInfo info) throws IOException {
+//                        dialogDisMiss();
+//                        Intent intent = RegisterActivity.getIntent(RegisterCodeActivity.this, getText(mPhoneView));
+//                        startActivity(intent);
+//                    }
+//                });
+//    }
 
 }

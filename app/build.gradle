@@ -1,21 +1,30 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion rootProject.sdkVersion
-    buildToolsVersion rootProject.buildTools
+    compileSdkVersion android2.compileSdkVersion
+    buildToolsVersion android2.buildToolsVersion
     useLibrary 'org.apache.http.legacy'
 
     defaultConfig {
-        applicationId "com.wl.lianba"
-        targetSdkVersion rootProject.sdkVersion
-        minSdkVersion rootProject.minSdkVersion
-        versionCode 1
-        versionName "1.2"
+        applicationId android2.applicationId
+        targetSdkVersion android2.targetSdkVersion
+        minSdkVersion android2.minSdkVersion
+        versionCode android2.versionCode
+        versionName android2.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {
                 includeCompileClasspath = true
             }
+        }
+    }
+    signingConfigs {
+        release {
+            storeFile file("xianglian.keystore")
+            storePassword "111111"
+            keyAlias "xianglian"
+            keyPassword "111111"
+            v2SigningEnabled false
         }
     }
     buildTypes {
@@ -24,7 +33,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    buildToolsVersion '26.0.2'
 }
 
 dependencies {
@@ -33,7 +41,7 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.0.1'
+    compile dependence.libSupportV7
     compile 'com.android.support:design:25.0.1'
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:recyclerview-v7:25.0.1'
@@ -56,4 +64,21 @@ dependencies {
     compile('top.zibin:Luban:1.1.2')
     compile 'com.qiniu:qiniu-android-sdk:7.3.+'
     compile project(path: ':library')
+}
+
+//task依赖讲解
+task taskA {
+    doLast {
+        println('taskA')
+    }
+}
+task taskB {
+    doLast {
+        println('taskB')
+    }
+}
+task taskC(dependsOn:taskA) {
+    doLast {
+        println('taskC')
+    }
 }

@@ -44,8 +44,8 @@ public class MainActivity extends BaseFragmentActivity {
         setContentView(R.layout.activity_main2);
 
         setupTitle(getString(R.string.meet_you), R.drawable.btn_menu_normal);
-        mViewPager = (ViewPager) findViewById(R.id.vp_container);
-        mBottomTabLayout = (PageNavigationView) findViewById(R.id.tab);
+        mViewPager = findViewById(R.id.vp_container);
+        mBottomTabLayout = findViewById(R.id.tab);
 
         initFragment();
         initTabs();

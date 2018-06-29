@@ -105,8 +105,47 @@ public class LoginActivity extends BaseLoginActivity implements OnClickListener 
             return;
         }
         dialogShow();
-        doLogin(username, password);
+//        doLogin(username, password);
+        doToken(username, password);
 
+    }
+
+    private void doToken(String userName, String passWord) {
+        String url = Config.PATH + "login/";
+        Map<String, String> params = new HashMap<>();
+        params.put("username", userName);
+        params.put("password", passWord);
+        OkHttpUtil.getDefault(this).doPostAsync(
+                HttpInfo.Builder().setUrl(url).addHeads(getHeader()).addParams(params).build(),
+                new Callback() {
+                    @Override
+                    public void onFailure(HttpInfo info) throws IOException {
+                        dialogDisMiss();
+                        String result = info.getRetDetail();
+                    }
+
+                    @Override
+                    public void onSuccess(HttpInfo info) throws IOException {
+                        dialogDisMiss();
+                        String result = info.getRetDetail();
+                        if (result == null) return;
+                        OwnerEntity ownerEntity = null;
+                        try {
+                            ownerEntity = JSON.parseObject(result, OwnerEntity.class);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        if (ownerEntity == null) return;
+                        int code = ownerEntity.getCode();
+                        if (code == Config.FAIL) {
+                            toast(TextUtils.isEmpty(ownerEntity.getMsg()) ? getString(R.string.request_fail) : ownerEntity.getMsg());
+                            return;
+                        }
+                        ACache.get(LoginActivity.this).put(Config.KEY_USER, result);
+                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        finish();
+                    }
+                });
     }
 
     private void doLogin(String userName, String passWord) {
