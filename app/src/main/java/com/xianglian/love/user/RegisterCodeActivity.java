@@ -120,7 +120,7 @@ public class RegisterCodeActivity extends BaseLoginActivity implements View.OnCl
      * 获取验证码
      */
     private void getCode(String phone) {
-        String url = Config.PATH + "codes/";
+        String url = Config.PATH + "code/";
         Map<String, String> params = new HashMap<>();
         params.put("mobile", phone);
         OkHttpUtil.getDefault(this).doPostAsync(

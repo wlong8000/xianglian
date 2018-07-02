@@ -92,11 +92,11 @@ public class RegisterActivity extends BaseLoginActivity implements View.OnClickL
     }
 
     private void doRegister(final String userName, final String passWord) {
-        String url = Config.PATH + "register/";
+        String url = Config.PATH + "users/";
         Map<String, String> params = new HashMap<>();
         params.put("username", userName);
-        params.put("code", "6493");
-        params.put("mobile", "15313433271");
+        params.put("code", mCode);
+        params.put("mobile", mPhone);
         params.put("password", passWord);
         OkHttpUtil.getDefault(this).doPostAsync(
                 HttpInfo.Builder().setUrl(url).addParams(params).build(),

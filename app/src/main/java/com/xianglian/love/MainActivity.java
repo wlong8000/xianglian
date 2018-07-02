@@ -17,22 +17,16 @@ import com.xianglian.love.main.special.BaseSpecialFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.majiajie.pagerbottomtabstrip.NavigationController;
-import me.majiajie.pagerbottomtabstrip.PageNavigationView;
+import devlight.io.library.ntb.NavigationTabBar;
 import me.majiajie.pagerbottomtabstrip.item.BaseTabItem;
 import me.majiajie.pagerbottomtabstrip.item.NormalItemView;
-import me.majiajie.pagerbottomtabstrip.listener.OnTabItemSelectedListener;
 
 public class MainActivity extends BaseFragmentActivity {
     private ViewPager mViewPager;
 
-    private PageNavigationView mBottomTabLayout;
-
     private List<Fragment> mFragments;
 
     private MainAdapter mAdapter;
-
-    private NavigationController navigationController;
 
     private long exitTime = 0;
 
@@ -45,34 +39,32 @@ public class MainActivity extends BaseFragmentActivity {
 
         setupTitle(getString(R.string.meet_you), R.drawable.btn_menu_normal);
         mViewPager = findViewById(R.id.vp_container);
-        mBottomTabLayout = findViewById(R.id.tab);
 
         initFragment();
-        initTabs();
         mAdapter = new MainAdapter(getSupportFragmentManager(), mFragments);
-        mViewPager.setAdapter(mAdapter);
+        initUI();
     }
 
-    private void initTabs() {
-        navigationController = mBottomTabLayout.custom()
-                .addItem(newItem(R.drawable.main_home, R.drawable.main_home_selected, getResources().getString(R.string.main_home)))
-                .addItem(newItem(R.drawable.main_specal, R.drawable.main_specal_selected, getResources().getString(R.string.main_special)))
-                .addItem(newItem(R.drawable.main_meet, R.drawable.main_meet_selected, getResources().getString(R.string.main_meet)))
-                .addItem(newItem(R.drawable.main_me, R.drawable.main_me_selected, getResources().getString(R.string.main_my)))
-                .build();
-
-        navigationController.addTabItemSelectedListener(new OnTabItemSelectedListener() {
-            @Override
-            public void onSelected(int index, int old) {
-                mViewPager.setCurrentItem(index, false);
-            }
-
-            @Override
-            public void onRepeat(int index) {
-
-            }
-        });
-    }
+//    private void initTabs() {
+//        navigationController = mBottomTabLayout.custom()
+//                .addItem(newItem(R.drawable.main_home, R.drawable.main_home_selected, getResources().getString(R.string.main_home)))
+//                .addItem(newItem(R.drawable.main_specal, R.drawable.main_specal_selected, getResources().getString(R.string.main_special)))
+//                .addItem(newItem(R.drawable.main_meet, R.drawable.main_meet_selected, getResources().getString(R.string.main_meet)))
+//                .addItem(newItem(R.drawable.main_me, R.drawable.main_me_selected, getResources().getString(R.string.main_my)))
+//                .build();
+//
+//        navigationController.addTabItemSelectedListener(new OnTabItemSelectedListener() {
+//            @Override
+//            public void onSelected(int index, int old) {
+//                mViewPager.setCurrentItem(index, false);
+//            }
+//
+//            @Override
+//            public void onRepeat(int index) {
+//
+//            }
+//        });
+//    }
 
     //创建一个Item
     private BaseTabItem newItem(int drawable, int checkedDrawable, String text){
@@ -84,23 +76,23 @@ public class MainActivity extends BaseFragmentActivity {
     }
 
     private void initFragment() {
-        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                //viewpager滑动时改变bab选择
-                navigationController.setSelect(position);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
+//        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+//            @Override
+//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+//
+//            }
+//
+//            @Override
+//            public void onPageSelected(int position) {
+//                //viewpager滑动时改变bab选择
+//                navigationController.setSelect(position);
+//            }
+//
+//            @Override
+//            public void onPageScrollStateChanged(int state) {
+//
+//            }
+//        });
         mFragments = new ArrayList<>();
         mFragments.add(BaseHomeFragment.newInstance());
         mFragments.add(BaseSpecialFragment.newInstance());
@@ -130,10 +122,10 @@ public class MainActivity extends BaseFragmentActivity {
 
     @Override
     public void rightClick() {
-//        Intent intent = SearchActivity.getIntent(this);
-//        startActivityForResult(intent, REQUEST_CODE_SEARCH);
-        startActivity(new Intent(this, TestActivity.class));
+        Intent intent = SearchActivity.getIntent(this);
+        startActivityForResult(intent, REQUEST_CODE_SEARCH);
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -156,6 +148,86 @@ public class MainActivity extends BaseFragmentActivity {
             return;
         }
         finish();
+    }
+
+    private void initUI() {
+        mViewPager.setAdapter(mAdapter);
+
+        final String[] colors = getResources().getStringArray(R.array.default_preview);
+
+        final NavigationTabBar navigationTabBar = findViewById(R.id.tab);
+
+        final ArrayList<NavigationTabBar.Model> models = new ArrayList<>();
+        models.add(
+                new NavigationTabBar.Model.Builder(
+                        getResources().getDrawable(R.drawable.main_home),
+                        Color.parseColor(colors[0]))
+                        .selectedIcon(getResources().getDrawable(R.drawable.main_home_selected))
+                        .title("Heart")
+                        .badgeTitle("NTB")
+                        .build()
+        );
+        models.add(
+                new NavigationTabBar.Model.Builder(
+                        getResources().getDrawable(R.drawable.main_meet),
+                        Color.parseColor(colors[1]))
+                        .selectedIcon(getResources().getDrawable(R.drawable.main_meet_selected))
+                        .title("Cup")
+                        .badgeTitle("with")
+                        .build()
+        );
+        models.add(
+                new NavigationTabBar.Model.Builder(
+                        getResources().getDrawable(R.drawable.main_specal),
+                        Color.parseColor(colors[2]))
+                        .selectedIcon(getResources().getDrawable(R.drawable.main_specal_selected))
+                        .title("Diploma")
+                        .badgeTitle("state")
+                        .build()
+        );
+        models.add(
+                new NavigationTabBar.Model.Builder(
+                        getResources().getDrawable(R.drawable.main_me),
+                        Color.parseColor(colors[3]))
+                        .selectedIcon(getResources().getDrawable(R.drawable.main_me_selected))
+                        .title("Flag")
+                        .badgeTitle("icon")
+                        .build()
+        );
+
+        navigationTabBar.setModels(models);
+        navigationTabBar.setViewPager(mViewPager, 2);
+        navigationTabBar.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(final int position, final float positionOffset, final int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(final int position) {
+                navigationTabBar.getModels().get(position).hideBadge();
+            }
+
+            @Override
+            public void onPageScrollStateChanged(final int state) {
+
+            }
+        });
+
+        navigationTabBar.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < navigationTabBar.getModels().size(); i++) {
+                    final NavigationTabBar.Model model = navigationTabBar.getModels().get(i);
+                    navigationTabBar.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            model.showBadge();
+                        }
+                    }, i * 100);
+                }
+            }
+        }, 500);
     }
 
 }

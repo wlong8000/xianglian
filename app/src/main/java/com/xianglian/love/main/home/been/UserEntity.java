@@ -20,6 +20,8 @@ public class UserEntity implements Parcelable, MultiItemEntity {
     private UserEntity result;
     private int total;
     private String error;
+    private String previous;
+    private String next;
 
     private List<UserEntity> person_list;
     private String uid;
@@ -93,6 +95,22 @@ public class UserEntity implements Parcelable, MultiItemEntity {
 
     public void setError(String error) {
         this.error = error;
+    }
+
+    public String getPrevious() {
+        return previous;
+    }
+
+    public void setPrevious(String previous) {
+        this.previous = previous;
+    }
+
+    public String getNext() {
+        return next;
+    }
+
+    public void setNext(String next) {
+        this.next = next;
     }
 
     public List<UserEntity> getPerson_list() {

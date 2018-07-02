@@ -1,5 +1,6 @@
 package com.xianglian.love.main.home;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -90,7 +91,7 @@ public class BaseHomeFragment extends BaseListFragment implements BaseQuickAdapt
         String url = getUrl(selection);
         Map<String, String> params = new HashMap<>();
         OkHttpUtil.getDefault(this).doGetAsync(
-                HttpInfo.Builder().setUrl(url).addHeads(getHeader()).addParams(params).build(),
+                HttpInfo.Builder().setUrl(url).addParams(params).build(),
                 new Callback() {
                     @Override
                     public void onFailure(HttpInfo info) throws IOException {
@@ -106,13 +107,12 @@ public class BaseHomeFragment extends BaseListFragment implements BaseQuickAdapt
                             try {
                                 UserEntity userEntity = JSON.parseObject(result, UserEntity.class);
                                 if (userEntity == null) return;
-                                if (userEntity.getResult().getTotal() <= 0) {
+                                if (userEntity.getTotal() <= 0) {
                                     mAdapter.setNewData(null);
                                     mAdapter.setEmptyView(emptyView);
                                     return;
                                 }
-                                if (userEntity.getResult() == null) return;
-                                List<UserEntity> userEntities = userEntity.getResult().getPerson_list();
+                                List<UserEntity> userEntities = userEntity.getPerson_list();
                                 dealItemData(userEntities, refresh);
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -127,13 +127,13 @@ public class BaseHomeFragment extends BaseListFragment implements BaseQuickAdapt
         String userId = AppUtils.getUserId(getContext());
         String url;
         if (!TextUtils.isEmpty(userId) && TextUtils.isEmpty(selection)) {
-            url = Config.PATH + "user/persons?uid=" + userId;
+            url = Config.PATH + "users/" + userId;
         } else if (TextUtils.isEmpty(userId) && TextUtils.isEmpty(selection)) {
-            url = Config.PATH + "user/persons";
+            url = Config.PATH + "users";
         } else if (TextUtils.isEmpty(userId) && !TextUtils.isEmpty(selection)) {
-            url = Config.PATH + "user/persons?" + selection;
+            url = Config.PATH + "users?" + selection;
         } else {
-            url = Config.PATH + "user/persons?uid=" + userId + "&" + selection;
+            url = Config.PATH + "users?uid=" + userId + "&" + selection;
         }
         return url;
     }
@@ -150,6 +150,7 @@ public class BaseHomeFragment extends BaseListFragment implements BaseQuickAdapt
                         toast(getString(R.string.request_fail));
                     }
 
+                    @SuppressLint("SetTextI18n")
                     @Override
                     public void onSuccess(HttpInfo info) throws IOException {
                         String result = info.getRetDetail();
@@ -161,12 +162,12 @@ public class BaseHomeFragment extends BaseListFragment implements BaseQuickAdapt
                                     toast(TextUtils.isEmpty(userEntity.getMsg()) ?
                                             getString(R.string.request_fail) : userEntity.getMsg());
                                 } else {
-                                    TextView likeView = (TextView) mRecyclerView.findViewWithTag(id);
+                                    TextView likeView = mRecyclerView.findViewWithTag(id);
                                     if (likeView != null) {
                                         int num = AppUtils.stringToInt(likeView.getText().toString()) + 1;
                                         likeView.setText(num + "");
                                     }
-                                    ImageView likeIcon = (ImageView) mRecyclerView.findViewWithTag(id + "_iv");
+                                    ImageView likeIcon = mRecyclerView.findViewWithTag(id + "_iv");
                                     if (likeIcon != null) {
                                         likeIcon.setImageResource(R.drawable.icon_follow);
                                     }
