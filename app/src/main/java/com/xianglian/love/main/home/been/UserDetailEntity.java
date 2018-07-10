@@ -6,7 +6,6 @@ import android.text.TextUtils;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -99,7 +98,7 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
     private String relationship_desc;
     private String mate_preference;
     private String constellation;
-    private String birth_date;
+    private String birthday;
     private String education;
     private String can_leave_message;
 
@@ -349,12 +348,12 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
         this.constellation = constellation;
     }
 
-    public String getBirth_date() {
-        return birth_date;
+    public String getBirthday() {
+        return birthday;
     }
 
-    public void setBirth_date(String birth_date) {
-        this.birth_date = birth_date;
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
     }
 
     public String getCan_leave_message() {
@@ -678,8 +677,8 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
         if (!TextUtils.isEmpty(has_house)) {
             params.put("has_house", has_house);
         }
-        if (!TextUtils.isEmpty(birth_date)) {
-            params.put("birth_date", birth_date);
+        if (!TextUtils.isEmpty(birthday)) {
+            params.put("birthday", birthday);
         }
 
         if (!TextUtils.isEmpty(person_intro)) {
@@ -728,7 +727,7 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
         dest.writeString(this.relationship_desc);
         dest.writeString(this.mate_preference);
         dest.writeString(this.constellation);
-        dest.writeString(this.birth_date);
+        dest.writeString(this.birthday);
         dest.writeString(this.education);
         dest.writeString(this.can_leave_message);
         dest.writeList(this.albums);
@@ -790,10 +789,10 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
         this.relationship_desc = in.readString();
         this.mate_preference = in.readString();
         this.constellation = in.readString();
-        this.birth_date = in.readString();
+        this.birthday = in.readString();
         this.education = in.readString();
         this.can_leave_message = in.readString();
-        this.albums = new ArrayList<PhotoInfo>();
+        this.albums = new ArrayList<>();
         in.readList(this.albums, PhotoInfo.class.getClassLoader());
         this.id = in.readString();
         this.photo_url = in.readString();

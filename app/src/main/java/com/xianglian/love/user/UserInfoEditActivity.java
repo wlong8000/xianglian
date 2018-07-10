@@ -89,7 +89,6 @@ public class UserInfoEditActivity extends BaseUserInfoActivity implements View.O
                 switch (mType) {
                     case ItemInfo.Type.INTRODUCE: {
                         Intent intent = new Intent(UserInfoEditActivity.this, IntroduceActivity.class);
-//                        intent.putExtra(Config.INTRODUCE_KEY, mPersonInfo.getIntroduce());
                         startActivityForResult(intent, REQUEST_CODE_INTRODUCE);
                         break;
                     }

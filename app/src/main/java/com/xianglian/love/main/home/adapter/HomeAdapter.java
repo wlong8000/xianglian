@@ -33,11 +33,11 @@ public class HomeAdapter extends BaseMultiItemQuickAdapter<UserEntity, BaseViewH
             case UserEntity.TYPE_NORMAL:
                 helper.setText(R.id.tv_name, item.getNickname());
 
-                helper.setImageResource(R.id.iv_like, item.is_like() ?
-                        R.drawable.icon_follow : R.drawable.icon_un_follow);
-                helper.setText(R.id.like, item.getLike() + "");
-                helper.setTag(R.id.like, item.getUid());
-                helper.setTag(R.id.iv_like, item.getUid() + "_iv");
+//                helper.setImageResource(R.id.iv_like, item.is_like() ?
+//                        R.drawable.icon_follow : R.drawable.icon_un_follow);
+//                helper.setText(R.id.like, item.getLike() + "");
+//                helper.setTag(R.id.like, item.getUid());
+//                helper.setTag(R.id.iv_like, item.getUid() + "_iv");
 
                 helper.getView(R.id.tv_locate).setVisibility(TextUtils.isEmpty(
                         item.getWork_area()) ? View.GONE : View.VISIBLE);
@@ -47,11 +47,11 @@ public class HomeAdapter extends BaseMultiItemQuickAdapter<UserEntity, BaseViewH
                 helper.getView(R.id.tv_user_desc).setVisibility(TextUtils.isEmpty(
                         item.getPerson_intro()) ? View.GONE : View.VISIBLE);
                 helper.setText(R.id.tv_user_desc, item.getPerson_intro());
-                helper.setText(R.id.tv_id, mContext.getString(R.string.id, item.getAccount()));
-                helper.setImageURI(R.id.img, item.getAvatar());
+                helper.setText(R.id.tv_id, mContext.getString(R.string.id, String.valueOf(item.getId())));
+                helper.setImageURI(R.id.img, item.getPic1());
                 helper.setImageVisible(R.id.identity, Config.VISIBLE == item.getIdentity_verified());
 
-                helper.addOnClickListener(R.id.heart_layout);
+//                helper.addOnClickListener(R.id.heart_layout);
 
                 break;
         }

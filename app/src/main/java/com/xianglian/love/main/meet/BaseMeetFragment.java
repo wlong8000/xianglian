@@ -86,7 +86,7 @@ public class BaseMeetFragment extends BaseListFragment {
     }
 
     public void setupRecyclerView(View view) {
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        mRecyclerView = view.findViewById(R.id.recycler_view);
         mLayoutManager = new CommonLinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mAdapter = new MeetAdapter(getContext(), itemClickListener);

@@ -5,12 +5,22 @@ import android.os.Environment;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.stetho.Stetho;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.GetRequest;
 import com.okhttplib.OkHttpUtil;
 import com.okhttplib.annotation.CacheType;
 import com.okhttplib.annotation.Encoding;
 import com.okhttplib.cookie.PersistentCookieJar;
 import com.okhttplib.cookie.cache.SetCookieCache;
 import com.okhttplib.cookie.persistence.SharedPrefsCookiePersistor;
+import com.orhanobut.hawk.Hawk;
+import com.xianglian.love.config.Config;
+import com.xianglian.love.config.Keys;
+import com.xianglian.love.main.home.been.UserEntity;
+import com.xianglian.love.net.JsonCallBack;
+import com.xianglian.love.utils.AppUtils;
+import com.xianglian.love.utils.Trace;
 
 import java.io.File;
 /**
@@ -21,6 +31,7 @@ import java.io.File;
  */
 public class BaseApplication extends Application {
 
+    private static final String TAG = "BaseApplication";
     public static BaseApplication baseApplication;
 
     public static BaseApplication getApplication() {
@@ -33,6 +44,7 @@ public class BaseApplication extends Application {
         baseApplication = this;
         Fresco.initialize(this);
         Stetho.initializeWithDefaults(this);
+        Hawk.init(this).build();
 
         String downloadFileDir = Environment.getExternalStorageDirectory().getPath() + "/okHttp_download/";
         String cacheDir = Environment.getExternalStorageDirectory().getPath();
@@ -40,6 +52,7 @@ public class BaseApplication extends Application {
             //缓存目录，APP卸载后会自动删除缓存数据
             cacheDir = getExternalCacheDir().getPath();
         }
+        OkGo.getInstance().init(this).addCommonHeaders(AppUtils.getHeaders(this));
         OkHttpUtil.init(this)
                 .setConnectTimeout(15)//连接超时时间
                 .setWriteTimeout(15)//写超时时间

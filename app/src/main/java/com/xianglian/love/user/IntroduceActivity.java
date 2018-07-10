@@ -6,16 +6,17 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.EditText;
 
-import com.okhttplib.HttpInfo;
-import com.okhttplib.OkHttpUtil;
-import com.okhttplib.callback.Callback;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.PostRequest;
+import com.orhanobut.hawk.Hawk;
 import com.xianglian.love.R;
 import com.xianglian.love.config.Config;
+import com.xianglian.love.config.Keys;
+import com.xianglian.love.main.home.been.UserEntity;
+import com.xianglian.love.net.JsonCallBack;
 import com.xianglian.love.utils.AppUtils;
 
-import org.json.JSONObject;
-
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,6 +39,8 @@ public class IntroduceActivity extends BaseUserInfoActivity {
 
     private int mType;
 
+    private UserEntity mUserEntity;
+
     public static Intent getIntent(Context context, int type) {
         Intent intent = new Intent(context, IntroduceActivity.class);
         intent.putExtra(Config.INTRODUCE_KEY, type);
@@ -48,18 +51,20 @@ public class IntroduceActivity extends BaseUserInfoActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_introduce);
-        mIntroduceView = (EditText) findViewById(R.id.et_introduce);
+        mIntroduceView = findViewById(R.id.et_introduce);
         mType = getIntent().getIntExtra(Config.INTRODUCE_KEY, INTRODUCE);
+        mUserEntity = Hawk.get(Keys.USER_INFO);
+        if (mUserEntity == null) mUserEntity = new UserEntity();
         String content = null;
         if (INTRODUCE == mType) {
             setupTitle(getString(R.string.my_introduce), getString(R.string.save));
-            content = AppUtils.getIntroduce(this);
+            content = mUserEntity.getPerson_intro();
         } else if (EXPERIENCE == mType) {
             setupTitle(getString(R.string.experience_love), getString(R.string.save));
-            content = AppUtils.getExperience(this);
+            content = mUserEntity.getRelationship_desc();
         } else if (CHOOSE_FRIEND_STANDARD == mType) {
             setupTitle(getString(R.string.condition_friend), getString(R.string.save));
-            content = AppUtils.getChooseMarry(this);
+            content = mUserEntity.getMate_preference();
         }
         if (!TextUtils.isEmpty(content)) {
             mIntroduceView.setText(content);
@@ -81,12 +86,12 @@ public class IntroduceActivity extends BaseUserInfoActivity {
 
     private void updateContent(final String content) {
         if (TextUtils.isEmpty(content)) return;
-        doRequest(content);
+        update(content);
     }
 
-    private void doRequest(final String input) {
+    private void update(final String input) {
         dialogShow();
-        final String url = Config.PATH + "user/set/basic-info";
+        final PostRequest<UserEntity> request = OkGo.post(Config.PATH + "user_update/");
         Map<String, String> params = new HashMap<>();
         params.put("uid", getUserId(this));
         switch (mType) {
@@ -100,42 +105,81 @@ public class IntroduceActivity extends BaseUserInfoActivity {
                 params.put("mate_preference", input);
                 break;
         }
-        OkHttpUtil.getDefault(this).doPostAsync(
-                HttpInfo.Builder().setUrl(url).addHeads(getHeader()).addParams(params).build(),
-                new Callback() {
-                    @Override
-                    public void onFailure(HttpInfo info) throws IOException {
-                        dialogDisMiss();
-                        toast(getString(R.string.request_fail));
-                    }
-
-                    @Override
-                    public void onSuccess(HttpInfo info) throws IOException {
-                        dialogDisMiss();
-                        String result = info.getRetDetail();
-                        if (result != null) {
-                            try {
-                                JSONObject obj = new JSONObject(result);
-                                String msg = obj.getString("msg");
-                                int code = obj.getInt("code");
-                                if (!TextUtils.isEmpty(msg)) {
-                                    showToast(msg);
-                                }
-                                if (code == 0) {
-                                    updateUserInfo(input);
-                                    Intent intent = new Intent();
-                                    intent.putExtra(Config.INTRODUCE_RESULT_KEY, input);
-                                    setResult(RESULT_OK, intent);
-                                    finish();
-                                }
-
-                            } catch (org.json.JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                });
+        request.headers("Authorization", AppUtils.getToken(this));
+        request.params(params);
+        request.execute(new JsonCallBack<UserEntity>(UserEntity.class) {
+            @Override
+            public void onSuccess(Response<UserEntity> response) {
+                dialogDisMiss();
+                showToast("修改成功");
+                switch (mType) {
+                    case INTRODUCE:
+                        mUserEntity.setPerson_intro(input);
+                        break;
+                    case EXPERIENCE:
+                        mUserEntity.setRelationship_desc(input);
+                        break;
+                    case CHOOSE_FRIEND_STANDARD:
+                        mUserEntity.setMate_preference(input);
+                        break;
+                }
+                Hawk.put(Keys.USER_INFO, mUserEntity);
+            }
+        });
     }
+
+//    private void doRequest(final String input) {
+//        dialogShow();
+//        final String url = Config.PATH + "user_update";
+//        Map<String, String> params = new HashMap<>();
+//        params.put("uid", getUserId(this));
+//        switch (mType) {
+//            case INTRODUCE:
+//                params.put("person_intro", input);
+//                break;
+//            case EXPERIENCE:
+//                params.put("relationship_desc", input);
+//                break;
+//            case CHOOSE_FRIEND_STANDARD:
+//                params.put("mate_preference", input);
+//                break;
+//        }
+//        OkHttpUtil.getDefault(this).doPostAsync(
+//                HttpInfo.Builder().setUrl(url).addHeads(getHeader()).addParams(params).build(),
+//                new Callback() {
+//                    @Override
+//                    public void onFailure(HttpInfo info) throws IOException {
+//                        dialogDisMiss();
+//                        toast(getString(R.string.request_fail));
+//                    }
+//
+//                    @Override
+//                    public void onSuccess(HttpInfo info) throws IOException {
+//                        dialogDisMiss();
+//                        String result = info.getRetDetail();
+//                        if (result != null) {
+//                            try {
+//                                JSONObject obj = new JSONObject(result);
+//                                String msg = obj.getString("msg");
+//                                int code = obj.getInt("code");
+//                                if (!TextUtils.isEmpty(msg)) {
+//                                    showToast(msg);
+//                                }
+//                                if (code == 0) {
+//                                    updateUserInfo(input);
+//                                    Intent intent = new Intent();
+//                                    intent.putExtra(Config.INTRODUCE_RESULT_KEY, input);
+//                                    setResult(RESULT_OK, intent);
+//                                    finish();
+//                                }
+//
+//                            } catch (org.json.JSONException e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
+//                    }
+//                });
+//    }
 
     private void updateUserInfo(String input) {
         switch (mType) {

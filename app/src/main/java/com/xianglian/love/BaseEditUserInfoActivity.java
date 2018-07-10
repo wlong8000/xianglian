@@ -18,6 +18,7 @@ import com.xianglian.love.main.home.been.UserDetailEntity;
 import com.xianglian.love.model.JsonBean;
 import com.xianglian.love.user.been.ItemInfo;
 import com.xianglian.love.utils.ACache;
+import com.xianglian.love.utils.AppUtils;
 import com.xianglian.love.utils.LoadRegionTask;
 import com.xianglian.love.utils.TimeUtils;
 import com.xianglian.love.utils.UserUtils;
@@ -69,8 +70,8 @@ public abstract class BaseEditUserInfoActivity extends BaseListActivity {
         }).setLayoutRes(R.layout.pickerview_custom_options, new CustomListener() {
             @Override
             public void customLayout(View v) {
-                final Button tvSubmit = (Button) v.findViewById(R.id.tv_finish);
-                Button ivCancel = (Button) v.findViewById(R.id.iv_cancel);
+                final Button tvSubmit = v.findViewById(R.id.tv_finish);
+                Button ivCancel = v.findViewById(R.id.iv_cancel);
                 tvSubmit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -110,8 +111,8 @@ public abstract class BaseEditUserInfoActivity extends BaseListActivity {
 
                     @Override
                     public void customLayout(View v) {
-                        final Button tvSubmit = (Button) v.findViewById(R.id.tv_finish);
-                        Button ivCancel = (Button) v.findViewById(R.id.iv_cancel);
+                        final Button tvSubmit = v.findViewById(R.id.tv_finish);
+                        Button ivCancel = v.findViewById(R.id.iv_cancel);
                         tvSubmit.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -289,10 +290,8 @@ public abstract class BaseEditUserInfoActivity extends BaseListActivity {
     public void doRequest(final UserDetailEntity entity, final String data) {
         if (entity == null) return;
         dialogShow();
-        final String url = Config.PATH + "user/set/basic-info";
+        final String url = Config.PATH + "user_update/";
         Map<String, String> params = entity.getParams();
-        params.put("uid", getUserId(this));
-
         OkHttpUtil.getDefault(this).doPostAsync(
                 HttpInfo.Builder().setUrl(url).addHeads(getHeader()).addParams(params).build(),
                 new Callback() {

@@ -107,12 +107,12 @@ public class BaseHomeFragment extends BaseListFragment implements BaseQuickAdapt
                             try {
                                 UserEntity userEntity = JSON.parseObject(result, UserEntity.class);
                                 if (userEntity == null) return;
-                                if (userEntity.getTotal() <= 0) {
+                                if (userEntity.getCount() <= 0) {
                                     mAdapter.setNewData(null);
                                     mAdapter.setEmptyView(emptyView);
                                     return;
                                 }
-                                List<UserEntity> userEntities = userEntity.getPerson_list();
+                                List<UserEntity> userEntities = userEntity.getResults();
                                 dealItemData(userEntities, refresh);
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -138,48 +138,48 @@ public class BaseHomeFragment extends BaseListFragment implements BaseQuickAdapt
         return url;
     }
 
-    private void doLikeRequest(final String id) {
-        final String url = Config.PATH + "user/like/" + id;
-        Map<String, String> params = new HashMap<>();
-        params.put("uid", id);
-        OkHttpUtil.getDefault(this).doPostAsync(
-                HttpInfo.Builder().setUrl(url).addHeads(getHeader()).addParams(params).build(),
-                new Callback() {
-                    @Override
-                    public void onFailure(HttpInfo info) throws IOException {
-                        toast(getString(R.string.request_fail));
-                    }
-
-                    @SuppressLint("SetTextI18n")
-                    @Override
-                    public void onSuccess(HttpInfo info) throws IOException {
-                        String result = info.getRetDetail();
-                        if (result != null) {
-                            try {
-                                UserDetailEntity userEntity = JSON.parseObject(result, UserDetailEntity.class);
-                                if (userEntity == null) return;
-                                if (userEntity.getCode() == Config.FAIL) {
-                                    toast(TextUtils.isEmpty(userEntity.getMsg()) ?
-                                            getString(R.string.request_fail) : userEntity.getMsg());
-                                } else {
-                                    TextView likeView = mRecyclerView.findViewWithTag(id);
-                                    if (likeView != null) {
-                                        int num = AppUtils.stringToInt(likeView.getText().toString()) + 1;
-                                        likeView.setText(num + "");
-                                    }
-                                    ImageView likeIcon = mRecyclerView.findViewWithTag(id + "_iv");
-                                    if (likeIcon != null) {
-                                        likeIcon.setImageResource(R.drawable.icon_follow);
-                                    }
-                                }
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                });
-    }
+//    private void doLikeRequest(final String id) {
+//        final String url = Config.PATH + "user/like/" + id;
+//        Map<String, String> params = new HashMap<>();
+//        params.put("uid", id);
+//        OkHttpUtil.getDefault(this).doPostAsync(
+//                HttpInfo.Builder().setUrl(url).addHeads(getHeader()).addParams(params).build(),
+//                new Callback() {
+//                    @Override
+//                    public void onFailure(HttpInfo info) throws IOException {
+//                        toast(getString(R.string.request_fail));
+//                    }
+//
+//                    @SuppressLint("SetTextI18n")
+//                    @Override
+//                    public void onSuccess(HttpInfo info) throws IOException {
+//                        String result = info.getRetDetail();
+//                        if (result != null) {
+//                            try {
+//                                UserDetailEntity userEntity = JSON.parseObject(result, UserDetailEntity.class);
+//                                if (userEntity == null) return;
+//                                if (userEntity.getCode() == Config.FAIL) {
+//                                    toast(TextUtils.isEmpty(userEntity.getMsg()) ?
+//                                            getString(R.string.request_fail) : userEntity.getMsg());
+//                                } else {
+//                                    TextView likeView = mRecyclerView.findViewWithTag(id);
+//                                    if (likeView != null) {
+//                                        int num = AppUtils.stringToInt(likeView.getText().toString()) + 1;
+//                                        likeView.setText(num + "");
+//                                    }
+//                                    ImageView likeIcon = mRecyclerView.findViewWithTag(id + "_iv");
+//                                    if (likeIcon != null) {
+//                                        likeIcon.setImageResource(R.drawable.icon_follow);
+//                                    }
+//                                }
+//
+//                            } catch (JSONException e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
+//                    }
+//                });
+//    }
 
     private void dealItemData(List<UserEntity> userEntities, boolean refresh) {
         if (userEntities == null || userEntities.size() == 0) return;
@@ -202,13 +202,13 @@ public class BaseHomeFragment extends BaseListFragment implements BaseQuickAdapt
 
     @Override
     public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-        UserEntity info = mAdapter.getItem(position);
-        switch (view.getId()) {
-            case R.id.heart_layout:
-                if (info != null)
-                    doLikeRequest(info.getUid());
-                break;
-        }
+//        UserEntity info = mAdapter.getItem(position);
+//        switch (view.getId()) {
+//            case R.id.heart_layout:
+//                if (info != null)
+//                    doLikeRequest(info.getUid());
+//                break;
+//        }
     }
 
     @Override

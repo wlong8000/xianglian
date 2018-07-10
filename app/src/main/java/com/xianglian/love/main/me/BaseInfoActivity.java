@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.orhanobut.hawk.Hawk;
 import com.xianglian.love.BaseEditUserInfoActivity;
 import com.xianglian.love.R;
+import com.xianglian.love.config.Keys;
 import com.xianglian.love.dialog.EditDialog;
 import com.xianglian.love.main.home.been.UserDetailEntity;
-import com.xianglian.love.user.LoginActivity;
+import com.xianglian.love.main.home.been.UserEntity;
 import com.xianglian.love.user.adapter.UserInfoEditAdapter;
 import com.xianglian.love.user.been.ItemInfo;
 import com.xianglian.love.utils.AppUtils;
@@ -47,7 +49,7 @@ public class BaseInfoActivity extends BaseEditUserInfoActivity implements BaseQu
         switch (mEntity.getType()) {
             case ItemInfo.MyInfoType.BIRTHDAY:
                 text = dealDate(date);
-                entity.setBirth_date(text);
+                entity.setBirthday(text);
                 break;
             case ItemInfo.MyInfoType.APARTMENT:
                 text = dealRegion(options1, option2, options3, true);
@@ -131,16 +133,13 @@ public class BaseInfoActivity extends BaseEditUserInfoActivity implements BaseQu
     }
 
     private void setData() {
-        UserDetailEntity info = AppUtils.getUserInfo(this);
-        if (info == null) {
-            startActivity(LoginActivity.getIntent(this));
-            return;
-        }
+        UserEntity info = Hawk.get(Keys.USER_INFO);
+        if (info == null) info = new UserEntity();
         //昵称
         mItemInfo.add(getInfo(getString(R.string.nick_name), info.getNickname(), ItemInfo.MyInfoType.NICK_NAME, null));
 
         //出生日期
-        mItemInfo.add(getInfo(getString(R.string.birth), info.getBirth_date(), ItemInfo.MyInfoType.BIRTHDAY, null));
+        mItemInfo.add(getInfo(getString(R.string.birth), info.getBirthday(), ItemInfo.MyInfoType.BIRTHDAY, null));
 
         //居住地
         mItemInfo.add(getInfo(getString(R.string.apartment), info.getWork_area_name(), ItemInfo.MyInfoType.APARTMENT, null));
@@ -153,10 +152,10 @@ public class BaseInfoActivity extends BaseEditUserInfoActivity implements BaseQu
                 null, ItemInfo.MyInfoType.HEIGHT, UserUtils.getHighData()));
 
         //学历
-        mItemInfo.add(getInfo(getString(R.string.education), info.getEducation(), ItemInfo.MyInfoType.EDUCATION, UserUtils.getEduData(this)));
+        mItemInfo.add(getInfo(getString(R.string.education), UserUtils.getEdu(info.getEducation()), ItemInfo.MyInfoType.EDUCATION, UserUtils.getEduData(this)));
 
         //职业
-        mItemInfo.add(getInfo(getString(R.string.profession), info.getCareer(), ItemInfo.MyInfoType.PROFESSION, UserUtils.getProfessionData()));
+        mItemInfo.add(getInfo(getString(R.string.profession), UserUtils.getCareer(info.getCareer()), ItemInfo.MyInfoType.PROFESSION, UserUtils.getProfessionData()));
 
         //月收入
         mItemInfo.add(getInfo(getString(R.string.income), info.getIncome(), ItemInfo.MyInfoType.INCOME, UserUtils.getComingData(this)));

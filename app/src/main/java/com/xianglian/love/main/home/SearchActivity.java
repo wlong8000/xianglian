@@ -179,7 +179,7 @@ public class SearchActivity extends BaseEditUserInfoActivity implements
                     break;
                 case ItemInfo.Type.HOMETOWN:
                 case ItemInfo.Type.APARTMENT: {
-                    showRegion(false);
+                    showRegion(true);
                     break;
                 }
                 //一级

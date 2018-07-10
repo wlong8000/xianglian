@@ -52,12 +52,12 @@ public class BaseListActivity extends BaseActivity {
 
     public void setupRecyclerView() {
         try {
-            mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.refresh);
+            mSwipeRefreshLayout = findViewById(R.id.refresh);
         } catch (Exception e) {
             e.printStackTrace();
         }
         try {
-            mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+            mRecyclerView = findViewById(R.id.recycler_view);
             mLayoutManager = new CommonLinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
             mRecyclerView.setLayoutManager(mLayoutManager);
 
@@ -67,7 +67,7 @@ public class BaseListActivity extends BaseActivity {
                     (ViewGroup) mRecyclerView.getParent(), false);
             loadingView = getLayoutInflater().inflate(R.layout.loading_view,
                     (ViewGroup) mRecyclerView.getParent(), false);
-            SimpleDraweeView loadView = (SimpleDraweeView) loadingView.findViewById(R.id.loading_icon);
+            SimpleDraweeView loadView = loadingView.findViewById(R.id.loading_icon);
             AppUtils.loadLocalGif(this, loadView, R.drawable.loading);
         } catch (Exception e) {
             e.printStackTrace();

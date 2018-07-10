@@ -109,6 +109,42 @@ public class UserUtils {
         return getResources(context, R.array.marry_state);
     }
 
+    public static String getCareer(int career) {
+        switch (career) {
+            case 0:
+                return "未透露";
+            case 1:
+                return "在校学生";
+            case 2:
+                return "私营业主";
+            case 3:
+                return "农业劳动者";
+            case 4:
+                return "政府机关/事业单位";
+            default:
+                return "自由职业";
+        }
+    }
+
+    public static String getEdu(int edu) {
+        switch (edu) {
+            case 0:
+                return "高中/技校";
+            case 1:
+                return "高中/技校";
+            case 2:
+                return "专科";
+            case 3:
+                return "本科";
+            case 4:
+                return "研究生";
+            case 5:
+                return "海龟";
+            default:
+                return "高中/技校";
+        }
+    }
+
     public static List<String> getProfessionData() {
         ArrayList<String> data = new ArrayList<>();
         data.add("在校学生");

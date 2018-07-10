@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:padding="5dp" >
     <LinearLayout
-        android:id="@+id/avatar"
+        android:id="@+id/pic1"
         android:background="@drawable/feed_image_shadow"
         android:layout_width="100dp"
         android:layout_alignParentLeft="true"
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@id/avatar"
+        android:layout_toRightOf="@id/pic1"
         android:orientation="vertical" >
         <TextView
             android:id="@+id/id_dir_item_name"

@@ -120,102 +120,102 @@ public class PersonDetailActivity extends BaseActivity implements View.OnClickLi
 
     private void setHeader(UserEntity entity) {
         if (entity == null) return;
-        mPicView.setImageURI(entity.getAvatar());
+        mPicView.setImageURI(entity.getPic1());
         mHeartCountView.setText(TextUtils.isEmpty(entity.getLike()) ? "" : entity.getLike());
     }
 
-    private void doLikeRequest(final String id) {
-        final String url = Config.PATH + "user/like/" + id;
-        Map<String, String> params = new HashMap<>();
-        params.put("uid", id);
-        OkHttpUtil.getDefault(this).doPostAsync(
-                HttpInfo.Builder().setUrl(url).addHeads(getHeader()).addParams(params).build(),
-                new Callback() {
-                    @Override
-                    public void onFailure(HttpInfo info) throws IOException {
-                        toast(getString(R.string.request_fail));
-                    }
+//    private void doLikeRequest(final String id) {
+//        final String url = Config.PATH + "user/like/" + id;
+//        Map<String, String> params = new HashMap<>();
+//        params.put("uid", id);
+//        OkHttpUtil.getDefault(this).doPostAsync(
+//                HttpInfo.Builder().setUrl(url).addHeads(getHeader()).addParams(params).build(),
+//                new Callback() {
+//                    @Override
+//                    public void onFailure(HttpInfo info) throws IOException {
+//                        toast(getString(R.string.request_fail));
+//                    }
+//
+//                    @Override
+//                    public void onSuccess(HttpInfo info) throws IOException {
+//                        String result = info.getRetDetail();
+//                        if (result != null) {
+//                            try {
+//                                UserDetailEntity userEntity = JSON.parseObject(result, UserDetailEntity.class);
+//                                if (userEntity == null) return;
+//                                if (userEntity.getCode() == Config.FAIL) {
+//                                    toast(TextUtils.isEmpty(userEntity.getMsg()) ?
+//                                            getString(R.string.request_fail) : userEntity.getMsg());
+//                                } else {
+//                                    int num = AppUtils.stringToInt(mHeartCountView.getText().toString()) + 1;
+//                                    mHeartCountView.setText(num + "");
+//                                }
+//
+//                            } catch (JSONException e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
+//                    }
+//                });
+//    }
 
-                    @Override
-                    public void onSuccess(HttpInfo info) throws IOException {
-                        String result = info.getRetDetail();
-                        if (result != null) {
-                            try {
-                                UserDetailEntity userEntity = JSON.parseObject(result, UserDetailEntity.class);
-                                if (userEntity == null) return;
-                                if (userEntity.getCode() == Config.FAIL) {
-                                    toast(TextUtils.isEmpty(userEntity.getMsg()) ?
-                                            getString(R.string.request_fail) : userEntity.getMsg());
-                                } else {
-                                    int num = AppUtils.stringToInt(mHeartCountView.getText().toString()) + 1;
-                                    mHeartCountView.setText(num + "");
-                                }
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                });
-    }
-
-    private void doLeaveMsgRequest(String msg) {
-        final String url = Config.PATH + "user/leave/message/" + mId;
-        Map<String, String> params = new HashMap<>();
-        params.put("uid", mId);
-        params.put("message", msg);
-        OkHttpUtil.getDefault(this).doPostAsync(
-                HttpInfo.Builder().setUrl(url).addHeads(getHeader()).addParams(params).build(),
-                new Callback() {
-                    @Override
-                    public void onFailure(HttpInfo info) throws IOException {
-                        String result = info.getRetDetail();
-
-                    }
-
-                    @Override
-                    public void onSuccess(HttpInfo info) throws IOException {
-                        String result = info.getRetDetail();
-                        if (result != null) {
-                            try {
-                                UserDetailEntity userEntity = JSON.parseObject(result, UserDetailEntity.class);
-                                if (userEntity == null) return;
-                                if (!TextUtils.isEmpty(userEntity.getMsg())) {
-                                    showToast(userEntity.getMsg());
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                });
-    }
+//    private void doLeaveMsgRequest(String msg) {
+//        final String url = Config.PATH + "user/leave/message/" + mId;
+//        Map<String, String> params = new HashMap<>();
+//        params.put("uid", mId);
+//        params.put("message", msg);
+//        OkHttpUtil.getDefault(this).doPostAsync(
+//                HttpInfo.Builder().setUrl(url).addHeads(getHeader()).addParams(params).build(),
+//                new Callback() {
+//                    @Override
+//                    public void onFailure(HttpInfo info) throws IOException {
+//                        String result = info.getRetDetail();
+//
+//                    }
+//
+//                    @Override
+//                    public void onSuccess(HttpInfo info) throws IOException {
+//                        String result = info.getRetDetail();
+//                        if (result != null) {
+//                            try {
+//                                UserDetailEntity userEntity = JSON.parseObject(result, UserDetailEntity.class);
+//                                if (userEntity == null) return;
+//                                if (!TextUtils.isEmpty(userEntity.getMsg())) {
+//                                    showToast(userEntity.getMsg());
+//                                }
+//                            } catch (JSONException e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
+//                    }
+//                });
+//    }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.heart:
-                doLikeRequest(mId);
+//                doLikeRequest(mId);
                 break;
             case R.id.change_qq:
                 break;
             case R.id.change_wx:
                 break;
             case R.id.leave_message:
-                showEditDialog();
+//                showEditDialog();
                 break;
         }
     }
 
-    private void showEditDialog() {
-        EditDialog dialog = new EditDialog(this) {
-            @Override
-            public void onConfirm(String text) {
-                doLeaveMsgRequest(text);
-            }
-        };
-        dialog.show();
-    }
+//    private void showEditDialog() {
+//        EditDialog dialog = new EditDialog(this) {
+//            @Override
+//            public void onConfirm(String text) {
+//                doLeaveMsgRequest(text);
+//            }
+//        };
+//        dialog.show();
+//    }
 
     class MyBaseAdapter extends FragmentStatePagerAdapter {
         Fragment[] fragments = new Fragment[] {
@@ -223,7 +223,7 @@ public class PersonDetailActivity extends BaseActivity implements View.OnClickLi
         };
 
         PersonDetailFragment getPersionDetailFragment() {
-            return (PersonDetailFragment)fragments[0];
+            return (PersonDetailFragment) fragments[0];
         }
 
         MyBaseAdapter(FragmentManager fm) {

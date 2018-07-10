@@ -213,7 +213,6 @@ public class AvatarSettingActivity extends BaseUserInfoActivity implements View.
         mPopupWindow.setAnimationStyle(android.R.style.Animation_Dialog);
         mPopupWindow.update();
         mPopupWindow.setBackgroundDrawable(new BitmapDrawable());
-//        addPopupWindow.setOutsideTouchable(true);
         mPopupWindow.setFocusable(true);
         mPopupWindow.setTouchable(true);
         WindowManager windowManager = getWindowManager();

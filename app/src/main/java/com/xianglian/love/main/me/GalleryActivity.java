@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 
 import com.xianglian.love.R;
-import com.xianglian.love.ShowPicActivity;
-import com.xianglian.love.library.photo.widget.PickConfig;
 import com.xianglian.love.library.ucrop.UCrop;
 import com.xianglian.love.main.home.been.PhotoInfo;
 
@@ -87,20 +85,20 @@ public class GalleryActivity extends BaseUserInfoActivity implements AlumView.On
                 showToast(getString(R.string.maxsupport_num, MAX_PIC + ""));
                 return;
             }
-            int chose_mode = PickConfig.MODE_MULTIP_PICK;
-            UCrop.Options options = new UCrop.Options();
-            options.setCompressionFormat(Bitmap.CompressFormat.JPEG);
-            options.setCompressionQuality(100);
-            new PickConfig.Builder(GalleryActivity.this)
-                    .isNeedCrop(false)
-                    .actionBarColor(getResources().getColor(R.color.lib_color_font8))
-                    .statusBarColor(getResources().getColor(R.color.lib_color_font8))
-                    .isNeedCamera(true)
-                    .isSquareCrop(false)
-                    .setUropOptions(options)
-                    .maxPickSize(mMaxPicCount)
-                    .spanCount(3)
-                    .pickMode(chose_mode).build();
+//            int chose_mode = PickConfig.MODE_MULTIP_PICK;
+//            UCrop.Options options = new UCrop.Options();
+//            options.setCompressionFormat(Bitmap.CompressFormat.JPEG);
+//            options.setCompressionQuality(100);
+//            new PickConfig.Builder(GalleryActivity.this)
+//                    .isNeedCrop(false)
+//                    .actionBarColor(getResources().getColor(R.color.lib_color_font8))
+//                    .statusBarColor(getResources().getColor(R.color.lib_color_font8))
+//                    .isNeedCamera(true)
+//                    .isSquareCrop(false)
+//                    .setUropOptions(options)
+//                    .maxPickSize(mMaxPicCount)
+//                    .spanCount(3)
+//                    .pickMode(chose_mode).build();
         } else {
 //            List<PhotoInfo> data = mPersonInfo.getAlbum();
 //            if (data == null) return;
@@ -115,15 +113,15 @@ public class GalleryActivity extends BaseUserInfoActivity implements AlumView.On
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == PickConfig.PICK_REQUEST_CODE) {
-            //在data中返回 选择的图片列表
-            List<String> paths = data.getStringArrayListExtra("data");
-            String[] arr = new String[paths.size()];
-            for (int i = 0; i < paths.size(); i++) {
-                arr[i] = paths.get(i);
-            }
-            uploadPic(arr);
-        }
+//        if (resultCode == RESULT_OK && requestCode == PickConfig.PICK_REQUEST_CODE) {
+//            //在data中返回 选择的图片列表
+//            List<String> paths = data.getStringArrayListExtra("data");
+//            String[] arr = new String[paths.size()];
+//            for (int i = 0; i < paths.size(); i++) {
+//                arr[i] = paths.get(i);
+//            }
+//            uploadPic(arr);
+//        }
     }
 
     private void uploadPic(final String[] filePaths) {

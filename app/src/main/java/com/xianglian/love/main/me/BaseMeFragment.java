@@ -17,22 +17,33 @@ import android.widget.TextView;
 import com.alibaba.json.JSON;
 import com.alibaba.json.JSONException;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.HttpParams;
+import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.GetRequest;
 import com.okhttplib.HttpInfo;
 import com.okhttplib.OkHttpUtil;
 import com.okhttplib.callback.Callback;
+import com.orhanobut.hawk.Hawk;
 import com.qiniu.android.http.ResponseInfo;
 import com.qiniu.android.storage.UpCompletionHandler;
 import com.qiniu.android.storage.UploadManager;
 import com.xianglian.love.BaseListFragment;
 import com.xianglian.love.R;
 import com.xianglian.love.config.Config;
+import com.xianglian.love.config.Keys;
 import com.xianglian.love.dialog.SelectPicAlertDialog;
 import com.xianglian.love.main.home.EditPhoneActivity;
 import com.xianglian.love.main.home.been.PersonInfo;
 import com.xianglian.love.main.home.been.UserDetailEntity;
+import com.xianglian.love.main.home.been.UserEntity;
 import com.xianglian.love.model.Album;
 import com.xianglian.love.model.AttachmentEntity;
 import com.xianglian.love.model.TakePhoto;
+import com.xianglian.love.net.DesUtil;
+import com.xianglian.love.net.JsonCallBack;
+import com.xianglian.love.net.MD5Util;
 import com.xianglian.love.user.AuthenticationActivity;
 import com.xianglian.love.user.IntroduceActivity;
 import com.xianglian.love.user.LoginActivity;
@@ -48,9 +59,12 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -60,6 +74,7 @@ import java.util.Map;
 
 public class BaseMeFragment extends BaseListFragment implements BaseQuickAdapter.OnItemClickListener {
 
+    private static final String TAG = "BaseMeFragment";
     private UserInfoEditAdapter mAdapter;
 
     private List<ItemInfo> mItemInfo = new ArrayList<>();
@@ -91,8 +106,8 @@ public class BaseMeFragment extends BaseListFragment implements BaseQuickAdapter
     private void intoDetail() {
         switch (mEntity.getType()) {
             case ItemInfo.SettingType.MY_ALBUM: {
-//                Intent intent = new Intent(getActivity(), GalleryActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent(getActivity(), GalleryActivity.class);
+                startActivity(intent);
                 break;
             }
             case ItemInfo.SettingType.INTRODUCE: {
@@ -120,7 +135,7 @@ public class BaseMeFragment extends BaseListFragment implements BaseQuickAdapter
                 break;
             }
             case ItemInfo.SettingType.CHOOSE_FRIEND_STANDARD: {
-                Intent intent = IntroduceActivity.getIntent(getContext(), IntroduceActivity.EXPERIENCE);
+                Intent intent = IntroduceActivity.getIntent(getContext(), IntroduceActivity.CHOOSE_FRIEND_STANDARD);
                 startActivityForResult(intent, REQUEST_CODE_INTRODUCE);
                 break;
             }
@@ -175,6 +190,10 @@ public class BaseMeFragment extends BaseListFragment implements BaseQuickAdapter
         switch (type) {
             case ItemInfo.ViewType.AVATAR: {
                 ItemInfo info = new ItemInfo();
+                UserEntity entity = Hawk.get(Keys.USER_INFO);
+                if (entity != null) {
+                    info.setAvatar(entity.getPic1());
+                }
                 info.setViewType(type);
                 mItemInfo.add(info);
                 break;
@@ -202,7 +221,7 @@ public class BaseMeFragment extends BaseListFragment implements BaseQuickAdapter
 //        mItemInfo.add(getInfo(getString(R.string.set_vip), ItemInfo.SettingType.SET_VIP, null, true));
 
         //身份认证
-        mItemInfo.add(getInfo(getString(R.string.person_identity), ItemInfo.SettingType.IDENTITY, null));
+//        mItemInfo.add(getInfo(getString(R.string.person_identity), ItemInfo.SettingType.IDENTITY, null));
 
         //联系方式
         mItemInfo.add(getInfo(getString(R.string.phone), ItemInfo.SettingType.PHONE, null));
@@ -214,10 +233,10 @@ public class BaseMeFragment extends BaseListFragment implements BaseQuickAdapter
         mItemInfo.add(getInfo(getString(R.string.condition_friend), ItemInfo.SettingType.CHOOSE_FRIEND_STANDARD, null));
 
         //个人标签
-        mItemInfo.add(getInfo(getString(R.string.mark), ItemInfo.SettingType.MARK, null, true));
+//        mItemInfo.add(getInfo(getString(R.string.mark), ItemInfo.SettingType.MARK, null, true));
 
         //兴趣爱好
-        mItemInfo.add(getInfo(getString(R.string.hobby), ItemInfo.SettingType.HOBBY, null));
+//        mItemInfo.add(getInfo(getString(R.string.hobby), ItemInfo.SettingType.HOBBY, null));
 
         //设置
         mItemInfo.add(getInfo(getString(R.string.setting), ItemInfo.SettingType.SETTING, null));
@@ -245,7 +264,7 @@ public class BaseMeFragment extends BaseListFragment implements BaseQuickAdapter
             @Override
             public void takePhoto() {
                 Intent takePhoto = getTakePhoto().setIntent(AppUtils.getPicturePath(getContext()) + "avatar/");
-                startActivityForResult(takePhoto, PhotoUtils.PHOTO);
+                getActivity().startActivityForResult(takePhoto, PhotoUtils.PHOTO);
             }
 
             @Override
@@ -253,7 +272,7 @@ public class BaseMeFragment extends BaseListFragment implements BaseQuickAdapter
                 mAlbum = new Album();
                 Intent it = mAlbum.setIntent(AppUtils.getPicturePath(getContext()) + "avatar/",
                         "image/jpeg");
-                startActivityForResult(it, PhotoUtils.ALBUM);
+                getActivity().startActivityForResult(it, PhotoUtils.ALBUM);
             }
         };
         dialog.show();
@@ -297,7 +316,7 @@ public class BaseMeFragment extends BaseListFragment implements BaseQuickAdapter
                                         Uri.fromFile(new File(getAlbum().getFileName())),
                                         Uri.fromFile(new File(AppUtils.getPicturePath(getContext())
                                                 + "avatar/thumb_" + getAlbum().getName())));
-                                startActivityForResult(albuIntent, PhotoUtils.REQUEST_CODE_ALBUM_CUT);
+                                getActivity().startActivityForResult(albuIntent, PhotoUtils.REQUEST_CODE_ALBUM_CUT);
                             } else {
                                 AppUtils.showToast(getContext(), getString(R.string.unaccess_pic));
                             }
@@ -315,10 +334,32 @@ public class BaseMeFragment extends BaseListFragment implements BaseQuickAdapter
                 break;
             case PhotoUtils.REQUEST_CODE_ALBUM_CUT:
                 if (resultCode != 0) {
+                    String path = AppUtils.getPicturePath(getContext()) + "avatar/thumb_" + getAlbum().getName();
 //                    uploadAvatar(AppUtils.getPicturePath(getContext()) + "avatar/thumb_" + getAlbum().getName());
+                    getQnToken(path);
                 }
                 break;
         }
+    }
+
+    private void getQnToken(final String path) {
+        GetRequest<UserEntity> request = OkGo.get(Config.PATH + "qn_token");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd/HH/mm/ss", Locale.getDefault());
+        final String date = df.format(new Date());
+        String text = path + System.currentTimeMillis();
+        final String fileName = date + "/" + MD5Util.encrypt(text);
+        request.params("file_name", fileName);
+        request.headers("Authorization", AppUtils.getToken(getContext()));
+        request.execute(new JsonCallBack<UserEntity>(UserEntity.class) {
+            @Override
+            public void onSuccess(Response<UserEntity> response) {
+                UserEntity entity = response.body();
+                if (entity == null) return;
+                String token = entity.getToken();
+                Trace.d(TAG, "token : " + token);
+                uploadAvatar(token, path, fileName);
+            }
+        });
     }
 
     /**
@@ -373,12 +414,12 @@ public class BaseMeFragment extends BaseListFragment implements BaseQuickAdapter
                                     toast(TextUtils.isEmpty(userEntity.getMsg()) ?
                                             getString(R.string.request_fail) : userEntity.getMsg());
                                 } else {
-                                    TextView likeView = (TextView) mRecyclerView.findViewWithTag(id);
+                                    TextView likeView = mRecyclerView.findViewWithTag(id);
                                     if (likeView != null) {
                                         int num = AppUtils.stringToInt(likeView.getText().toString()) + 1;
                                         likeView.setText(num + "");
                                     }
-                                    ImageView likeIcon = (ImageView) mRecyclerView.findViewWithTag(id + "_iv");
+                                    ImageView likeIcon = mRecyclerView.findViewWithTag(id + "_iv");
                                     if (likeIcon != null) {
                                         likeIcon.setImageResource(R.drawable.icon_follow);
                                     }

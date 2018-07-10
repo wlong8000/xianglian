@@ -102,7 +102,7 @@
     <string name="raking">家中排行</string>
     <string name="has_child">有无子女</string>
     <string name="weight">体重(单位：kg)</string>
-    <string name="money">%1$s万</string>
+    <string name="money">%1$sK</string>
     <string name="toast_change_phone">提示：在联系过程中，切勿有钱款往来</string>
     <string name="toast2_change_phone">为了保证您的信息安全，在对方同意交换联系方式后方可查看您的联系方式，对方拒绝将无权查看您的联系方式</string>
     <string name="wei_xin">微信号</string>

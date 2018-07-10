@@ -17,15 +17,15 @@ public class UserEntity implements Parcelable, MultiItemEntity {
     private int code;
     private int viewType;
 
-    private UserEntity result;
-    private int total;
+    private int count;
     private String error;
     private String previous;
     private String next;
 
-    private List<UserEntity> person_list;
+    private List<UserEntity> results;
     private String uid;
     private String account;
+    private String token;
     /**
      * 是否认证 0 未认证 1 已认证
      */
@@ -34,6 +34,66 @@ public class UserEntity implements Parcelable, MultiItemEntity {
     private String work_area;
     private String age;
     private String height;
+    private String birthday;
+    private String weight;
+    private String work_area_name;
+    private String born_area_name;
+
+    private int education;
+    private int id;
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getWeight() {
+        return weight;
+    }
+
+    public void setWeight(String weight) {
+        this.weight = weight;
+    }
+
+    public String getWork_area_name() {
+        return work_area_name;
+    }
+
+    public void setWork_area_name(String work_area_name) {
+        this.work_area_name = work_area_name;
+    }
+
+    public String getBorn_area_name() {
+        return born_area_name;
+    }
+
+    public void setBorn_area_name(String born_area_name) {
+        this.born_area_name = born_area_name;
+    }
+
+    public int getEducation() {
+        return education;
+    }
+
+    public void setEducation(int education) {
+        this.education = education;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public boolean isIs_like() {
+        return is_like;
+    }
+
     /**
      * 职业 (0, '未透露'), (1, "在校学生"), (2, "私营业主"), (3, "农业劳动者"), (4, "企业职工"), (5, "政府机关/事业单位"), (6, "自由职业")
      */
@@ -43,8 +103,11 @@ public class UserEntity implements Parcelable, MultiItemEntity {
      */
     private String income;
     private String person_intro;
+    private String relationship_desc;
+    private String marriage_status;
+    private String mate_preference;
     private String like;
-    private String avatar;
+    private String pic1;
     /**
      * 类型 1 条目 2 广告
      */
@@ -73,20 +136,12 @@ public class UserEntity implements Parcelable, MultiItemEntity {
         this.code = code;
     }
 
-    public UserEntity getResult() {
-        return result;
+    public int getCount() {
+        return count;
     }
 
-    public void setResult(UserEntity result) {
-        this.result = result;
-    }
-
-    public int getTotal() {
-        return total;
-    }
-
-    public void setTotal(int total) {
-        this.total = total;
+    public void setCount(int count) {
+        this.count = count;
     }
 
     public String getError() {
@@ -113,12 +168,12 @@ public class UserEntity implements Parcelable, MultiItemEntity {
         this.next = next;
     }
 
-    public List<UserEntity> getPerson_list() {
-        return person_list;
+    public List<UserEntity> getResults() {
+        return results;
     }
 
-    public void setPerson_list(List<UserEntity> person_list) {
-        this.person_list = person_list;
+    public void setResults(List<UserEntity> results) {
+        this.results = results;
     }
 
     public String getUid() {
@@ -135,6 +190,14 @@ public class UserEntity implements Parcelable, MultiItemEntity {
 
     public void setAccount(String account) {
         this.account = account;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public int getIdentity_verified() {
@@ -201,6 +264,30 @@ public class UserEntity implements Parcelable, MultiItemEntity {
         this.person_intro = person_intro;
     }
 
+    public String getRelationship_desc() {
+        return relationship_desc;
+    }
+
+    public void setRelationship_desc(String relationship_desc) {
+        this.relationship_desc = relationship_desc;
+    }
+
+    public String getMarriage_status() {
+        return marriage_status;
+    }
+
+    public void setMarriage_status(String marriage_status) {
+        this.marriage_status = marriage_status;
+    }
+
+    public String getMate_preference() {
+        return mate_preference;
+    }
+
+    public void setMate_preference(String mate_preference) {
+        this.mate_preference = mate_preference;
+    }
+
     public String getLike() {
         return like;
     }
@@ -265,12 +352,12 @@ public class UserEntity implements Parcelable, MultiItemEntity {
         this.viewType = viewType;
     }
 
-    public String getAvatar() {
-        return avatar;
+    public String getPic1() {
+        return pic1;
     }
 
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
+    public void setPic1(String pic1) {
+        this.pic1 = pic1;
     }
 
     public boolean is_like() {
@@ -299,22 +386,33 @@ public class UserEntity implements Parcelable, MultiItemEntity {
         dest.writeString(this.msg);
         dest.writeInt(this.code);
         dest.writeInt(this.viewType);
-        dest.writeParcelable(this.result, flags);
-        dest.writeInt(this.total);
+        dest.writeInt(this.count);
         dest.writeString(this.error);
-        dest.writeTypedList(this.person_list);
+        dest.writeString(this.previous);
+        dest.writeString(this.next);
+        dest.writeTypedList(this.results);
         dest.writeString(this.uid);
         dest.writeString(this.account);
+        dest.writeString(this.token);
         dest.writeInt(this.identity_verified);
         dest.writeString(this.nickname);
         dest.writeString(this.work_area);
         dest.writeString(this.age);
         dest.writeString(this.height);
+        dest.writeString(this.birthday);
+        dest.writeString(this.weight);
+        dest.writeString(this.work_area_name);
+        dest.writeString(this.born_area_name);
+        dest.writeInt(this.education);
+        dest.writeInt(this.id);
         dest.writeInt(this.career);
         dest.writeString(this.income);
         dest.writeString(this.person_intro);
+        dest.writeString(this.relationship_desc);
+        dest.writeString(this.marriage_status);
+        dest.writeString(this.mate_preference);
         dest.writeString(this.like);
-        dest.writeString(this.avatar);
+        dest.writeString(this.pic1);
         dest.writeInt(this.type);
         dest.writeParcelable(this.content, flags);
         dest.writeString(this.url);
@@ -328,22 +426,33 @@ public class UserEntity implements Parcelable, MultiItemEntity {
         this.msg = in.readString();
         this.code = in.readInt();
         this.viewType = in.readInt();
-        this.result = in.readParcelable(UserEntity.class.getClassLoader());
-        this.total = in.readInt();
+        this.count = in.readInt();
         this.error = in.readString();
-        this.person_list = in.createTypedArrayList(UserEntity.CREATOR);
+        this.previous = in.readString();
+        this.next = in.readString();
+        this.results = in.createTypedArrayList(UserEntity.CREATOR);
         this.uid = in.readString();
         this.account = in.readString();
+        this.token = in.readString();
         this.identity_verified = in.readInt();
         this.nickname = in.readString();
         this.work_area = in.readString();
         this.age = in.readString();
         this.height = in.readString();
+        this.birthday = in.readString();
+        this.weight = in.readString();
+        this.work_area_name = in.readString();
+        this.born_area_name = in.readString();
+        this.education = in.readInt();
+        this.id = in.readInt();
         this.career = in.readInt();
         this.income = in.readString();
         this.person_intro = in.readString();
+        this.relationship_desc = in.readString();
+        this.marriage_status = in.readString();
+        this.mate_preference = in.readString();
         this.like = in.readString();
-        this.avatar = in.readString();
+        this.pic1 = in.readString();
         this.type = in.readInt();
         this.content = in.readParcelable(UserEntity.class.getClassLoader());
         this.url = in.readString();

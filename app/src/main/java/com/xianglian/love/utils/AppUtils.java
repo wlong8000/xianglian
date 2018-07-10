@@ -40,7 +40,9 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.cache.DefaultCacheKeyFactory;
 import com.facebook.imagepipeline.core.ImagePipelineFactory;
 import com.facebook.imagepipeline.request.ImageRequest;
+import com.lzy.okgo.model.HttpHeaders;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
+import com.xianglian.love.BuildConfig;
 import com.xianglian.love.R;
 import com.xianglian.love.config.Config;
 import com.xianglian.love.main.home.been.PhotoInfo;
@@ -174,7 +176,7 @@ public class AppUtils {
      * 判断用户是否登录
      */
     public static boolean isLogin(Context context) {
-        return !TextUtils.isEmpty(AppUtils.getUserId(context));
+        return !TextUtils.isEmpty(AppUtils.getToken(context));
     }
 
 
@@ -435,6 +437,18 @@ public class AppUtils {
         }
     }
 
+    public static HttpHeaders getHeaders(Context context) {
+        HttpHeaders  headers = new HttpHeaders();
+        headers.put("platform", "android");
+        headers.put("version_code", String.valueOf(BuildConfig.VERSION_CODE));
+        headers.put("version_name", BuildConfig.VERSION_NAME);
+        headers.put("channel", "website");
+        if (!TextUtils.isEmpty(AppUtils.getToken(context))) {
+            headers.put("Authorization", AppUtils.getToken(context));
+        }
+        return headers;
+    }
+
     public static Map<String, String> getOAuthMap(Context context) {
         Map<String, String> headers = new HashMap<>();
         if (!TextUtils.isEmpty(AppUtils.getToken(context))) {
@@ -467,7 +481,7 @@ public class AppUtils {
         if (TextUtils.isEmpty(num)) return 0;
         try {
             return Integer.parseInt(num);
-        } catch (NumberFormatException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return 0;
