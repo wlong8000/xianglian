@@ -487,6 +487,16 @@ public class AppUtils {
         return 0;
     }
 
+    public static int stringToFloat(String num) {
+        if (TextUtils.isEmpty(num)) return 0;
+        try {
+            return (int) Float.parseFloat(num);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
     public static void loadLocalGif(Context context, SimpleDraweeView img, @DrawableRes int res) {
         Uri uri = Uri.parse("res://" + context.getPackageName() + "/" + R.drawable.loading);
         DraweeController draweeController = Fresco.newDraweeControllerBuilder()

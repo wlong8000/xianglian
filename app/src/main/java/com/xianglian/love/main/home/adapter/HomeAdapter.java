@@ -10,6 +10,7 @@ import com.xianglian.love.R;
 import com.xianglian.love.config.Config;
 import com.xianglian.love.main.home.been.UserEntity;
 import com.xianglian.love.utils.AppUtils;
+import com.xianglian.love.utils.UserUtils;
 
 import java.util.List;
 
@@ -69,10 +70,7 @@ public class HomeAdapter extends BaseMultiItemQuickAdapter<UserEntity, BaseViewH
         if (!TextUtils.isEmpty(career)) {
             builder.append(career).append("  ");
         }
-        if (!TextUtils.isEmpty(item.getIncome()) && !"0".equals(item.getIncome())) {
-            builder.append(mContext.getString(R.string.income)).append(" ").
-                    append(mContext.getString(R.string.money, item.getIncome()));
-        }
+        builder.append(mContext.getString(R.string.income)).append(" ").append(UserUtils.getIncome(item.getIncome()));
         helper.setText(R.id.tv_user_head_info, builder.toString());
     }
 }

@@ -148,7 +148,7 @@ public class BaseInfoActivity extends BaseEditUserInfoActivity implements BaseQu
         mItemInfo.add(getInfo(getString(R.string.home_town), info.getBorn_area_name(), ItemInfo.MyInfoType.HOMETOWN, null));
 
         //身高
-        mItemInfo.add(getInfo(getString(R.string.height), AppUtils.stringToInt(info.getHeight()) > 0 ? info.getHeight() :
+        mItemInfo.add(getInfo(getString(R.string.height), AppUtils.stringToFloat(info.getHeight()) > 0 ? AppUtils.stringToFloat(info.getHeight()) + "" :
                 null, ItemInfo.MyInfoType.HEIGHT, UserUtils.getHighData()));
 
         //学历
@@ -158,14 +158,14 @@ public class BaseInfoActivity extends BaseEditUserInfoActivity implements BaseQu
         mItemInfo.add(getInfo(getString(R.string.profession), UserUtils.getCareer(info.getCareer()), ItemInfo.MyInfoType.PROFESSION, UserUtils.getProfessionData()));
 
         //月收入
-        mItemInfo.add(getInfo(getString(R.string.income), info.getIncome(), ItemInfo.MyInfoType.INCOME, UserUtils.getComingData(this)));
+        mItemInfo.add(getInfo(getString(R.string.income), UserUtils.getIncome(info.getIncome()), ItemInfo.MyInfoType.INCOME, UserUtils.getComingData(this)));
 
 
         //婚姻状况
-        mItemInfo.add(getInfo(getString(R.string.marry_state), info.getMarriage_status(), ItemInfo.MyInfoType.MARRY_STATE, UserUtils.getMarryState(this)));
+        mItemInfo.add(getInfo(getString(R.string.marry_state), UserUtils.getMarry(info.getMarriage_status()), ItemInfo.MyInfoType.MARRY_STATE, UserUtils.getMarryState(this)));
 
         //体重(单位：kg)
-        mItemInfo.add(getInfo(getString(R.string.weight), AppUtils.stringToInt(info.getWeight()) > 0 ? info.getWeight() :
+        mItemInfo.add(getInfo(getString(R.string.weight), AppUtils.stringToFloat(info.getWeight()) > 0 ? AppUtils.stringToFloat(info.getWeight()) + "" :
                 null, ItemInfo.MyInfoType.WEIGHT, UserUtils.getWeight()));
 
     }

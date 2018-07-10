@@ -109,10 +109,21 @@ public class UserUtils {
         return getResources(context, R.array.marry_state);
     }
 
+    public static String getMarry(int marry) {
+        switch (marry) {
+            case 1:
+                return "未婚";
+            case 2:
+                return "离异";
+            case 3:
+                return "丧偶";
+            default:
+                return "未婚";
+        }
+    }
+
     public static String getCareer(int career) {
         switch (career) {
-            case 0:
-                return "未透露";
             case 1:
                 return "在校学生";
             case 2:
@@ -120,16 +131,44 @@ public class UserUtils {
             case 3:
                 return "农业劳动者";
             case 4:
+                return "企业职工";
+            case 5:
                 return "政府机关/事业单位";
             default:
                 return "自由职业";
         }
     }
 
+    public static List<String> getProfessionData() {
+        ArrayList<String> data = new ArrayList<>();
+        data.add("在校学生");
+        data.add("私营业主");
+        data.add("农业劳动者");
+        data.add("企业职工");
+        data.add("政府机关/事业单位");
+        data.add("自由职业");
+        return data;
+    }
+
+    public static String getIncome(int inCome) {
+        switch (inCome) {
+            case 1:
+                return "5K以下";
+            case 2:
+                return "5K~8K";
+            case 3:
+                return "8K~12K";
+            case 4:
+                return "12K~20K";
+            case 5:
+                return "20K-30K";
+            default:
+                return "30K以上";
+        }
+    }
+
     public static String getEdu(int edu) {
         switch (edu) {
-            case 0:
-                return "高中/技校";
             case 1:
                 return "高中/技校";
             case 2:
@@ -143,17 +182,6 @@ public class UserUtils {
             default:
                 return "高中/技校";
         }
-    }
-
-    public static List<String> getProfessionData() {
-        ArrayList<String> data = new ArrayList<>();
-        data.add("在校学生");
-        data.add("私营业主");
-        data.add("农业劳动者");
-        data.add("企业职工");
-        data.add("政府机关/事业单位");
-        data.add("自由职业");
-        return data;
     }
 
     /**

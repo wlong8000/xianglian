@@ -224,7 +224,7 @@ public class BaseMeFragment extends BaseListFragment implements BaseQuickAdapter
 //        mItemInfo.add(getInfo(getString(R.string.person_identity), ItemInfo.SettingType.IDENTITY, null));
 
         //联系方式
-        mItemInfo.add(getInfo(getString(R.string.phone), ItemInfo.SettingType.PHONE, null));
+//        mItemInfo.add(getInfo(getString(R.string.phone), ItemInfo.SettingType.PHONE, null));
 
         //情感经历
         mItemInfo.add(getInfo(getString(R.string.experience_love), ItemInfo.SettingType.EXPERIENCE_LOVE, null, true));

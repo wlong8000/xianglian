@@ -99,12 +99,12 @@ public class UserEntity implements Parcelable, MultiItemEntity {
      */
     private int career;
     /**
-     * 收入 (0, '未透露'), (1, "3k以下"), (2, "3k-5k"), (3, "58k"), (4, "8k-12k"), (5, "12k-20k"), (6, "20k-30k"), (7, "30k以上")
+     * 收入 (0, "5k以下"),(1, "5K-8k"), (2, "8k-12k"), (3, "12k-20k"), (4, "20k-30k"), (5, "30k以上")
      */
-    private String income;
+    private int income;
     private String person_intro;
     private String relationship_desc;
-    private String marriage_status;
+    private int marriage_status;
     private String mate_preference;
     private String like;
     private String pic1;
@@ -248,11 +248,11 @@ public class UserEntity implements Parcelable, MultiItemEntity {
         this.career = career;
     }
 
-    public String getIncome() {
+    public int getIncome() {
         return income;
     }
 
-    public void setIncome(String income) {
+    public void setIncome(int income) {
         this.income = income;
     }
 
@@ -272,11 +272,11 @@ public class UserEntity implements Parcelable, MultiItemEntity {
         this.relationship_desc = relationship_desc;
     }
 
-    public String getMarriage_status() {
+    public int getMarriage_status() {
         return marriage_status;
     }
 
-    public void setMarriage_status(String marriage_status) {
+    public void setMarriage_status(int marriage_status) {
         this.marriage_status = marriage_status;
     }
 
@@ -406,10 +406,10 @@ public class UserEntity implements Parcelable, MultiItemEntity {
         dest.writeInt(this.education);
         dest.writeInt(this.id);
         dest.writeInt(this.career);
-        dest.writeString(this.income);
+        dest.writeInt(this.income);
         dest.writeString(this.person_intro);
         dest.writeString(this.relationship_desc);
-        dest.writeString(this.marriage_status);
+        dest.writeInt(this.marriage_status);
         dest.writeString(this.mate_preference);
         dest.writeString(this.like);
         dest.writeString(this.pic1);
@@ -446,10 +446,10 @@ public class UserEntity implements Parcelable, MultiItemEntity {
         this.education = in.readInt();
         this.id = in.readInt();
         this.career = in.readInt();
-        this.income = in.readString();
+        this.income = in.readInt();
         this.person_intro = in.readString();
         this.relationship_desc = in.readString();
-        this.marriage_status = in.readString();
+        this.marriage_status = in.readInt();
         this.mate_preference = in.readString();
         this.like = in.readString();
         this.pic1 = in.readString();
