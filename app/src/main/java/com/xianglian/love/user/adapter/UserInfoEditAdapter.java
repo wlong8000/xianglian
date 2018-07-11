@@ -2,9 +2,11 @@ package com.xianglian.love.user.adapter;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.xianglian.love.R;
 import com.xianglian.love.user.been.ItemInfo;
 
@@ -37,7 +39,8 @@ public class UserInfoEditAdapter extends BaseMultiItemQuickAdapter<ItemInfo, Bas
         if (item == null) return;
         switch (helper.getItemViewType()) {
             case ItemInfo.ViewType.AVATAR:
-                helper.setImageURI(R.id.head_img, item.getAvatar());
+                SimpleDraweeView imageView = helper.getView(R.id.head_img);
+                imageView.setImageURI(item.getAvatar());
                 break;
             case ItemInfo.ViewType.PICK_SELECT:
                 helper.setText(R.id.tv_left_text, item.getText());

@@ -3,9 +3,11 @@ package com.xianglian.love.main.home.adapter;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.xianglian.love.R;
 import com.xianglian.love.config.Config;
 import com.xianglian.love.main.home.been.UserEntity;
@@ -49,11 +51,11 @@ public class HomeAdapter extends BaseMultiItemQuickAdapter<UserEntity, BaseViewH
                         item.getPerson_intro()) ? View.GONE : View.VISIBLE);
                 helper.setText(R.id.tv_user_desc, item.getPerson_intro());
                 helper.setText(R.id.tv_id, mContext.getString(R.string.id, String.valueOf(item.getId())));
-                helper.setImageURI(R.id.img, item.getPic1());
-                helper.setImageVisible(R.id.identity, Config.VISIBLE == item.getIdentity_verified());
-
+                SimpleDraweeView simpleDraweeView = helper.getView(R.id.img);
+                simpleDraweeView.setImageURI(item.getPic1());
+                ImageView imageView = helper.getView(R.id.identity);
+                imageView.setVisibility(Config.VISIBLE == item.getIdentity_verified() ? View.VISIBLE : View.GONE);
 //                helper.addOnClickListener(R.id.heart_layout);
-
                 break;
         }
     }

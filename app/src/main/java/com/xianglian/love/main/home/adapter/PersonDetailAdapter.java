@@ -1,6 +1,8 @@
 package com.xianglian.love.main.home.adapter;
 
 import android.content.Context;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -48,7 +50,9 @@ public class PersonDetailAdapter extends BaseMultiItemQuickAdapter<UserDetailEnt
                 helper.setText(R.id.name, item.getNickname());
                 helper.setText(R.id.tv_locate, item.getWork_area_name());
                 helper.setText(R.id.tv_id, item.getAccount());
-                helper.setImageVisible(R.id.ver, item.isIdentity_verified());
+                ImageView imageView = helper.getView(R.id.ver);
+                imageView.setVisibility(item.isIdentity_verified() ? View.VISIBLE : View.GONE);
+//                helper.setImageVisible(R.id.ver, item.isIdentity_verified());
                 setBaseInfo(helper, item);
                 break;
             case UserDetailEntity.ViewType.INTRODUCE:
@@ -89,7 +93,9 @@ public class PersonDetailAdapter extends BaseMultiItemQuickAdapter<UserDetailEnt
                 helper.setText(R.id.title, mContext.getString(R.string.message));
                 break;
             case UserDetailEntity.ViewType.LEAVE_MESSAGE:
-                helper.setImageURI(R.id.head, AppUtils.parse(result.getSender_avatar()));
+//                helper.setImageURI(R.id.head, AppUtils.parse(result.getSender_avatar()));
+                ImageView head = helper.getView(R.id.head);
+                head.setVisibility(item.isIdentity_verified() ? View.VISIBLE : View.GONE);
                 helper.setText(R.id.name, result.getSender_name());
                 helper.setText(R.id.content, result.getContent());
                 helper.setText(R.id.time, result.getCreate_time());

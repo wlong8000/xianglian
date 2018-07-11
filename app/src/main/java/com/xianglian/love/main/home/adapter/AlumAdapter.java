@@ -110,6 +110,7 @@ public class AlumAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
+        if (mData == null) return 0;
         return mData.size();
     }
 

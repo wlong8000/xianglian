@@ -7,24 +7,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.alibaba.json.JSON;
-import com.alibaba.json.JSONException;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lzy.okgo.OkGo;
-import com.lzy.okgo.callback.StringCallback;
-import com.lzy.okgo.model.HttpParams;
 import com.lzy.okgo.model.Response;
-import com.lzy.okgo.request.GetRequest;
-import com.okhttplib.HttpInfo;
-import com.okhttplib.OkHttpUtil;
-import com.okhttplib.callback.Callback;
+import com.lzy.okgo.request.PostRequest;
 import com.orhanobut.hawk.Hawk;
 import com.qiniu.android.http.ResponseInfo;
 import com.qiniu.android.storage.UpCompletionHandler;
@@ -36,12 +26,10 @@ import com.xianglian.love.config.Keys;
 import com.xianglian.love.dialog.SelectPicAlertDialog;
 import com.xianglian.love.main.home.EditPhoneActivity;
 import com.xianglian.love.main.home.been.PersonInfo;
-import com.xianglian.love.main.home.been.UserDetailEntity;
 import com.xianglian.love.main.home.been.UserEntity;
 import com.xianglian.love.model.Album;
 import com.xianglian.love.model.AttachmentEntity;
 import com.xianglian.love.model.TakePhoto;
-import com.xianglian.love.net.DesUtil;
 import com.xianglian.love.net.JsonCallBack;
 import com.xianglian.love.net.MD5Util;
 import com.xianglian.love.user.AuthenticationActivity;
@@ -58,14 +46,11 @@ import com.xianglian.love.utils.Trace;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 /**
  * Created by wanglong on 17/3/11.
@@ -343,7 +328,7 @@ public class BaseMeFragment extends BaseListFragment implements BaseQuickAdapter
     }
 
     private void getQnToken(final String path) {
-        GetRequest<UserEntity> request = OkGo.get(Config.PATH + "qn_token");
+        PostRequest<UserEntity> request = OkGo.post(Config.PATH + "qn_token/");
         SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd/HH/mm/ss", Locale.getDefault());
         final String date = df.format(new Date());
         String text = path + System.currentTimeMillis();
@@ -356,6 +341,7 @@ public class BaseMeFragment extends BaseListFragment implements BaseQuickAdapter
                 UserEntity entity = response.body();
                 if (entity == null) return;
                 String token = entity.getToken();
+
                 Trace.d(TAG, "token : " + token);
                 uploadAvatar(token, path, fileName);
             }
@@ -389,48 +375,6 @@ public class BaseMeFragment extends BaseListFragment implements BaseQuickAdapter
                         Trace.i("qiniu", key + ",\r\n " + info + ",\r\n " + res);
                     }
                 }, null);
-    }
-
-    private void doGetTokenRequest(final String id) {
-        final String url = Config.PATH + "user/like/" + id;
-        Map<String, String> params = new HashMap<>();
-        params.put("uid", id);
-        OkHttpUtil.getDefault(this).doPostAsync(
-                HttpInfo.Builder().setUrl(url).addHeads(getHeader()).addParams(params).build(),
-                new Callback() {
-                    @Override
-                    public void onFailure(HttpInfo info) throws IOException {
-                        toast(getString(R.string.request_fail));
-                    }
-
-                    @Override
-                    public void onSuccess(HttpInfo info) throws IOException {
-                        String result = info.getRetDetail();
-                        if (result != null) {
-                            try {
-                                UserDetailEntity userEntity = JSON.parseObject(result, UserDetailEntity.class);
-                                if (userEntity == null) return;
-                                if (userEntity.getCode() == Config.FAIL) {
-                                    toast(TextUtils.isEmpty(userEntity.getMsg()) ?
-                                            getString(R.string.request_fail) : userEntity.getMsg());
-                                } else {
-                                    TextView likeView = mRecyclerView.findViewWithTag(id);
-                                    if (likeView != null) {
-                                        int num = AppUtils.stringToInt(likeView.getText().toString()) + 1;
-                                        likeView.setText(num + "");
-                                    }
-                                    ImageView likeIcon = mRecyclerView.findViewWithTag(id + "_iv");
-                                    if (likeIcon != null) {
-                                        likeIcon.setImageResource(R.drawable.icon_follow);
-                                    }
-                                }
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                });
     }
 
     @Override

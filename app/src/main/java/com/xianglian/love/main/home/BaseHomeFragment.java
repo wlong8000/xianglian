@@ -129,7 +129,7 @@ public class BaseHomeFragment extends BaseListFragment implements BaseQuickAdapt
         if (!TextUtils.isEmpty(userId) && TextUtils.isEmpty(selection)) {
             url = Config.PATH + "users/" + userId;
         } else if (TextUtils.isEmpty(userId) && TextUtils.isEmpty(selection)) {
-            url = Config.PATH + "users";
+            url = Config.PATH + "users/";
         } else if (TextUtils.isEmpty(userId) && !TextUtils.isEmpty(selection)) {
             url = Config.PATH + "users?" + selection;
         } else {
