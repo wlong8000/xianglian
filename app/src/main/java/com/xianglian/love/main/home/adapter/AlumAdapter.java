@@ -78,7 +78,13 @@ public class AlumAdapter extends RecyclerView.Adapter {
                 PhotoInfo info = getItem(position);
                 if (info == null) return;
                 FavoriteViewHolder favoriteViewHolder = (FavoriteViewHolder) holder;
-                favoriteViewHolder.mPhotoView.setImageURI(AppUtils.parse(info.getPhoto_url()));
+                if (info.getImage_url() != null && !info.getImage_url().startsWith("http")) {
+                    String url = "content://com.xianglian.love/" + info.getImage_url();
+                    favoriteViewHolder.mPhotoView.setImageURI(AppUtils.parse(url));
+                } else {
+                    favoriteViewHolder.mPhotoView.setImageURI(AppUtils.parse(info.getImage_url()));
+
+                }
                 break;
             }
         }
@@ -119,7 +125,7 @@ public class AlumAdapter extends RecyclerView.Adapter {
 
         FavoriteViewHolder(View itemView) {
             super(itemView);
-            mPhotoView = (SimpleDraweeView) itemView.findViewById(R.id.photo);
+            mPhotoView = itemView.findViewById(R.id.photo);
         }
     }
 
@@ -128,7 +134,7 @@ public class AlumAdapter extends RecyclerView.Adapter {
 
         AddPhotoViewHolder(View itemView) {
             super(itemView);
-            mAddPhoto = (ImageView) itemView.findViewById(R.id.add_photo);
+            mAddPhoto = itemView.findViewById(R.id.add_photo);
         }
     }
 }

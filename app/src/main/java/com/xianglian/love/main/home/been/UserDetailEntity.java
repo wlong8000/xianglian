@@ -103,6 +103,7 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
     private String can_leave_message;
 
     private List<PhotoInfo> albums;
+    private List<PhotoInfo> results;
     private String id;
     private String photo_url;
 
@@ -370,6 +371,14 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
 
     public void setAlbums(List<PhotoInfo> albums) {
         this.albums = albums;
+    }
+
+    public List<PhotoInfo> getResults() {
+        return results;
+    }
+
+    public void setResults(List<PhotoInfo> results) {
+        this.results = results;
     }
 
     public String getId() {
@@ -731,6 +740,7 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
         dest.writeString(this.education);
         dest.writeString(this.can_leave_message);
         dest.writeList(this.albums);
+        dest.writeList(this.results);
         dest.writeString(this.id);
         dest.writeString(this.photo_url);
         dest.writeTypedList(this.tags);
@@ -792,8 +802,10 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
         this.birthday = in.readString();
         this.education = in.readString();
         this.can_leave_message = in.readString();
-        this.albums = new ArrayList<>();
+        this.albums = new ArrayList<PhotoInfo>();
         in.readList(this.albums, PhotoInfo.class.getClassLoader());
+        this.results = new ArrayList<PhotoInfo>();
+        in.readList(this.results, PhotoInfo.class.getClassLoader());
         this.id = in.readString();
         this.photo_url = in.readString();
         this.tags = in.createTypedArrayList(UserDetailEntity.CREATOR);

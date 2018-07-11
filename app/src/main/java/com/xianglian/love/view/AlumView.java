@@ -51,7 +51,11 @@ public class AlumView extends RecyclerView implements View.OnClickListener {
     public void onClick(View v) {
         int position = getChildAdapterPosition(v);
         PhotoInfo info = mAdapter.getItem(position);
-        if (info == null || TextUtils.isEmpty(info.getPhoto_url())) return;
+        if (info == null || info.getViewType() == PhotoInfo.AlumViewType.ALUM_ADD) {
+            mItemClickListener.onItemClick(position, info);
+            return;
+        }
+        if (TextUtils.isEmpty(info.getImage_url())) return;
         ShowPicActivity.showPictures(mContext, AppUtils.getUrls(mAdapter.getData()), position);
     }
 

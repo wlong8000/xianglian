@@ -49,7 +49,6 @@ import com.xianglian.love.main.home.been.PhotoInfo;
 import com.xianglian.love.main.home.been.UserDetailEntity;
 import com.xianglian.love.model.RegionGsonModel;
 import com.xianglian.love.model.RegionsListModel;
-import com.xianglian.love.user.IntroduceActivity;
 import com.xianglian.love.user.been.OwnerEntity;
 
 import org.json.JSONObject;
@@ -510,7 +509,7 @@ public class AppUtils {
         if (list == null || list.size() == 0) return null;
         String[] urls = new String[list.size()];
         for (int i = 0; i < list.size(); i++) {
-            urls[i] = list.get(i).getPhoto_url();
+            urls[i] = list.get(i).getImage_url();
         }
         return urls;
     }

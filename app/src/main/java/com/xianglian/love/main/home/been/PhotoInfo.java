@@ -10,17 +10,17 @@ public class PhotoInfo {
     /**
      * 路径
      */
-    private String photo_url;
+    private String image_url;
 
 
     private int viewType;
 
-    public String getPhoto_url() {
-        return photo_url;
+    public String getImage_url() {
+        return image_url;
     }
 
-    public void setPhoto_url(String photo_url) {
-        this.photo_url = photo_url;
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
     }
 
     public int getViewType() {
