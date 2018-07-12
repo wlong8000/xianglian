@@ -33,12 +33,12 @@ public class PersonDetailFragment extends BaseListFragment {
 
     private List<UserDetailEntity> mUserDetailEntities = new ArrayList<>();
 
-    private String mId;
+    private int mId;
 
-    public static PersonDetailFragment newInstance(String id) {
+    public static PersonDetailFragment newInstance(int id) {
         PersonDetailFragment fragment = new PersonDetailFragment();
         Bundle args = new Bundle();
-        args.putString("id", id);
+        args.putInt("id", id);
         fragment.setArguments(args);
         return fragment;
     }
@@ -46,7 +46,7 @@ public class PersonDetailFragment extends BaseListFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mId = getArguments().getString("id");
+        mId = getArguments().getInt("id");
     }
 
     @Nullable
@@ -127,7 +127,7 @@ public class PersonDetailFragment extends BaseListFragment {
     }
 
     private void doRequest(final boolean refresh) {
-        final String url = Config.PATH + "user/persons/" + mId;
+        final String url = Config.PATH + "users/" + mId;
         OkHttpUtil.getDefault(this).doGetAsync(
                 HttpInfo.Builder().setUrl(url).addHeads(getHeader()).build(),
                 new Callback() {
@@ -147,11 +147,9 @@ public class PersonDetailFragment extends BaseListFragment {
                         if (result != null) {
                             try {
                                 UserDetailEntity userEntity = JSON.parseObject(result, UserDetailEntity.class);
-                                if (userEntity == null || userEntity.getResult() == null) return;
-                                UserDetailEntity userDetailEntity = userEntity.getResult();
-                                if (userDetailEntity == null) return;
+                                if (userEntity == null) return;
                                 if (refresh) mUserDetailEntities.clear();
-                                addData(userDetailEntity);
+                                addData(userEntity);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }

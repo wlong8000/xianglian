@@ -138,49 +138,6 @@ public class BaseHomeFragment extends BaseListFragment implements BaseQuickAdapt
         return url;
     }
 
-//    private void doLikeRequest(final String id) {
-//        final String url = Config.PATH + "user/like/" + id;
-//        Map<String, String> params = new HashMap<>();
-//        params.put("uid", id);
-//        OkHttpUtil.getDefault(this).doPostAsync(
-//                HttpInfo.Builder().setUrl(url).addHeads(getHeader()).addParams(params).build(),
-//                new Callback() {
-//                    @Override
-//                    public void onFailure(HttpInfo info) throws IOException {
-//                        toast(getString(R.string.request_fail));
-//                    }
-//
-//                    @SuppressLint("SetTextI18n")
-//                    @Override
-//                    public void onSuccess(HttpInfo info) throws IOException {
-//                        String result = info.getRetDetail();
-//                        if (result != null) {
-//                            try {
-//                                UserDetailEntity userEntity = JSON.parseObject(result, UserDetailEntity.class);
-//                                if (userEntity == null) return;
-//                                if (userEntity.getCode() == Config.FAIL) {
-//                                    toast(TextUtils.isEmpty(userEntity.getMsg()) ?
-//                                            getString(R.string.request_fail) : userEntity.getMsg());
-//                                } else {
-//                                    TextView likeView = mRecyclerView.findViewWithTag(id);
-//                                    if (likeView != null) {
-//                                        int num = AppUtils.stringToInt(likeView.getText().toString()) + 1;
-//                                        likeView.setText(num + "");
-//                                    }
-//                                    ImageView likeIcon = mRecyclerView.findViewWithTag(id + "_iv");
-//                                    if (likeIcon != null) {
-//                                        likeIcon.setImageResource(R.drawable.icon_follow);
-//                                    }
-//                                }
-//
-//                            } catch (JSONException e) {
-//                                e.printStackTrace();
-//                            }
-//                        }
-//                    }
-//                });
-//    }
-
     private void dealItemData(List<UserEntity> userEntities, boolean refresh) {
         if (userEntities == null || userEntities.size() == 0) return;
         if (refresh) mUserEntities.clear();
