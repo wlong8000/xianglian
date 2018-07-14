@@ -26,8 +26,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import devlight.io.library.ntb.NavigationTabBar;
-import me.majiajie.pagerbottomtabstrip.item.BaseTabItem;
-import me.majiajie.pagerbottomtabstrip.item.NormalItemView;
 
 public class MainActivity extends BaseFragmentActivity {
     private static final String TAG = "MainActivity";
@@ -58,55 +56,8 @@ public class MainActivity extends BaseFragmentActivity {
             doUserInfoRequest();
         }
     }
-
-//    private void initTabs() {
-//        navigationController = mBottomTabLayout.custom()
-//                .addItem(newItem(R.drawable.main_home, R.drawable.main_home_selected, getResources().getString(R.string.main_home)))
-//                .addItem(newItem(R.drawable.main_specal, R.drawable.main_specal_selected, getResources().getString(R.string.main_special)))
-//                .addItem(newItem(R.drawable.main_meet, R.drawable.main_meet_selected, getResources().getString(R.string.main_meet)))
-//                .addItem(newItem(R.drawable.main_me, R.drawable.main_me_selected, getResources().getString(R.string.main_my)))
-//                .build();
-//
-//        navigationController.addTabItemSelectedListener(new OnTabItemSelectedListener() {
-//            @Override
-//            public void onSelected(int index, int old) {
-//                mViewPager.setCurrentItem(index, false);
-//            }
-//
-//            @Override
-//            public void onRepeat(int index) {
-//
-//            }
-//        });
-//    }
-
-    //创建一个Item
-    private BaseTabItem newItem(int drawable, int checkedDrawable, String text){
-        NormalItemView normalItemView = new NormalItemView(this);
-        normalItemView.initialize(drawable,checkedDrawable,text);
-        normalItemView.setTextDefaultColor(Color.parseColor("#4C4C4C"));
-        normalItemView.setTextCheckedColor(Color.parseColor("#FF2A44"));
-        return normalItemView;
-    }
-
+    
     private void initFragment() {
-//        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-//            @Override
-//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-//
-//            }
-//
-//            @Override
-//            public void onPageSelected(int position) {
-//                //viewpager滑动时改变bab选择
-//                navigationController.setSelect(position);
-//            }
-//
-//            @Override
-//            public void onPageScrollStateChanged(int state) {
-//
-//            }
-//        });
         mFragments = new ArrayList<>();
         mFragments.add(BaseHomeFragment.newInstance());
 //        mFragments.add(BaseSpecialFragment.newInstance());
@@ -154,7 +105,7 @@ public class MainActivity extends BaseFragmentActivity {
     private void initUI() {
         mViewPager.setAdapter(mAdapter);
 
-        final String[] colors = getResources().getStringArray(R.array.default_preview);
+        final String[] colors = getResources().getStringArray(R.array.default_preview2);
 
         final NavigationTabBar navigationTabBar = findViewById(R.id.tab);
 
@@ -164,8 +115,7 @@ public class MainActivity extends BaseFragmentActivity {
                         getResources().getDrawable(R.drawable.main_home),
                         Color.parseColor(colors[0]))
                         .selectedIcon(getResources().getDrawable(R.drawable.main_home_selected))
-                        .title("首页")
-                        .badgeTitle("NTB")
+                        .title(getResources().getString(R.string.main_home))
                         .build()
         );
 //        models.add(
@@ -189,10 +139,9 @@ public class MainActivity extends BaseFragmentActivity {
         models.add(
                 new NavigationTabBar.Model.Builder(
                         getResources().getDrawable(R.drawable.main_me),
-                        Color.parseColor(colors[3]))
+                        Color.parseColor(colors[1]))
                         .selectedIcon(getResources().getDrawable(R.drawable.main_me_selected))
-                        .title("我的")
-                        .badgeTitle("icon")
+                        .title(getResources().getString(R.string.main_my))
                         .build()
         );
 
@@ -224,7 +173,6 @@ public class MainActivity extends BaseFragmentActivity {
             public void onSuccess(Response<UserEntity> response) {
                 if (response != null && response.body() != null) {
                     UserEntity entity = response.body();
-//                    Trace.d(TAG, "income>>> " + entity.getResults().get(0).getIncome());
                     Hawk.put(Keys.USER_INFO, entity.getResults().get(0));
                 } else {
                     Hawk.put(Keys.USER_INFO, null);

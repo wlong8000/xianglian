@@ -499,4 +499,12 @@
         <item name="android:textColor">@color/lib_color_font7</item>
     </style>
 
+    <string-array name="default_preview2">
+        <item>#ffffff</item>
+        <item>#ffffff</item>
+        <item>#ffffff</item>
+        <item>#ffffff</item>
+        <item>#ffffff</item>
+    </string-array>
+
 </resources>
