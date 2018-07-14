@@ -101,4 +101,8 @@ public class MeMeetFragment extends BaseListFragment implements OnClickListener{
     public void onClick(View v) {
     }
 
+    @Override
+    public void onRefresh2(boolean refresh) {
+
+    }
 }

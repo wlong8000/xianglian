@@ -20,16 +20,18 @@ import java.util.Map;
  * Created by wanglong on 17/3/11.
  */
 
-public class BaseListFragment extends Fragment {
+public abstract class BaseListFragment extends Fragment {
     public View emptyView;
 
     public View errorView;
 
-    public View loadingView;
+//    public View loadingView;
 
     public SwipeRefreshLayout mSwipeRefreshLayout;
 
     public RecyclerView mRecyclerView;
+
+    public String mNextUrl;
 
     public CommonLinearLayoutManager mLayoutManager;
 
@@ -37,6 +39,7 @@ public class BaseListFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
 
     public void toast(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
@@ -60,19 +63,29 @@ public class BaseListFragment extends Fragment {
             mRecyclerView = view.findViewById(R.id.recycler_view);
             mLayoutManager = new CommonLinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
             mRecyclerView.setLayoutManager(mLayoutManager);
-
+            if (getActivity() == null) return;
             emptyView = getActivity().getLayoutInflater().inflate(R.layout.empty,
                     (ViewGroup) mRecyclerView.getParent(), false);
-            errorView = getActivity().getLayoutInflater().inflate(R.layout.loading_view,
+            errorView = getActivity().getLayoutInflater().inflate(R.layout.error,
                     (ViewGroup) mRecyclerView.getParent(), false);
-            loadingView = getActivity().getLayoutInflater().inflate(R.layout.loading_view,
-                    (ViewGroup) mRecyclerView.getParent(), false);
-            SimpleDraweeView loadView = loadingView.findViewById(R.id.loading_icon);
-            AppUtils.loadLocalGif(getContext(), loadView, R.drawable.loading);
+            errorView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onRefresh2(true);
+                }
+            });
+//            loadingView = getActivity().getLayoutInflater().inflate(R.layout.loading_view,
+//                    (ViewGroup) mRecyclerView.getParent(), false);
+//            SimpleDraweeView loadView = loadingView.findViewById(R.id.loading_icon);
+//            AppUtils.loadLocalGif(getContext(), loadView, R.drawable.loading);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
+
+    /**
+     * 列表请求
+     * @param refresh 是否下拉刷新
+     */
+    public abstract void onRefresh2(boolean refresh);
 }

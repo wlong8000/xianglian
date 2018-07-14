@@ -101,4 +101,8 @@ public class TalkMeetFragment extends BaseListFragment implements OnClickListene
     public void onClick(View v) {
     }
 
+    @Override
+    public void onRefresh2(boolean refresh) {
+
+    }
 }

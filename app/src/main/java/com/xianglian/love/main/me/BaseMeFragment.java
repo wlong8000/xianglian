@@ -166,6 +166,11 @@ public class BaseMeFragment extends BaseListFragment implements BaseQuickAdapter
         addData();
     }
 
+    @Override
+    public void onRefresh2(boolean refresh) {
+
+    }
+
     private void addData() {
         addDataByType(ItemInfo.ViewType.AVATAR);
         addDataByType(ItemInfo.ViewType.PICK_SELECT);

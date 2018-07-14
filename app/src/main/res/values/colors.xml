@@ -170,4 +170,6 @@
 
     <color name="common_head_default">#ffeaeaea</color>
 
+    <color name="txt_color">#48495F</color>
+
 </resources>

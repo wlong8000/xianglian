@@ -64,7 +64,7 @@ public class PersonDetailFragment extends BaseListFragment {
         mAdapter = new PersonDetailAdapter(getContext(), mUserDetailEntities);
         mRecyclerView.setAdapter(mAdapter);
         mSwipeRefreshLayout.setRefreshing(true);
-        doRequest(true);
+        onRefresh2(true);
     }
 
     private void addData(UserDetailEntity entity) {
@@ -128,7 +128,7 @@ public class PersonDetailFragment extends BaseListFragment {
         }
     }
 
-    private void doRequest(final boolean refresh) {
+    public void onRefresh2(final boolean refresh) {
         final String url = Config.PATH + "users/" + mId;
         OkHttpUtil.getDefault(this).doGetAsync(
                 HttpInfo.Builder().setUrl(url).addHeads(getHeader()).build(),

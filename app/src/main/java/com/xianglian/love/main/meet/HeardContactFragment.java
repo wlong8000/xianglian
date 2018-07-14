@@ -101,4 +101,8 @@ public class HeardContactFragment extends BaseListFragment implements OnClickLis
     public void onClick(View v) {
     }
 
+    @Override
+    public void onRefresh2(boolean refresh) {
+
+    }
 }

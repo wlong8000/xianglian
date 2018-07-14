@@ -101,4 +101,8 @@ public class HeardRecordFragment extends BaseListFragment implements OnClickList
     public void onClick(View v) {
     }
 
+    @Override
+    public void onRefresh2(boolean refresh) {
+
+    }
 }

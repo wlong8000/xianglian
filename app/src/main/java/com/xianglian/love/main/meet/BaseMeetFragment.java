@@ -94,6 +94,11 @@ public class BaseMeetFragment extends BaseListFragment {
         addData();
     }
 
+    @Override
+    public void onRefresh2(boolean refresh) {
+
+    }
+
     private void addData() {
         addDataByType(ItemInfo.ViewType.PICK_SELECT);
     }

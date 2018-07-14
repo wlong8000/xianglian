@@ -56,7 +56,7 @@ public class MainActivity extends BaseFragmentActivity {
             doUserInfoRequest();
         }
     }
-    
+
     private void initFragment() {
         mFragments = new ArrayList<>();
         mFragments.add(BaseHomeFragment.newInstance());
