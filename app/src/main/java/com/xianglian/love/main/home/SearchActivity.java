@@ -73,7 +73,7 @@ public class SearchActivity extends BaseEditUserInfoActivity implements
         data.add(getInfo(getString(R.string.education), ItemInfo.Type.EDUCATION, UserUtils.getEduData(this), UserUtils.getSubEdu(this)));
 
         //收入
-        data.add(getInfo(getString(R.string.income), ItemInfo.Type.INCOME, UserUtils.getComingData(this)));
+//        data.add(getInfo(getString(R.string.income), ItemInfo.Type.INCOME, UserUtils.getComingData(this)));
 
         return data;
 

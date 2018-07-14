@@ -1,6 +1,5 @@
 package com.xianglian.love.main.home;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,28 +9,21 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import com.alibaba.json.JSON;
-import com.alibaba.json.JSONException;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.okhttplib.HttpInfo;
-import com.okhttplib.OkHttpUtil;
-import com.okhttplib.callback.Callback;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.GetRequest;
 import com.xianglian.love.BaseListFragment;
 import com.xianglian.love.R;
 import com.xianglian.love.config.Config;
 import com.xianglian.love.main.home.adapter.HomeAdapter;
-import com.xianglian.love.main.home.been.UserDetailEntity;
 import com.xianglian.love.main.home.been.UserEntity;
+import com.xianglian.love.net.JsonCallBack;
 import com.xianglian.love.user.been.ItemInfo;
 import com.xianglian.love.utils.AppSharePreferences;
 import com.xianglian.love.utils.AppUtils;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -87,39 +79,36 @@ public class BaseHomeFragment extends BaseListFragment implements BaseQuickAdapt
         doRequest(refresh, null);
     }
 
-    private void doRequest(final boolean refresh, String selection) {
-        String url = getUrl(selection);
-        Map<String, String> params = new HashMap<>();
-        OkHttpUtil.getDefault(this).doGetAsync(
-                HttpInfo.Builder().setUrl(url).addParams(params).build(),
-                new Callback() {
-                    @Override
-                    public void onFailure(HttpInfo info) throws IOException {
-                        String result = info.getRetDetail();
-                        mSwipeRefreshLayout.setRefreshing(false);
+    private void doRequest(final boolean refresh, Map<String, String> params) {
+        final GetRequest<UserEntity> request = OkGo.get(Config.PATH + "users");
+        request.headers("Authorization", AppUtils.getToken(getContext()));
+        if (params != null && params.size() > 0) {
+            request.params(params);
+        }
+        request.execute(new JsonCallBack<UserEntity>(UserEntity.class) {
+            @Override
+            public void onSuccess(Response<UserEntity> response) {
+                mSwipeRefreshLayout.setRefreshing(false);
+                if (response != null && response.body() != null) {
+                    UserEntity userEntity = response.body();
+                    if (userEntity == null) return;
+                    if (userEntity.getCount() <= 0) {
+                        mAdapter.setNewData(null);
+                        mAdapter.setEmptyView(emptyView);
+                        return;
                     }
+                    List<UserEntity> userEntities = userEntity.getResults();
+                    dealItemData(userEntities, refresh);
+                }
+            }
 
-                    @Override
-                    public void onSuccess(HttpInfo info) throws IOException {
-                        mSwipeRefreshLayout.setRefreshing(false);
-                        String result = info.getRetDetail();
-                        if (result != null) {
-                            try {
-                                UserEntity userEntity = JSON.parseObject(result, UserEntity.class);
-                                if (userEntity == null) return;
-                                if (userEntity.getCount() <= 0) {
-                                    mAdapter.setNewData(null);
-                                    mAdapter.setEmptyView(emptyView);
-                                    return;
-                                }
-                                List<UserEntity> userEntities = userEntity.getResults();
-                                dealItemData(userEntities, refresh);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                });
+            @Override
+            public void onError(Response<UserEntity> response) {
+                super.onError(response);
+                mSwipeRefreshLayout.setRefreshing(false);
+                toast("请求失败");
+            }
+        });
     }
 
     @NonNull
@@ -170,9 +159,10 @@ public class BaseHomeFragment extends BaseListFragment implements BaseQuickAdapt
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (data == null) return;
         ItemInfo itemInfo = data.getParcelableExtra(Config.EXTRA_SEARCH_ENTITY);
         if (itemInfo != null) {
-            doRequest(true, itemInfo.toString());
+            doRequest(true, itemInfo.toMap());
         }
     }
 }

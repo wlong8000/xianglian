@@ -6,15 +6,20 @@ import android.text.TextUtils;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.xianglian.love.main.home.been.PersonInfo;
+import com.xianglian.love.utils.AppUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import base.DateUtils2;
 
 /**
  * 针对 用户信息编辑类
  */
 public class ItemInfo implements MultiItemEntity, Parcelable {
+	private Map<String, String> params = new HashMap<>();
 
 	private String text;
 	private String rightText;
@@ -28,11 +33,13 @@ public class ItemInfo implements MultiItemEntity, Parcelable {
 	private List<List<String>> subItems;
 
 	public String sex;
-	public String min_age;
-	public String max_age;
-	public String min_height;
-	public String max_height;
+	private String min_age;
+	private String max_age;
+	private String min_height;
+	private String max_height;
 	public String education;
+	public int min_education;
+	public int max_education;
 	public String career;
 	public String income;
 	public String expect_marry_date;
@@ -56,9 +63,377 @@ public class ItemInfo implements MultiItemEntity, Parcelable {
 	public int phoneType;
 	public Contacts contacts;
 
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
+	public String getRightText() {
+		return rightText;
+	}
+
+	public void setRightText(String rightText) {
+		this.rightText = rightText;
+	}
+
+	public String getScheme() {
+		return scheme;
+	}
+
+	public void setScheme(String scheme) {
+		this.scheme = scheme;
+	}
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
+	}
+
+	public int getViewType() {
+		return viewType;
+	}
+
+	public void setViewType(int viewType) {
+		this.viewType = viewType;
+	}
+
+	public boolean isShowLine() {
+		return showLine;
+	}
+
+	public void setShowLine(boolean showLine) {
+		this.showLine = showLine;
+	}
+
+	public PersonInfo getInfo() {
+		return info;
+	}
+
+	public void setInfo(PersonInfo info) {
+		this.info = info;
+	}
+
+	public List<String> getItems() {
+		return items;
+	}
+
+	public void setItems(List<String> items) {
+		this.items = items;
+	}
+
+	public List<List<String>> getSubItems() {
+		return subItems;
+	}
+
+	public void setSubItems(List<List<String>> subItems) {
+		this.subItems = subItems;
+	}
+
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+
+	public String getMin_age() {
+		return min_age;
+	}
+
+	public void setMin_age(String min_age) {
+		this.min_age = min_age;
+	}
+
+	public String getMax_age() {
+		return max_age;
+	}
+
+	public void setMax_age(String max_age) {
+		this.max_age = max_age;
+	}
+
+	public String getMin_height() {
+		return min_height;
+	}
+
+	public void setMin_height(String min_height) {
+		this.min_height = min_height;
+	}
+
+	public String getMax_height() {
+		return max_height;
+	}
+
+	public void setMax_height(String max_height) {
+		this.max_height = max_height;
+	}
+
+	public String getEducation() {
+		return education;
+	}
+
+	public void setEducation(String education) {
+		this.education = education;
+	}
+
+	public int getMin_education() {
+		return min_education;
+	}
+
+	public void setMin_education(int min_education) {
+		this.min_education = min_education;
+	}
+
+	public int getMax_education() {
+		return max_education;
+	}
+
+	public void setMax_education(int max_education) {
+		this.max_education = max_education;
+	}
+
+	public String getCareer() {
+		return career;
+	}
+
+	public void setCareer(String career) {
+		this.career = career;
+	}
+
+	public String getIncome() {
+		return income;
+	}
+
+	public void setIncome(String income) {
+		this.income = income;
+	}
+
+	public String getExpect_marry_date() {
+		return expect_marry_date;
+	}
+
+	public void setExpect_marry_date(String expect_marry_date) {
+		this.expect_marry_date = expect_marry_date;
+	}
+
+	public String getMarriage_status() {
+		return marriage_status;
+	}
+
+	public void setMarriage_status(String marriage_status) {
+		this.marriage_status = marriage_status;
+	}
+
+	public String getMin_weight() {
+		return min_weight;
+	}
+
+	public void setMin_weight(String min_weight) {
+		this.min_weight = min_weight;
+	}
+
+	public String getMax_weight() {
+		return max_weight;
+	}
+
+	public void setMax_weight(String max_weight) {
+		this.max_weight = max_weight;
+	}
+
+	public String getHas_car() {
+		return has_car;
+	}
+
+	public void setHas_car(String has_car) {
+		this.has_car = has_car;
+	}
+
+	public String getHas_children() {
+		return has_children;
+	}
+
+	public void setHas_children(String has_children) {
+		this.has_children = has_children;
+	}
+
+	public String getHas_house() {
+		return has_house;
+	}
+
+	public void setHas_house(String has_house) {
+		this.has_house = has_house;
+	}
+
+	public String getIs_student() {
+		return is_student;
+	}
+
+	public void setIs_student(String is_student) {
+		this.is_student = is_student;
+	}
+
+	public String getVip() {
+		return vip;
+	}
+
+	public void setVip(String vip) {
+		this.vip = vip;
+	}
+
+	public String getWork_area_code() {
+		return work_area_code;
+	}
+
+	public void setWork_area_code(String work_area_code) {
+		this.work_area_code = work_area_code;
+	}
+
+	public String getBorn_area_code() {
+		return born_area_code;
+	}
+
+	public void setBorn_area_code(String born_area_code) {
+		this.born_area_code = born_area_code;
+	}
+
+	public String getWork_area_name() {
+		return work_area_name;
+	}
+
+	public void setWork_area_name(String work_area_name) {
+		this.work_area_name = work_area_name;
+	}
+
+	public String getBorn_area_name() {
+		return born_area_name;
+	}
+
+	public void setBorn_area_name(String born_area_name) {
+		this.born_area_name = born_area_name;
+	}
+
+	public String getNationality() {
+		return nationality;
+	}
+
+	public void setNationality(String nationality) {
+		this.nationality = nationality;
+	}
+
+	public String getBirth_index() {
+		return birth_index;
+	}
+
+	public void setBirth_index(String birth_index) {
+		this.birth_index = birth_index;
+	}
+
+	public int getPhoneType() {
+		return phoneType;
+	}
+
+	public void setPhoneType(int phoneType) {
+		this.phoneType = phoneType;
+	}
+
+	public Contacts getContacts() {
+		return contacts;
+	}
+
+	public void setContacts(Contacts contacts) {
+		this.contacts = contacts;
+	}
+
+	public ItemInfo() {
+
+	}
+
 	@Override
 	public int getItemType() {
 		return viewType;
+	}
+
+
+	public Map<String, String> toMap() {
+		params.clear();
+		if (AppUtils.stringToInt(min_age) >= 0) {
+			params.put("max_age", DateUtils2.getBirthday(min_age) + "");
+		}
+		if (AppUtils.stringToInt(max_age) > 0) {
+			params.put("min_age", DateUtils2.getBirthday(max_age) + "");
+		}
+
+		if (AppUtils.stringToInt(min_height) >= 0) {
+			params.put("min_height", min_height);
+		}
+		if (AppUtils.stringToInt(max_height) > 0) {
+			params.put("max_height", max_height);
+		}
+
+		if (min_education >= 0) {
+			params.put("min_education", String.valueOf(min_education));
+		}
+
+		if (max_education > 0) {
+			params.put("max_education", String.valueOf(max_education));
+		}
+
+		if (!TextUtils.isEmpty(work_area_code) && work_area_code.length() > 4) {
+			params.put("work_area_code", work_area_code.substring(0, 4));
+		}
+
+		if (!TextUtils.isEmpty(born_area_code) && born_area_code.length() > 4) {
+			params.put("born_area_code", born_area_code.substring(0, 4));
+		}
+
+		return params;
+	}
+
+//	@Override
+//	public String toString() {
+//		StringBuffer buffer = new StringBuffer();
+//		setParam("sex", sex, buffer);
+//		setParam("min_age", min_age, buffer);
+//		setParam("max_age", max_age, buffer);
+//		setParam("work_area_code", work_area_code, buffer);
+//		setParam("born_area_code", born_area_code, buffer);
+//		setParam("min_height", min_height, buffer);
+//		setParam("max_height", max_height, buffer);
+//		setParam("education", education, buffer);
+//		setParam("career", career, buffer);
+//		setParam("income", income, buffer);
+//		setParam("expect_marry_date", expect_marry_date, buffer);
+//		setParam("nationality", nationality, buffer);
+//		setParam("marriage_status", marriage_status, buffer);
+//		setParam("birth_index", birth_index, buffer);
+//		setParam("min_weight", min_weight, buffer);
+//		setParam("max_weight", max_weight, buffer);
+//		setParam("has_car", has_car, buffer);
+//		setParam("has_children", has_children, buffer);
+//		setParam("has_house", has_house, buffer);
+//		setParam("is_student", is_student, buffer);
+//		setParam("vip", vip, buffer);
+//		return buffer.toString();
+//	}
+
+	private void setParam(String key, String value, StringBuffer buffer) {
+		if (TextUtils.isEmpty(value)) return;
+		buffer.append(key).append("=").append(value).append("&");
 	}
 
 	/**
@@ -253,7 +628,7 @@ public class ItemInfo implements MultiItemEntity, Parcelable {
 
 	/**
 	 * 我的个人信息
-     */
+	 */
 	public interface MyInfoType {
 		/**
 		 * 昵称
@@ -329,125 +704,10 @@ public class ItemInfo implements MultiItemEntity, Parcelable {
 
 	/**
 	 * 联系方式
-     */
+	 */
 	public interface PhoneType {
 		int QQ = 0;
 		int WEI_XIN = 1;
-	}
-
-	public String getText() {
-		return text;
-	}
-
-	public void setText(String text) {
-		this.text = text;
-	}
-
-	public String getScheme() {
-		return scheme;
-	}
-
-	public void setScheme(String scheme) {
-		this.scheme = scheme;
-	}
-
-	public int getType() {
-		return type;
-	}
-
-	public void setType(int type) {
-		this.type = type;
-	}
-
-	public String getRightText() {
-		return rightText;
-	}
-
-	public void setRightText(String rightText) {
-		this.rightText = rightText;
-	}
-
-	public int getViewType() {
-		return viewType;
-	}
-
-	public void setViewType(int viewType) {
-		this.viewType = viewType;
-	}
-
-	public List<String> getItems() {
-		return items;
-	}
-
-	public void setItems(List<String> items) {
-		this.items = items;
-	}
-
-	public String getAvatar() {
-		return avatar;
-	}
-
-	public void setAvatar(String avatar) {
-		this.avatar = avatar;
-	}
-
-	public PersonInfo getInfo() {
-		return info;
-	}
-
-	public void setInfo(PersonInfo info) {
-		this.info = info;
-	}
-
-	public boolean isShowLine() {
-		return showLine;
-	}
-
-	public void setShowLine(boolean showLine) {
-		this.showLine = showLine;
-	}
-
-	public List<List<String>> getSubItems() {
-		return subItems;
-	}
-
-	public void setSubItems(List<List<String>> subItems) {
-		this.subItems = subItems;
-	}
-
-	public ItemInfo() {
-	}
-
-	@Override
-	public String toString() {
-		StringBuffer buffer = new StringBuffer();
-		setParam("sex", sex, buffer);
-		setParam("min_age", min_age, buffer);
-		setParam("max_age", max_age, buffer);
-		setParam("work_area_code", work_area_code, buffer);
-		setParam("born_area_code", born_area_code, buffer);
-		setParam("min_height", min_height, buffer);
-		setParam("max_height", max_height, buffer);
-		setParam("education", education, buffer);
-		setParam("career", career, buffer);
-		setParam("income", income, buffer);
-		setParam("expect_marry_date", expect_marry_date, buffer);
-		setParam("nationality", nationality, buffer);
-		setParam("marriage_status", marriage_status, buffer);
-		setParam("birth_index", birth_index, buffer);
-		setParam("min_weight", min_weight, buffer);
-		setParam("max_weight", max_weight, buffer);
-		setParam("has_car", has_car, buffer);
-		setParam("has_children", has_children, buffer);
-		setParam("has_house", has_house, buffer);
-		setParam("is_student", is_student, buffer);
-		setParam("vip", vip, buffer);
-		return buffer.toString();
-	}
-
-	private void setParam(String key, String value, StringBuffer buffer) {
-		if (TextUtils.isEmpty(value)) return;
-		buffer.append(key).append("=").append(value).append("&");
 	}
 
 	@Override
@@ -457,6 +717,11 @@ public class ItemInfo implements MultiItemEntity, Parcelable {
 
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeInt(this.params.size());
+		for (Map.Entry<String, String> entry : this.params.entrySet()) {
+			dest.writeString(entry.getKey());
+			dest.writeString(entry.getValue());
+		}
 		dest.writeString(this.text);
 		dest.writeString(this.rightText);
 		dest.writeString(this.scheme);
@@ -473,6 +738,8 @@ public class ItemInfo implements MultiItemEntity, Parcelable {
 		dest.writeString(this.min_height);
 		dest.writeString(this.max_height);
 		dest.writeString(this.education);
+		dest.writeInt(this.min_education);
+		dest.writeInt(this.max_education);
 		dest.writeString(this.career);
 		dest.writeString(this.income);
 		dest.writeString(this.expect_marry_date);
@@ -490,9 +757,18 @@ public class ItemInfo implements MultiItemEntity, Parcelable {
 		dest.writeString(this.born_area_name);
 		dest.writeString(this.nationality);
 		dest.writeString(this.birth_index);
+		dest.writeInt(this.phoneType);
+		dest.writeParcelable(this.contacts, flags);
 	}
 
 	protected ItemInfo(Parcel in) {
+		int paramsSize = in.readInt();
+		this.params = new HashMap<>(paramsSize);
+		for (int i = 0; i < paramsSize; i++) {
+			String key = in.readString();
+			String value = in.readString();
+			this.params.put(key, value);
+		}
 		this.text = in.readString();
 		this.rightText = in.readString();
 		this.scheme = in.readString();
@@ -509,6 +785,8 @@ public class ItemInfo implements MultiItemEntity, Parcelable {
 		this.min_height = in.readString();
 		this.max_height = in.readString();
 		this.education = in.readString();
+		this.min_education = in.readInt();
+		this.max_education = in.readInt();
 		this.career = in.readString();
 		this.income = in.readString();
 		this.expect_marry_date = in.readString();
@@ -526,6 +804,8 @@ public class ItemInfo implements MultiItemEntity, Parcelable {
 		this.born_area_name = in.readString();
 		this.nationality = in.readString();
 		this.birth_index = in.readString();
+		this.phoneType = in.readInt();
+		this.contacts = in.readParcelable(Contacts.class.getClassLoader());
 	}
 
 	public static final Creator<ItemInfo> CREATOR = new Creator<ItemInfo>() {

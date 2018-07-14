@@ -141,8 +141,8 @@ public abstract class BaseEditUserInfoActivity extends BaseListActivity {
     public String dealAge(int options1, int option2) {
         String minAge = UserUtils.getAge().get(options1);
         String maxAge = UserUtils.getSubAge(this).get(options1).get(option2);
-        mItem.min_age = minAge;
-        mItem.max_age = maxAge;
+        mItem.setMin_age(minAge);
+        mItem.setMax_age(maxAge);
         return minAge + "-" + maxAge;
     }
 
@@ -155,8 +155,8 @@ public abstract class BaseEditUserInfoActivity extends BaseListActivity {
     public String dealHeight(int options1, int option2) {
         String min = UserUtils.getHighData().get(options1);
         String max = UserUtils.getSubHeight(this).get(options1).get(option2);
-        mItem.min_height = min;
-        mItem.max_height = max;
+        mItem.setMin_height(min);
+        mItem.setMax_height(max);
         return min + "-" + max;
     }
 
@@ -175,6 +175,8 @@ public abstract class BaseEditUserInfoActivity extends BaseListActivity {
     public String dealEdu(int options1, int option2) {
         String min = UserUtils.getEduData(this).get(options1);
         String max = UserUtils.getSubEdu(this).get(options1).get(option2);
+        mItem.setMin_education(options1);
+        mItem.setMax_education(option2);
         return min + "-" + max;
     }
 

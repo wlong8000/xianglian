@@ -477,7 +477,7 @@ public class AppUtils {
     }
 
     public static int stringToInt(String num) {
-        if (TextUtils.isEmpty(num)) return 0;
+        if (TextUtils.isEmpty(num)) return -1;
         try {
             return Integer.parseInt(num);
         } catch (Exception e) {

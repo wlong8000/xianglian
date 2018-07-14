@@ -1,6 +1,7 @@
 package com.xianglian.love.main.home;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.alibaba.json.JSON;
 import com.alibaba.json.JSONException;
+import com.lzy.okgo.OkGo;
 import com.okhttplib.HttpInfo;
 import com.okhttplib.OkHttpUtil;
 import com.okhttplib.callback.Callback;
@@ -51,7 +53,7 @@ public class PersonDetailFragment extends BaseListFragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user_detail, container, false);
         setupRecyclerView(view);
         return view;
@@ -133,7 +135,6 @@ public class PersonDetailFragment extends BaseListFragment {
                 new Callback() {
                     @Override
                     public void onFailure(HttpInfo info) throws IOException {
-                        String result = info.getRetDetail();
                         mSwipeRefreshLayout.setRefreshing(false);
                         mSwipeRefreshLayout.setEnabled(false);
 
@@ -156,5 +157,6 @@ public class PersonDetailFragment extends BaseListFragment {
                         }
                     }
                 });
+
     }
 }
