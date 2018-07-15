@@ -20,6 +20,11 @@ public class Keys {
      */
     public static String SEX = "h_sex";
 
+    /**
+     * token String
+     */
+    public static String TOKEN = "h_token";
+
     public static String TYPE_FEMALE = "female";
 
     public static String TYPE_MALE = "male";

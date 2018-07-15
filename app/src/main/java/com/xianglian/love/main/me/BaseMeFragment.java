@@ -52,6 +52,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import base.OkDialog;
+
 /**
  * Created by wanglong on 17/3/11.
  * 我的
@@ -134,8 +136,15 @@ public class BaseMeFragment extends BaseListFragment implements BaseQuickAdapter
                 startActivity(intent);
                 break;
             }
-            case ItemInfo.SettingType.SETTING: {
-
+            case ItemInfo.SettingType.EXIT_COUNT: {
+                OkDialog okDialog = new OkDialog(getContext()) {
+                    @Override
+                    public void onConfirm(String result) {
+                        Config.TOKEN = null;
+                        Hawk.put(Keys.TOKEN, null);
+                    }
+                };
+                okDialog.show();
                 break;
             }
         }
@@ -229,7 +238,7 @@ public class BaseMeFragment extends BaseListFragment implements BaseQuickAdapter
 //        mItemInfo.add(getInfo(getString(R.string.hobby), ItemInfo.SettingType.HOBBY, null));
 
         //设置
-        mItemInfo.add(getInfo(getString(R.string.setting), ItemInfo.SettingType.SETTING, null));
+        mItemInfo.add(getInfo(getString(R.string.exit_count), ItemInfo.SettingType.EXIT_COUNT, null));
 
         //客服
         mItemInfo.add(getInfo(getString(R.string.customer_agent), ItemInfo.SettingType.CUSTOMER_AGENT, null));

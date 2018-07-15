@@ -139,6 +139,6 @@ public class BaseActivity extends AppCompatActivity implements TitleBarView.OnTi
     }
 
     public String getUserId(Context context) {
-        return AppUtils.getUserId(context);
+        return null;
     }
 }

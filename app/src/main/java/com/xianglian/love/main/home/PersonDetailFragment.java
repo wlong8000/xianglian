@@ -136,6 +136,7 @@ public class PersonDetailFragment extends BaseListFragment {
             @Override
             public void onSuccess(Response<UserDetailEntity> response) {
                 mSwipeRefreshLayout.setRefreshing(false);
+                mSwipeRefreshLayout.setEnabled(false);
                 if (response != null && response.body() != null) {
                     UserDetailEntity userEntity = response.body();
                     if (userEntity == null) return;

@@ -62,6 +62,8 @@
     <string name="send_error">发送失败,请重试</string>
     <string name="second">秒</string>
 
+    <string name="exit_count_dialog">确定退出当前账号?</string>
+
     <string name="main_home">首页</string>
     <string name="main_special">侃侃</string>
     <string name="main_meet">约见</string>
@@ -173,6 +175,7 @@
     <string name="save_fail">保存失败</string>
     <string name="save_success">保存成功</string>
     <string name="setting">设置</string>
+    <string name="exit_count">退出账号</string>
     <string name="customer_agent">客服</string>
     <string name="most_mark">最多可选8个标签</string>
     <string name="mark_error">太多的人生标签，何尝不是一种负担</string>
@@ -222,6 +225,7 @@
     <string name="ok_notifyMsg">当前应用缺少必要权限。\n\n请点击\"设置\"-\"权限\"-打开所需权限。</string>
     <string name="ok_setting">设置</string>
     <string name="ok_cancel">取消</string>
+    <string name="ok">确定</string>
     <string-array name="profession_array">
         <item>未透露</item>
         <item>学生</item>

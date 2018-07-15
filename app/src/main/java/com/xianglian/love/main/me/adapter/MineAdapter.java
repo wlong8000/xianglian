@@ -77,8 +77,8 @@ public class MineAdapter extends RecyclerView.Adapter {
             case ItemInfo.ViewType.AVATAR: {
                 if (mInfo == null) return;
                 AvatarHolder avatarHolder = (AvatarHolder) holder;
-                OwnerEntity p = AppUtils.getOwnerInfo(mContext);
-                if (p == null) return;
+//                OwnerEntity p = AppUtils.getOwnerInfo(mContext);
+//                if (p == null) return;
 //                avatarHolder.mAvatar.setImageURI(AppUtils.parse(p.getAvatar()));
 //                avatarHolder.mNickNameView.setText(TextUtils.isEmpty(p.getNick_name()) ? "" : p.getNick_name());
                 break;

@@ -3,9 +3,9 @@
     android:id="@+id/bottom"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
     android:layout_gravity="bottom"
     android:background="@color/lib_color_bg14"
-    android:layout_alignParentBottom="true"
     android:padding="8dp">
 
     <TextView

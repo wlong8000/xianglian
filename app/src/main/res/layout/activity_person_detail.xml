@@ -134,6 +134,6 @@
 
     </RelativeLayout>
 
-    <include layout="@layout/layout_user_detail_bottom" />
+    <include layout="@layout/layout_user_detail_bottom" android:visibility="gone"/>
 
 </android.support.design.widget.CoordinatorLayout>

@@ -1,6 +1,7 @@
 package com.xianglian.love.main.home.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -10,12 +11,15 @@ import com.xianglian.love.R;
 import com.xianglian.love.library.tag.TagBaseAdapter;
 import com.xianglian.love.library.tag.TagCloudLayout;
 import com.xianglian.love.main.home.been.UserDetailEntity;
+import com.xianglian.love.main.home.been.UserEntity;
 import com.xianglian.love.utils.AppUtils;
 import com.xianglian.love.utils.UserUtils;
 import com.xianglian.love.view.AlumView;
 import com.xianglian.love.view.FavoriteView;
 
 import java.util.List;
+
+import base.DateUtils2;
 
 
 /**
@@ -105,10 +109,17 @@ public class PersonDetailAdapter extends BaseMultiItemQuickAdapter<UserDetailEnt
 
     private void setBaseInfo(BaseViewHolder helper, UserDetailEntity item) {
         StringBuilder builder = new StringBuilder();
-        builder.append(item.getAge()).append(mContext.getString(R.string.age2)).append(" ");
-        builder.append(mContext.getString(R.string.height2)).append(" ").append(item.getHeight()).append(" ");
-        builder.append(item.getCareer()).append(" ");
-        builder.append(mContext.getString(R.string.income)).append(" ").append(item.getIncome());
+        if (!TextUtils.isEmpty(item.getBirthday())) {
+            builder.append(DateUtils2.getAgeByDateStr(item.getBirthday())).append(mContext.getString(R.string.age2)).append("  ");
+        }
+        if (AppUtils.stringToInt2(item.getHeight()) > 0) {
+            builder.append(mContext.getString(R.string.height2)).append(" ").append(AppUtils.stringToInt2(item.getHeight())).append("  ");
+        }
+        String career = AppUtils.getCareer(mContext, AppUtils.stringToInt(item.getCareer()));
+        if (!TextUtils.isEmpty(career)) {
+            builder.append(career).append("  ");
+        }
+        builder.append(mContext.getString(R.string.income)).append(" ").append(UserUtils.getIncome(AppUtils.stringToInt(item.getIncome())));
         helper.setText(R.id.tv_user_head_info, builder.toString());
     }
 

@@ -13,9 +13,11 @@ import com.alibaba.json.JSON;
 import com.alibaba.json.JSONException;
 import com.okhttplib.HttpInfo;
 import com.okhttplib.OkHttpUtil;
+import com.orhanobut.hawk.Hawk;
 import com.xianglian.love.MainActivity;
 import com.xianglian.love.R;
 import com.xianglian.love.config.Config;
+import com.xianglian.love.config.Keys;
 import com.xianglian.love.user.been.OwnerEntity;
 import com.xianglian.love.utils.ACache;
 import com.xianglian.love.utils.AppUtils;
@@ -141,7 +143,8 @@ public class LoginActivity extends BaseLoginActivity implements OnClickListener 
                             toast(TextUtils.isEmpty(ownerEntity.getMsg()) ? getString(R.string.request_fail) : ownerEntity.getMsg());
                             return;
                         }
-                        ACache.get(LoginActivity.this).put(Config.KEY_USER, result);
+//                        ACache.get(LoginActivity.this).put(Config.KEY_USER, result);
+                        Hawk.put(Keys.TOKEN, ownerEntity.getToken());
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         finish();
                     }

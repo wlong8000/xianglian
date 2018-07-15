@@ -3,13 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <include layout="@layout/layout_user_detail_bottom" android:visibility="invisible"/>
+
+    <include
+        layout="@layout/layout_user_detail_bottom"
+        android:visibility="gone" />
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/refresh"
-        android:layout_above="@id/bottom"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@id/bottom"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
         android:background="@color/white">

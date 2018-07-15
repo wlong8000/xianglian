@@ -30,7 +30,6 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.alibaba.json.JSON;
-import com.alibaba.json.JSONException;
 import com.facebook.binaryresource.BinaryResource;
 import com.facebook.binaryresource.FileBinaryResource;
 import com.facebook.cache.common.CacheKey;
@@ -41,15 +40,16 @@ import com.facebook.imagepipeline.cache.DefaultCacheKeyFactory;
 import com.facebook.imagepipeline.core.ImagePipelineFactory;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.lzy.okgo.model.HttpHeaders;
+import com.orhanobut.hawk.Hawk;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.xianglian.love.BuildConfig;
 import com.xianglian.love.R;
 import com.xianglian.love.config.Config;
+import com.xianglian.love.config.Keys;
 import com.xianglian.love.main.home.been.PhotoInfo;
 import com.xianglian.love.main.home.been.UserDetailEntity;
 import com.xianglian.love.model.RegionGsonModel;
 import com.xianglian.love.model.RegionsListModel;
-import com.xianglian.love.user.been.OwnerEntity;
 
 import org.json.JSONObject;
 
@@ -356,30 +356,31 @@ public class AppUtils {
         return (freeBlocks * blockSize); // 单位byte
     }
 
-    public static OwnerEntity getOwnerInfo(Context context) {
-        String cache = ACache.get(context).getAsString(Config.KEY_USER);
-        if (TextUtils.isEmpty(cache)) return null;
-        try {
-            return JSON.parseObject(cache, OwnerEntity.class);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+//    public static OwnerEntity getOwnerInfo(Context context) {
+//        String cache = ACache.get(context).getAsString(Config.KEY_USER);
+//        if (TextUtils.isEmpty(cache)) return null;
+//        try {
+//            return JSON.parseObject(cache, OwnerEntity.class);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
 
-    public static String getUserId(Context context) {
-        OwnerEntity entity = getOwnerInfo(context);
-        if (entity != null && entity.getResult() != null && entity.getResult().getUser_info() != null) {
-            return entity.getResult().getUser_info().getUid();
-        }
-        return null;
-    }
+//    public static String getUserId(Context context) {
+//        OwnerEntity entity = getOwnerInfo(context);
+//        if (entity != null && entity.getResult() != null && entity.getResult().getUser_info() != null) {
+//            return entity.getResult().getUser_info().getUid();
+//        }
+//        return null;
+//    }
 
 
     public static String getToken(Context context) {
-        OwnerEntity entity = getOwnerInfo(context);
-        if (entity != null) {
-            Config.TOKEN = "JWT " + entity.getToken();
+        if (!TextUtils.isEmpty(Config.TOKEN)) return Config.TOKEN;
+        String token = Hawk.get(Keys.TOKEN);
+        if (!TextUtils.isEmpty(token)) {
+            Config.TOKEN = "JWT " + token;
             return Config.TOKEN;
         }
         return null;
@@ -388,32 +389,32 @@ public class AppUtils {
     /**
      * 获取用户信息
      */
-    public static UserDetailEntity getUserInfo(Context context) {
-        OwnerEntity entity = getOwnerInfo(context);
-        if (entity != null && entity.getResult() != null && entity.getResult().getUser_info() != null
-                && entity.getResult().getUser_info().getProfile() != null) {
-            return entity.getResult().getUser_info().getProfile();
-        }
-        return null;
-    }
+//    public static UserDetailEntity getUserInfo(Context context) {
+//        OwnerEntity entity = getOwnerInfo(context);
+//        if (entity != null && entity.getResult() != null && entity.getResult().getUser_info() != null
+//                && entity.getResult().getUser_info().getProfile() != null) {
+//            return entity.getResult().getUser_info().getProfile();
+//        }
+//        return null;
+//    }
 
-    public static String getIntroduce(Context context) {
-        UserDetailEntity entity = getUserInfo(context);
-        if (entity == null) return null;
-        return entity.getPerson_intro();
-    }
-
-    public static String getExperience(Context context) {
-        UserDetailEntity entity = getUserInfo(context);
-        if (entity == null) return null;
-        return entity.getRelationship_desc();
-    }
-
-    public static String getChooseMarry(Context context) {
-        UserDetailEntity entity = getUserInfo(context);
-        if (entity == null) return null;
-        return entity.getMate_preference();
-    }
+//    public static String getIntroduce(Context context) {
+//        UserDetailEntity entity = getUserInfo(context);
+//        if (entity == null) return null;
+//        return entity.getPerson_intro();
+//    }
+//
+//    public static String getExperience(Context context) {
+//        UserDetailEntity entity = getUserInfo(context);
+//        if (entity == null) return null;
+//        return entity.getRelationship_desc();
+//    }
+//
+//    public static String getChooseMarry(Context context) {
+//        UserDetailEntity entity = getUserInfo(context);
+//        if (entity == null) return null;
+//        return entity.getMate_preference();
+//    }
 
 
     /*

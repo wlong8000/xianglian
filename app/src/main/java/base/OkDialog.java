@@ -3,7 +3,9 @@ package base;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.xianglian.love.R;
 
@@ -11,20 +13,23 @@ import com.xianglian.love.R;
  * Created by wanglong on 17/8/20.
  */
 
-public abstract class EditDialog extends BaseDialog implements View.OnClickListener {
-    private EditText mEditView;
+public abstract class OkDialog extends BaseDialog implements View.OnClickListener {
+    private TextView mTextView;
 
-    public EditDialog(Context context) {
+    public OkDialog(Context context) {
         super(context);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dialog_edit);
-        mEditView = findViewById(R.id.edit);
+        setContentView(R.layout.dialog_ok);
+        mTextView = findViewById(R.id.text);
+        mTextView.setText(R.string.exit_count_dialog);
+        Button okBtn = findViewById(R.id.confirm);
+        okBtn.setText(R.string.ok);
         findViewById(R.id.cancel).setOnClickListener(this);
-        findViewById(R.id.confirm).setOnClickListener(this);
+        okBtn.setOnClickListener(this);
 
         resetWidth();
     }
@@ -37,10 +42,10 @@ public abstract class EditDialog extends BaseDialog implements View.OnClickListe
                 break;
             case R.id.confirm:
                 cancel();
-                onConfirm(mEditView.getText().toString());
+                onConfirm(null);
                 break;
         }
     }
 
-    public abstract void onConfirm(String editText);
+    public abstract void onConfirm(String result);
 }

@@ -561,6 +561,11 @@ public class ItemInfo implements MultiItemEntity, Parcelable {
 		 * 客服
 		 */
 		int CUSTOMER_AGENT = 14;
+
+		/**
+		 * 退出账号
+		 */
+		int EXIT_COUNT = 15;
 	}
 
 	/**
