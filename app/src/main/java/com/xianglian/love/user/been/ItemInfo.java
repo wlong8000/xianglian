@@ -404,38 +404,6 @@ public class ItemInfo implements MultiItemEntity, Parcelable {
 		return params;
 	}
 
-//	@Override
-//	public String toString() {
-//		StringBuffer buffer = new StringBuffer();
-//		setParam("sex", sex, buffer);
-//		setParam("min_age", min_age, buffer);
-//		setParam("max_age", max_age, buffer);
-//		setParam("work_area_code", work_area_code, buffer);
-//		setParam("born_area_code", born_area_code, buffer);
-//		setParam("min_height", min_height, buffer);
-//		setParam("max_height", max_height, buffer);
-//		setParam("education", education, buffer);
-//		setParam("career", career, buffer);
-//		setParam("income", income, buffer);
-//		setParam("expect_marry_date", expect_marry_date, buffer);
-//		setParam("nationality", nationality, buffer);
-//		setParam("marriage_status", marriage_status, buffer);
-//		setParam("birth_index", birth_index, buffer);
-//		setParam("min_weight", min_weight, buffer);
-//		setParam("max_weight", max_weight, buffer);
-//		setParam("has_car", has_car, buffer);
-//		setParam("has_children", has_children, buffer);
-//		setParam("has_house", has_house, buffer);
-//		setParam("is_student", is_student, buffer);
-//		setParam("vip", vip, buffer);
-//		return buffer.toString();
-//	}
-
-	private void setParam(String key, String value, StringBuffer buffer) {
-		if (TextUtils.isEmpty(value)) return;
-		buffer.append(key).append("=").append(value).append("&");
-	}
-
 	/**
 	 * 个人信息编辑页 分类
 	 */

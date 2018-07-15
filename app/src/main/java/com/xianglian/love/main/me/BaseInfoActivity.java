@@ -228,7 +228,7 @@ public class BaseInfoActivity extends BaseEditUserInfoActivity implements BaseQu
                 }
                 case ItemInfo.MyInfoType.HOMETOWN:
                 case ItemInfo.MyInfoType.APARTMENT: {
-                    showRegion(true);
+                    showRegion(false);
                     break;
                 }
                 case ItemInfo.MyInfoType.INCOME:

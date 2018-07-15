@@ -95,9 +95,9 @@ public abstract class BaseEditUserInfoActivity extends BaseListActivity {
     private void initCustomTimePicker() {
         Calendar selectedDate = Calendar.getInstance();//系统当前时间
         Calendar startDate = Calendar.getInstance();
-        startDate.set(2014, 1, 23);
+        startDate.set(1970, 1, 1);
         Calendar endDate = Calendar.getInstance();
-        endDate.set(2027, 2, 28);
+        endDate.set(2019, 1, 1);
         //时间选择器 ，自定义布局
         pvCustomTime = new TimePickerView.Builder(this, new TimePickerView.OnTimeSelectListener() {
             @Override

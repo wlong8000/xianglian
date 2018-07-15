@@ -9,9 +9,11 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.orhanobut.hawk.Hawk;
 import com.xianglian.love.BaseEditUserInfoActivity;
 import com.xianglian.love.R;
 import com.xianglian.love.config.Config;
+import com.xianglian.love.config.Keys;
 import com.xianglian.love.user.adapter.UserInfoEditAdapter;
 import com.xianglian.love.user.been.ItemInfo;
 import com.xianglian.love.utils.UserUtils;
@@ -35,9 +37,12 @@ public class SearchActivity extends BaseEditUserInfoActivity implements
     @InjectView(R.id.save)
     TextView mSaveView;
 
+    @InjectView(R.id.reset)
+    TextView mResetView;
+
     private UserInfoEditAdapter mAdapter;
 
-    private List<ItemInfo> mItemInfo = new ArrayList<>();
+    private List<ItemInfo> mItemInfo;
 
     public static Intent getIntent(Context context) {
         return new Intent(context, SearchActivity.class);
@@ -51,6 +56,7 @@ public class SearchActivity extends BaseEditUserInfoActivity implements
         ButterKnife.inject(this);
         setupRecyclerView();
         mSaveView.setOnClickListener(this);
+        mResetView.setOnClickListener(this);
     }
 
     private List<ItemInfo> getData() {
@@ -85,16 +91,26 @@ public class SearchActivity extends BaseEditUserInfoActivity implements
         switch (mEntity.getType()) {
             case ItemInfo.Type.AGE:
                 text = dealAge(options1, option2);
+                mEntity.setMin_age(mItem.getMin_age());
+                mEntity.setMax_age(mItem.getMax_age());
                 break;
             case ItemInfo.Type.HEIGHT:
                 text = dealHeight(options1, option2);
+                mEntity.setMin_height(mItem.getMin_height());
+                mEntity.setMax_height(mItem.getMax_height());
                 break;
             case ItemInfo.Type.EDUCATION:
                 text = dealEdu(options1, option2);
+                mEntity.setMin_education(mItem.getMin_education());
+                mEntity.setMax_education(mItem.getMax_education());
                 break;
             case ItemInfo.Type.HOMETOWN:
+                text = dealRegion(options1, option2, options3, false);
+                mEntity.setBorn_area_code(mItem.getBorn_area_code());
+                break;
             case ItemInfo.Type.APARTMENT:
                 text = dealRegion(options1, option2, options3, false);
+                mEntity.setWork_area_code(mItem.getWork_area_code());
                 break;
         }
         mEntity.setRightText(text);
@@ -103,10 +119,14 @@ public class SearchActivity extends BaseEditUserInfoActivity implements
 
     public void setupRecyclerView() {
         super.setupRecyclerView();
+        mItemInfo = Hawk.get(Keys.SEARCH_INFO_LIST, mItemInfo);
+        if (mItemInfo == null) mItemInfo = new ArrayList<>();
         mAdapter = new UserInfoEditAdapter(this, mItemInfo);
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener(this);
-        addData();
+        if (mItemInfo.isEmpty()) {
+            addData();
+        }
     }
 
     private void addData() {
@@ -129,10 +149,27 @@ public class SearchActivity extends BaseEditUserInfoActivity implements
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.reset:
+                if (!mItemInfo.isEmpty()) {
+                    for (ItemInfo item : mItemInfo) {
+                        if (item == null) continue;
+                        item.setRightText(null);
+                        item.setMin_age(null);
+                        item.setMax_age(null);
+                        item.setMin_height(null);
+                        item.setMax_height(null);
+                        item.setMin_education(-1);
+                        item.setMax_education(-1);
+                        item.setWork_area_code(null);
+                        item.setBorn_area_code(null);
+                    }
+                    Hawk.put(Keys.SEARCH_INFO_LIST, null);
+                    mAdapter.notifyDataSetChanged();
+                }
                 break;
             case R.id.save:
+                Hawk.put(Keys.SEARCH_INFO_LIST, mItemInfo);
                 Intent intent = new Intent();
-                intent.putExtra(Config.EXTRA_SEARCH_ENTITY, mItem);
+                intent.putExtra(Config.EXTRA_SEARCH_TYPE, 1);
                 setResult(RESULT_OK, intent);
                 finish();
                 break;
@@ -179,7 +216,7 @@ public class SearchActivity extends BaseEditUserInfoActivity implements
                     break;
                 case ItemInfo.Type.HOMETOWN:
                 case ItemInfo.Type.APARTMENT: {
-                    showRegion(true);
+                    showRegion(false);
                     break;
                 }
                 //一级
