@@ -488,6 +488,16 @@ public class AppUtils {
         return 0;
     }
 
+    public static int stringToInt2(String num) {
+        if (TextUtils.isEmpty(num)) return -1;
+        try {
+            return (int) Float.parseFloat(num);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
     public static int stringToFloat(String num) {
         if (TextUtils.isEmpty(num)) return 0;
         try {

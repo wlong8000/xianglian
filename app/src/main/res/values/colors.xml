@@ -171,5 +171,6 @@
     <color name="common_head_default">#ffeaeaea</color>
 
     <color name="txt_color">#48495F</color>
+    <color name="bg_main_color">#f6f9f8</color>
 
 </resources>

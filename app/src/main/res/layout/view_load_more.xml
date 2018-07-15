@@ -50,7 +50,7 @@
         android:id="@+id/load_more_load_end_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
+        android:background="@color/bg_main_color"
         android:visibility="gone">
 
         <TextView
