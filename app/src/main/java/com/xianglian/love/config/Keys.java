@@ -14,4 +14,13 @@ public class Keys {
      * 筛选信息 List<ItemInfo>
      */
     public static String SEARCH_INFO_LIST = "h_search_info_list";
+
+    /**
+     * 性别 String
+     */
+    public static String SEX = "h_sex";
+
+    public static String TYPE_FEMALE = "female";
+
+    public static String TYPE_MALE = "male";
 }

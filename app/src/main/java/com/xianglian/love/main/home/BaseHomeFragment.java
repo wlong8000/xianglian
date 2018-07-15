@@ -89,7 +89,7 @@ public class BaseHomeFragment extends BaseListFragment implements BaseQuickAdapt
     }
 
     public void onRefresh2(boolean refresh) {
-        onRefresh2(refresh, null);
+        onRefresh2(refresh, getParams());
     }
 
     private void onRefresh2(final boolean refresh, Map<String, String> params) {
@@ -195,8 +195,12 @@ public class BaseHomeFragment extends BaseListFragment implements BaseQuickAdapt
 
     private Map<String, String> getParams() {
         List<ItemInfo> itemInfoList = Hawk.get(Keys.SEARCH_INFO_LIST);
+        String sex = Hawk.get(Keys.SEX);
+        Map<String, String> map = new HashMap<>();
+        if (sex != null) {
+            map.put("gender", sex);
+        }
         if (itemInfoList != null && !itemInfoList.isEmpty()) {
-            Map<String, String> map = new HashMap<>();
             for (ItemInfo item : itemInfoList) {
                 if (item == null) continue;
                 if (AppUtils.stringToInt(item.getMin_age()) >= 0) {
