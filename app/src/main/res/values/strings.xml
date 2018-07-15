@@ -146,7 +146,7 @@
     <string name="modify_avatar">修改头像</string>
     <string name="upload_complete">上传完成</string>
     <string name="modify_complete">修改完成</string>
-    <string name="upload_avatar_desc">一张好看清晰的头像可以让自己更有吸引力</string>
+    <string name="upload_avatar_desc">将作为个人封面图，展示到首页</string>
     <string name="person_des_text_hint">请输入个人简介 （200字以内)</string>
     <string name="my_photos">我的相册</string>
     <string name="my_introduce">个人简介</string>

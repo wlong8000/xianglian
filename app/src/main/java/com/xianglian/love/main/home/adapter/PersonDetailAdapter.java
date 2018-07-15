@@ -15,7 +15,6 @@ import com.xianglian.love.utils.UserUtils;
 import com.xianglian.love.view.AlumView;
 import com.xianglian.love.view.FavoriteView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -78,7 +77,7 @@ public class PersonDetailAdapter extends BaseMultiItemQuickAdapter<UserDetailEnt
             case UserDetailEntity.ViewType.ALBUM:
                 AlumView alumView = helper.getView(R.id.alum_layout);
                 alumView.initAdapter(4);
-                alumView.setData(item.getAlbums());
+                alumView.setData(item.getImages());
                 break;
             case UserDetailEntity.ViewType.BASE_INFO:
                 helper.setText(R.id.car, "有".equals(item.getHas_car()) ?

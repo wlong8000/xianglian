@@ -8,20 +8,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.alibaba.json.JSON;
-import com.alibaba.json.JSONException;
 import com.lzy.okgo.OkGo;
-import com.okhttplib.HttpInfo;
-import com.okhttplib.OkHttpUtil;
-import com.okhttplib.callback.Callback;
+import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.GetRequest;
 import com.xianglian.love.BaseListFragment;
 import com.xianglian.love.R;
 import com.xianglian.love.config.Config;
 import com.xianglian.love.main.home.adapter.PersonDetailAdapter;
 import com.xianglian.love.main.home.been.MessageEntity;
 import com.xianglian.love.main.home.been.UserDetailEntity;
+import com.xianglian.love.net.JsonCallBack;
+import com.xianglian.love.utils.AppUtils;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,6 +46,7 @@ public class PersonDetailFragment extends BaseListFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getArguments() == null) return;
         mId = getArguments().getInt("id");
     }
 
@@ -72,7 +71,7 @@ public class PersonDetailFragment extends BaseListFragment {
         if (!TextUtils.isEmpty(entity.getPerson_intro())) {
             addDataByType(UserDetailEntity.ViewType.INTRODUCE, entity);
         }
-        if (entity.getAlbums() != null && entity.getAlbums().size() > 0) {
+        if (entity.getImages() != null && !entity.getImages().isEmpty()) {
             addDataByType(UserDetailEntity.ViewType.ALBUM, entity);
         }
         addDataByType(UserDetailEntity.ViewType.BASE_INFO, entity);
@@ -130,33 +129,27 @@ public class PersonDetailFragment extends BaseListFragment {
 
     public void onRefresh2(final boolean refresh) {
         final String url = Config.PATH + "users/" + mId;
-        OkHttpUtil.getDefault(this).doGetAsync(
-                HttpInfo.Builder().setUrl(url).addHeads(getHeader()).build(),
-                new Callback() {
-                    @Override
-                    public void onFailure(HttpInfo info) throws IOException {
-                        mSwipeRefreshLayout.setRefreshing(false);
-                        mSwipeRefreshLayout.setEnabled(false);
+        final GetRequest<UserDetailEntity> request = OkGo.get(url);
+        request.headers("Authorization", AppUtils.getToken(getContext()));
 
-                    }
+        request.execute(new JsonCallBack<UserDetailEntity>(UserDetailEntity.class) {
+            @Override
+            public void onSuccess(Response<UserDetailEntity> response) {
+                mSwipeRefreshLayout.setRefreshing(false);
+                if (response != null && response.body() != null) {
+                    UserDetailEntity userEntity = response.body();
+                    if (userEntity == null) return;
+                    addData(userEntity);
+                }
+            }
 
-                    @Override
-                    public void onSuccess(HttpInfo info) throws IOException {
-                        mSwipeRefreshLayout.setRefreshing(false);
-                        mSwipeRefreshLayout.setEnabled(false);
-                        String result = info.getRetDetail();
-                        if (result != null) {
-                            try {
-                                UserDetailEntity userEntity = JSON.parseObject(result, UserDetailEntity.class);
-                                if (userEntity == null) return;
-                                if (refresh) mUserDetailEntities.clear();
-                                addData(userEntity);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                });
+            @Override
+            public void onError(Response<UserDetailEntity> response) {
+                super.onError(response);
+                mSwipeRefreshLayout.setRefreshing(false);
+                mAdapter.setEmptyView(errorView);
+            }
+        });
 
     }
 }

@@ -102,7 +102,7 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
     private String education;
     private String can_leave_message;
 
-    private List<PhotoInfo> albums;
+    private List<PhotoInfo> images;
     private List<PhotoInfo> results;
     private String id;
     private String photo_url;
@@ -365,12 +365,12 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
         this.can_leave_message = can_leave_message;
     }
 
-    public List<PhotoInfo> getAlbums() {
-        return albums;
+    public List<PhotoInfo> getImages() {
+        return images;
     }
 
-    public void setAlbums(List<PhotoInfo> albums) {
-        this.albums = albums;
+    public void setImages(List<PhotoInfo> images) {
+        this.images = images;
     }
 
     public List<PhotoInfo> getResults() {
@@ -739,7 +739,7 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
         dest.writeString(this.birthday);
         dest.writeString(this.education);
         dest.writeString(this.can_leave_message);
-        dest.writeList(this.albums);
+        dest.writeList(this.images);
         dest.writeList(this.results);
         dest.writeString(this.id);
         dest.writeString(this.photo_url);
@@ -802,8 +802,8 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
         this.birthday = in.readString();
         this.education = in.readString();
         this.can_leave_message = in.readString();
-        this.albums = new ArrayList<PhotoInfo>();
-        in.readList(this.albums, PhotoInfo.class.getClassLoader());
+        this.images = new ArrayList<PhotoInfo>();
+        in.readList(this.images, PhotoInfo.class.getClassLoader());
         this.results = new ArrayList<PhotoInfo>();
         in.readList(this.results, PhotoInfo.class.getClassLoader());
         this.id = in.readString();
