@@ -22,7 +22,7 @@ public class BaseFragmentActivity extends FragmentActivity implements TitleBarVi
     }
 
     public void setupTitle(String title, int rightRes) {
-        mTitleBarView = (TitleBarView) findViewById(R.id.title_bar_layout);
+        mTitleBarView = findViewById(R.id.title_bar_layout);
         mTitleBarView.setBackgroundColor(getResources().getColor(R.color.lib_color_font8));
         mTitleBarView.setTitle(title, R.dimen.lib_font_size2, R.color.white);
         mTitleBarView.setupRightImg(rightRes);

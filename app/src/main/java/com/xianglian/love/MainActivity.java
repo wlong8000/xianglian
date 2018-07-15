@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
@@ -155,7 +156,8 @@ public class MainActivity extends BaseFragmentActivity {
 
             @Override
             public void onPageSelected(final int position) {
-                navigationTabBar.getModels().get(position).hideBadge();
+//                navigationTabBar.getModels().get(position).hideBadge();
+                mTitleBarView.setRigthLayoutVisible(position == 0 ? View.VISIBLE : View.GONE);
             }
 
             @Override

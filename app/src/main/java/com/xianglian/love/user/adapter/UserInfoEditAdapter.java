@@ -40,7 +40,13 @@ public class UserInfoEditAdapter extends BaseMultiItemQuickAdapter<ItemInfo, Bas
         switch (helper.getItemViewType()) {
             case ItemInfo.ViewType.AVATAR:
                 SimpleDraweeView imageView = helper.getView(R.id.head_img);
-                imageView.setImageURI(item.getAvatar());
+                if (!TextUtils.isEmpty(item.getAvatar())) {
+                    imageView.setImageURI(item.getAvatar());
+                    helper.setText(R.id.set_photo_center_tv, R.string.modify_avatar);
+                } else {
+                    imageView.setImageURI("");
+                    helper.setText(R.id.set_photo_center_tv, R.string.upload_avatar);
+                }
                 break;
             case ItemInfo.ViewType.PICK_SELECT:
                 helper.setText(R.id.tv_left_text, item.getText());

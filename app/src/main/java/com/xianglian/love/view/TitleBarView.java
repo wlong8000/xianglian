@@ -108,6 +108,9 @@ public class TitleBarView extends FrameLayout {
         }
     }
 
+    public void setRigthLayoutVisible(int visible) {
+        mRightLayout.setVisibility(visible);
+    }
 
     public void setTitle(String title) {
         if (!TextUtils.isEmpty(title)) {
