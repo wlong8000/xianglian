@@ -31,6 +31,10 @@
 
     <uses-permission android:name="android.permission.CAMERA" />
 
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
     <application
         android:name="base.BaseApplication"
         android:allowBackup="true"
@@ -48,12 +52,12 @@
             </intent-filter>
         </activity>
         <!--<activity-->
-            <!--android:name=".MainActivity"-->
-            <!--android:alwaysRetainTaskState="true"-->
-            <!--android:configChanges="orientation|keyboardHidden|screenSize|locale"-->
-            <!--android:exported="true"-->
-            <!--android:hardwareAccelerated="true"-->
-            <!--android:screenOrientation="portrait" />-->
+        <!--android:name=".MainActivity"-->
+        <!--android:alwaysRetainTaskState="true"-->
+        <!--android:configChanges="orientation|keyboardHidden|screenSize|locale"-->
+        <!--android:exported="true"-->
+        <!--android:hardwareAccelerated="true"-->
+        <!--android:screenOrientation="portrait" />-->
         <activity
             android:name=".user.LoginActivity"
             android:exported="true"
@@ -125,12 +129,6 @@
         <activity
             android:name=".ShowPicActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".library.photo.MediaChoseActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".library.photo.CropImageActivity"
-            android:screenOrientation="portrait" />
 
         <service
             android:name=".AppService"
@@ -143,6 +141,44 @@
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="d8f386266eb85eb5f2897a2e375aeb284470d341" />
+
+        <!--云通信配置开始-->
+        <!--  消息收发 service -->
+        <service
+            android:name="com.tencent.qalsdk.service.QalService"
+            android:exported="false"
+            android:process=":QALSERVICE" />
+        <!--  消息收发辅助 service -->
+        <service
+            android:name="com.tencent.qalsdk.service.QalAssistService"
+            android:exported="false"
+            android:process=":QALSERVICE" />
+        <!--  离线消息广播接收器 -->
+        <receiver
+            android:name="com.tencent.qalsdk.QALBroadcastReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.tencent.qalsdk.broadcast.qal" />
+            </intent-filter>
+        </receiver>
+        <!--  系统消息广播接收器 -->
+        <receiver
+            android:name="com.tencent.qalsdk.core.NetConnInfoCenter"
+            android:process=":QALSERVICE">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.TIME_SET" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+            </intent-filter>
+        </receiver>
+        <!--云通信配置结束-->
     </application>
 
 </manifest>
