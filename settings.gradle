@@ -1,1 +1,1 @@
-include ':app', ':pickerview', ':fastjson', ':okhttp3', ':library', ':test'  /*, ':activityrouter'*/
+include ':app', ':fastjson'
