@@ -16,6 +16,7 @@ import com.okhttplib.cookie.PersistentCookieJar;
 import com.okhttplib.cookie.cache.SetCookieCache;
 import com.okhttplib.cookie.persistence.SharedPrefsCookiePersistor;
 import com.orhanobut.hawk.Hawk;
+import com.umeng.commonsdk.UMConfigure;
 import com.xianglian.love.config.Config;
 import com.xianglian.love.config.Keys;
 import com.xianglian.love.main.home.been.UserEntity;
@@ -51,6 +52,13 @@ public class BaseApplication extends Application {
         Fresco.initialize(this);
         Stetho.initializeWithDefaults(this);
         Hawk.init(this).build();
+
+        /*
+            注意: 即使您已经在AndroidManifest.xml中配置过appkey和channel值，
+            也需要在App代码中调用初始化接口（如需要使用AndroidManifest.xml中配置好的appkey和channel值，
+            UMConfigure.init调用中appkey和channel参数请置为null）。
+        */
+        UMConfigure.init(this, "59815caaaed17933e9001575", "website", UMConfigure.DEVICE_TYPE_PHONE, null);
 
         String downloadFileDir = Environment.getExternalStorageDirectory().getPath() + "/okHttp_download/";
         String cacheDir = Environment.getExternalStorageDirectory().getPath();

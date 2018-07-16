@@ -85,6 +85,9 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics:2.9.4@aar') {
         transitive = true
     }
+
+    compile 'com.umeng.sdk:common:1.5.3'
+    compile 'com.umeng.sdk:analytics:7.5.3'
 }
 
 //task依赖讲解

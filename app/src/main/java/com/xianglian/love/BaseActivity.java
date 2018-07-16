@@ -11,6 +11,7 @@ import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.umeng.analytics.MobclickAgent;
 import com.xianglian.love.utils.StatusbarUtil;
 import com.xianglian.love.utils.AppUtils;
 import com.xianglian.love.utils.MyLog;
@@ -57,7 +58,7 @@ public class BaseActivity extends AppCompatActivity implements TitleBarView.OnTi
     }
 
     public void setupTitle(String title) {
-        mTitleBarView = (TitleBarView) findViewById(R.id.title_bar_layout);
+        mTitleBarView = findViewById(R.id.title_bar_layout);
         mTitleBarView.setTitleClickListener(this);
         mTitleBarView.setTitle(title);
         if (mTitleBarView != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -140,5 +141,17 @@ public class BaseActivity extends AppCompatActivity implements TitleBarView.OnTi
 
     public String getUserId(Context context) {
         return null;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }

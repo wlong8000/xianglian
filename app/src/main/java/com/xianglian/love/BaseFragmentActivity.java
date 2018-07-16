@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.Window;
 import android.widget.Toast;
 
+import com.umeng.analytics.MobclickAgent;
 import com.xianglian.love.view.TitleBarView;
 
 /**
@@ -50,5 +51,17 @@ public class BaseFragmentActivity extends FragmentActivity implements TitleBarVi
 
     public void showToast(int res) {
         Toast.makeText(this, getString(res), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }
