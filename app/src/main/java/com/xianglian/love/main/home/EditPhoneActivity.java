@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.EditText;
 
-import com.alibaba.json.JSON;
+import com.google.gson.Gson;
 import com.okhttplib.HttpInfo;
 import com.okhttplib.OkHttpUtil;
 import com.okhttplib.callback.Callback;
@@ -95,8 +95,8 @@ public class EditPhoneActivity extends BaseListActivity {
 
     @Override
     public void rightClick() {
-        EditText qq = (EditText) mRecyclerView.findViewWithTag(ItemInfo.PhoneType.QQ);
-        EditText weiXin = (EditText) mRecyclerView.findViewWithTag(ItemInfo.PhoneType.WEI_XIN);
+        EditText qq = mRecyclerView.findViewWithTag(ItemInfo.PhoneType.QQ);
+        EditText weiXin = mRecyclerView.findViewWithTag(ItemInfo.PhoneType.WEI_XIN);
         String qqText = qq.getText().toString();
         String weiXinText = weiXin.getText().toString();
         if (TextUtils.isEmpty(qqText) && TextUtils.isEmpty(weiXinText)) {
@@ -172,7 +172,9 @@ public class EditPhoneActivity extends BaseListActivity {
                         String result = info.getRetDetail();
                         if (!TextUtils.isEmpty(result)) {
                             try {
-                                Contacts data = JSON.parseObject(result, Contacts.class);
+                                Gson gson = new Gson();
+                                Contacts data = gson.fromJson(result, Contacts.class);
+//                                Contacts data = JSON.parseObject(result, Contacts.class);
                                 if (data != null) {
                                     Contacts msg = data.getMsg();
                                     if (msg != null) {
@@ -188,7 +190,7 @@ public class EditPhoneActivity extends BaseListActivity {
                                     finish();
                                 }
 
-                            } catch (com.alibaba.json.JSONException e) {
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
                         }

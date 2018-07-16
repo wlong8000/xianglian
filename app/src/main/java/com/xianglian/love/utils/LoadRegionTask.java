@@ -3,7 +3,7 @@ package com.xianglian.love.utils;
 import android.content.Context;
 import android.os.AsyncTask;
 
-import com.alibaba.json.JSON;
+import com.google.gson.Gson;
 import com.xianglian.love.model.JsonBean;
 import com.xianglian.love.model.JsonBean.CityBean;
 
@@ -51,7 +51,9 @@ public class LoadRegionTask extends AsyncTask<String, String, Integer> {
         try {
             JSONArray data = new JSONArray(result);
             for (int i = 0; i < data.length(); i++) {
-                JsonBean entity = JSON.parseObject(data.optJSONObject(i).toString(), JsonBean.class);
+                Gson gson = new Gson();
+                JsonBean entity = gson.fromJson(data.optJSONObject(i).toString(), JsonBean.class);
+//                JsonBean entity = JSON.parseObject(data.optJSONObject(i).toString(), JsonBean.class);
                 detail.add(entity);
             }
         } catch (Exception e) {

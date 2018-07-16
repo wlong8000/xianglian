@@ -29,7 +29,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import com.alibaba.json.JSON;
 import com.facebook.binaryresource.BinaryResource;
 import com.facebook.binaryresource.FileBinaryResource;
 import com.facebook.cache.common.CacheKey;
@@ -39,6 +38,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.cache.DefaultCacheKeyFactory;
 import com.facebook.imagepipeline.core.ImagePipelineFactory;
 import com.facebook.imagepipeline.request.ImageRequest;
+import com.google.gson.Gson;
 import com.lzy.okgo.model.HttpHeaders;
 import com.orhanobut.hawk.Hawk;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
@@ -189,7 +189,9 @@ public class AppUtils {
             while ((length = is.read(buffer)) != -1) {
                 sb.append(new String(buffer, 0, length));
             }
-            RegionsListModel models = JSON.parseObject(sb.toString(), RegionsListModel.class);
+            Gson gson = new Gson();
+            RegionsListModel models = gson.fromJson(sb.toString(), RegionsListModel.class);
+//            RegionsListModel models = Gson.parseObject(sb.toString(), RegionsListModel.class);
             if (models != null)
                 return models.regions;
         } catch (Exception e) {
