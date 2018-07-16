@@ -22,6 +22,7 @@ import com.xianglian.love.loadmore.CustomLoadMoreView;
 import com.xianglian.love.main.home.adapter.HomeAdapter;
 import com.xianglian.love.main.home.been.UserEntity;
 import com.xianglian.love.net.JsonCallBack;
+import com.xianglian.love.user.LoginActivity;
 import com.xianglian.love.user.been.ItemInfo;
 import com.xianglian.love.utils.AppSharePreferences;
 import com.xianglian.love.utils.AppUtils;
@@ -161,6 +162,10 @@ public class BaseHomeFragment extends BaseListFragment implements BaseQuickAdapt
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        if (!AppUtils.isLogin(getContext())) {
+            startActivity(LoginActivity.getIntent(getContext()));
+            return;
+        }
         UserEntity info = mAdapter.getItem(position);
         if (info != null) {
             Intent intent = PersonDetailActivity.getIntent(getContext(), info);

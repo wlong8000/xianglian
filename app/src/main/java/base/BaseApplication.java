@@ -2,13 +2,13 @@ package base;
 
 import android.app.Application;
 import android.os.Environment;
+import android.support.multidex.MultiDex;
+import android.support.multidex.MultiDexApplication;
 
 import com.crashlytics.android.Crashlytics;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.stetho.Stetho;
 import com.lzy.okgo.OkGo;
-import com.lzy.okgo.model.Response;
-import com.lzy.okgo.request.GetRequest;
 import com.okhttplib.OkHttpUtil;
 import com.okhttplib.annotation.CacheType;
 import com.okhttplib.annotation.Encoding;
@@ -17,12 +17,7 @@ import com.okhttplib.cookie.cache.SetCookieCache;
 import com.okhttplib.cookie.persistence.SharedPrefsCookiePersistor;
 import com.orhanobut.hawk.Hawk;
 import com.umeng.commonsdk.UMConfigure;
-import com.xianglian.love.config.Config;
-import com.xianglian.love.config.Keys;
-import com.xianglian.love.main.home.been.UserEntity;
-import com.xianglian.love.net.JsonCallBack;
 import com.xianglian.love.utils.AppUtils;
-import com.xianglian.love.utils.Trace;
 
 import java.io.File;
 
@@ -34,7 +29,7 @@ import io.fabric.sdk.android.Fabric;
  *
  * @author wl
  */
-public class BaseApplication extends Application {
+public class BaseApplication extends MultiDexApplication {
 
     private static final String TAG = "BaseApplication";
     public static BaseApplication baseApplication;
@@ -52,6 +47,7 @@ public class BaseApplication extends Application {
         Fresco.initialize(this);
         Stetho.initializeWithDefaults(this);
         Hawk.init(this).build();
+        MultiDex.install(this);
 
         /*
             注意: 即使您已经在AndroidManifest.xml中配置过appkey和channel值，
@@ -91,9 +87,9 @@ public class BaseApplication extends Application {
     private void logUser() {
         // TODO: Use the current user's information
         // You can call any combination of these three methods
-        Crashlytics.setUserIdentifier("12345");
+        Crashlytics.setUserIdentifier("com.xianglian.love");
         Crashlytics.setUserEmail("1615474873@qq.com");
-        Crashlytics.setUserName("Test User");
+        Crashlytics.setUserName("wlong");
     }
 
 

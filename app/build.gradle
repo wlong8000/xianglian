@@ -26,6 +26,7 @@ android {
         minSdkVersion android2.minSdkVersion
         versionCode android2.versionCode
         versionName android2.versionName
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {
@@ -88,6 +89,8 @@ dependencies {
 
     compile 'com.umeng.sdk:common:1.5.3'
     compile 'com.umeng.sdk:analytics:7.5.3'
+
+    compile 'com.android.support:multidex:1.0.3'
 }
 
 //task依赖讲解
