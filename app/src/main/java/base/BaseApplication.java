@@ -47,6 +47,7 @@ public class BaseApplication extends Application {
         super.onCreate();
         baseApplication = this;
         Fabric.with(this, new Crashlytics());
+        logUser();
         Fresco.initialize(this);
         Stetho.initializeWithDefaults(this);
         Hawk.init(this).build();
@@ -78,6 +79,15 @@ public class BaseApplication extends Application {
                 .setCookieJar(new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(this)))//持久化cookie
                 .build();
     }
+
+    private void logUser() {
+        // TODO: Use the current user's information
+        // You can call any combination of these three methods
+        Crashlytics.setUserIdentifier("12345");
+        Crashlytics.setUserEmail("1615474873@qq.com");
+        Crashlytics.setUserName("Test User");
+    }
+
 
 
     @Override

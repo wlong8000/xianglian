@@ -83,7 +83,7 @@ dependencies {
     compile 'com.orhanobut:hawk:2.0.1'
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
     compile('com.crashlytics.sdk.android:crashlytics:2.9.4@aar') {
-        transitive = true;
+        transitive = true
     }
 }
 
