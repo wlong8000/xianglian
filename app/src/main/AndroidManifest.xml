@@ -43,7 +43,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -51,13 +51,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--<activity-->
-        <!--android:name=".MainActivity"-->
-        <!--android:alwaysRetainTaskState="true"-->
-        <!--android:configChanges="orientation|keyboardHidden|screenSize|locale"-->
-        <!--android:exported="true"-->
-        <!--android:hardwareAccelerated="true"-->
-        <!--android:screenOrientation="portrait" />-->
+        <activity
+            android:name=".MainActivity"
+            android:alwaysRetainTaskState="true"
+            android:configChanges="orientation|keyboardHidden|screenSize|locale"
+            android:exported="true"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".user.LoginActivity"
             android:exported="true"

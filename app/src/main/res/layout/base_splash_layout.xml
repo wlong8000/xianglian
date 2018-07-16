@@ -12,7 +12,7 @@
         android:contentDescription="@string/app_name"
         android:scaleType="centerCrop"
         android:src="@drawable/lib_icon_splash_logo"
-        android:visibility="visible" />
+        android:visibility="gone" />
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/base_splash_image"

@@ -35,13 +35,14 @@ public class SplashActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.inject(this);
         settings();
-        hideBottomUIMenu();
+//        hideBottomUIMenu();
         AppService.startSaveUser(this);
         if (isFirst()) {
             mSplashImg.setVisibility(View.GONE);
             firstLoadImg();
         } else {
-            mSplashImg.setImageURI(AppUtils.parse("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1503932551&di=1f0a17d3074a190d6bce9adc94144575&imgtype=jpg&er=1&src=http%3A%2F%2Fpic.58pic.com%2F58pic%2F13%2F10%2F51%2F21a58PICN8K_1024.jpg"));
+            mSplashImg.setImageURI(AppUtils.parse(
+                    "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1531750251795&di=04b6ef1b0d2991ce27fb1b69692dffa5&imgtype=0&src=http%3A%2F%2Fimg.pconline.com.cn%2Fimages%2Fupload%2Fupc%2Ftx%2Fphotoblog%2F1501%2F29%2Fc11%2F2508688_1422519702855_mthumb.jpg"));
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -54,7 +55,7 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void firstLoadImg() {
-        contentFrameLayout = (PageFrameLayout) findViewById(R.id.contentFrameLayout);
+        contentFrameLayout = findViewById(R.id.contentFrameLayout);
         // 设置资源文件和选中圆点
         contentFrameLayout.setUpViews(new int[]{
                 R.layout.page_tab1,
@@ -86,22 +87,22 @@ public class SplashActivity extends BaseActivity {
         return !AppSharePreferences.getBoolValue(this, AppSharePreferences.FIRST_INTO);
     }
 
-    /**
-     * 隐藏虚拟按键，并且全屏
-     */
-    protected void hideBottomUIMenu() {
-        //隐藏虚拟按键，并且全屏
-        if (Build.VERSION.SDK_INT > 11 && Build.VERSION.SDK_INT < 19) { // lower api
-            View v = this.getWindow().getDecorView();
-            v.setSystemUiVisibility(View.GONE);
-        } else if (Build.VERSION.SDK_INT >= 19) {
-            //for new api versions.
-            View decorView = getWindow().getDecorView();
-            int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_FULLSCREEN;
-            decorView.setSystemUiVisibility(uiOptions);
-        }
-    }
+//    /**
+//     * 隐藏虚拟按键，并且全屏
+//     */
+//    protected void hideBottomUIMenu() {
+//        //隐藏虚拟按键，并且全屏
+//        if (Build.VERSION.SDK_INT < 19) { // lower api
+//            View v = this.getWindow().getDecorView();
+//            v.setSystemUiVisibility(View.GONE);
+//        } else if (Build.VERSION.SDK_INT >= 19) {
+//            //for new api versions.
+//            View decorView = getWindow().getDecorView();
+//            int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+//                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_FULLSCREEN;
+//            decorView.setSystemUiVisibility(uiOptions);
+//        }
+//    }
 
     @Override
     public void finish() {
