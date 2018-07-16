@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lzy.okgo.OkGo;
+import com.lzy.okgo.cache.CacheMode;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.GetRequest;
 import com.orhanobut.hawk.Hawk;
@@ -108,6 +109,7 @@ public class BaseHomeFragment extends BaseListFragment implements BaseQuickAdapt
         if (params != null && params.size() > 0) {
             request.params(params);
         }
+        request.cacheMode(CacheMode.FIRST_CACHE_THEN_REQUEST);
         request.execute(new JsonCallBack<UserEntity>(UserEntity.class) {
             @Override
             public void onSuccess(Response<UserEntity> response) {
@@ -128,6 +130,15 @@ public class BaseHomeFragment extends BaseListFragment implements BaseQuickAdapt
                     } else {
                         mAdapter.loadMoreComplete();
                     }
+                }
+            }
+
+            @Override
+            public void onCacheSuccess(Response<UserEntity> response) {
+                super.onCacheSuccess(response);
+                if (response != null && response.body() != null && refresh) {
+                    List<UserEntity> userEntities = response.body().getResults();
+                    dealItemData(userEntities, true);
                 }
             }
 

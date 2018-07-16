@@ -76,7 +76,7 @@ public class PersonDetailActivity extends BaseActivity implements View.OnClickLi
         setContentView(R.layout.activity_person_detail);
         StatusbarUtil.setStatusBarTranslucent(this);
         ButterKnife.inject(this);
-        mEntity = getIntent().getParcelableExtra(Config.EXTRA_ENTITY);
+        mEntity = (UserEntity) getIntent().getSerializableExtra(Config.EXTRA_ENTITY);
         if (mEntity == null) {
             mId = getIntent().getIntExtra(Config.EXTRA_ID, 0);
         } else {

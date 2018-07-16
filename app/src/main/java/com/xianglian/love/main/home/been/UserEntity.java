@@ -5,13 +5,14 @@ import android.os.Parcelable;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by wanglong on 17/8/19.
  */
 
-public class UserEntity implements Parcelable, MultiItemEntity {
+public class UserEntity implements Serializable, MultiItemEntity {
     public static final int TYPE_NORMAL = 1;
     private String msg;
     private int code;
@@ -371,106 +372,9 @@ public class UserEntity implements Parcelable, MultiItemEntity {
     public UserEntity() {
     }
 
+
     @Override
     public int getItemType() {
         return viewType;
     }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.msg);
-        dest.writeInt(this.code);
-        dest.writeInt(this.viewType);
-        dest.writeInt(this.count);
-        dest.writeString(this.error);
-        dest.writeString(this.previous);
-        dest.writeString(this.next);
-        dest.writeTypedList(this.results);
-        dest.writeString(this.uid);
-        dest.writeString(this.account);
-        dest.writeString(this.token);
-        dest.writeInt(this.identity_verified);
-        dest.writeString(this.nickname);
-        dest.writeString(this.work_area);
-        dest.writeString(this.age);
-        dest.writeString(this.height);
-        dest.writeString(this.birthday);
-        dest.writeString(this.weight);
-        dest.writeString(this.work_area_name);
-        dest.writeString(this.born_area_name);
-        dest.writeInt(this.education);
-        dest.writeInt(this.id);
-        dest.writeInt(this.career);
-        dest.writeInt(this.income);
-        dest.writeString(this.person_intro);
-        dest.writeString(this.relationship_desc);
-        dest.writeInt(this.marriage_status);
-        dest.writeString(this.mate_preference);
-        dest.writeString(this.like);
-        dest.writeString(this.pic1);
-        dest.writeInt(this.type);
-        dest.writeParcelable(this.content, flags);
-        dest.writeString(this.url);
-        dest.writeString(this.name);
-        dest.writeString(this.img);
-        dest.writeString(this.desc);
-        dest.writeByte(this.is_like ? (byte) 1 : (byte) 0);
-    }
-
-    protected UserEntity(Parcel in) {
-        this.msg = in.readString();
-        this.code = in.readInt();
-        this.viewType = in.readInt();
-        this.count = in.readInt();
-        this.error = in.readString();
-        this.previous = in.readString();
-        this.next = in.readString();
-        this.results = in.createTypedArrayList(UserEntity.CREATOR);
-        this.uid = in.readString();
-        this.account = in.readString();
-        this.token = in.readString();
-        this.identity_verified = in.readInt();
-        this.nickname = in.readString();
-        this.work_area = in.readString();
-        this.age = in.readString();
-        this.height = in.readString();
-        this.birthday = in.readString();
-        this.weight = in.readString();
-        this.work_area_name = in.readString();
-        this.born_area_name = in.readString();
-        this.education = in.readInt();
-        this.id = in.readInt();
-        this.career = in.readInt();
-        this.income = in.readInt();
-        this.person_intro = in.readString();
-        this.relationship_desc = in.readString();
-        this.marriage_status = in.readInt();
-        this.mate_preference = in.readString();
-        this.like = in.readString();
-        this.pic1 = in.readString();
-        this.type = in.readInt();
-        this.content = in.readParcelable(UserEntity.class.getClassLoader());
-        this.url = in.readString();
-        this.name = in.readString();
-        this.img = in.readString();
-        this.desc = in.readString();
-        this.is_like = in.readByte() != 0;
-    }
-
-    public static final Creator<UserEntity> CREATOR = new Creator<UserEntity>() {
-        @Override
-        public UserEntity createFromParcel(Parcel source) {
-            return new UserEntity(source);
-        }
-
-        @Override
-        public UserEntity[] newArray(int size) {
-            return new UserEntity[size];
-        }
-    };
 }
