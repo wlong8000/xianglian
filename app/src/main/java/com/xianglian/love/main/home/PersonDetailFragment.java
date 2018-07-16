@@ -25,6 +25,7 @@ import java.util.List;
 
 /**
  * Created by wanglong on 17/9/3.
+ * 详情页
  */
 
 public class PersonDetailFragment extends BaseListFragment {
