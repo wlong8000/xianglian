@@ -140,6 +140,9 @@
         <activity
             android:name="com.xianglian.love.TestActivity"
             android:exported="true" />
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="d8f386266eb85eb5f2897a2e375aeb284470d341" />
     </application>
 
 </manifest>

@@ -3,6 +3,7 @@ package base;
 import android.app.Application;
 import android.os.Environment;
 
+import com.crashlytics.android.Crashlytics;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.stetho.Stetho;
 import com.lzy.okgo.OkGo;
@@ -23,6 +24,9 @@ import com.xianglian.love.utils.AppUtils;
 import com.xianglian.love.utils.Trace;
 
 import java.io.File;
+
+import io.fabric.sdk.android.Fabric;
+
 /**
  * Application
  * 1、初始化全局OkHttpUtil
@@ -42,6 +46,7 @@ public class BaseApplication extends Application {
     public void onCreate() {
         super.onCreate();
         baseApplication = this;
+        Fabric.with(this, new Crashlytics());
         Fresco.initialize(this);
         Stetho.initializeWithDefaults(this);
         Hawk.init(this).build();
