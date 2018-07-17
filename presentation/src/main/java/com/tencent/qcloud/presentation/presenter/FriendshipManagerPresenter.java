@@ -1,6 +1,5 @@
 package com.tencent.qcloud.presentation.presenter;
 
-import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.tencent.TIMAddFriendRequest;
@@ -22,6 +21,8 @@ import com.tencent.qcloud.presentation.event.FriendshipEvent;
 import com.tencent.qcloud.presentation.viewfeatures.FriendInfoView;
 import com.tencent.qcloud.presentation.viewfeatures.FriendshipManageView;
 import com.tencent.qcloud.presentation.viewfeatures.FriendshipMessageView;
+
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -388,7 +389,7 @@ public class FriendshipManagerPresenter {
      * @param src 源分组，为空表示默认分组
      * @param dest 目的分组，为空表示默认分组
      */
-    public void changeFriendGroup(final String identify,final @Nullable String src,final @Nullable String dest){
+    public void changeFriendGroup(final String identify, final @Nullable String src, final @Nullable String dest){
         if (friendshipManageView == null || src != null && dest != null && src.equals(dest)) return;
         if (src != null){
             TIMFriendshipManager.getInstance().delFriendsFromFriendGroup(src, Collections.singletonList(identify), new TIMValueCallBack<List<TIMFriendResult>>() {

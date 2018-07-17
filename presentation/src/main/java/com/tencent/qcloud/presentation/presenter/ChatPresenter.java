@@ -1,11 +1,9 @@
 package com.tencent.qcloud.presentation.presenter;
 
-import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.tencent.TIMConversation;
 import com.tencent.TIMConversationType;
-import com.tencent.TIMElem;
 import com.tencent.TIMManager;
 import com.tencent.TIMMessage;
 import com.tencent.TIMMessageDraft;
@@ -14,7 +12,8 @@ import com.tencent.qcloud.presentation.event.MessageEvent;
 import com.tencent.qcloud.presentation.event.RefreshEvent;
 import com.tencent.qcloud.presentation.viewfeatures.ChatView;
 
-import java.util.Collections;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
