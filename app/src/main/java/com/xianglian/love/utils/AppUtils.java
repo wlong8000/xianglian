@@ -51,8 +51,6 @@ import com.xianglian.love.main.home.been.UserDetailEntity;
 import com.xianglian.love.model.RegionGsonModel;
 import com.xianglian.love.model.RegionsListModel;
 
-import org.json.JSONObject;
-
 import java.io.File;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
@@ -550,28 +548,6 @@ public class AppUtils {
     public static String getTime(Date date) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         return format.format(date);
-    }
-
-    public static void parseData(Context context, String key, String value) {
-        JSONObject object = ACache.get(context).getAsJSONObject(Config.KEY_USER);
-        try {
-            if (object != null) {
-                JSONObject result1 = object.getJSONObject("result");
-                if (result1 != null) {
-                    JSONObject user_obj = result1.getJSONObject("user_info");
-                    if (user_obj != null) {
-                        JSONObject profile = user_obj.getJSONObject("profile");
-                        if (profile != null) {
-                            profile.put(key, value);
-                        }
-
-                    }
-                }
-                ACache.get(context).put(Config.KEY_USER, object);
-            }
-        } catch (org.json.JSONException e) {
-            e.printStackTrace();
-        }
     }
 
     /**

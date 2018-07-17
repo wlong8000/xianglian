@@ -17,7 +17,6 @@ import com.xianglian.love.MainActivity;
 import com.xianglian.love.R;
 import com.xianglian.love.config.Config;
 import com.xianglian.love.config.Keys;
-import com.xianglian.love.model.JsonBean;
 import com.xianglian.love.user.been.OwnerEntity;
 import com.xianglian.love.utils.ACache;
 import com.xianglian.love.utils.AppUtils;
@@ -107,7 +106,6 @@ public class LoginActivity extends BaseLoginActivity implements OnClickListener 
             return;
         }
         dialogShow();
-//        doLogin(username, password);
         doToken(username, password);
 
     }
@@ -123,7 +121,6 @@ public class LoginActivity extends BaseLoginActivity implements OnClickListener 
                     @Override
                     public void onFailure(HttpInfo info) throws IOException {
                         dialogDisMiss();
-//                        String result = info.getRetDetail();
                     }
 
                     @Override
@@ -131,12 +128,6 @@ public class LoginActivity extends BaseLoginActivity implements OnClickListener 
                         dialogDisMiss();
                         String result = info.getRetDetail();
                         if (result == null) return;
-//                        OwnerEntity ownerEntity = null;
-//                        try {
-//                            ownerEntity = JSON.parseObject(result, OwnerEntity.class);
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
                         Gson gson = new Gson();
                         OwnerEntity ownerEntity = gson.fromJson(result, OwnerEntity.class);
                         if (ownerEntity == null) return;
@@ -164,7 +155,6 @@ public class LoginActivity extends BaseLoginActivity implements OnClickListener 
                     @Override
                     public void onFailure(HttpInfo info) throws IOException {
                         dialogDisMiss();
-                        String result = info.getRetDetail();
                     }
 
                     @Override
@@ -172,12 +162,6 @@ public class LoginActivity extends BaseLoginActivity implements OnClickListener 
                         dialogDisMiss();
                         String result = info.getRetDetail();
                         if (result == null) return;
-//                        OwnerEntity ownerEntity = null;
-//                        try {
-//                            ownerEntity = JSON.parseObject(result, OwnerEntity.class);
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
                         Gson gson = new Gson();
                         OwnerEntity ownerEntity = gson.fromJson(result, OwnerEntity.class);
                         if (ownerEntity == null) return;

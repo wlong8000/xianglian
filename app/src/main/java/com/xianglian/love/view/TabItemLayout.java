@@ -17,7 +17,7 @@ import java.util.List;
 public class TabItemLayout extends LinearLayout implements View.OnClickListener {
     private LinearLayout container;
 
-    private List<TabItemView> views = new ArrayList<TabItemView>();
+    private List<TabItemView2> views = new ArrayList<TabItemView2>();
 
     private TabItemLayoutListener listener;
 
@@ -52,7 +52,7 @@ public class TabItemLayout extends LinearLayout implements View.OnClickListener 
             params.weight = 1;
         }
         for (String tab : tabs) {
-            TabItemView view = (TabItemView)LayoutInflater.from(getContext()).inflate(
+            TabItemView2 view = (TabItemView2)LayoutInflater.from(getContext()).inflate(
                     R.layout.view_tab_item, null);
             view.setTabName(tab);
             view.setSelected(i == selectedIndex);
@@ -69,7 +69,7 @@ public class TabItemLayout extends LinearLayout implements View.OnClickListener 
         }
     }
 
-    public TabItemView getTabItem(int position) {
+    public TabItemView2 getTabItem(int position) {
         if (position >= 0 && position < views.size()) {
             return views.get(position);
         }

@@ -485,10 +485,10 @@
         <item name="android:lineSpacingExtra">0dp</item>
     </style>
 
-    <declare-styleable name="TabItemView">
-        <attr name="name" format="string|reference" />
-        <attr name="selected" format="boolean" />
-    </declare-styleable>
+    <!--<declare-styleable name="TabItemView2">-->
+        <!--<attr name="name" format="string|reference" />-->
+        <!--<attr name="selected" format="boolean" />-->
+    <!--</declare-styleable>-->
 
     <style name="lib_style_text_size4" parent="lib_style_text">
         <item name="android:textSize">@dimen/lib_font_size4</item>

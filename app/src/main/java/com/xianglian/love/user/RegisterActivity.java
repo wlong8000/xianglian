@@ -52,9 +52,9 @@ public class RegisterActivity extends BaseLoginActivity implements View.OnClickL
 
         setupTitle(getString(R.string.register));
 
-        mUserNameView = (AutoCompleteTextView) findViewById(R.id.user_name);
-        mPasswordView = (EditText) findViewById(R.id.password);
-        mRePasswordView = (EditText) findViewById(R.id.re_password);
+        mUserNameView = findViewById(R.id.user_name);
+        mPasswordView = findViewById(R.id.password);
+        mRePasswordView = findViewById(R.id.re_password);
         findViewById(R.id.register_button).setOnClickListener(this);
         mPhone = getIntent().getStringExtra(KEY_PHONE);
         mCode = getIntent().getStringExtra(KEY_CODE);

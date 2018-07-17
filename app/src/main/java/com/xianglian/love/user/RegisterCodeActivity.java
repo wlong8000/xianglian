@@ -79,9 +79,9 @@ public class RegisterCodeActivity extends BaseLoginActivity implements View.OnCl
         setContentView(R.layout.activity_regist_code);
         setupTitle(getString(R.string.register));
 
-        mPhoneView = (AutoCompleteTextView) findViewById(R.id.tv_phone);
-        mSmsCodeView = (EditText) findViewById(R.id.sms_code);
-        mVerifyView = (TextView) findViewById(R.id.password_code);
+        mPhoneView = findViewById(R.id.tv_phone);
+        mSmsCodeView = findViewById(R.id.sms_code);
+        mVerifyView = findViewById(R.id.password_code);
         findViewById(R.id.next_btn).setOnClickListener(this);
         mVerifyView.setOnClickListener(this);
     }
@@ -138,31 +138,4 @@ public class RegisterCodeActivity extends BaseLoginActivity implements View.OnCl
                     }
                 });
     }
-
-    /**
-     * 校验验证码
-     */
-//    private void verifyCode(String phone, String smsCode) {
-//        String url = Config.PATH + "user/verify-sms-code";
-//        Map<String, String> params = new HashMap<>();
-//        params.put("mobile", phone);
-//        params.put("verify_code", smsCode);
-//        OkHttpUtil.getDefault(this).doGetAsync(
-//                HttpInfo.Builder().setUrl(url).addParams(params).addHeads(getHeader()).build(),
-//                new Callback() {
-//                    @Override
-//                    public void onFailure(HttpInfo info) throws IOException {
-//                        dialogDisMiss();
-//                        toast(R.string.sms_code_err);
-//                    }
-//
-//                    @Override
-//                    public void onSuccess(HttpInfo info) throws IOException {
-//                        dialogDisMiss();
-//                        Intent intent = RegisterActivity.getIntent(RegisterCodeActivity.this, getText(mPhoneView));
-//                        startActivity(intent);
-//                    }
-//                });
-//    }
-
 }
