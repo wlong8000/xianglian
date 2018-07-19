@@ -13,6 +13,12 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.GetRequest;
 import com.orhanobut.hawk.Hawk;
+import com.tencent.qcloud.presentation.event.MessageEvent;
+import com.tencent.qcloud.tlslibrary.service.TlsBusiness;
+import com.wl.appchat.ConversationFragment;
+import com.wl.appchat.model.FriendshipInfo;
+import com.wl.appchat.model.GroupInfo;
+import com.wl.appchat.model.UserInfo;
 import com.xianglian.love.config.Config;
 import com.xianglian.love.config.Keys;
 import com.xianglian.love.main.home.BaseHomeFragment;
@@ -21,7 +27,7 @@ import com.xianglian.love.main.home.been.UserEntity;
 import com.xianglian.love.main.me.BaseMeFragment;
 import com.xianglian.love.net.JsonCallBack;
 import com.xianglian.love.utils.AppUtils;
-import com.xianglian.love.utils.Trace;
+import com.xianglian.love.utils.UpdateUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +53,7 @@ public class MainActivity extends BaseFragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
+
         setupTitle(getString(R.string.meet_you), R.drawable.btn_menu_normal);
         mViewPager = findViewById(R.id.vp_container);
 
@@ -56,12 +63,14 @@ public class MainActivity extends BaseFragmentActivity {
         if (AppUtils.isLogin(this)) {
             doUserInfoRequest();
         }
+        //检查版本更新
+        UpdateUtil.checkVersion(this);
     }
 
     private void initFragment() {
         mFragments = new ArrayList<>();
         mFragments.add(BaseHomeFragment.newInstance());
-//        mFragments.add(BaseSpecialFragment.newInstance());
+        mFragments.add(new ConversationFragment());
 //        mFragments.add(BaseMeetFragment.newInstance());
         mFragments.add(BaseMeFragment.newInstance());
     }
@@ -119,15 +128,14 @@ public class MainActivity extends BaseFragmentActivity {
                         .title(getResources().getString(R.string.main_home))
                         .build()
         );
-//        models.add(
-//                new NavigationTabBar.Model.Builder(
-//                        getResources().getDrawable(R.drawable.main_meet),
-//                        Color.parseColor(colors[1]))
-//                        .selectedIcon(getResources().getDrawable(R.drawable.main_meet_selected))
-//                        .title("Cup")
-//                        .badgeTitle("with")
-//                        .build()
-//        );
+        models.add(
+                new NavigationTabBar.Model.Builder(
+                        getResources().getDrawable(R.drawable.main_meet),
+                        Color.parseColor(colors[1]))
+                        .selectedIcon(getResources().getDrawable(R.drawable.main_meet_selected))
+                        .title(getResources().getString(R.string.main_special))
+                        .build()
+        );
 //        models.add(
 //                new NavigationTabBar.Model.Builder(
 //                        getResources().getDrawable(R.drawable.main_specal),
@@ -140,7 +148,7 @@ public class MainActivity extends BaseFragmentActivity {
         models.add(
                 new NavigationTabBar.Model.Builder(
                         getResources().getDrawable(R.drawable.main_me),
-                        Color.parseColor(colors[1]))
+                        Color.parseColor(colors[2]))
                         .selectedIcon(getResources().getDrawable(R.drawable.main_me_selected))
                         .title(getResources().getString(R.string.main_my))
                         .build()
@@ -195,5 +203,15 @@ public class MainActivity extends BaseFragmentActivity {
             fragment.onActivityResult(requestCode, resultCode, data);
         }
     }
+
+    public void logout() {
+        TlsBusiness.logout(UserInfo.getInstance().getId());
+        UserInfo.getInstance().setId(null);
+        MessageEvent.getInstance().clear();
+        FriendshipInfo.getInstance().clear();
+        GroupInfo.getInstance().clear();
+
+    }
+
 
 }

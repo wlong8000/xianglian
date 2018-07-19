@@ -1,10 +1,6 @@
 package com.tencent.qcloud.presentation.presenter;
 
 import android.os.Handler;
-import android.util.Log;
-
-import com.tencent.TIMCallBack;
-import com.tencent.TIMFriendshipManager;
 import com.tencent.qcloud.presentation.viewfeatures.SplashView;
 
 
@@ -33,7 +29,7 @@ public class SplashPresenter {
                     view.navToLogin();
                 }
             }
-        }, 1000);
+        }, 2000);
     }
 
 

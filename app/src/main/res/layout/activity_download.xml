@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/common_dialog_bg"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="5dp"
+        android:background="@color/title" />
+
+
+    <TextView
+        android:id="@+id/download_title"
+        style="@style/Style_TextViewDialogTitle"
+        android:paddingBottom="15dp"
+        android:paddingTop="15dp"
+        android:text="@string/alt_downloadapk" />
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/listview_divider" />
+
+    <TextView
+        android:id="@+id/download_content"
+        style="@style/Style_TextViewDialog"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:lineSpacingExtra="5dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/confirm"
+        style="@style/Button_DialogConfirmNew"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/blue_btn"
+        android:text="@string/upgrade_currently"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/cancel"
+        style="@style/Button_DialogConfirmNew"
+        android:text="@string/upgrade_next_time"
+        android:textColor="@drawable/text_gray_blue1"
+        android:textSize="16sp" />
+
+    <View
+        android:id="@+id/bottom_line"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
+
+</LinearLayout>

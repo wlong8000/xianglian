@@ -29,9 +29,8 @@ public class InitBusiness {
         initImsdk(context);
     }
 
-
     /**
-     * 初始化imsdk
+     * 初始化imSdk
      */
     private static void initImsdk(Context context){
         //初始化imsdk
@@ -41,9 +40,5 @@ public class InitBusiness {
         Log.d(TAG, "initIMsdk");
 
     }
-
-
-
-
 
 }

@@ -17,6 +17,7 @@ import com.okhttplib.cookie.cache.SetCookieCache;
 import com.okhttplib.cookie.persistence.SharedPrefsCookiePersistor;
 import com.orhanobut.hawk.Hawk;
 import com.umeng.commonsdk.UMConfigure;
+import com.wl.appchat.MyApplication;
 import com.xianglian.love.utils.AppUtils;
 
 import java.io.File;
@@ -42,6 +43,7 @@ public class BaseApplication extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
         baseApplication = this;
+        MyApplication.mContext = this;
         Fabric.with(this, new Crashlytics());
         logUser();
         Fresco.initialize(this);

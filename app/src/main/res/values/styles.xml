@@ -499,6 +499,17 @@
         <item name="android:textColor">@color/lib_color_font7</item>
     </style>
 
+    <style name="Style_TextViewDialogTitle" parent="Style_TextViewDefault">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:paddingRight">15dp</item>
+        <item name="android:paddingLeft">15dp</item>
+        <item name="android:textColor">#333333</item>
+        <item name="android:textSize">18.0sp</item>
+    </style>
+
     <string-array name="default_preview2">
         <item>#ffffff</item>
         <item>#ffffff</item>

@@ -587,4 +587,14 @@ public class AppUtils {
         return new UUID(m_szDevIDShort.hashCode(), serial.hashCode()).toString();
     }
 
+    public static long string2Long(String text) {
+        if (TextUtils.isEmpty(text)) return 0;
+        try {
+            return Long.parseLong(text);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
 }

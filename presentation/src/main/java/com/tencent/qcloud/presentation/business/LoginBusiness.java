@@ -14,18 +14,18 @@ public class LoginBusiness {
 
     private static final String TAG = "LoginBusiness";
 
-    private LoginBusiness(){}
-
+    private LoginBusiness() {
+    }
 
 
     /**
      * 登录imsdk
      *
      * @param identify 用户id
-     * @param userSig 用户签名
+     * @param userSig  用户签名
      * @param callBack 登录后回调
      */
-    public static void loginIm(String identify, String userSig, TIMCallBack callBack){
+    public static void loginIm(String identify, String userSig, TIMCallBack callBack) {
 
         if (identify == null || userSig == null) return;
         TIMUser user = new TIMUser();
@@ -45,7 +45,7 @@ public class LoginBusiness {
      *
      * @param callBack 登出后回调
      */
-    public static void logout(TIMCallBack callBack){
+    public static void logout(TIMCallBack callBack) {
         TIMManager.getInstance().logout(callBack);
     }
 }

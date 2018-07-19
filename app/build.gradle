@@ -89,6 +89,9 @@ dependencies {
     compile 'com.android.support:multidex:1.0.3'
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation project(':AppCore')
+
+    compile 'com.google.firebase:firebase-core:9.0.0'
+    compile 'com.google.firebase:firebase-messaging:9.0.0'
 }
 
 //task依赖讲解
