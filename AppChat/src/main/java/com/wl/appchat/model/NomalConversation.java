@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.tencent.TIMConversation;
 import com.tencent.TIMConversationType;
+import com.wl.appchat.ChatActivity;
 import com.wl.appchat.MyApplication;
 import com.wl.appchat.R;
 
@@ -52,7 +53,7 @@ public class NomalConversation extends Conversation {
     @Override
     public void navToDetail(Context context) {
         //todo
-//        ChatActivity.navToChat(context,identify,type);
+        ChatActivity.navToChat(context,identify,type);
     }
 
     /**
