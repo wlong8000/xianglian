@@ -16,12 +16,12 @@ public class MessageEvent extends Observable implements TIMMessageListener {
 
     private volatile static MessageEvent instance;
 
-    private MessageEvent(){
+    private MessageEvent() {
         //注册消息监听器
         TIMManager.getInstance().addMessageListener(this);
     }
 
-    public static MessageEvent getInstance(){
+    public static MessageEvent getInstance() {
         if (instance == null) {
             synchronized (MessageEvent.class) {
                 if (instance == null) {
@@ -34,7 +34,7 @@ public class MessageEvent extends Observable implements TIMMessageListener {
 
     @Override
     public boolean onNewMessages(List<TIMMessage> list) {
-        for (TIMMessage item:list){
+        for (TIMMessage item : list) {
             setChanged();
             notifyObservers(item);
         }
@@ -44,7 +44,7 @@ public class MessageEvent extends Observable implements TIMMessageListener {
     /**
      * 主动通知新消息
      */
-    public void onNewMessage(TIMMessage message){
+    public void onNewMessage(TIMMessage message) {
         setChanged();
         notifyObservers(message);
     }
@@ -52,7 +52,7 @@ public class MessageEvent extends Observable implements TIMMessageListener {
     /**
      * 清理消息监听
      */
-    public void clear(){
+    public void clear() {
         instance = null;
     }
 }

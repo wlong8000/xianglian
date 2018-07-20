@@ -38,65 +38,63 @@ public class UpdateUtil {
         Trace.d(TAG, "checkVersion2");
         final int versionCode = BuildConfig.VERSION_CODE;
         System.out.print("checkVersion2" + versionCode);
-        final GetRequest<UpdateEntity> request = OkGo.get(Config.PATH + "upgrade/");
-        request.execute(new JsonCallBack<UpdateEntity>(UpdateEntity.class) {
+        final GetRequest<UpdateEntity.DataBean> request = OkGo.get(Config.PATH + "upgrade/");
+        request.execute(new JsonCallBack<UpdateEntity.DataBean>(UpdateEntity.DataBean.class) {
             @Override
-            public void onSuccess(Response<UpdateEntity> response) {
+            public void onSuccess(Response<UpdateEntity.DataBean> response) {
                 Trace.d(TAG, "请求成功");
                 System.out.println("请求成功");
                 if (response == null) return;
                 Trace.d(TAG, "response " + response.body());
                 System.out.println("response " + response.body());
-                UpdateEntity updateEntity = response.body();
-                if (updateEntity == null || updateEntity.getData() == null || updateEntity.getData().isEmpty()) {
+                UpdateEntity.DataBean updateEntity = response.body();
+                if (updateEntity == null) {
                     return;
                 }
                 Trace.d(TAG, " updateEntity");
                 System.out.println(" updateEntity");
-                UpdateEntity.DataBean dataBean = updateEntity.getData().get(0);
-                if (dataBean == null) return;
 
                 String time = Hawk.get("upgrade_time");
 
-                boolean timeX = System.currentTimeMillis() - AppUtils.stringToInt(time) < HOUR * AppUtils.stringToInt(dataBean.getAlert_time());
+                boolean timeX = System.currentTimeMillis() - AppUtils.stringToInt(time) < HOUR * AppUtils.stringToInt(updateEntity.getAlert_time());
                 Trace.d(TAG, " time r = " + timeX);
                 System.out.println(" time r = " + timeX);
-                boolean limitX = TextUtils.isEmpty(dataBean.getOs_version_limit());
-                Trace.d(TAG, " limitX r = " + limitX + ", version = " + dataBean.getVersion() + ", version2 = " + versionCode);
-                Trace.d(TAG, " updateVersion r = " + !updateVersionByOSVersion(dataBean));
-                if (System.currentTimeMillis() - AppUtils.string2Long(time) < HOUR * AppUtils.stringToInt(dataBean.getAlert_time())) {
+                boolean limitX = TextUtils.isEmpty(updateEntity.getOs_version_limit());
+                Trace.d(TAG, " limitX r = " + limitX + ", version = " + updateEntity.getVersion() + ", version2 = " + versionCode);
+                Trace.d(TAG, " updateVersion r = " + !updateVersionByOSVersion(updateEntity));
+                if (System.currentTimeMillis() - AppUtils.string2Long(time) < HOUR * AppUtils.stringToInt(updateEntity.getAlert_time())) {
                     return;
                 }
-                if (dataBean.getVersion() <= versionCode) return;
+                if (updateEntity.getVersion() <= versionCode) return;
 
-                if (!updateVersionByOSVersion(dataBean)) {
+                if (!updateVersionByOSVersion(updateEntity)) {
                     return;
                 }
                 Trace.d(TAG, "该弹窗了啊 ");
                 System.out.print("该弹窗了啊 ");
                 Hawk.put("upgrade_time", System.currentTimeMillis() + "");
                 DownloadModel model = new DownloadModel();
-                model.setDesc(dataBean.getDesc());
+                model.setDesc(updateEntity.getDesc());
                 Context context = BaseApplication.baseApplication;
                 model.setTitle(context.getString(R.string.app_version_upgrade_title)
-                        + (TextUtils.isEmpty(dataBean.getVersion_display()) ? ""
-                        : (" (" + dataBean.getVersion_display() + ")")));
+                        + (TextUtils.isEmpty(updateEntity.getVersion_display()) ? ""
+                        : (" (" + updateEntity.getVersion_display() + ")")));
                 model.setUpgrade(true);
                 model.setNotificationTitle(
                         context.getString(R.string.app_version_upgrade_title));
                 model.setNotificationDesc(
                         context.getString(R.string.app_version_upgrade_notif_desc));
-                model.setFilename("dongqiudi_news_" + dataBean.getVersion() + ".apk");
-                model.setUrl(dataBean.getUrl());
-                Trace.d(TAG, "dataBean.getIs_mandatory()  " + dataBean.getIs_mandatory());
-                model.setIs_mandatory(dataBean.getIs_mandatory());
+                model.setFilename("dongqiudi_news_" + updateEntity.getVersion() + ".apk");
+                model.setUrl(updateEntity.getUrl());
+                Trace.d(TAG, "dataBean.getIs_mandatory()  " + updateEntity.getIs_mandatory());
+                model.setIs_mandatory(updateEntity.getIs_mandatory());
 
                 showDownloadDialog(context1, model);
 
             }
 
             @Override
-            public void onError(Response<UpdateEntity> response) {
+            public void onError(Response<UpdateEntity.DataBean> response) {
                 super.onError(response);
                 Trace.d(TAG, "error response " + response.body());
                 System.out.print("error response " + response.body());

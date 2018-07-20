@@ -13,6 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.tencent.TIMConversationType;
+import com.wl.appchat.ChatActivity;
 import com.xianglian.love.BaseActivity;
 import com.xianglian.love.R;
 import com.xianglian.love.utils.StatusbarUtil;
@@ -121,6 +123,7 @@ public class PersonDetailActivity extends BaseActivity implements View.OnClickLi
 //                doLikeRequest(mId);
                 break;
             case R.id.change_qq:
+                ChatActivity.navToChat(this, "root2", TIMConversationType.C2C);
                 break;
             case R.id.change_wx:
                 break;
@@ -129,16 +132,6 @@ public class PersonDetailActivity extends BaseActivity implements View.OnClickLi
                 break;
         }
     }
-
-//    private void showEditDialog() {
-//        EditDialog dialog = new EditDialog(this) {
-//            @Override
-//            public void onConfirm(String text) {
-//                doLeaveMsgRequest(text);
-//            }
-//        };
-//        dialog.show();
-//    }
 
     class MyBaseAdapter extends FragmentStatePagerAdapter {
         Fragment[] fragments = new Fragment[] {

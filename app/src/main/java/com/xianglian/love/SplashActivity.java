@@ -122,8 +122,8 @@ public class SplashActivity extends BaseActivity implements SplashView, TIMCallB
         FriendshipEvent.getInstance().init();
         GroupEvent.getInstance().init();
 //        LoginBusiness.loginIm(UserInfo.getInstance().getId(), UserInfo.getInstance().getUserSig(), this);
-        LoginBusiness.loginIm("root2",
-                "eJxFkFFPgzAUhf8Lz0buLRTExIeNNYY4QjadPjZIC6tDWks3Hcb-LhIWX78vJ-ee8*09rR*vS2OU4KXjgRXerQfe1YTll1FW8rJ20o4YKaUE4GJP0vZKd6MggBRJAPAvlZCdU7WaglZrR2bRq2YkOdul2WZFd6vtUCMM9r7Ct-XG-1x2IROtgea5HxqV5XkRt7JNiyZrikO8aLF*eSA*AvVZsnhlLDnp6AOi-uyO-j5Yir3YpsDuLsfEgU-d-r4PARDDIE5m6dS7nFoFmERxmNzMvKwqfewcd2cjpzF*fgEZHlZ4", this);
+        LoginBusiness.loginIm("admin123",
+                "eJxFkNFOwjAUQP9lrxpt1xbEhIcFnRBdxrIF9akpWwcXWTdKcVTjv1sbFl-PuTc3534HxUt*I7oOKi4MJ7oK7gMUXHsszx1oyUVtpHYYM8ZChAb7KfURWuVEiDDDIUHoX0IllYEa-KKoGlBu4OKOsHEwecxmi4e62IzTRaO*1La3s-XqbJ9eizhJ8je23tMrG*nyuR1lgCGCyGYizXcixcntfK96aDXMlzF5P8hTEWYjSvtDXK*2d8tdP50Ox6oP7vP*AihCGFMynlykgUb6MOISEJkMXJRle1KGG9tJ-4*fX-dbWSk_", this);
 
 //        gotoMainActivity();
     }
