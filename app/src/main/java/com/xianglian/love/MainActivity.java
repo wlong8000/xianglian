@@ -166,7 +166,6 @@ public class MainActivity extends BaseFragmentActivity {
 
             }
         });
-
     }
 
     private void showBadge(final NavigationTabBar navigationTabBar, final String message) {
