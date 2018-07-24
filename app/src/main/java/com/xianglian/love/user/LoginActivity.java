@@ -61,8 +61,8 @@ public class LoginActivity extends BaseLoginActivity implements OnClickListener 
         setContentView(R.layout.activity_login);
         setupTitle(getString(R.string.login), getString(R.string.register));
 
-        mUserNameView = (AutoCompleteTextView) findViewById(R.id.user_name);
-        mPasswordView = (EditText) findViewById(R.id.password);
+        mUserNameView = findViewById(R.id.user_name);
+        mPasswordView = findViewById(R.id.password);
         findViewById(R.id.login_button).setOnClickListener(this);
         findViewById(R.id.register).setOnClickListener(this);
         autoLogin();
@@ -136,7 +136,6 @@ public class LoginActivity extends BaseLoginActivity implements OnClickListener 
                             toast(TextUtils.isEmpty(ownerEntity.getMsg()) ? getString(R.string.request_fail) : ownerEntity.getMsg());
                             return;
                         }
-//                        ACache.get(LoginActivity.this).put(Config.KEY_USER, result);
                         Hawk.put(Keys.TOKEN, ownerEntity.getToken());
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         finish();

@@ -164,35 +164,35 @@ public class MarkTagActivity extends BaseUserInfoActivity implements View.OnClic
     }
 
     private void updateTag(String tagList) {
-        final String url = Config.PATH + "user/set/tags";
-        Map<String, String> params = new HashMap<>();
-        params.put("uid", getUserId(this));
-        params.put("tag_ids", tagList);
-        OkHttpUtil.getDefault(this).doPostAsync(
-                HttpInfo.Builder().setUrl(url).addHeads(getHeader()).addParams(params).build(),
-                new Callback() {
-                    @Override
-                    public void onFailure(HttpInfo info) throws IOException {
-                        toast(getString(R.string.request_fail));
-                    }
-
-                    @Override
-                    public void onSuccess(HttpInfo info) throws IOException {
-                        String result = info.getRetDetail();
-                        if (result != null) {
-                            try {
-                                JSONObject object = new JSONObject(result);
-                                String msg = object.getString("msg");
-                                if (!TextUtils.isEmpty(msg)) {
-                                    showToast(msg);
-                                }
-                                int code = object.getInt("code");
-                            } catch (org.json.JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                });
+//        final String url = Config.PATH + "user/set/tags";
+//        Map<String, String> params = new HashMap<>();
+//        params.put("uid", getUserId(this));
+//        params.put("tag_ids", tagList);
+//        OkHttpUtil.getDefault(this).doPostAsync(
+//                HttpInfo.Builder().setUrl(url).addHeads(getHeader()).addParams(params).build(),
+//                new Callback() {
+//                    @Override
+//                    public void onFailure(HttpInfo info) throws IOException {
+//                        toast(getString(R.string.request_fail));
+//                    }
+//
+//                    @Override
+//                    public void onSuccess(HttpInfo info) throws IOException {
+//                        String result = info.getRetDetail();
+//                        if (result != null) {
+//                            try {
+//                                JSONObject object = new JSONObject(result);
+//                                String msg = object.getString("msg");
+//                                if (!TextUtils.isEmpty(msg)) {
+//                                    showToast(msg);
+//                                }
+//                                int code = object.getInt("code");
+//                            } catch (org.json.JSONException e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
+//                    }
+//                });
     }
 
 }

@@ -17,9 +17,10 @@ import com.wl.appchat.model.GroupInfo;
 import com.wl.appchat.model.UserInfo;
 import com.xianglian.love.main.home.BaseHomeFragment;
 import com.xianglian.love.main.home.SearchActivity;
+import com.xianglian.love.main.home.been.UserEntity;
 import com.xianglian.love.main.me.BaseMeFragment;
-import com.xianglian.love.utils.AppUtils;
 import com.xianglian.love.utils.UpdateUtil;
+import com.xianglian.love.utils.UserUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +41,8 @@ public class MainActivity extends BaseFragmentActivity {
 
     private int mCurrentPage;
 
+    private UserEntity mUserEntity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,12 +52,11 @@ public class MainActivity extends BaseFragmentActivity {
         setupTitle(getString(R.string.meet_you), R.drawable.btn_menu_normal);
         mViewPager = findViewById(R.id.vp_container);
 
+        mUserEntity = UserUtils.getUserEntity();
+
         initFragment();
         mAdapter = new MainAdapter(getSupportFragmentManager(), mFragments);
         initUI();
-        if (AppUtils.isLogin(this)) {
-            AppService.startSaveUser(this);
-        }
         //检查版本更新
         UpdateUtil.checkVersion(this);
     }

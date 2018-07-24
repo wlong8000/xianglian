@@ -1,6 +1,5 @@
 package base;
 
-import android.app.Application;
 import android.os.Environment;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
@@ -20,10 +19,10 @@ import com.orhanobut.hawk.Hawk;
 import com.umeng.commonsdk.UMConfigure;
 import com.wl.appchat.MyApplication;
 import com.xianglian.love.AppService;
-import com.xianglian.love.config.Keys;
 import com.xianglian.love.main.home.been.UserEntity;
 import com.xianglian.love.utils.AppUtils;
 import com.xianglian.love.utils.Trace;
+import com.xianglian.love.utils.UserUtils;
 
 import java.io.File;
 
@@ -55,11 +54,18 @@ public class BaseApplication extends MultiDexApplication {
         Stetho.initializeWithDefaults(this);
         Hawk.init(this).build();
         MultiDex.install(this);
-        UserEntity userEntity = Hawk.get(Keys.USER_INFO);
+
+        if (AppUtils.isLogin(this)) {
+            AppService.startSaveUser(this);
+        }
+
+        UserEntity userEntity = UserUtils.getUserEntity();
         Trace.d(TAG, "userEntity = " + userEntity);
+
         if (userEntity != null) {
             Trace.d(TAG, "username = " + userEntity.getUsername());
         }
+
         if (userEntity != null && !TextUtils.isEmpty(userEntity.getUsername())) {
             AppService.startUpdateTimSign(this, userEntity.getUsername());
         }

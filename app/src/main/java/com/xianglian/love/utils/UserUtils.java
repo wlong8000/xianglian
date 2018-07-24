@@ -6,8 +6,11 @@ import android.support.annotation.ArrayRes;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
+import com.orhanobut.hawk.Hawk;
 import com.xianglian.love.R;
+import com.xianglian.love.config.Keys;
 import com.xianglian.love.main.home.been.UserDetailEntity;
+import com.xianglian.love.main.home.been.UserEntity;
 import com.xianglian.love.user.been.ItemInfo;
 
 import java.util.ArrayList;
@@ -243,6 +246,10 @@ public class UserUtils {
             list.add("出生地/" + entity.getBorn_area_name());
         }
         return list;
+    }
+
+    public static UserEntity getUserEntity() {
+        return Hawk.get(Keys.USER_INFO);
     }
 
 }
