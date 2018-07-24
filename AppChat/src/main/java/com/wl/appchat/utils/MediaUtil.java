@@ -16,17 +16,15 @@ import java.io.IOException;
 public class MediaUtil {
 
     private static final String TAG = "MediaUtil";
-
+    private static MediaUtil instance = new MediaUtil();
     private MediaPlayer player;
     private EventListener eventListener;
 
-    private MediaUtil(){
+    private MediaUtil() {
         player = new MediaPlayer();
     }
 
-    private static MediaUtil instance = new MediaUtil();
-
-    public static MediaUtil getInstance(){
+    public static MediaUtil getInstance() {
         return instance;
     }
 
@@ -36,7 +34,7 @@ public class MediaUtil {
 
 
     public void setEventListener(final EventListener eventListener) {
-        if (player != null){
+        if (player != null) {
             player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
@@ -47,16 +45,16 @@ public class MediaUtil {
         this.eventListener = eventListener;
     }
 
-    public void play(FileInputStream inputStream){
-        try{
-            if (eventListener != null){
+    public void play(FileInputStream inputStream) {
+        try {
+            if (eventListener != null) {
                 eventListener.onStop();
             }
             player.reset();
             player.setDataSource(inputStream.getFD());
             player.prepare();
             player.start();
-        }catch (IOException e){
+        } catch (IOException e) {
             Log.e(TAG, "play error:" + e);
         }
 
@@ -64,13 +62,13 @@ public class MediaUtil {
     }
 
 
-    public void stop(){
-        if (player != null && player.isPlaying()){
+    public void stop() {
+        if (player != null && player.isPlaying()) {
             player.stop();
         }
     }
 
-    public long getDuration(String path){
+    public long getDuration(String path) {
         player = MediaPlayer.create(MyApplication.getContext(), Uri.parse(path));
         return player.getDuration();
     }
@@ -79,7 +77,7 @@ public class MediaUtil {
     /**
      * 播放器事件监听
      */
-    public interface EventListener{
+    public interface EventListener {
         void onStop();
     }
 }

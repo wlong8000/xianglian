@@ -20,22 +20,20 @@ import java.util.Observer;
  */
 public class FriendshipInfo extends Observable implements Observer {
 
+    private static FriendshipInfo instance;
     private final String TAG = "FriendshipInfo";
-
     private List<String> groups;
     private Map<String, List<FriendProfile>> friends;
 
-    private static FriendshipInfo instance;
-
-    private FriendshipInfo(){
+    private FriendshipInfo() {
         groups = new ArrayList<>();
         friends = new HashMap<>();
         FriendshipEvent.getInstance().addObserver(this);
         refresh();
     }
 
-    public synchronized static FriendshipInfo getInstance(){
-        if (instance == null){
+    public synchronized static FriendshipInfo getInstance() {
+        if (instance == null) {
             instance = new FriendshipInfo();
         }
         return instance;
@@ -51,11 +49,11 @@ public class FriendshipInfo extends Observable implements Observer {
      */
     @Override
     public void update(Observable observable, Object data) {
-        if (observable instanceof FriendshipEvent){
-            if (data instanceof FriendshipEvent.NotifyCmd){
+        if (observable instanceof FriendshipEvent) {
+            if (data instanceof FriendshipEvent.NotifyCmd) {
                 FriendshipEvent.NotifyCmd cmd = (FriendshipEvent.NotifyCmd) data;
                 Log.d(TAG, "get notify type:" + cmd.type);
-                switch (cmd.type){
+                switch (cmd.type) {
                     case REFRESH:
                     case DEL:
                     case ADD:
@@ -71,16 +69,16 @@ public class FriendshipInfo extends Observable implements Observer {
     }
 
 
-    private void refresh(){
+    private void refresh() {
         groups.clear();
         friends.clear();
         Log.d(TAG, "get friendship info id :" + UserInfo.getInstance().getId());
         List<TIMFriendGroup> timFriendGroups = TIMFriendshipProxy.getInstance().getFriendsByGroups(null);
         if (timFriendGroups == null) return;
-        for (TIMFriendGroup group : timFriendGroups){
+        for (TIMFriendGroup group : timFriendGroups) {
             groups.add(group.getGroupName());
             List<FriendProfile> friendItemList = new ArrayList<>();
-            for (TIMUserProfile profile : group.getProfiles()){
+            for (TIMUserProfile profile : group.getProfiles()) {
                 friendItemList.add(new FriendProfile(profile));
             }
             friends.put(group.getGroupName(), friendItemList);
@@ -92,11 +90,11 @@ public class FriendshipInfo extends Observable implements Observer {
     /**
      * 获取分组列表
      */
-    public List<String> getGroups(){
+    public List<String> getGroups() {
         return groups;
     }
 
-    public String[] getGroupsArray(){
+    public String[] getGroupsArray() {
         return groups.toArray(new String[groups.size()]);
     }
 
@@ -104,7 +102,7 @@ public class FriendshipInfo extends Observable implements Observer {
     /**
      * 获取好友列表摘要
      */
-    public Map<String, List<FriendProfile>> getFriends(){
+    public Map<String, List<FriendProfile>> getFriends() {
         return friends;
     }
 
@@ -113,9 +111,9 @@ public class FriendshipInfo extends Observable implements Observer {
      *
      * @param identify 需判断的identify
      */
-    public boolean isFriend(String identify){
-        for (String key : friends.keySet()){
-            for (FriendProfile profile : friends.get(key)){
+    public boolean isFriend(String identify) {
+        for (String key : friends.keySet()) {
+            for (FriendProfile profile : friends.get(key)) {
                 if (identify.equals(profile.getIdentify())) return true;
             }
         }
@@ -128,9 +126,9 @@ public class FriendshipInfo extends Observable implements Observer {
      *
      * @param identify 好友id
      */
-    public FriendProfile getProfile(String identify){
-        for (String key : friends.keySet()){
-            for (FriendProfile profile : friends.get(key)){
+    public FriendProfile getProfile(String identify) {
+        for (String key : friends.keySet()) {
+            for (FriendProfile profile : friends.get(key)) {
                 if (identify.equals(profile.getIdentify())) return profile;
             }
         }
@@ -140,7 +138,7 @@ public class FriendshipInfo extends Observable implements Observer {
     /**
      * 清除数据
      */
-    public void clear(){
+    public void clear() {
         if (instance == null) return;
         groups.clear();
         friends.clear();

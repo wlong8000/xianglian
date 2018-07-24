@@ -8,19 +8,24 @@ import com.tencent.qcloud.presentation.viewfeatures.SplashView;
  * 闪屏界面逻辑
  */
 public class SplashPresenter {
-    SplashView view;
     private static final String TAG = SplashPresenter.class.getSimpleName();
 
-    public SplashPresenter(SplashView view) {
-        this.view = view;
-    }
+    private SplashView view;
 
+    private int mDisplayTime;
+
+    private Handler mHandler = new Handler();
+
+    public SplashPresenter(SplashView view, int display) {
+        this.view = view;
+        this.mDisplayTime = display;
+    }
 
     /**
      * 加载页面逻辑
      */
     public void start() {
-        new Handler().postDelayed(new Runnable() {
+        mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 if (view.isUserLogin()) {
@@ -29,7 +34,11 @@ public class SplashPresenter {
                     view.navToLogin();
                 }
             }
-        }, 2000);
+        }, mDisplayTime);
+    }
+
+    public void stop() {
+        mHandler.removeCallbacksAndMessages(null);
     }
 
 

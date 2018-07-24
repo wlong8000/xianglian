@@ -111,7 +111,8 @@ public class SplashActivity extends BaseActivity implements SplashView, TIMCallB
         String id = TLSService.getInstance().getLastUserIdentifier();
         UserInfo.getInstance().setId(id);
         UserInfo.getInstance().setUserSig(TLSService.getInstance().getUserSig(id));
-        mPresenter = new SplashPresenter(this);
+        mPresenter = new SplashPresenter(this, mConfigEntity != null
+                ? Integer.parseInt(mConfigEntity.getSplash_time()) * 1000 : 2000);
         mPresenter.start();
     }
 
@@ -120,6 +121,7 @@ public class SplashActivity extends BaseActivity implements SplashView, TIMCallB
     public void finish() {
         super.finish();
         this.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        if (mPresenter != null) mPresenter.stop();
     }
 
     @Override

@@ -33,25 +33,25 @@ public class ImageMessage extends Message {
     private static final String TAG = "ImageMessage";
     private boolean isDownloading;
 
-    public ImageMessage(TIMMessage message){
+    public ImageMessage(TIMMessage message) {
         this.message = message;
     }
 
-    public ImageMessage(String path){
+    public ImageMessage(String path) {
         this(path, false);
     }
 
     /**
      * 图片消息构造函数
      *
-     * @param path 图片路径
+     * @param path  图片路径
      * @param isOri 是否原图发送
      */
-    public ImageMessage(String path, boolean isOri){
+    public ImageMessage(String path, boolean isOri) {
         message = new TIMMessage();
         TIMImageElem elem = new TIMImageElem();
         elem.setPath(path);
-        elem.setLevel(isOri?0:1);
+        elem.setLevel(isOri ? 0 : 1);
         message.addElement(elem);
     }
 
@@ -60,13 +60,13 @@ public class ImageMessage extends Message {
      * 显示消息
      *
      * @param viewHolder 界面样式
-     * @param context 显示消息的上下文
+     * @param context    显示消息的上下文
      */
     @Override
     public void showMessage(final ChatAdapter.ViewHolder viewHolder, final Context context) {
         clearView(viewHolder);
         TIMImageElem e = (TIMImageElem) message.getElement(0);
-        switch (message.status()){
+        switch (message.status()) {
             case Sending:
 
                 ImageView imageView = new ImageView(MyApplication.getContext());
@@ -75,12 +75,12 @@ public class ImageMessage extends Message {
                 getBubbleView(viewHolder).addView(imageView);
                 break;
             case SendSucc:
-                for(final TIMImage image : e.getImageList()) {
-                    if (image.getType() == TIMImageType.Thumb){
+                for (final TIMImage image : e.getImageList()) {
+                    if (image.getType() == TIMImageType.Thumb) {
                         final String uuid = image.getUuid();
-                        if (FileUtil.isCacheFileExist(uuid)){
-                            showThumb(viewHolder,uuid);
-                        }else{
+                        if (FileUtil.isCacheFileExist(uuid)) {
+                            showThumb(viewHolder, uuid);
+                        } else {
                             image.getImage(new TIMValueCallBack<byte[]>() {
                                 @Override
                                 public void onError(int code, String desc) {//获取图片失败
@@ -92,12 +92,12 @@ public class ImageMessage extends Message {
                                 @Override
                                 public void onSuccess(byte[] data) {//成功，参数为图片数据
                                     FileUtil.createFile(data, uuid);
-                                    showThumb(viewHolder,uuid);
+                                    showThumb(viewHolder, uuid);
                                 }
                             });
                         }
                     }
-                    if (image.getType() == TIMImageType.Original){
+                    if (image.getType() == TIMImageType.Original) {
                         final String uuid = image.getUuid();
 //                        setImageEvent(viewHolder, uuid,context);
                         getBubbleView(viewHolder).setOnClickListener(new View.OnClickListener() {
@@ -129,7 +129,7 @@ public class ImageMessage extends Message {
     @Override
     public void save() {
         final TIMImageElem e = (TIMImageElem) message.getElement(0);
-        for(TIMImage image : e.getImageList()) {
+        for (TIMImage image : e.getImageList()) {
             if (image.getType() == TIMImageType.Original) {
                 final String uuid = image.getUuid();
                 image.getImage(new TIMValueCallBack<byte[]>() {
@@ -140,7 +140,7 @@ public class ImageMessage extends Message {
 
                     @Override
                     public void onSuccess(byte[] bytes) {
-                        if (FileUtil.createFile(bytes, uuid+".jpg", Environment.DIRECTORY_DOWNLOADS)) {
+                        if (FileUtil.createFile(bytes, uuid + ".jpg", Environment.DIRECTORY_DOWNLOADS)) {
                             Toast.makeText(MyApplication.getContext(), MyApplication.getContext().getString(R.string.save_succ), Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(MyApplication.getContext(), MyApplication.getContext().getString(R.string.save_fail), Toast.LENGTH_SHORT).show();
@@ -156,17 +156,17 @@ public class ImageMessage extends Message {
      * 缩略图是将原图等比压缩，压缩后宽、高中较小的一个等于198像素
      * 详细信息参见文档
      */
-    private Bitmap getThumb(String path){
+    private Bitmap getThumb(String path) {
         final BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(path, options);
-        int reqWidth, reqHeight, width=options.outWidth, height=options.outHeight;
-        if (width > height){
+        int reqWidth, reqHeight, width = options.outWidth, height = options.outHeight;
+        if (width > height) {
             reqWidth = 198;
-            reqHeight = (reqWidth * height)/width;
-        }else{
+            reqHeight = (reqWidth * height) / width;
+        } else {
             reqHeight = 198;
-            reqWidth = (width * reqHeight)/height;
+            reqWidth = (width * reqHeight) / height;
         }
         int inSampleSize = 1;
         if (height > reqHeight || width > reqWidth) {
@@ -177,14 +177,14 @@ public class ImageMessage extends Message {
                 inSampleSize *= 2;
             }
         }
-        try{
+        try {
             options.inSampleSize = inSampleSize;
             options.inJustDecodeBounds = false;
             Matrix mat = new Matrix();
             Bitmap bitmap = BitmapFactory.decodeFile(path, options);
-            ExifInterface ei =  new ExifInterface(path);
+            ExifInterface ei = new ExifInterface(path);
             int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
-            switch(orientation) {
+            switch (orientation) {
                 case ExifInterface.ORIENTATION_ROTATE_90:
                     mat.postRotate(90);
                     break;
@@ -193,19 +193,19 @@ public class ImageMessage extends Message {
                     break;
             }
             return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), mat, true);
-        }catch (IOException e){
+        } catch (IOException e) {
             return null;
         }
     }
 
-    private void showThumb(final ChatAdapter.ViewHolder viewHolder,String filename){
+    private void showThumb(final ChatAdapter.ViewHolder viewHolder, String filename) {
         Bitmap bitmap = BitmapFactory.decodeFile(FileUtil.getCacheFilePath(filename));
         ImageView imageView = new ImageView(MyApplication.getContext());
         imageView.setImageBitmap(bitmap);
         getBubbleView(viewHolder).addView(imageView);
     }
 
-    private void setImageEvent(final ChatAdapter.ViewHolder viewHolder, final String fileName,final Context context){
+    private void setImageEvent(final ChatAdapter.ViewHolder viewHolder, final String fileName, final Context context) {
         getBubbleView(viewHolder).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -217,14 +217,14 @@ public class ImageMessage extends Message {
         });
     }
 
-    private void navToImageview(final TIMImage image, final Context context){
-        if (FileUtil.isCacheFileExist(image.getUuid())){
+    private void navToImageview(final TIMImage image, final Context context) {
+        if (FileUtil.isCacheFileExist(image.getUuid())) {
             //todo
 //            Intent intent = new Intent(context, ImageViewActivity.class);
 //            intent.putExtra("filename", image.getUuid());
 //            context.startActivity(intent);
-        }else{
-            if (!isDownloading){
+        } else {
+            if (!isDownloading) {
                 isDownloading = true;
                 image.getImage(FileUtil.getCacheFilePath(image.getUuid()), new TIMCallBack() {
                     @Override
@@ -245,7 +245,7 @@ public class ImageMessage extends Message {
 //                        context.startActivity(intent);
                     }
                 });
-            }else{
+            } else {
                 Toast.makeText(context, MyApplication.getContext().getString(R.string.downloading), Toast.LENGTH_SHORT).show();
             }
         }

@@ -32,12 +32,11 @@ public class VideoMessage extends Message {
     private static final String TAG = "VideoMessage";
 
 
-
-    public VideoMessage(TIMMessage message){
+    public VideoMessage(TIMMessage message) {
         this.message = message;
     }
 
-    public VideoMessage(String fileName){
+    public VideoMessage(String fileName) {
         message = new TIMMessage();
         TIMVideoElem elem = new TIMVideoElem();
         elem.setVideoPath(FileUtil.getCacheFilePath(fileName));
@@ -59,22 +58,22 @@ public class VideoMessage extends Message {
      * 显示消息
      *
      * @param viewHolder 界面样式
-     * @param context 显示消息的上下文
+     * @param context    显示消息的上下文
      */
     @Override
     public void showMessage(final ChatAdapter.ViewHolder viewHolder, final Context context) {
         clearView(viewHolder);
         final TIMVideoElem e = (TIMVideoElem) message.getElement(0);
-        switch (message.status()){
+        switch (message.status()) {
             case Sending:
-                showSnapshot(viewHolder,BitmapFactory.decodeFile(e.getSnapshotPath(), new BitmapFactory.Options()));
+                showSnapshot(viewHolder, BitmapFactory.decodeFile(e.getSnapshotPath(), new BitmapFactory.Options()));
                 break;
             case SendSucc:
 
                 final TIMSnapshot snapshot = e.getSnapshotInfo();
-                if (FileUtil.isCacheFileExist(snapshot.getUuid())){
-                    showSnapshot(viewHolder,BitmapFactory.decodeFile(FileUtil.getCacheFilePath(snapshot.getUuid()), new BitmapFactory.Options()));
-                }else{
+                if (FileUtil.isCacheFileExist(snapshot.getUuid())) {
+                    showSnapshot(viewHolder, BitmapFactory.decodeFile(FileUtil.getCacheFilePath(snapshot.getUuid()), new BitmapFactory.Options()));
+                } else {
                     snapshot.getImage(FileUtil.getCacheFilePath(snapshot.getUuid()), new TIMCallBack() {
                         @Override
                         public void onError(int i, String s) {
@@ -97,11 +96,11 @@ public class VideoMessage extends Message {
 
                         @Override
                         public void onSuccess() {
-                            setVideoEvent(viewHolder,fileName,context);
+                            setVideoEvent(viewHolder, fileName, context);
                         }
                     });
-                }else{
-                    setVideoEvent(viewHolder,fileName,context);
+                } else {
+                    setVideoEvent(viewHolder, fileName, context);
                 }
                 break;
         }
@@ -128,14 +127,14 @@ public class VideoMessage extends Message {
     /**
      * 显示缩略图
      */
-    private void showSnapshot(final ChatAdapter.ViewHolder viewHolder,final Bitmap bitmap){
+    private void showSnapshot(final ChatAdapter.ViewHolder viewHolder, final Bitmap bitmap) {
         if (bitmap == null) return;
         ImageView imageView = new ImageView(MyApplication.getContext());
         imageView.setImageBitmap(bitmap);
         getBubbleView(viewHolder).addView(imageView);
     }
 
-    private void showVideo(String path, Context context){
+    private void showVideo(String path, Context context) {
         if (context == null) return;
         //todo
 //        Intent intent = new Intent(context, VideoActivity.class);
@@ -143,11 +142,11 @@ public class VideoMessage extends Message {
 //        context.startActivity(intent);
     }
 
-    private void setVideoEvent(final ChatAdapter.ViewHolder viewHolder, final String fileName,final Context context){
+    private void setVideoEvent(final ChatAdapter.ViewHolder viewHolder, final String fileName, final Context context) {
         getBubbleView(viewHolder).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showVideo(FileUtil.getCacheFilePath(fileName),context);
+                showVideo(FileUtil.getCacheFilePath(fileName), context);
             }
         });
     }

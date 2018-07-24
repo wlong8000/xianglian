@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="240dp"
     android:layout_height="wrap_content"
-    android:layout_marginTop="100dp"
     android:layout_gravity="center_horizontal"
+    android:layout_marginTop="100dp"
     android:background="@color/white"
     android:orientation="vertical">
 
@@ -16,8 +16,8 @@
         android:gravity="center"
         android:text="@string/add_dialog_title"
         android:textColor="@color/black"
-        android:textStyle="bold"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -26,15 +26,14 @@
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:text="@string/add_dialog_subtitle"
-        android:textColor="@color/black"
-        />
+        android:textColor="@color/black" />
 
     <EditText
         android:id="@+id/input_group_name"
-        android:layout_marginTop="10dp"
         android:layout_width="180dp"
         android:layout_height="40dp"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
 
         />
 
@@ -49,22 +48,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/cancel"
-            android:textColor="@color/text_blue1"
-            android:gravity="center"
             android:layout_weight="1"
-            />
+            android:gravity="center"
+            android:text="@string/cancel"
+            android:textColor="@color/text_blue1" />
 
         <TextView
             android:id="@+id/confirm_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/confirm"
-            android:textColor="@color/text_blue1"
-            android:gravity="center"
             android:layout_weight="1"
-            />
+            android:gravity="center"
+            android:text="@string/confirm"
+            android:textColor="@color/text_blue1" />
     </LinearLayout>
 
 </LinearLayout>

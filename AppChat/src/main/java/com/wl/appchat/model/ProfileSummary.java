@@ -3,7 +3,6 @@ package com.wl.appchat.model;
 import android.content.Context;
 
 
-
 public interface ProfileSummary {
 
 

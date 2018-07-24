@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:moreImg="@drawable/ic_add_more"
-        app:titleText="@string/home_contact_tab"/>
+        app:titleText="@string/home_contact_tab" />
 
 
     <LinearLayout
@@ -20,91 +20,101 @@
         android:background="@color/white"
         android:gravity="center"
         android:orientation="horizontal">
+
         <LinearLayout
             android:id="@+id/btnNewFriend"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:layout_weight="1">
+            android:orientation="vertical">
+
             <ImageView
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:src="@drawable/friend"/>
+                android:src="@drawable/friend" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:text="@string/new_friend"
                 android:textColor="@color/black"
-                android:textSize="14sp"
-                android:text="@string/new_friend" />
+                android:textSize="14sp" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/btnPublicGroup"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:layout_weight="1">
+            android:orientation="vertical">
+
             <ImageView
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:src="@drawable/group"/>
+                android:src="@drawable/group" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
                 android:layout_marginTop="8dp"
-                android:textSize="14sp"
-                android:text="@string/public_group" />
+                android:text="@string/public_group"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/btnPrivateGroup"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:layout_weight="1">
+            android:orientation="vertical">
+
             <ImageView
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:src="@drawable/discussion"/>
+                android:src="@drawable/discussion" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
                 android:layout_marginTop="8dp"
-                android:textSize="14sp"
-                android:text="@string/discuss_group" />
+                android:text="@string/discuss_group"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/btnChatroom"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:layout_weight="1">
+            android:orientation="vertical">
+
             <ImageView
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:src="@drawable/chatroom"/>
+                android:src="@drawable/chatroom" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
                 android:layout_marginTop="8dp"
-                android:textSize="14sp"
-                android:text="@string/chatroom" />
+                android:text="@string/chatroom"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
         </LinearLayout>
 
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/line"/>
+        android:background="@color/line" />
 
     <ExpandableListView
         android:id="@+id/groupList"

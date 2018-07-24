@@ -9,23 +9,15 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
-import com.lzy.okgo.OkGo;
-import com.lzy.okgo.model.Response;
-import com.lzy.okgo.request.GetRequest;
-import com.orhanobut.hawk.Hawk;
 import com.tencent.qcloud.presentation.event.MessageEvent;
 import com.tencent.qcloud.tlslibrary.service.TlsBusiness;
 import com.wl.appchat.ConversationFragment;
 import com.wl.appchat.model.FriendshipInfo;
 import com.wl.appchat.model.GroupInfo;
 import com.wl.appchat.model.UserInfo;
-import com.xianglian.love.config.Config;
-import com.xianglian.love.config.Keys;
 import com.xianglian.love.main.home.BaseHomeFragment;
 import com.xianglian.love.main.home.SearchActivity;
-import com.xianglian.love.main.home.been.UserEntity;
 import com.xianglian.love.main.me.BaseMeFragment;
-import com.xianglian.love.net.JsonCallBack;
 import com.xianglian.love.utils.AppUtils;
 import com.xianglian.love.utils.UpdateUtil;
 
@@ -71,7 +63,6 @@ public class MainActivity extends BaseFragmentActivity {
         mFragments = new ArrayList<>();
         mFragments.add(BaseHomeFragment.newInstance());
         mFragments.add(new ConversationFragment());
-//        mFragments.add(BaseMeetFragment.newInstance());
         mFragments.add(BaseMeFragment.newInstance());
     }
 
@@ -136,15 +127,7 @@ public class MainActivity extends BaseFragmentActivity {
                         .title(getResources().getString(R.string.main_special))
                         .build()
         );
-//        models.add(
-//                new NavigationTabBar.Model.Builder(
-//                        getResources().getDrawable(R.drawable.main_specal),
-//                        Color.parseColor(colors[2]))
-//                        .selectedIcon(getResources().getDrawable(R.drawable.main_specal_selected))
-//                        .title("Diploma")
-//                        .badgeTitle("state")
-//                        .build()
-//        );
+
         models.add(
                 new NavigationTabBar.Model.Builder(
                         getResources().getDrawable(R.drawable.main_me),
@@ -164,7 +147,6 @@ public class MainActivity extends BaseFragmentActivity {
 
             @Override
             public void onPageSelected(final int position) {
-//                navigationTabBar.getModels().get(position).hideBadge();
                 mTitleBarView.setRigthLayoutVisible(position == 0 ? View.VISIBLE : View.GONE);
             }
 

@@ -21,18 +21,17 @@ import com.wl.appchat.utils.FileUtil;
 public class FileMessage extends Message {
 
 
-    public FileMessage(TIMMessage message){
+    public FileMessage(TIMMessage message) {
         this.message = message;
     }
 
-    public FileMessage(String filePath){
+    public FileMessage(String filePath) {
         message = new TIMMessage();
         TIMFileElem elem = new TIMFileElem();
         elem.setPath(filePath);
-        elem.setFileName(filePath.substring(filePath.lastIndexOf("/")+1));
+        elem.setFileName(filePath.substring(filePath.lastIndexOf("/") + 1));
         message.addElement(elem);
     }
-
 
 
     /**
@@ -77,11 +76,11 @@ public class FileMessage extends Message {
             @Override
             public void onSuccess(byte[] bytes) {
                 String[] str = e.getFileName().split("/");
-                String filename = str[str.length-1];
-                if (FileUtil.createFile(bytes, filename, Environment.DIRECTORY_DOWNLOADS)){
-                    Toast.makeText(MyApplication.getContext(), MyApplication.getContext().getString(R.string.save_succ),Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(MyApplication.getContext(), MyApplication.getContext().getString(R.string.save_fail),Toast.LENGTH_SHORT).show();
+                String filename = str[str.length - 1];
+                if (FileUtil.createFile(bytes, filename, Environment.DIRECTORY_DOWNLOADS)) {
+                    Toast.makeText(MyApplication.getContext(), MyApplication.getContext().getString(R.string.save_succ), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MyApplication.getContext(), MyApplication.getContext().getString(R.string.save_fail), Toast.LENGTH_SHORT).show();
                 }
             }
         });

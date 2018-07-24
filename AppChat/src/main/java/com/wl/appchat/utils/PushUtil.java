@@ -25,10 +25,8 @@ import java.util.Observer;
 public class PushUtil implements Observer {
 
     private static int pushNum = 0;
-
-    private final int pushId = 1;
-
     private static PushUtil instance = new PushUtil();
+    private final int pushId = 1;
 
     private PushUtil() {
         MessageEvent.getInstance().addObserver(this);
@@ -38,6 +36,9 @@ public class PushUtil implements Observer {
         return instance;
     }
 
+    public static void resetPushNum() {
+        pushNum = 0;
+    }
 
     private void PushNotify(TIMMessage msg) {
         //系统消息，自己发的消息，程序在前台的时候不通知
@@ -71,10 +72,6 @@ public class PushUtil implements Observer {
 //        Notification notify = mBuilder.build();
 //        notify.flags |= Notification.FLAG_AUTO_CANCEL;
 //        mNotificationManager.notify(pushId, notify);
-    }
-
-    public static void resetPushNum() {
-        pushNum = 0;
     }
 
     public void reset() {

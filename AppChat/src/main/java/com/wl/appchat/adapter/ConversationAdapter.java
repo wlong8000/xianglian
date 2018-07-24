@@ -39,10 +39,10 @@ public class ConversationAdapter extends ArrayAdapter<Conversation> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if (convertView != null){
+        if (convertView != null) {
             view = convertView;
             viewHolder = (ViewHolder) view.getTag();
-        }else{
+        } else {
             view = LayoutInflater.from(getContext()).inflate(resourceId, null);
             viewHolder = new ViewHolder();
             viewHolder.tvName = view.findViewById(R.id.name);
@@ -58,16 +58,16 @@ public class ConversationAdapter extends ArrayAdapter<Conversation> {
         viewHolder.lastMessage.setText(data.getLastMessageSummary());
         viewHolder.time.setText(TimeUtil.getTimeStr(data.getLastMessageTime()));
         long unRead = data.getUnreadNum();
-        if (unRead <= 0){
+        if (unRead <= 0) {
             viewHolder.unread.setVisibility(View.INVISIBLE);
-        }else{
+        } else {
             viewHolder.unread.setVisibility(View.VISIBLE);
             String unReadStr = String.valueOf(unRead);
-            if (unRead < 10){
+            if (unRead < 10) {
                 viewHolder.unread.setBackground(getContext().getResources().getDrawable(R.drawable.point1));
-            }else{
+            } else {
                 viewHolder.unread.setBackground(getContext().getResources().getDrawable(R.drawable.point2));
-                if (unRead > 99){
+                if (unRead > 99) {
                     unReadStr = getContext().getResources().getString(R.string.time_more);
                 }
             }
@@ -76,7 +76,7 @@ public class ConversationAdapter extends ArrayAdapter<Conversation> {
         return view;
     }
 
-    public class ViewHolder{
+    public class ViewHolder {
         public TextView tvName;
         public CircleImageView avatar;
         public TextView lastMessage;

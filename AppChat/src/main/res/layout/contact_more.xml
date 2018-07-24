@@ -12,11 +12,12 @@
         android:id="@+id/add_friend"
         android:layout_width="100dp"
         android:layout_height="40dp"
-        android:gravity="center"
-        android:layout_marginTop="5dp"
         android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
         android:text="@string/addfriend"
         android:textColor="@color/text_blue1" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="1dp"

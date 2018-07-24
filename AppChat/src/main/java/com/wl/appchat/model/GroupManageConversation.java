@@ -24,7 +24,7 @@ public class GroupManageConversation extends Conversation {
     private long unreadCount;
 
 
-    public GroupManageConversation(TIMGroupPendencyItem message){
+    public GroupManageConversation(TIMGroupPendencyItem message) {
         lastMessage = message;
     }
 
@@ -95,34 +95,34 @@ public class GroupManageConversation extends Conversation {
         String to = lastMessage.getToUser();
 
         boolean isSelf = from.equals(UserInfo.getInstance().getId());
-        switch (lastMessage.getPendencyType()){
+        switch (lastMessage.getPendencyType()) {
             case INVITED_BY_OTHER:
-                if (isSelf){
-                    return MyApplication.getContext().getResources().getString(R.string.summary_me)+
-                            MyApplication.getContext().getResources().getString(R.string.summary_group_invite)+
-                            to+
+                if (isSelf) {
+                    return MyApplication.getContext().getResources().getString(R.string.summary_me) +
+                            MyApplication.getContext().getResources().getString(R.string.summary_group_invite) +
+                            to +
                             MyApplication.getContext().getResources().getString(R.string.summary_group_add);
-                }else{
-                    if (to.equals(UserInfo.getInstance().getId())){
-                        return from+
-                                MyApplication.getContext().getResources().getString(R.string.summary_group_invite)+
-                                MyApplication.getContext().getResources().getString(R.string.summary_me)+
+                } else {
+                    if (to.equals(UserInfo.getInstance().getId())) {
+                        return from +
+                                MyApplication.getContext().getResources().getString(R.string.summary_group_invite) +
+                                MyApplication.getContext().getResources().getString(R.string.summary_me) +
                                 MyApplication.getContext().getResources().getString(R.string.summary_group_add);
-                    }else{
-                        return from+
-                                MyApplication.getContext().getResources().getString(R.string.summary_group_invite)+
-                                to+
+                    } else {
+                        return from +
+                                MyApplication.getContext().getResources().getString(R.string.summary_group_invite) +
+                                to +
                                 MyApplication.getContext().getResources().getString(R.string.summary_group_add);
                     }
 
                 }
             case APPLY_BY_SELF:
-                if (isSelf){
-                    return MyApplication.getContext().getResources().getString(R.string.summary_me)+
-                            MyApplication.getContext().getResources().getString(R.string.summary_group_apply)+
+                if (isSelf) {
+                    return MyApplication.getContext().getResources().getString(R.string.summary_me) +
+                            MyApplication.getContext().getResources().getString(R.string.summary_group_apply) +
                             GroupInfo.getInstance().getGroupName(lastMessage.getGroupId());
-                }else{
-                    return from+MyApplication.getContext().getResources().getString(R.string.summary_group_apply)+GroupInfo.getInstance().getGroupName(lastMessage.getGroupId());
+                } else {
+                    return from + MyApplication.getContext().getResources().getString(R.string.summary_group_apply) + GroupInfo.getInstance().getGroupName(lastMessage.getGroupId());
                 }
 
             default:
@@ -142,7 +142,7 @@ public class GroupManageConversation extends Conversation {
     /**
      * 设置最后一条消息
      */
-    public void setLastMessage(TIMGroupPendencyItem message){
+    public void setLastMessage(TIMGroupPendencyItem message) {
         lastMessage = message;
     }
 
@@ -152,7 +152,7 @@ public class GroupManageConversation extends Conversation {
      *
      * @param count 未读数量
      */
-    public void setUnreadCount(long count){
+    public void setUnreadCount(long count) {
         unreadCount = count;
     }
 

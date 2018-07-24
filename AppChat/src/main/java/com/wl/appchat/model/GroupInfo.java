@@ -23,12 +23,13 @@ import java.util.Observer;
 public class GroupInfo implements Observer {
 
 
-    private Map<String, List<GroupProfile>> groups;
     public static final String publicGroup = "Public", privateGroup = "Private", chatRoom = "ChatRoom";
+    private static GroupInfo instance;
+    private Map<String, List<GroupProfile>> groups;
 
-    private GroupInfo(){
+    private GroupInfo() {
         groups = new HashMap<>();
-        groups.put(publicGroup,new ArrayList<GroupProfile>());
+        groups.put(publicGroup, new ArrayList<GroupProfile>());
         groups.put(privateGroup, new ArrayList<GroupProfile>());
         groups.put(chatRoom, new ArrayList<GroupProfile>());
         //注册群关系监听
@@ -37,22 +38,31 @@ public class GroupInfo implements Observer {
         refresh();
     }
 
-    private static GroupInfo instance;
-
-    public synchronized static GroupInfo getInstance(){
-        if (instance == null){
+    public synchronized static GroupInfo getInstance() {
+        if (instance == null) {
             instance = new GroupInfo();
         }
         return instance;
     }
 
-    private void refresh(){
-        for (String key : groups.keySet()){
+    public static String getTypeName(String type) {
+        if (type.equals(GroupInfo.publicGroup)) {
+            return MyApplication.getContext().getString(R.string.public_group);
+        } else if (type.equals(GroupInfo.privateGroup)) {
+            return MyApplication.getContext().getString(R.string.discuss_group);
+        } else if (type.equals(GroupInfo.chatRoom)) {
+            return MyApplication.getContext().getString(R.string.chatroom);
+        }
+        return "";
+    }
+
+    private void refresh() {
+        for (String key : groups.keySet()) {
             groups.get(key).clear();
         }
         List<TIMGroupCacheInfo> groupInfos = TIMGroupAssistant.getInstance().getGroups(null);
         if (groupInfos == null) return;
-        for (TIMGroupCacheInfo item : groupInfos){
+        for (TIMGroupCacheInfo item : groupInfos) {
             List<GroupProfile> list = groups.get(item.getGroupInfo().getGroupType());
             if (list == null) continue;
             list.add(new GroupProfile(item));
@@ -69,10 +79,10 @@ public class GroupInfo implements Observer {
      */
     @Override
     public void update(Observable observable, Object data) {
-        if (observable instanceof GroupEvent){
-            if (data instanceof GroupEvent.NotifyCmd){
+        if (observable instanceof GroupEvent) {
+            if (data instanceof GroupEvent.NotifyCmd) {
                 GroupEvent.NotifyCmd cmd = (GroupEvent.NotifyCmd) data;
-                switch (cmd.type){
+                switch (cmd.type) {
                     case REFRESH:
                         refresh();
                         break;
@@ -86,15 +96,15 @@ public class GroupInfo implements Observer {
 
                 }
             }
-        }else if (observable instanceof RefreshEvent){
+        } else if (observable instanceof RefreshEvent) {
             refresh();
         }
     }
 
-    private void updateGroup(TIMGroupCacheInfo info){
+    private void updateGroup(TIMGroupCacheInfo info) {
         if (groups == null || groups.get(info.getGroupInfo().getGroupType()) == null) return;
-        for (GroupProfile item : groups.get(info.getGroupInfo().getGroupType())){
-            if (item.getIdentify().equals(info.getGroupInfo().getGroupId())){
+        for (GroupProfile item : groups.get(info.getGroupInfo().getGroupType())) {
+            if (item.getIdentify().equals(info.getGroupInfo().getGroupId())) {
                 item.setProfile(info);
                 return;
             }
@@ -102,12 +112,12 @@ public class GroupInfo implements Observer {
         groups.get(info.getGroupInfo().getGroupType()).add(new GroupProfile(info));
     }
 
-    private void delGroup(String id){
-        for (String key : groups.keySet()){
+    private void delGroup(String id) {
+        for (String key : groups.keySet()) {
             Iterator<GroupProfile> iterator = groups.get(key).iterator();
-            while(iterator.hasNext()){
+            while (iterator.hasNext()) {
                 GroupProfile item = iterator.next();
-                if (item.getIdentify().equals(id)){
+                if (item.getIdentify().equals(id)) {
                     iterator.remove();
                     return;
                 }
@@ -120,9 +130,9 @@ public class GroupInfo implements Observer {
      *
      * @param id 群identify
      */
-    public boolean isInGroup(String id){
-        for (String key : groups.keySet()){
-            for (GroupProfile item : groups.get(key)){
+    public boolean isInGroup(String id) {
+        for (String key : groups.keySet()) {
+            for (GroupProfile item : groups.get(key)) {
                 if (item.getIdentify().equals(id)) return true;
             }
         }
@@ -134,10 +144,10 @@ public class GroupInfo implements Observer {
      *
      * @param id 群identify
      */
-    public TIMGroupMemberRoleType getRole(String id){
-        for (String key : groups.keySet()){
-            for (GroupProfile item : groups.get(key)){
-                if (item.getIdentify().equals(id)){
+    public TIMGroupMemberRoleType getRole(String id) {
+        for (String key : groups.keySet()) {
+            for (GroupProfile item : groups.get(key)) {
+                if (item.getIdentify().equals(id)) {
                     return item.getRole();
                 }
             }
@@ -145,16 +155,15 @@ public class GroupInfo implements Observer {
         return TIMGroupMemberRoleType.NotMember;
     }
 
-
     /**
      * 获取该群的群消息接收状态
      *
      * @param id 群identify
      */
-    public TIMGroupReceiveMessageOpt getMessageOpt(String id){
-        for (String key : groups.keySet()){
-            for (GroupProfile item : groups.get(key)){
-                if (item.getIdentify().equals(id)){
+    public TIMGroupReceiveMessageOpt getMessageOpt(String id) {
+        for (String key : groups.keySet()) {
+            for (GroupProfile item : groups.get(key)) {
+                if (item.getIdentify().equals(id)) {
                     return item.getMessagOpt();
                 }
             }
@@ -167,25 +176,13 @@ public class GroupInfo implements Observer {
      *
      * @param type 群类型
      */
-    public List<ProfileSummary> getGroupListByType(String type){
+    public List<ProfileSummary> getGroupListByType(String type) {
         List<ProfileSummary> result = new ArrayList<>();
-        if (groups != null && groups.get(type) != null){
+        if (groups != null && groups.get(type) != null) {
             result.addAll(groups.get(type));
             return result;
         }
         return null;
-    }
-
-
-    public static String getTypeName(String type){
-        if (type.equals(GroupInfo.publicGroup)){
-            return MyApplication.getContext().getString(R.string.public_group);
-        }else if (type.equals(GroupInfo.privateGroup)){
-            return MyApplication.getContext().getString(R.string.discuss_group);
-        }else if (type.equals(GroupInfo.chatRoom)){
-            return MyApplication.getContext().getString(R.string.chatroom);
-        }
-        return "";
     }
 
     /**
@@ -193,9 +190,9 @@ public class GroupInfo implements Observer {
      *
      * @param identify 群id
      */
-    public String getGroupName(String identify){
-        for (String key : groups.keySet()){
-            for (GroupProfile item : groups.get(key)){
+    public String getGroupName(String identify) {
+        for (String key : groups.keySet()) {
+            for (GroupProfile item : groups.get(key)) {
                 if (item.getIdentify().equals(identify)) return item.getName();
             }
         }
@@ -206,11 +203,11 @@ public class GroupInfo implements Observer {
     /**
      * 通过群id获取群资料
      *
-     * @param type 群类型
+     * @param type     群类型
      * @param identify 群id
      */
-    public GroupProfile getGroupProfile(String type, String identify){
-        for (GroupProfile item : groups.get(type)){
+    public GroupProfile getGroupProfile(String type, String identify) {
+        for (GroupProfile item : groups.get(type)) {
             if (item.getIdentify().equals(identify)) return item;
         }
         return null;
@@ -219,7 +216,7 @@ public class GroupInfo implements Observer {
     /**
      * 清除数据
      */
-    public void clear(){
+    public void clear() {
         if (instance == null) return;
         groups.clear();
         instance = null;

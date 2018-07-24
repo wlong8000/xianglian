@@ -33,22 +33,22 @@
             android:id="@+id/input_group_name"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:background="@null"
+            android:layout_gravity="center_vertical"
             android:layout_marginLeft="20dp"
-            android:layout_gravity="center_vertical" />
+            android:background="@null" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/btn_add_group_member"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
         android:layout_gravity="center"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/bg_positive_btn"
-        android:textColor="@color/text_btn"
         android:gravity="center"
-        android:text="@string/btn_add_member" />
+        android:text="@string/btn_add_member"
+        android:textColor="@color/text_btn" />
 
 </LinearLayout>

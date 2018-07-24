@@ -38,68 +38,72 @@
             android:textColor="@color/text_gray1"
             android:textSize="16sp" />
     </LinearLayout>
+
     <com.tencent.qcloud.ui.LineControllerView
         android:id="@+id/id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        app:name="@string/profile_id"/>
+        app:name="@string/profile_id" />
+
     <com.tencent.qcloud.ui.LineControllerView
         android:id="@+id/remark"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:canNav="true"
-        app:name="@string/profile_remark"/>
+        app:name="@string/profile_remark" />
+
     <com.tencent.qcloud.ui.LineControllerView
         android:id="@+id/blackList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:isSwitch="true"
-        app:name="@string/profile_black"/>
+        app:name="@string/profile_black" />
+
     <com.tencent.qcloud.ui.LineControllerView
         android:id="@+id/group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="onClick"
         app:canNav="true"
         app:isBottom="true"
-        android:onClick="onClick"
-        app:name="@string/profile_now_group"/>
+        app:name="@string/profile_now_group" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
         android:layout_marginTop="20dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
         <TextView
             android:id="@+id/btnDel"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="40dp"
+            android:layout_weight="1"
             android:background="@drawable/bg_negative_btn"
-            android:textColor="@color/text_btn"
-            android:textSize="18sp"
-            android:gravity="center"
             android:clickable="true"
+            android:gravity="center"
             android:onClick="onClick"
-            android:text="@string/profile_del"/>
+            android:text="@string/profile_del"
+            android:textColor="@color/text_btn"
+            android:textSize="18sp" />
+
         <TextView
             android:id="@+id/btnChat"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="40dp"
             android:layout_marginLeft="10dp"
+            android:layout_weight="1"
             android:background="@drawable/bg_positive_btn"
-            android:textColor="@color/text_btn"
-            android:textSize="18sp"
             android:clickable="true"
             android:gravity="center"
             android:onClick="onClick"
-            android:text="@string/profile_chat"/>
+            android:text="@string/profile_chat"
+            android:textColor="@color/text_btn"
+            android:textSize="18sp" />
     </LinearLayout>
-
-
 
 
 </LinearLayout>

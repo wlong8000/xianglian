@@ -60,7 +60,7 @@ public abstract class Conversation implements Comparable {
     abstract public String getName();
 
 
-    public String getIdentify(){
+    public String getIdentify() {
         return identify;
     }
 
@@ -96,17 +96,16 @@ public abstract class Conversation implements Comparable {
      */
     @Override
     public int compareTo(Object another) {
-        if (another instanceof Conversation){
+        if (another instanceof Conversation) {
             Conversation anotherConversation = (Conversation) another;
             long timeGap = anotherConversation.getLastMessageTime() - getLastMessageTime();
-            if (timeGap > 0) return  1;
+            if (timeGap > 0) return 1;
             else if (timeGap < 0) return -1;
             return 0;
-        }else{
+        } else {
             throw new ClassCastException();
         }
     }
-
 
 
 }

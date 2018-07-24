@@ -19,7 +19,7 @@ import java.util.Map;
 public class GroupTipMessage extends Message {
 
 
-    public GroupTipMessage(TIMMessage message){
+    public GroupTipMessage(TIMMessage message) {
         this.message = message;
     }
 
@@ -45,14 +45,14 @@ public class GroupTipMessage extends Message {
     public String getSummary() {
         final TIMGroupTipsElem e = (TIMGroupTipsElem) message.getElement(0);
         StringBuilder stringBuilder = new StringBuilder();
-        Iterator<Map.Entry<String,TIMGroupMemberInfo>> iterator = e.getChangedGroupMemberInfo().entrySet().iterator();
-        switch (e.getTipsType()){
+        Iterator<Map.Entry<String, TIMGroupMemberInfo>> iterator = e.getChangedGroupMemberInfo().entrySet().iterator();
+        switch (e.getTipsType()) {
             case CancelAdmin:
             case SetAdmin:
                 return MyApplication.getContext().getString(R.string.summary_group_admin_change);
             case Join:
-                while(iterator.hasNext()){
-                    Map.Entry<String,TIMGroupMemberInfo> item = iterator.next();
+                while (iterator.hasNext()) {
+                    Map.Entry<String, TIMGroupMemberInfo> item = iterator.next();
                     stringBuilder.append(getName(item.getValue()));
                     stringBuilder.append(" ");
                 }
@@ -62,8 +62,8 @@ public class GroupTipMessage extends Message {
                 return e.getUserList().get(0) +
                         MyApplication.getContext().getString(R.string.summary_group_mem_kick);
             case ModifyMemberInfo:
-                while(iterator.hasNext()){
-                    Map.Entry<String,TIMGroupMemberInfo> item = iterator.next();
+                while (iterator.hasNext()) {
+                    Map.Entry<String, TIMGroupMemberInfo> item = iterator.next();
                     stringBuilder.append(getName(item.getValue()));
                     stringBuilder.append(" ");
                 }
@@ -86,8 +86,8 @@ public class GroupTipMessage extends Message {
 
     }
 
-    private String getName(TIMGroupMemberInfo info){
-        if (info.getNameCard().equals("")){
+    private String getName(TIMGroupMemberInfo info) {
+        if (info.getNameCard().equals("")) {
             return info.getUser();
         }
         return info.getNameCard();

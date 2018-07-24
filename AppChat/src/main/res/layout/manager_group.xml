@@ -12,12 +12,11 @@
         app:titleText="@string/title_manager_group" />
 
     <LinearLayout
+        android:id="@+id/add_group"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:id="@+id/add_group"
         android:background="@color/white"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
@@ -34,7 +33,6 @@
             android:text="@string/add_new_group" />
 
     </LinearLayout>
-
 
 
     <ListView

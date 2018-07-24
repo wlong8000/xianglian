@@ -18,33 +18,31 @@ import java.io.IOException;
 public class CustomMessage extends Message {
 
 
-    private String TAG = getClass().getSimpleName();
-
     private final int TYPE_TYPING = 14;
-
+    private String TAG = getClass().getSimpleName();
     private Type type;
     private String desc;
     private String data;
 
-    public CustomMessage(TIMMessage message){
+    public CustomMessage(TIMMessage message) {
         this.message = message;
         TIMCustomElem elem = (TIMCustomElem) message.getElement(0);
         parse(elem.getData());
 
     }
 
-    public CustomMessage(Type type){
+    public CustomMessage(Type type) {
         message = new TIMMessage();
         String data = "";
         JSONObject dataJson = new JSONObject();
-        try{
-            switch (type){
+        try {
+            switch (type) {
                 case TYPING:
-                    dataJson.put("userAction",TYPE_TYPING);
-                    dataJson.put("actionParam","EIMAMSG_InputStatus_Ing");
+                    dataJson.put("userAction", TYPE_TYPING);
+                    dataJson.put("actionParam", "EIMAMSG_InputStatus_Ing");
                     data = dataJson.toString();
             }
-        }catch (JSONException e){
+        } catch (JSONException e) {
             Log.e(TAG, "generate json error");
         }
         TIMCustomElem elem = new TIMCustomElem();
@@ -61,23 +59,23 @@ public class CustomMessage extends Message {
         this.type = type;
     }
 
-    private void parse(byte[] data){
+    private void parse(byte[] data) {
         type = Type.INVALID;
-        try{
+        try {
             String str = new String(data, "UTF-8");
             JSONObject jsonObj = new JSONObject(str);
             int action = jsonObj.getInt("userAction");
-            switch (action){
+            switch (action) {
                 case TYPE_TYPING:
                     type = Type.TYPING;
                     this.data = jsonObj.getString("actionParam");
-                    if (this.data.equals("EIMAMSG_InputStatus_End")){
+                    if (this.data.equals("EIMAMSG_InputStatus_End")) {
                         type = Type.INVALID;
                     }
                     break;
             }
 
-        }catch (IOException | JSONException e){
+        } catch (IOException | JSONException e) {
             Log.e(TAG, "parse json error");
 
         }
@@ -110,7 +108,7 @@ public class CustomMessage extends Message {
 
     }
 
-    public enum Type{
+    public enum Type {
         TYPING,
         INVALID,
     }

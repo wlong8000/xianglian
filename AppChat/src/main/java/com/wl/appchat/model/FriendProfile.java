@@ -16,7 +16,7 @@ public class FriendProfile implements ProfileSummary {
     private TIMUserProfile profile;
     private boolean isSelected;
 
-    public FriendProfile(TIMUserProfile profile){
+    public FriendProfile(TIMUserProfile profile) {
         this.profile = profile;
     }
 
@@ -42,9 +42,9 @@ public class FriendProfile implements ProfileSummary {
      */
     @Override
     public String getName() {
-        if (!profile.getRemark().equals("")){
+        if (!profile.getRemark().equals("")) {
             return profile.getRemark();
-        }else if (!profile.getNickName().equals("")){
+        } else if (!profile.getNickName().equals("")) {
             return profile.getNickName();
         }
         return profile.getIdentifier();
@@ -83,11 +83,12 @@ public class FriendProfile implements ProfileSummary {
     public void setIsSelected(boolean isSelected) {
         this.isSelected = isSelected;
     }
+
     /**
      * 获取用户ID
      */
     @Override
-    public String getIdentify(){
+    public String getIdentify() {
         return profile.getIdentifier();
     }
 
@@ -95,7 +96,7 @@ public class FriendProfile implements ProfileSummary {
     /**
      * 获取用户备注名
      */
-    public String getRemark(){
+    public String getRemark() {
         return profile.getRemark();
     }
 
@@ -103,10 +104,10 @@ public class FriendProfile implements ProfileSummary {
     /**
      * 获取好友分组
      */
-    public String getGroupName(){
-        if (profile.getFriendGroups().size() == 0){
+    public String getGroupName() {
+        if (profile.getFriendGroups().size() == 0) {
             return MyApplication.getContext().getString(R.string.default_group_name);
-        }else{
+        } else {
             return profile.getFriendGroups().get(0);
         }
     }

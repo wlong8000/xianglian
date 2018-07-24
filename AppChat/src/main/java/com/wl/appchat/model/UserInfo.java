@@ -5,10 +5,9 @@ package com.wl.appchat.model;
  */
 public class UserInfo {
 
+    private static UserInfo ourInstance = new UserInfo();
     private String id;
     private String userSig;
-
-    private static UserInfo ourInstance = new UserInfo();
 
     public static UserInfo getInstance() {
         return ourInstance;

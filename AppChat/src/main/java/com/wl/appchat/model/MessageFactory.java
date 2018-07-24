@@ -8,14 +8,15 @@ import com.tencent.TIMMessage;
  */
 public class MessageFactory {
 
-    private MessageFactory() {}
+    private MessageFactory() {
+    }
 
 
     /**
      * 消息工厂方法
      */
-    public static Message getMessage(TIMMessage message){
-        switch (message.getElement(0).getType()){
+    public static Message getMessage(TIMMessage message) {
+        switch (message.getElement(0).getType()) {
             case Text:
             case Face:
                 return new TextMessage(message);
@@ -35,7 +36,6 @@ public class MessageFactory {
                 return null;
         }
     }
-
 
 
 }

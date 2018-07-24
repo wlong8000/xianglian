@@ -16,7 +16,7 @@ public class FriendshipConversation extends Conversation {
 
     private long unreadCount;
 
-    public FriendshipConversation(TIMFriendFutureItem message){
+    public FriendshipConversation(TIMFriendFutureItem message) {
         lastMessage = message;
     }
 
@@ -74,7 +74,7 @@ public class FriendshipConversation extends Conversation {
         if (lastMessage == null) return "";
         String name = lastMessage.getProfile().getNickName();
         if (name.equals("")) name = lastMessage.getIdentifier();
-        switch (lastMessage.getType()){
+        switch (lastMessage.getType()) {
             case TIM_FUTURE_FRIEND_PENDENCY_IN_TYPE://我收到的好友申请的未决消息
                 return name + MyApplication.getContext().getString(R.string.summary_friend_add);
             case TIM_FUTURE_FRIEND_PENDENCY_OUT_TYPE://我发出的好友申请的未决消息
@@ -101,7 +101,7 @@ public class FriendshipConversation extends Conversation {
     /**
      * 设置最后一条消息
      */
-    public void setLastMessage(TIMFriendFutureItem message){
+    public void setLastMessage(TIMFriendFutureItem message) {
         lastMessage = message;
     }
 
@@ -111,7 +111,7 @@ public class FriendshipConversation extends Conversation {
      *
      * @param count 未读数量
      */
-    public void setUnreadCount(long count){
+    public void setUnreadCount(long count) {
         unreadCount = count;
     }
 

@@ -9,15 +9,14 @@
         android:layout_height="20dp"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="10dp"
-        android:background="@drawable/delete2"
-        />
+        android:background="@drawable/delete2" />
+
     <TextView
         android:id="@+id/groupName"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="10dp"
-        android:text="default group name"
         android:gravity="center_vertical"
-        />
+        android:text="default group name" />
 </LinearLayout>

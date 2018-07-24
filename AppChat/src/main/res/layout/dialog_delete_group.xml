@@ -26,8 +26,7 @@
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:text="@string/delete_dialog_subtitle"
-        android:textColor="@color/black"
-        />
+        android:textColor="@color/black" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -40,22 +39,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/cancel"
-            android:textColor="@color/text_blue1"
-            android:gravity="center"
             android:layout_weight="1"
-            />
+            android:gravity="center"
+            android:text="@string/cancel"
+            android:textColor="@color/text_blue1" />
 
         <TextView
             android:id="@+id/confirm_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/confirm"
-            android:textColor="@color/text_blue1"
-            android:gravity="center"
             android:layout_weight="1"
-            />
+            android:gravity="center"
+            android:text="@string/confirm"
+            android:textColor="@color/text_blue1" />
     </LinearLayout>
 
 </LinearLayout>

@@ -19,12 +19,12 @@ public class GroupProfile implements ProfileSummary {
     private TIMGroupDetailInfo profile;
     private TIMGroupBasicSelfInfo selfInfo;
 
-    public GroupProfile(TIMGroupCacheInfo profile){
+    public GroupProfile(TIMGroupCacheInfo profile) {
         this.profile = profile.getGroupInfo();
         selfInfo = profile.getSelfInfo();
     }
 
-    public GroupProfile(TIMGroupDetailInfo profile){
+    public GroupProfile(TIMGroupDetailInfo profile) {
         this.profile = profile;
     }
 
@@ -32,7 +32,7 @@ public class GroupProfile implements ProfileSummary {
      * 获取群ID
      */
     @Override
-    public String getIdentify(){
+    public String getIdentify() {
         return profile.getGroupId();
     }
 
@@ -78,7 +78,7 @@ public class GroupProfile implements ProfileSummary {
     /**
      * 获取自己身份
      */
-    public TIMGroupMemberRoleType getRole(){
+    public TIMGroupMemberRoleType getRole() {
         return selfInfo.getRole();
     }
 
@@ -86,7 +86,7 @@ public class GroupProfile implements ProfileSummary {
     /**
      * 获取消息接收状态
      */
-    public TIMGroupReceiveMessageOpt getMessagOpt(){
+    public TIMGroupReceiveMessageOpt getMessagOpt() {
         return selfInfo.getRecvMsgOption();
     }
 
