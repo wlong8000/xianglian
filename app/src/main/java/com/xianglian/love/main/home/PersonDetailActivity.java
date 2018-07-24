@@ -123,7 +123,7 @@ public class PersonDetailActivity extends BaseActivity implements View.OnClickLi
 //                doLikeRequest(mId);
                 break;
             case R.id.change_qq:
-                ChatActivity.navToChat(this, "root2", TIMConversationType.C2C);
+                ChatActivity.navToChat(this, mEntity.getUsername(), TIMConversationType.C2C);
                 break;
             case R.id.change_wx:
                 break;
@@ -134,7 +134,7 @@ public class PersonDetailActivity extends BaseActivity implements View.OnClickLi
     }
 
     class MyBaseAdapter extends FragmentStatePagerAdapter {
-        Fragment[] fragments = new Fragment[] {
+        Fragment[] fragments = new Fragment[]{
                 PersonDetailFragment.newInstance(mId)
         };
 

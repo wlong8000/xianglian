@@ -4,6 +4,7 @@ import android.app.Application;
 import android.os.Environment;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
+import android.text.TextUtils;
 
 import com.crashlytics.android.Crashlytics;
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -18,7 +19,11 @@ import com.okhttplib.cookie.persistence.SharedPrefsCookiePersistor;
 import com.orhanobut.hawk.Hawk;
 import com.umeng.commonsdk.UMConfigure;
 import com.wl.appchat.MyApplication;
+import com.xianglian.love.AppService;
+import com.xianglian.love.config.Keys;
+import com.xianglian.love.main.home.been.UserEntity;
 import com.xianglian.love.utils.AppUtils;
+import com.xianglian.love.utils.Trace;
 
 import java.io.File;
 
@@ -50,6 +55,14 @@ public class BaseApplication extends MultiDexApplication {
         Stetho.initializeWithDefaults(this);
         Hawk.init(this).build();
         MultiDex.install(this);
+        UserEntity userEntity = Hawk.get(Keys.USER_INFO);
+        Trace.d(TAG, "userEntity = " + userEntity);
+        if (userEntity != null) {
+            Trace.d(TAG, "username = " + userEntity.getUsername());
+        }
+        if (userEntity != null && !TextUtils.isEmpty(userEntity.getUsername())) {
+            AppService.startUpdateTimSign(this, userEntity.getUsername());
+        }
 
         /*
             注意: 即使您已经在AndroidManifest.xml中配置过appkey和channel值，

@@ -1,8 +1,5 @@
 package com.xianglian.love.main.home.been;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 
 import java.io.Serializable;
@@ -40,6 +37,9 @@ public class UserEntity implements Serializable, MultiItemEntity {
     private String work_area_name;
     private String born_area_name;
 
+    private String user_sign;
+    private String username;
+
     private int education;
     private int id;
 
@@ -73,6 +73,22 @@ public class UserEntity implements Serializable, MultiItemEntity {
 
     public void setBorn_area_name(String born_area_name) {
         this.born_area_name = born_area_name;
+    }
+
+    public String getUser_sign() {
+        return user_sign;
+    }
+
+    public void setUser_sign(String user_sign) {
+        this.user_sign = user_sign;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public int getEducation() {

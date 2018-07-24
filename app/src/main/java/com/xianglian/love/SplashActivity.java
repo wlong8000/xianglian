@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.huawei.android.pushagent.PushManager;
+import com.orhanobut.hawk.Hawk;
 import com.tencent.TIMCallBack;
 import com.tencent.TIMLogLevel;
 import com.tencent.TIMManager;
@@ -35,6 +36,9 @@ import com.tencent.qcloud.tlslibrary.service.TLSService;
 import com.tencent.qcloud.tlslibrary.service.TlsBusiness;
 import com.wl.appchat.model.UserInfo;
 import com.wl.appchat.utils.PushUtil;
+import com.xianglian.love.config.Keys;
+import com.xianglian.love.main.home.been.UserEntity;
+import com.xianglian.love.user.LoginActivity;
 import com.xianglian.love.utils.AppUtils;
 import com.xianglian.love.utils.Trace;
 import com.xiaomi.mipush.sdk.MiPushClient;
@@ -68,7 +72,6 @@ public class SplashActivity extends BaseActivity implements SplashView, TIMCallB
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
         ButterKnife.inject(this);
-//        AppService.startSaveUser(this);
         setupView();
         final List<String> permissionsList = new ArrayList<>();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -121,11 +124,12 @@ public class SplashActivity extends BaseActivity implements SplashView, TIMCallB
         //登录之前要初始化群和好友关系链缓存
         FriendshipEvent.getInstance().init();
         GroupEvent.getInstance().init();
-//        LoginBusiness.loginIm(UserInfo.getInstance().getId(), UserInfo.getInstance().getUserSig(), this);
-        LoginBusiness.loginIm("admin123",
-                "eJxFkNFOwjAUQP9lrxpt1xbEhIcFnRBdxrIF9akpWwcXWTdKcVTjv1sbFl-PuTc3534HxUt*I7oOKi4MJ7oK7gMUXHsszx1oyUVtpHYYM8ZChAb7KfURWuVEiDDDIUHoX0IllYEa-KKoGlBu4OKOsHEwecxmi4e62IzTRaO*1La3s-XqbJ9eizhJ8je23tMrG*nyuR1lgCGCyGYizXcixcntfK96aDXMlzF5P8hTEWYjSvtDXK*2d8tdP50Ox6oP7vP*AihCGFMynlykgUb6MOISEJkMXJRle1KGG9tJ-4*fX-dbWSk_", this);
-
-//        gotoMainActivity();
+        UserEntity entity = Hawk.get(Keys.USER_TIM_SIGN);
+        if (entity != null) {
+            LoginBusiness.loginIm(entity.getUsername(), entity.getUser_sign(), this);
+        } else {
+            gotoMainActivity();
+        }
     }
 
     private void gotoMainActivity() {
@@ -135,12 +139,13 @@ public class SplashActivity extends BaseActivity implements SplashView, TIMCallB
 
     @Override
     public void navToLogin() {
-
+        Intent intent = LoginActivity.getIntent(this);
+        startActivity(intent);
     }
 
     @Override
     public boolean isUserLogin() {
-        return true;
+        return !TextUtils.isEmpty(AppUtils.getToken(this));
     }
 
     /**
@@ -198,12 +203,12 @@ public class SplashActivity extends BaseActivity implements SplashView, TIMCallB
 //        if (firebaseInstanceId != null) refreshedToken = firebaseInstanceId.getToken();
 //        Log.d(TAG, "refreshed token: " + refreshedToken);
 
-        if (!TextUtils.isEmpty(refreshedToken)) {
-            TIMOfflinePushToken param = new TIMOfflinePushToken();
-            param.setToken(refreshedToken);
-            param.setBussid(169);
-            TIMManager.getInstance().setOfflinePushToken(param);
-        }
+//        if (!TextUtils.isEmpty(refreshedToken)) {
+//            TIMOfflinePushToken param = new TIMOfflinePushToken();
+//            param.setToken(refreshedToken);
+//            param.setBussid(169);
+//            TIMManager.getInstance().setOfflinePushToken(param);
+//        }
 
         Log.d(TAG, "imsdk env " + TIMManager.getInstance().getEnv());
         gotoMainActivity();

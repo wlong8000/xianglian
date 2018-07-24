@@ -28,4 +28,9 @@ public class Keys {
     public static String TYPE_FEMALE = "female";
 
     public static String TYPE_MALE = "male";
+
+    /**
+     * 云通信信息 UserEntity
+     */
+    public static String USER_TIM_SIGN = "h_user_tim_sign";
 }

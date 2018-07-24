@@ -61,7 +61,7 @@ public class MainActivity extends BaseFragmentActivity {
         mAdapter = new MainAdapter(getSupportFragmentManager(), mFragments);
         initUI();
         if (AppUtils.isLogin(this)) {
-            doUserInfoRequest();
+            AppService.startSaveUser(this);
         }
         //检查版本更新
         UpdateUtil.checkVersion(this);
@@ -171,27 +171,6 @@ public class MainActivity extends BaseFragmentActivity {
             @Override
             public void onPageScrollStateChanged(final int state) {
 
-            }
-        });
-    }
-
-    private void doUserInfoRequest() {
-        final GetRequest<UserEntity> request = OkGo.get(Config.PATH + "user_info");
-        request.headers("Authorization", AppUtils.getToken(this));
-        request.execute(new JsonCallBack<UserEntity>(UserEntity.class) {
-            @Override
-            public void onSuccess(Response<UserEntity> response) {
-                if (response != null && response.body() != null) {
-                    UserEntity entity = response.body();
-                    Hawk.put(Keys.USER_INFO, entity.getResults().get(0));
-                } else {
-                    Hawk.put(Keys.USER_INFO, null);
-                }
-            }
-
-            @Override
-            public void onError(Response<UserEntity> response) {
-                super.onError(response);
             }
         });
     }
