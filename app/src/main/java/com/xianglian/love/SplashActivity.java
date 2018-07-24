@@ -17,13 +17,11 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.google.firebase.iid.FirebaseInstanceId;
 import com.huawei.android.pushagent.PushManager;
 import com.orhanobut.hawk.Hawk;
 import com.tencent.TIMCallBack;
 import com.tencent.TIMLogLevel;
 import com.tencent.TIMManager;
-import com.tencent.TIMOfflinePushToken;
 import com.tencent.qcloud.presentation.business.InitBusiness;
 import com.tencent.qcloud.presentation.business.LoginBusiness;
 import com.tencent.qcloud.presentation.event.FriendshipEvent;
@@ -38,6 +36,7 @@ import com.wl.appchat.model.UserInfo;
 import com.wl.appchat.utils.PushUtil;
 import com.xianglian.love.config.Keys;
 import com.xianglian.love.main.home.been.UserEntity;
+import com.xianglian.love.model.ConfigEntity;
 import com.xianglian.love.user.LoginActivity;
 import com.xianglian.love.utils.AppUtils;
 import com.xianglian.love.utils.Trace;
@@ -65,6 +64,8 @@ public class SplashActivity extends BaseActivity implements SplashView, TIMCallB
     @InjectView(R.id.ad_skip)
     public View mSkipView;
 
+    private ConfigEntity mConfigEntity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +73,9 @@ public class SplashActivity extends BaseActivity implements SplashView, TIMCallB
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
         ButterKnife.inject(this);
+        mConfigEntity = Hawk.get(Keys.CONFIG_INFO);
         setupView();
+        AppService.startConfigInfo(this);
         final List<String> permissionsList = new ArrayList<>();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if ((checkSelfPermission(Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED))
@@ -88,12 +91,12 @@ public class SplashActivity extends BaseActivity implements SplashView, TIMCallB
         } else {
             init();
         }
-
     }
 
     private void setupView() {
-        mSplashImg.setImageURI(AppUtils.parse(
-                "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1531750251795&di=04b6ef1b0d2991ce27fb1b69692dffa5&imgtype=0&src=http%3A%2F%2Fimg.pconline.com.cn%2Fimages%2Fupload%2Fupc%2Ftx%2Fphotoblog%2F1501%2F29%2Fc11%2F2508688_1422519702855_mthumb.jpg"));
+        if (mConfigEntity != null) {
+            mSplashImg.setImageURI(AppUtils.parse(mConfigEntity.getDefault_splash_img()));
+        }
     }
 
     private void init() {

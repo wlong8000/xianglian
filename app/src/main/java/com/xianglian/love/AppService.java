@@ -13,6 +13,7 @@ import com.orhanobut.hawk.Hawk;
 import com.xianglian.love.config.Config;
 import com.xianglian.love.config.Keys;
 import com.xianglian.love.main.home.been.UserEntity;
+import com.xianglian.love.model.ConfigEntity;
 import com.xianglian.love.net.JsonCallBack;
 import com.xianglian.love.utils.AppUtils;
 import com.xianglian.love.utils.Trace;
@@ -26,6 +27,7 @@ public class AppService extends IntentService {
 
     private final static String ACTION_SAVE_USER = "com.wl.lianba.service.action.SAVE_USER";
     private final static String ACTION_UPDATE_TIM_SIGN = "com.wl.lianba.service.action.ACTION_UPDATE_TIM_SIGN";
+    private final static String ACTION_CONFIG_INFO = "com.wl.lianba.service.action.ACTION_CONFIG_INFO";
 
     public AppService() {
         super("HttpService");
@@ -41,6 +43,8 @@ public class AppService extends IntentService {
                 doTimSignRequest(username);
             } else if (ACTION_SAVE_USER.equals(intent.getAction())) {
                 doUserInfoRequest();
+            } else if (ACTION_CONFIG_INFO.equals(intent.getAction())) {
+                doConfigRequest();
             }
         }
     }
@@ -48,6 +52,12 @@ public class AppService extends IntentService {
     public static void startSaveUser(Context context) {
         Intent service = new Intent(context, AppService.class);
         service.setAction(AppService.ACTION_SAVE_USER);
+        context.startService(service);
+    }
+
+    public static void startConfigInfo(Context context) {
+        Intent service = new Intent(context, AppService.class);
+        service.setAction(AppService.ACTION_CONFIG_INFO);
         context.startService(service);
     }
 
@@ -99,6 +109,28 @@ public class AppService extends IntentService {
 
             @Override
             public void onError(Response<UserEntity> response) {
+                super.onError(response);
+            }
+        });
+    }
+
+    private void doConfigRequest() {
+        final GetRequest<ConfigEntity> request = OkGo.get(Config.PATH + "config/");
+        request.headers("Authorization", AppUtils.getToken(this));
+        request.execute(new JsonCallBack<ConfigEntity>(ConfigEntity.class) {
+            @Override
+            public void onSuccess(Response<ConfigEntity> response) {
+                if (response != null && response.body() != null) {
+                    ConfigEntity entity = response.body();
+                    Trace.d(TAG, "doConfigRequest = " + response.body());
+                    Hawk.put(Keys.CONFIG_INFO, entity);
+                } else {
+                    Hawk.put(Keys.CONFIG_INFO, null);
+                }
+            }
+
+            @Override
+            public void onError(Response<ConfigEntity> response) {
                 super.onError(response);
             }
         });

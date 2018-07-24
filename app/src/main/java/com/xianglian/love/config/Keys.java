@@ -33,4 +33,9 @@ public class Keys {
      * 云通信信息 UserEntity
      */
     public static String USER_TIM_SIGN = "h_user_tim_sign";
+
+    /**
+     * config信息 ConfigEntity
+     */
+    public static String CONFIG_INFO = "h_user_config_info";
 }
