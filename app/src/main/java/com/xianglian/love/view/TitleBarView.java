@@ -46,11 +46,11 @@ public class TitleBarView extends FrameLayout {
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        mTitle = (TextView) findViewById(R.id.view_titlebar_title);
-        mSubTitle = (TextView) findViewById(R.id.view_titlebar_sub_title);
-        mLeftLayout = (LinearLayout) findViewById(R.id.view_titlebar_left_layout);
-        mRightLayout = (LinearLayout) findViewById(R.id.view_titlebar_right_layout);
-        mTitleImage = (ImageView) findViewById(R.id.view_titlebar_title_img);
+        mTitle = findViewById(R.id.view_titlebar_title);
+        mSubTitle = findViewById(R.id.view_titlebar_sub_title);
+        mLeftLayout = findViewById(R.id.view_titlebar_left_layout);
+        mRightLayout = findViewById(R.id.view_titlebar_right_layout);
+        mTitleImage = findViewById(R.id.view_titlebar_title_img);
         mBottomLine = findViewById(R.id.bottom_line);
         layoutInflater = LayoutInflater.from(getContext());
     }
@@ -108,7 +108,7 @@ public class TitleBarView extends FrameLayout {
         }
     }
 
-    public void setRigthLayoutVisible(int visible) {
+    public void setRightLayoutVisible(int visible) {
         mRightLayout.setVisibility(visible);
     }
 

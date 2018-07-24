@@ -150,7 +150,7 @@ public class MainActivity extends BaseFragmentActivity {
 
             @Override
             public void onPageSelected(final int position) {
-                mTitleBarView.setRigthLayoutVisible(position == 0 ? View.VISIBLE : View.GONE);
+                mTitleBarView.setRightLayoutVisible(position == 0 ? View.VISIBLE : View.GONE);
             }
 
             @Override

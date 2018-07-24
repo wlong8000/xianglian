@@ -135,38 +135,19 @@ public class ChatActivity extends FragmentActivity implements ChatView {
         switch (type) {
             case C2C:
                 title.setMoreImg(R.drawable.btn_person);
-                if (FriendshipInfo.getInstance().isFriend(identify)) {
-                    title.setMoreImgAction(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            ARouter.getInstance().build("/detail/activity").navigation();
-                            ARouter.getInstance().build("/detail/1")
-                                    .withString("id", "2")
-                                    .navigation();
+                title.setMoreImgAction(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
-                        }
-                    });
-                    FriendProfile profile = FriendshipInfo.getInstance().getProfile(identify);
-                    title.setTitleText(titleStr = profile == null ? identify : profile.getName());
-                } else {
-                    title.setMoreImgAction(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            //todo
-//                            ARouter.getInstance().build("/detail/activity")
-////                                    .withString("id", "2")
-//                                    .navigation();
-
-                            Intent intent = new Intent();
-                            intent.putExtra("id","1");
-                            ComponentName cn = new ComponentName("com.wl.lianba",
-                                    "com.xianglian.love.main.home.PersonDetailActivity");
-                            intent.setComponent(cn);
-                            startActivity(intent);
-                        }
-                    });
-                    title.setTitleText(titleStr = identify);
-                }
+                        Intent intent = new Intent();
+                        intent.putExtra("id", "1");
+                        ComponentName cn = new ComponentName("com.wl.lianba",
+                                "com.xianglian.love.main.home.PersonDetailActivity");
+                        intent.setComponent(cn);
+                        startActivity(intent);
+                    }
+                });
+                title.setTitleText(titleStr = identify);
                 break;
             case Group:
                 title.setMoreImg(R.drawable.btn_group);

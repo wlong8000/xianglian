@@ -42,16 +42,16 @@ import java.util.List;
 /**
  * 聊天界面输入控件
  */
-public class ChatInput extends RelativeLayout implements TextWatcher,View.OnClickListener {
+public class ChatInput extends RelativeLayout implements TextWatcher, View.OnClickListener {
 
     private static final String TAG = "ChatInput";
 
     private ImageButton btnAdd, btnSend, btnVoice, btnKeyboard, btnEmotion;
     private EditText editText;
-    private boolean isSendVisible,isHoldVoiceBtn,isEmoticonReady;
+    private boolean isSendVisible, isHoldVoiceBtn, isEmoticonReady;
     private InputMode inputMode = InputMode.NONE;
     private ChatView chatView;
-    private LinearLayout morePanel,textPanel;
+    private LinearLayout morePanel, textPanel;
     private TextView voicePanel;
     private LinearLayout emoticonPanel;
     private final int REQUEST_CODE_ASK_PERMISSIONS = 100;
@@ -63,7 +63,7 @@ public class ChatInput extends RelativeLayout implements TextWatcher,View.OnClic
         initView();
     }
 
-    private void initView(){
+    private void initView() {
         textPanel = (LinearLayout) findViewById(R.id.text_panel);
         btnAdd = (ImageButton) findViewById(R.id.btn_add);
         btnAdd.setOnClickListener(this);
@@ -117,15 +117,15 @@ public class ChatInput extends RelativeLayout implements TextWatcher,View.OnClic
 
     }
 
-    private void updateView(InputMode mode){
+    private void updateView(InputMode mode) {
         if (mode == inputMode) return;
         leavingCurrentState();
-        switch (inputMode = mode){
+        switch (inputMode = mode) {
             case MORE:
                 morePanel.setVisibility(VISIBLE);
                 break;
             case TEXT:
-                if (editText.requestFocus()){
+                if (editText.requestFocus()) {
                     InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
                 }
@@ -145,8 +145,8 @@ public class ChatInput extends RelativeLayout implements TextWatcher,View.OnClic
         }
     }
 
-    private void leavingCurrentState(){
-        switch (inputMode){
+    private void leavingCurrentState() {
+        switch (inputMode) {
             case TEXT:
                 View view = ((Activity) getContext()).getCurrentFocus();
                 InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -168,13 +168,12 @@ public class ChatInput extends RelativeLayout implements TextWatcher,View.OnClic
     }
 
 
-
-    private void updateVoiceView(){
-        if (isHoldVoiceBtn){
+    private void updateVoiceView() {
+        if (isHoldVoiceBtn) {
             voicePanel.setText(getResources().getString(R.string.chat_release_send));
             voicePanel.setBackground(getResources().getDrawable(R.drawable.btn_voice_pressed));
             chatView.startSendVoice();
-        }else{
+        } else {
             voicePanel.setText(getResources().getString(R.string.chat_press_talk));
             voicePanel.setBackground(getResources().getDrawable(R.drawable.btn_voice_normal));
             chatView.endSendVoice();
@@ -182,11 +181,10 @@ public class ChatInput extends RelativeLayout implements TextWatcher,View.OnClic
     }
 
 
-
     /**
      * 关联聊天界面逻辑
      */
-    public void setChatView(ChatView chatView){
+    public void setChatView(ChatView chatView) {
         this.chatView = chatView;
     }
 
@@ -221,9 +219,9 @@ public class ChatInput extends RelativeLayout implements TextWatcher,View.OnClic
      */
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-        isSendVisible = s!=null&&s.length()>0;
+        isSendVisible = s != null && s.length() > 0;
         setSendBtn();
-        if (isSendVisible){
+        if (isSendVisible) {
             chatView.sending();
         }
     }
@@ -249,26 +247,26 @@ public class ChatInput extends RelativeLayout implements TextWatcher,View.OnClic
 
     }
 
-    private void setSendBtn(){
-        if (isSendVisible){
+    private void setSendBtn() {
+        if (isSendVisible) {
             btnAdd.setVisibility(GONE);
             btnSend.setVisibility(VISIBLE);
-        }else{
+        } else {
             btnAdd.setVisibility(VISIBLE);
             btnSend.setVisibility(GONE);
         }
     }
 
-    private void prepareEmoticon(){
+    private void prepareEmoticon() {
         if (emoticonPanel == null) return;
-        for (int i = 0; i < 5; ++i){
+        for (int i = 0; i < 5; ++i) {
             LinearLayout linearLayout = new LinearLayout(getContext());
             linearLayout.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, 1f));
-            for (int j = 0;j < 7; ++j){
+            for (int j = 0; j < 7; ++j) {
 
-                try{
+                try {
                     AssetManager am = getContext().getAssets();
-                    final int index = 7*i+j;
+                    final int index = 7 * i + j;
                     InputStream is = am.open(String.format("emoticon/%d.gif", index));
                     Bitmap bitmap = BitmapFactory.decodeStream(is);
                     Matrix matrix = new Matrix();
@@ -292,7 +290,7 @@ public class ChatInput extends RelativeLayout implements TextWatcher,View.OnClic
                         }
                     });
                     is.close();
-                }catch (IOException e){
+                } catch (IOException e) {
 
                 }
 
@@ -311,42 +309,42 @@ public class ChatInput extends RelativeLayout implements TextWatcher,View.OnClic
     public void onClick(View v) {
         Activity activity = (Activity) getContext();
         int id = v.getId();
-        if (id == R.id.btn_send){
+        if (id == R.id.btn_send) {
             chatView.sendText();
         }
-        if (id == R.id.btn_add){
+        if (id == R.id.btn_add) {
             updateView(inputMode == InputMode.MORE ? InputMode.TEXT : InputMode.MORE);
         }
-        if (id == R.id.btn_photo){
-            if(activity!=null && requestCamera(activity)){
+        if (id == R.id.btn_photo) {
+            if (activity != null && requestCamera(activity)) {
                 chatView.sendPhoto();
             }
         }
-        if (id == R.id.btn_image){
-            if(activity!=null && requestStorage(activity)){
+        if (id == R.id.btn_image) {
+            if (activity != null && requestStorage(activity)) {
                 chatView.sendImage();
             }
         }
-        if (id == R.id.btn_voice){
-            if(activity!=null && requestAudio(activity)){
+        if (id == R.id.btn_voice) {
+            if (activity != null && requestAudio(activity)) {
                 updateView(InputMode.VOICE);
             }
         }
-        if (id == R.id.btn_keyboard){
+        if (id == R.id.btn_keyboard) {
             updateView(InputMode.TEXT);
         }
-        if (id == R.id.btn_video){
-            if (getContext() instanceof FragmentActivity){
+        if (id == R.id.btn_video) {
+            if (getContext() instanceof FragmentActivity) {
                 FragmentActivity fragmentActivity = (FragmentActivity) getContext();
-                if (requestVideo(fragmentActivity)){
+                if (requestVideo(fragmentActivity)) {
                     VideoInputDialog.show(fragmentActivity.getSupportFragmentManager());
                 }
             }
         }
-        if (id == R.id.btnEmoticon){
-            updateView(inputMode == InputMode.EMOTICON?InputMode.TEXT:InputMode.EMOTICON);
+        if (id == R.id.btnEmoticon) {
+            updateView(inputMode == InputMode.EMOTICON ? InputMode.TEXT : InputMode.EMOTICON);
         }
-        if (id == R.id.btn_file){
+        if (id == R.id.btn_file) {
             chatView.sendFile();
         }
     }
@@ -355,14 +353,14 @@ public class ChatInput extends RelativeLayout implements TextWatcher,View.OnClic
     /**
      * 获取输入框文字
      */
-    public Editable getText(){
+    public Editable getText() {
         return editText.getText();
     }
 
     /**
      * 设置输入框文字
      */
-    public void setText(String text){
+    public void setText(String text) {
         editText.setText(text);
     }
 
@@ -370,13 +368,12 @@ public class ChatInput extends RelativeLayout implements TextWatcher,View.OnClic
     /**
      * 设置输入模式
      */
-    public void setInputMode(InputMode mode){
+    public void setInputMode(InputMode mode) {
         updateView(mode);
     }
 
 
-
-    public enum InputMode{
+    public enum InputMode {
         TEXT,
         VOICE,
         EMOTICON,
@@ -385,12 +382,14 @@ public class ChatInput extends RelativeLayout implements TextWatcher,View.OnClic
         NONE,
     }
 
-    private boolean requestVideo(Activity activity){
-        if (afterM()){
+    private boolean requestVideo(Activity activity) {
+        if (afterM()) {
             final List<String> permissionsList = new ArrayList<>();
-            if ((activity.checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)) permissionsList.add(Manifest.permission.CAMERA);
-            if ((activity.checkSelfPermission(Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED)) permissionsList.add(Manifest.permission.RECORD_AUDIO);
-            if (permissionsList.size() != 0){
+            if ((activity.checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED))
+                permissionsList.add(Manifest.permission.CAMERA);
+            if ((activity.checkSelfPermission(Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED))
+                permissionsList.add(Manifest.permission.RECORD_AUDIO);
+            if (permissionsList.size() != 0) {
                 activity.requestPermissions(permissionsList.toArray(new String[permissionsList.size()]),
                         REQUEST_CODE_ASK_PERMISSIONS);
                 return false;
@@ -405,8 +404,8 @@ public class ChatInput extends RelativeLayout implements TextWatcher,View.OnClic
         return true;
     }
 
-    private boolean requestCamera(Activity activity){
-        if (afterM()){
+    private boolean requestCamera(Activity activity) {
+        if (afterM()) {
             int hasPermission = activity.checkSelfPermission(Manifest.permission.CAMERA);
             if (hasPermission != PackageManager.PERMISSION_GRANTED) {
                 activity.requestPermissions(new String[]{Manifest.permission.CAMERA},
@@ -417,8 +416,8 @@ public class ChatInput extends RelativeLayout implements TextWatcher,View.OnClic
         return true;
     }
 
-    private boolean requestAudio(Activity activity){
-        if (afterM()){
+    private boolean requestAudio(Activity activity) {
+        if (afterM()) {
             int hasPermission = activity.checkSelfPermission(Manifest.permission.RECORD_AUDIO);
             if (hasPermission != PackageManager.PERMISSION_GRANTED) {
                 activity.requestPermissions(new String[]{Manifest.permission.RECORD_AUDIO},
@@ -429,8 +428,8 @@ public class ChatInput extends RelativeLayout implements TextWatcher,View.OnClic
         return true;
     }
 
-    private boolean requestStorage(Activity activity){
-        if (afterM()){
+    private boolean requestStorage(Activity activity) {
+        if (afterM()) {
             int hasPermission = activity.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
             if (hasPermission != PackageManager.PERMISSION_GRANTED) {
                 activity.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
@@ -441,7 +440,7 @@ public class ChatInput extends RelativeLayout implements TextWatcher,View.OnClic
         return true;
     }
 
-    private boolean afterM(){
+    private boolean afterM() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
     }
 
