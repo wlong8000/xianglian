@@ -9,12 +9,12 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
-import com.tencent.qcloud.presentation.event.MessageEvent;
-import com.tencent.qcloud.tlslibrary.service.TlsBusiness;
+//import com.tencent.qcloud.presentation.event.MessageEvent;
+//import com.tencent.qcloud.tlslibrary.service.TlsBusiness;
 import com.wl.appchat.ConversationFragment;
-import com.wl.appchat.model.FriendshipInfo;
-import com.wl.appchat.model.GroupInfo;
-import com.wl.appchat.model.UserInfo;
+//import com.wl.appchat.model.FriendshipInfo;
+//import com.wl.appchat.model.GroupInfo;
+//import com.wl.appchat.model.UserInfo;
 import com.xianglian.love.main.home.BaseHomeFragment;
 import com.xianglian.love.main.home.SearchActivity;
 import com.xianglian.love.main.home.been.UserEntity;
@@ -166,15 +166,15 @@ public class MainActivity extends BaseFragmentActivity {
             fragment.onActivityResult(requestCode, resultCode, data);
         }
     }
-
-    public void logout() {
-        TlsBusiness.logout(UserInfo.getInstance().getId());
-        UserInfo.getInstance().setId(null);
-        MessageEvent.getInstance().clear();
-        FriendshipInfo.getInstance().clear();
-        GroupInfo.getInstance().clear();
-
-    }
+//
+//    public void logout() {
+//        TlsBusiness.logout(UserInfo.getInstance().getId());
+//        UserInfo.getInstance().setId(null);
+//        MessageEvent.getInstance().clear();
+//        FriendshipInfo.getInstance().clear();
+//        GroupInfo.getInstance().clear();
+//
+//    }
 
 
 }

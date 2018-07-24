@@ -53,45 +53,48 @@ android {
 
 dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'devlight.io:navigationtabbar:1.2.5'
-    compile dependence.libSupportV7
-    compile 'com.android.support:design:27.1.1'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'devlight.io:navigationtabbar:1.2.5'
+    implementation dependence.libSupportV7
+    implementation 'com.android.support:design:27.1.1'
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:recyclerview-v7:27.1.1'
-    compile 'com.facebook.fresco:fresco:1.0.0'
-    compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
-    compile 'me.majiajie:pager-bottom-tab-strip:2.2.2'
-    compile('com.facebook.fresco:animated-webp:1.0.0') {
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
+    implementation 'com.facebook.fresco:fresco:1.0.0'
+    implementation 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+    implementation 'me.majiajie:pager-bottom-tab-strip:2.2.2'
+    implementation('com.facebook.fresco:animated-webp:1.0.0') {
         exclude module: 'bolts-android'
     }
-    compile('com.facebook.fresco:animated-gif:1.0.0') {
+    implementation('com.facebook.fresco:animated-gif:1.0.0') {
         exclude module: 'bolts-android'
     }
-    compile 'com.jakewharton:butterknife:6.1.0'
-    compile 'com.facebook.stetho:stetho:1.5.0'
-    compile 'com.facebook.stetho:stetho-okhttp3:1.5.0'
-    compile 'com.zhousf.lib:okhttp3:2.8.9'
-    compile 'com.contrarywind:Android-PickerView:3.2.6'
-    compile 'top.zibin:Luban:1.1.2'
-    compile 'com.qiniu:qiniu-android-sdk:7.3.+'
+    implementation 'com.jakewharton:butterknife:6.1.0'
+    implementation 'com.facebook.stetho:stetho:1.5.0'
+    implementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
+    implementation 'com.zhousf.lib:okhttp3:2.8.9'
+    implementation 'com.contrarywind:Android-PickerView:3.2.6'
+    implementation 'top.zibin:Luban:1.1.2'
+    implementation 'com.qiniu:qiniu-android-sdk:7.3.+'
     implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.3'
     //okgo 网络框架
-    compile 'com.lzy.net:okgo:3.0.4'
+    implementation 'com.lzy.net:okgo:3.0.4'
     implementation 'com.google.code.gson:gson:2.8.5'
-    compile 'com.orhanobut:hawk:2.0.1'
-    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
-    compile('com.crashlytics.sdk.android:crashlytics:2.9.4@aar') {
+    implementation 'com.orhanobut:hawk:2.0.1'
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
+    implementation('com.crashlytics.sdk.android:crashlytics:2.9.4@aar') {
         transitive = true
     }
-    compile 'com.umeng.sdk:common:1.5.3'
-    compile 'com.umeng.sdk:analytics:7.5.3'
-    compile 'com.android.support:multidex:1.0.3'
+    implementation 'com.umeng.sdk:common:1.5.3'
+    implementation 'com.umeng.sdk:analytics:7.5.3'
+    implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.google.code.gson:gson:2.8.5'
+    implementation project(':AppChat')
     implementation project(':AppCore')
 
-    compile 'com.google.firebase:firebase-core:9.0.0'
-    compile 'com.google.firebase:firebase-messaging:9.0.0'
+    implementation 'com.google.firebase:firebase-core:9.0.0'
+    implementation 'com.google.firebase:firebase-messaging:9.0.0'
+    implementation project(':presentation')
+
 }
 
 //task依赖讲解

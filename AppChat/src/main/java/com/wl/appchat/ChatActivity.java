@@ -174,7 +174,7 @@ public class ChatActivity extends FragmentActivity implements ChatView {
                 break;
 
         }
-        voiceSendingView = (VoiceSendingView) findViewById(R.id.voice_sending);
+        voiceSendingView = findViewById(R.id.voice_sending);
         presenter.start();
     }
 
