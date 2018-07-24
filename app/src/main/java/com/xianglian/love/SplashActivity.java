@@ -45,9 +45,6 @@ import com.xiaomi.mipush.sdk.MiPushClient;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.ButterKnife;
-import butterknife.InjectView;
-
 /**
  * 启动页面
  */
@@ -58,10 +55,10 @@ public class SplashActivity extends BaseActivity implements SplashView, TIMCallB
 
     private SplashPresenter mPresenter;
 
-    @InjectView(R.id.base_splash_image)
+//    @InjectView(R.id.base_splash_image)
     public SimpleDraweeView mSplashImg;
 
-    @InjectView(R.id.ad_skip)
+//    @InjectView(R.id.ad_skip)
     public View mSkipView;
 
     private ConfigEntity mConfigEntity;
@@ -72,7 +69,7 @@ public class SplashActivity extends BaseActivity implements SplashView, TIMCallB
         clearNotification();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
-        ButterKnife.inject(this);
+//        ButterKnife.inject(this);
         mConfigEntity = Hawk.get(Keys.CONFIG_INFO);
         setupView();
         AppService.startConfigInfo(this);
@@ -94,7 +91,9 @@ public class SplashActivity extends BaseActivity implements SplashView, TIMCallB
     }
 
     private void setupView() {
-        if (mConfigEntity != null) {
+        mSplashImg = findViewById(R.id.base_splash_image);
+        mSkipView = findViewById(R.id.ad_skip);
+        if (mConfigEntity != null && !TextUtils.isEmpty(mConfigEntity.getDefault_splash_img())) {
             mSplashImg.setImageURI(AppUtils.parse(mConfigEntity.getDefault_splash_img()));
         }
     }

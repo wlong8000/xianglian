@@ -14,8 +14,6 @@ import com.xianglian.love.R;
 import com.xianglian.love.utils.Tool;
 import java.util.ArrayList;
 import java.util.List;
-import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 
 
@@ -23,21 +21,21 @@ import butterknife.InjectView;
  * Created by Administrator on 2017/3/16.
  */
 public class SelectPayMethodActivity extends BaseUserInfoActivity implements View.OnClickListener {
-    @InjectView(R.id.had_apply_num_content_tv)
+//    @InjectView(R.id.had_apply_num_content_tv)
     TextView mNumContent;
-    @InjectView(R.id.pay_method_select_first_image)
+//    @InjectView(R.id.pay_method_select_first_image)
     ImageView mFirstSelectImage;
-    @InjectView(R.id.pay_method_select_second_image)
+//    @InjectView(R.id.pay_method_select_second_image)
     ImageView mSecondSelectImage;
-    @InjectView(R.id.pay_method_select_third_image)
+//    @InjectView(R.id.pay_method_select_third_image)
     ImageView mThirdSelectImage;
-    @InjectView(R.id.pay_by_weixin_item_rl)
+//    @InjectView(R.id.pay_by_weixin_item_rl)
     RelativeLayout mPayByWeixin;
-    @InjectView(R.id.pay_by_zhifubao_item_rl)
+//    @InjectView(R.id.pay_by_zhifubao_item_rl)
     RelativeLayout mPayByZhifubao;
-    @InjectView(R.id.common_title_center_title_text)
+//    @InjectView(R.id.common_title_center_title_text)
     TextView mTittle;
-    @InjectView(R.id.common_title_left_back_image)
+//    @InjectView(R.id.common_title_left_back_image)
     ImageView mBack;
     List<Integer> selectList = new ArrayList<>();
     int firstSelect = 1;
@@ -48,7 +46,7 @@ public class SelectPayMethodActivity extends BaseUserInfoActivity implements Vie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.select_pay_method_layout);
-        ButterKnife.inject(this);
+//        ButterKnife.inject(this);
         initView();
         selectList.add(firstSelect);
     }

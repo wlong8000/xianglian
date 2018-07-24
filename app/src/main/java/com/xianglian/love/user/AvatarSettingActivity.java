@@ -21,8 +21,6 @@ import com.xianglian.love.view.CutPictureAty;
 
 import java.io.File;
 
-import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 /**
  * Created by Administrator on 2017/3/8.
@@ -31,11 +29,11 @@ import butterknife.InjectView;
 public class AvatarSettingActivity extends BaseUserInfoActivity implements View.OnClickListener {
 
     //头像
-    @InjectView(R.id.head_img)
+//    @InjectView(R.id.head_img)
     SimpleDraweeView mAvatarView;
 
     //个人简介
-    @InjectView(R.id.center_personal_resume_et)
+//    @InjectView(R.id.center_personal_resume_et)
     EditText mPersonalInfo;
 
     private PopupWindow mPopupWindow;
@@ -60,7 +58,7 @@ public class AvatarSettingActivity extends BaseUserInfoActivity implements View.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.setting_personal_image_layout);
-        ButterKnife.inject(this);
+//        ButterKnife.inject(this);
         initView();
     }
 

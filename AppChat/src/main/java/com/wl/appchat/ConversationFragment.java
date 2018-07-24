@@ -32,6 +32,9 @@ import com.wl.appchat.model.GroupManageConversation;
 import com.wl.appchat.model.MessageFactory;
 import com.wl.appchat.model.NomalConversation;
 import com.wl.appchat.utils.PushUtil;
+import com.wl.appcore.event.MessageEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -202,6 +205,7 @@ public class ConversationFragment extends Fragment implements ConversationView, 
         Collections.sort(conversationList);
         adapter.notifyDataSetChanged();
         //todo
+        EventBus.getDefault().post(new MessageEvent(String.valueOf(getTotalUnreadNum())));
 //        if (getActivity() instanceof HomeActivity)
 //            ((HomeActivity) getActivity()).setMsgUnread(getTotalUnreadNum() == 0);
     }

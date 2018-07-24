@@ -15,12 +15,18 @@ import com.wl.appchat.ConversationFragment;
 //import com.wl.appchat.model.FriendshipInfo;
 //import com.wl.appchat.model.GroupInfo;
 //import com.wl.appchat.model.UserInfo;
+import com.wl.appcore.event.MessageEvent;
 import com.xianglian.love.main.home.BaseHomeFragment;
 import com.xianglian.love.main.home.SearchActivity;
 import com.wl.appcore.entity.UserEntity;
 import com.xianglian.love.main.me.BaseMeFragment;
+import com.xianglian.love.utils.AppUtils;
 import com.xianglian.love.utils.UpdateUtil;
 import com.xianglian.love.utils.UserUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +41,8 @@ public class MainActivity extends BaseFragmentActivity {
 
     private MainAdapter mAdapter;
 
+    private NavigationTabBar mNavigationTabBar;
+
     private long exitTime = 0;
 
     public static final int REQUEST_CODE_SEARCH = 1;
@@ -47,7 +55,7 @@ public class MainActivity extends BaseFragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-
+        EventBus.getDefault().register(this);
 
         setupTitle(getString(R.string.meet_you), R.drawable.btn_menu_normal);
         mViewPager = findViewById(R.id.vp_container);
@@ -111,7 +119,7 @@ public class MainActivity extends BaseFragmentActivity {
 
         final String[] colors = getResources().getStringArray(R.array.default_preview2);
 
-        final NavigationTabBar navigationTabBar = findViewById(R.id.tab);
+        mNavigationTabBar = findViewById(R.id.tab);
 
         final ArrayList<NavigationTabBar.Model> models = new ArrayList<>();
         models.add(
@@ -140,9 +148,9 @@ public class MainActivity extends BaseFragmentActivity {
                         .build()
         );
 
-        navigationTabBar.setModels(models);
-        navigationTabBar.setViewPager(mViewPager, mCurrentPage);
-        navigationTabBar.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        mNavigationTabBar.setModels(models);
+        mNavigationTabBar.setViewPager(mViewPager, mCurrentPage);
+        mNavigationTabBar.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(final int position, final float positionOffset, final int positionOffsetPixels) {
 
@@ -158,6 +166,19 @@ public class MainActivity extends BaseFragmentActivity {
 
             }
         });
+
+    }
+
+    private void showBadge(final NavigationTabBar navigationTabBar, final String message) {
+        if (AppUtils.stringToInt(message) <= 0) return;
+        navigationTabBar.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                NavigationTabBar.Model model = navigationTabBar.getModels().get(1);
+                model.setBadgeTitle(message);
+                model.showBadge();
+            }
+        }, 500);
     }
 
     @Override
@@ -177,5 +198,15 @@ public class MainActivity extends BaseFragmentActivity {
 //
 //    }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void showMessage(MessageEvent messageEvent) {
+        showBadge(mNavigationTabBar, messageEvent.getMessage());
+    }
 
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }

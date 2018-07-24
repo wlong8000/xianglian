@@ -23,36 +23,34 @@ import com.xianglian.love.config.Config;
 import com.xianglian.love.main.home.been.UserDetailEntity;
 import com.wl.appcore.entity.UserEntity;
 
-import butterknife.ButterKnife;
-import butterknife.InjectView;
 @Route(path = "/detail/activity")
 public class PersonDetailActivity extends BaseActivity implements View.OnClickListener {
 
     //头图
-    @InjectView(R.id.img)
+//    @InjectView(R.id.img)
     SimpleDraweeView mPicView;
 
     //交换QQ
-    @InjectView(R.id.change_qq)
+//    @InjectView(R.id.change_qq)
     TextView mChangeQQView;
 
     //交换微信
-    @InjectView(R.id.change_wx)
+//    @InjectView(R.id.change_wx)
     TextView mChangeWXView;
 
     //留言
-    @InjectView(R.id.leave_message)
+//    @InjectView(R.id.leave_message)
     TextView mLeaveMessageView;
 
     //心动数量
-    @InjectView(R.id.heart)
+//    @InjectView(R.id.heart)
     LinearLayout mHeartLayout;
 
     //心动数量
-    @InjectView(R.id.tv_heart_count)
+//    @InjectView(R.id.tv_heart_count)
     TextView mHeartCountView;
 
-    @InjectView(R.id.view_pager)
+//    @InjectView(R.id.view_pager)
     ViewPager mViewPager;
 
     private int mId;
@@ -78,7 +76,7 @@ public class PersonDetailActivity extends BaseActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_person_detail);
         StatusbarUtil.setStatusBarTranslucent(this);
-        ButterKnife.inject(this);
+//        ButterKnife.inject(this);
         mEntity = (UserEntity) getIntent().getSerializableExtra(Config.EXTRA_ENTITY);
         if (mEntity == null) {
             mId = getIntent().getIntExtra(Config.EXTRA_ID, -1);
@@ -92,6 +90,14 @@ public class PersonDetailActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void setupView() {
+        mPicView = findViewById(R.id.img);
+        mChangeQQView = findViewById(R.id.change_qq);
+        mChangeWXView = findViewById(R.id.change_wx);
+        mLeaveMessageView = findViewById(R.id.leave_message);
+        mHeartLayout = findViewById(R.id.heart);
+        mHeartCountView = findViewById(R.id.tv_heart_count);
+        mViewPager = findViewById(R.id.view_pager);
+
         mHeartLayout.setOnClickListener(this);
         mChangeQQView.setOnClickListener(this);
         mChangeWXView.setOnClickListener(this);

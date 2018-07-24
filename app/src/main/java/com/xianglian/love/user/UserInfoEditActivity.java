@@ -15,9 +15,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
-//import com.qiniu.android.http.ResponseInfo;
-//import com.qiniu.android.storage.UpCompletionHandler;
-//import com.qiniu.android.storage.UploadManager;
 import com.xianglian.love.R;
 import com.xianglian.love.config.Config;
 import com.xianglian.love.dialog.FirstChooseDialog;
@@ -38,8 +35,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 
 /**
@@ -49,10 +44,10 @@ import butterknife.InjectView;
 public class UserInfoEditActivity extends BaseUserInfoActivity implements View.OnClickListener {
 
 
-    @InjectView(R.id.recycler_view)
+//    @InjectView(R.id.recycler_view)
     RecyclerView mRecyclerView;
 
-    @InjectView(R.id.bottom_complete)
+//    @InjectView(R.id.bottom_complete)
     TextView mCompleteView;
 
     private CommonLinearLayoutManager mLayoutManager;
@@ -78,47 +73,47 @@ public class UserInfoEditActivity extends BaseUserInfoActivity implements View.O
 
     private int mType = -1;
 
-    private View.OnClickListener itemClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            int position = mRecyclerView.getChildAdapterPosition(view);
-            mEntity = mAdapter.getItem(position);
-            if (mEntity == null) return;
-            mType = mEntity.getType();
-            if (ItemInfo.ViewType.PICK_SELECT == mEntity.getViewType()) {
-                switch (mType) {
-                    case ItemInfo.Type.INTRODUCE: {
-                        Intent intent = new Intent(UserInfoEditActivity.this, IntroduceActivity.class);
-                        startActivityForResult(intent, REQUEST_CODE_INTRODUCE);
-                        break;
-                    }
-                    case ItemInfo.Type.BIRTHDAY: {
-                        showDateDialog(mEntity);
-                        break;
-                    }
-                    case ItemInfo.Type.HOMETOWN:
-                    case ItemInfo.Type.APARTMENT: {
-                        showOptions(mEntity);
-                        break;
-                    }
-                    case ItemInfo.Type.INCOME:
-                    case ItemInfo.Type.EDUCATION:
-                    case ItemInfo.Type.PROFESSION:
-                    case ItemInfo.Type.HEIGHT: {
-                        showBottomDialog(mEntity);
-                        break;
-                    }
-                }
-            } else if (ItemInfo.ViewType.AVATAR == mEntity.getViewType()) {
-                Intent intent = getCropImageIntent(
-                        Uri.fromFile(new File(AppUtils.getPicturePath(UserInfoEditActivity.this) + "avatar/")),
-                        Uri.fromFile(new File(AppUtils.getPicturePath(UserInfoEditActivity.this) + "avatar/")));
-                if (AppUtils.isIntentAvailable(UserInfoEditActivity.this, intent)) {
-                    changeHead(view);
-                }
-            }
-        }
-    };
+//    private View.OnClickListener itemClickListener = new View.OnClickListener() {
+//        @Override
+//        public void onClick(View view) {
+//            int position = mRecyclerView.getChildAdapterPosition(view);
+//            mEntity = mAdapter.getItem(position);
+//            if (mEntity == null) return;
+//            mType = mEntity.getType();
+//            if (ItemInfo.ViewType.PICK_SELECT == mEntity.getViewType()) {
+//                switch (mType) {
+//                    case ItemInfo.Type.INTRODUCE: {
+//                        Intent intent = new Intent(UserInfoEditActivity.this, IntroduceActivity.class);
+//                        startActivityForResult(intent, REQUEST_CODE_INTRODUCE);
+//                        break;
+//                    }
+//                    case ItemInfo.Type.BIRTHDAY: {
+//                        showDateDialog(mEntity);
+//                        break;
+//                    }
+//                    case ItemInfo.Type.HOMETOWN:
+//                    case ItemInfo.Type.APARTMENT: {
+//                        showOptions(mEntity);
+//                        break;
+//                    }
+//                    case ItemInfo.Type.INCOME:
+//                    case ItemInfo.Type.EDUCATION:
+//                    case ItemInfo.Type.PROFESSION:
+//                    case ItemInfo.Type.HEIGHT: {
+//                        showBottomDialog(mEntity);
+//                        break;
+//                    }
+//                }
+//            } else if (ItemInfo.ViewType.AVATAR == mEntity.getViewType()) {
+//                Intent intent = getCropImageIntent(
+//                        Uri.fromFile(new File(AppUtils.getPicturePath(UserInfoEditActivity.this) + "avatar/")),
+//                        Uri.fromFile(new File(AppUtils.getPicturePath(UserInfoEditActivity.this) + "avatar/")));
+//                if (AppUtils.isIntentAvailable(UserInfoEditActivity.this, intent)) {
+//                    changeHead(view);
+//                }
+//            }
+//        }
+//    };
 
     /**
      * 保存用户信息
@@ -272,7 +267,6 @@ public class UserInfoEditActivity extends BaseUserInfoActivity implements View.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_info_activity);
-        ButterKnife.inject(this);
         initView();
         mCompleteView.setOnClickListener(this);
     }
@@ -379,44 +373,6 @@ public class UserInfoEditActivity extends BaseUserInfoActivity implements View.O
         data.setType(type);
         data.setItems(list);
         return data;
-    }
-
-    /**
-     * 上传头像
-     *
-     * @param path
-     */
-    private void uploadAvatar(String token, String path, String fileName) {
-//        final BmobFile bmobFile = new BmobFile(new File(path));
-//        bmobFile.uploadblock(new UploadFileListener() {
-//            @Override
-//            public void done(BmobException e) {
-//                String url = bmobFile.getFileUrl();
-//                if (!TextUtils.isEmpty(url)) {
-//                    toast(R.string.text_upload_avatar_success);
-//                    mEntity.setAvatar(url);
-//                    mPersonInfo.setAvatar(url);
-//                    mAdapter.notifyDataSetChanged();
-//                } else {
-//                    toast(R.string.text_upload_avatar_fail);
-//                }
-//            }
-//        });
-//        UploadManager uploadManager = new UploadManager();
-//        uploadManager.put(path, fileName, token,
-//                new UpCompletionHandler() {
-//                    @Override
-//                    public void complete(String key, ResponseInfo info, JSONObject res) {
-//                        //res包含hash、key等信息，具体字段取决于上传策略的设置
-//                        if(info.isOK()) {
-//                            Log.i("qiniu", "Upload Success");
-//                        } else {
-//                            Log.i("qiniu", "Upload Fail");
-//                            //如果失败，这里可以把info信息上报自己的服务器，便于后面分析上传错误原因
-//                        }
-//                        Log.i("qiniu", key + ",\r\n " + info + ",\r\n " + res);
-//                    }
-//                }, null);
     }
 
     @Override

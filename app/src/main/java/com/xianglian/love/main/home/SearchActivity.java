@@ -21,9 +21,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import butterknife.ButterKnife;
-import butterknife.InjectView;
-
 
 /**
  * Created by wl on 2017/8/4.
@@ -34,10 +31,10 @@ import butterknife.InjectView;
 public class SearchActivity extends BaseEditUserInfoActivity implements
         BaseQuickAdapter.OnItemClickListener, View.OnClickListener {
 
-    @InjectView(R.id.save)
+//    @InjectView(R.id.save)
     TextView mSaveView;
 
-    @InjectView(R.id.reset)
+//    @InjectView(R.id.reset)
     TextView mResetView;
 
     private UserInfoEditAdapter mAdapter;
@@ -53,7 +50,8 @@ public class SearchActivity extends BaseEditUserInfoActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.select_activity);
         setupCommonTitle(getString(R.string.selected));
-        ButterKnife.inject(this);
+        mSaveView = findViewById(R.id.save);
+        mResetView = findViewById(R.id.reset);
         setupRecyclerView();
         mSaveView.setOnClickListener(this);
         mResetView.setOnClickListener(this);

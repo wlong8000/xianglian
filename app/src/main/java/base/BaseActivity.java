@@ -56,7 +56,6 @@ public abstract class BaseActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(initLayout());
-        ButterKnife.inject(this);
         initNetworkStateListener();
     }
 
@@ -183,7 +182,6 @@ public abstract class BaseActivity extends AppCompatActivity implements
 
     @Override
     protected void onDestroy() {
-        ButterKnife.reset(this);
         //移除网络状态监听
         if(null != networkStateListener) {
             NetworkStateReceiver.removeNetworkStateListener(networkStateListener);
