@@ -1,5 +1,6 @@
 package com.wl.appchat;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -18,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.tencent.TIMConversationType;
 import com.tencent.TIMMessage;
 import com.tencent.TIMMessageDraft;
@@ -137,10 +139,11 @@ public class ChatActivity extends FragmentActivity implements ChatView {
                     title.setMoreImgAction(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            //todo
-//                            Intent intent = new Intent(ChatActivity.this, ProfileActivity.class);
-//                            intent.putExtra("identify", identify);
-//                            startActivity(intent);
+                            ARouter.getInstance().build("/detail/activity").navigation();
+                            ARouter.getInstance().build("/detail/1")
+                                    .withString("id", "2")
+                                    .navigation();
+
                         }
                     });
                     FriendProfile profile = FriendshipInfo.getInstance().getProfile(identify);
@@ -150,10 +153,16 @@ public class ChatActivity extends FragmentActivity implements ChatView {
                         @Override
                         public void onClick(View v) {
                             //todo
-//                            Intent person = new Intent(ChatActivity.this,AddFriendActivity.class);
-//                            person.putExtra("id",identify);
-//                            person.putExtra("name",identify);
-//                            startActivity(person);
+//                            ARouter.getInstance().build("/detail/activity")
+////                                    .withString("id", "2")
+//                                    .navigation();
+
+                            Intent intent = new Intent();
+                            intent.putExtra("id","1");
+                            ComponentName cn = new ComponentName("com.wl.lianba",
+                                    "com.xianglian.love.main.home.PersonDetailActivity");
+                            intent.setComponent(cn);
+                            startActivity(intent);
                         }
                     });
                     title.setTitleText(titleStr = identify);

@@ -27,3 +27,5 @@
 
 -keep class qalsdk.**{*;}
 -dontwarn qalsdk.**
+
+-keep class dalvik.system.DexFile{*;}

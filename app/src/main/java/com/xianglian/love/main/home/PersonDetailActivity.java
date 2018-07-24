@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.tencent.TIMConversationType;
 import com.wl.appchat.ChatActivity;
@@ -24,7 +25,7 @@ import com.wl.appcore.entity.UserEntity;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-
+@Route(path = "/detail/activity")
 public class PersonDetailActivity extends BaseActivity implements View.OnClickListener {
 
     //头图
@@ -80,7 +81,7 @@ public class PersonDetailActivity extends BaseActivity implements View.OnClickLi
         ButterKnife.inject(this);
         mEntity = (UserEntity) getIntent().getSerializableExtra(Config.EXTRA_ENTITY);
         if (mEntity == null) {
-            mId = getIntent().getIntExtra(Config.EXTRA_ID, 0);
+            mId = getIntent().getIntExtra(Config.EXTRA_ID, -1);
         } else {
             mId = mEntity.getId();
         }
@@ -95,7 +96,6 @@ public class PersonDetailActivity extends BaseActivity implements View.OnClickLi
         mChangeQQView.setOnClickListener(this);
         mChangeWXView.setOnClickListener(this);
         mLeaveMessageView.setOnClickListener(this);
-//        mPicView.setAspectRatio(2);
 
         mViewPager.setOffscreenPageLimit(1);
         mBaseAdapter = new MyBaseAdapter(getSupportFragmentManager());

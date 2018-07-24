@@ -5,6 +5,7 @@ import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 import android.text.TextUtils;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.crashlytics.android.Crashlytics;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.stetho.Stetho;
@@ -20,6 +21,7 @@ import com.umeng.commonsdk.UMConfigure;
 import com.wl.appchat.MyApplication;
 import com.xianglian.love.AppService;
 import com.wl.appcore.entity.UserEntity;
+import com.xianglian.love.BuildConfig;
 import com.xianglian.love.utils.AppUtils;
 import com.xianglian.love.utils.Trace;
 import com.xianglian.love.utils.UserUtils;
@@ -54,6 +56,11 @@ public class BaseApplication extends MultiDexApplication {
         Stetho.initializeWithDefaults(this);
         Hawk.init(this).build();
         MultiDex.install(this);
+        if (BuildConfig.DEBUG) {           // These two lines must be written before init, otherwise these configurations will be invalid in the init process
+            ARouter.openLog();     // Print log
+            ARouter.openDebug();   // Turn on debugging mode (If you are running in InstantRun mode, you must turn on debug mode! Online version needs to be closed, otherwise there is a security risk)
+        }
+        ARouter.init(this);
 
         if (AppUtils.isLogin(this)) {
             AppService.startSaveUser(this);
