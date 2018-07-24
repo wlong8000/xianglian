@@ -12,7 +12,7 @@ import com.xianglian.love.R;
 import com.xianglian.love.config.Keys;
 import com.xianglian.love.dialog.EditDialog;
 import com.xianglian.love.main.home.been.UserDetailEntity;
-import com.xianglian.love.main.home.been.UserEntity;
+import com.wl.appcore.entity.UserEntity;
 import com.xianglian.love.user.adapter.UserInfoEditAdapter;
 import com.xianglian.love.user.been.ItemInfo;
 import com.xianglian.love.utils.AppUtils;

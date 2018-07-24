@@ -11,7 +11,6 @@ import com.xianglian.love.R;
 import com.xianglian.love.library.tag.TagBaseAdapter;
 import com.xianglian.love.library.tag.TagCloudLayout;
 import com.xianglian.love.main.home.been.UserDetailEntity;
-import com.xianglian.love.main.home.been.UserEntity;
 import com.xianglian.love.utils.AppUtils;
 import com.xianglian.love.utils.UserUtils;
 import com.xianglian.love.view.AlumView;

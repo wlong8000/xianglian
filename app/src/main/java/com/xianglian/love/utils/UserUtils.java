@@ -10,7 +10,7 @@ import com.orhanobut.hawk.Hawk;
 import com.xianglian.love.R;
 import com.xianglian.love.config.Keys;
 import com.xianglian.love.main.home.been.UserDetailEntity;
-import com.xianglian.love.main.home.been.UserEntity;
+import com.wl.appcore.entity.UserEntity;
 import com.xianglian.love.user.been.ItemInfo;
 
 import java.util.ArrayList;

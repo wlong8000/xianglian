@@ -13,7 +13,7 @@ import com.orhanobut.hawk.Hawk;
 import com.xianglian.love.R;
 import com.xianglian.love.config.Config;
 import com.xianglian.love.config.Keys;
-import com.xianglian.love.main.home.been.UserEntity;
+import com.wl.appcore.entity.UserEntity;
 import com.xianglian.love.net.JsonCallBack;
 import com.xianglian.love.utils.AppUtils;
 

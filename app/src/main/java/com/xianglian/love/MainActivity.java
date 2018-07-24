@@ -17,7 +17,7 @@ import com.wl.appchat.ConversationFragment;
 //import com.wl.appchat.model.UserInfo;
 import com.xianglian.love.main.home.BaseHomeFragment;
 import com.xianglian.love.main.home.SearchActivity;
-import com.xianglian.love.main.home.been.UserEntity;
+import com.wl.appcore.entity.UserEntity;
 import com.xianglian.love.main.me.BaseMeFragment;
 import com.xianglian.love.utils.UpdateUtil;
 import com.xianglian.love.utils.UserUtils;
@@ -64,7 +64,8 @@ public class MainActivity extends BaseFragmentActivity {
     private void initFragment() {
         mFragments = new ArrayList<>();
         mFragments.add(BaseHomeFragment.newInstance());
-        mFragments.add(new ConversationFragment());
+        ConversationFragment conversationFragment = new ConversationFragment();
+        mFragments.add(conversationFragment);
         mFragments.add(BaseMeFragment.newInstance());
     }
 

@@ -79,8 +79,6 @@ dependencies {
     //okgo 网络框架
     implementation 'com.lzy.net:okgo:3.0.4'
     implementation 'com.google.code.gson:gson:2.8.5'
-    implementation 'com.orhanobut:hawk:2.0.1'
-    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
     implementation('com.crashlytics.sdk.android:crashlytics:2.9.4@aar') {
         transitive = true
     }

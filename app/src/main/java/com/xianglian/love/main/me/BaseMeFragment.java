@@ -26,7 +26,7 @@ import com.xianglian.love.config.Keys;
 import com.xianglian.love.dialog.SelectPicAlertDialog;
 import com.xianglian.love.main.home.EditPhoneActivity;
 import com.xianglian.love.main.home.been.PersonInfo;
-import com.xianglian.love.main.home.been.UserEntity;
+import com.wl.appcore.entity.UserEntity;
 import com.xianglian.love.model.Album;
 import com.xianglian.love.model.AttachmentEntity;
 import com.xianglian.love.model.TakePhoto;

@@ -20,7 +20,7 @@ import com.xianglian.love.R;
 import com.xianglian.love.utils.StatusbarUtil;
 import com.xianglian.love.config.Config;
 import com.xianglian.love.main.home.been.UserDetailEntity;
-import com.xianglian.love.main.home.been.UserEntity;
+import com.wl.appcore.entity.UserEntity;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;

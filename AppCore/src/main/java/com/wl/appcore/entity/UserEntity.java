@@ -1,4 +1,4 @@
-package com.xianglian.love.main.home.been;
+package com.wl.appcore.entity;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 

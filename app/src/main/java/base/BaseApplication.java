@@ -19,7 +19,7 @@ import com.orhanobut.hawk.Hawk;
 import com.umeng.commonsdk.UMConfigure;
 import com.wl.appchat.MyApplication;
 import com.xianglian.love.AppService;
-import com.xianglian.love.main.home.been.UserEntity;
+import com.wl.appcore.entity.UserEntity;
 import com.xianglian.love.utils.AppUtils;
 import com.xianglian.love.utils.Trace;
 import com.xianglian.love.utils.UserUtils;

@@ -35,7 +35,7 @@ import com.tencent.qcloud.tlslibrary.service.TlsBusiness;
 import com.wl.appchat.model.UserInfo;
 import com.wl.appchat.utils.PushUtil;
 import com.xianglian.love.config.Keys;
-import com.xianglian.love.main.home.been.UserEntity;
+import com.wl.appcore.entity.UserEntity;
 import com.xianglian.love.model.ConfigEntity;
 import com.xianglian.love.user.LoginActivity;
 import com.xianglian.love.utils.AppUtils;
@@ -54,7 +54,7 @@ import butterknife.InjectView;
 public class SplashActivity extends BaseActivity implements SplashView, TIMCallBack {
     private final int REQUEST_PHONE_PERMISSIONS = 0;
 
-    private int LOGIN_RESULT_CODE = 100;
+    private static int LOGIN_RESULT_CODE = 100;
 
     private SplashPresenter mPresenter;
 
