@@ -48,6 +48,8 @@ public class LoginActivity extends BaseLoginActivity implements OnClickListener,
 
     private UserEntity mEntity;
 
+    private String mToken;
+
     public static Intent getIntent(Context context, String userName, String pwd, boolean autoLogin) {
         if (TextUtils.isEmpty(userName) || TextUtils.isEmpty(pwd)) return null;
         Intent intent = new Intent(context, LoginActivity.class);
@@ -129,12 +131,13 @@ public class LoginActivity extends BaseLoginActivity implements OnClickListener,
         request.execute(new JsonCallBack<UserEntity>(UserEntity.class) {
             @Override
             public void onSuccess(Response<UserEntity> response) {
-//                dialogDisMiss();
-                mEntity = response.body();
-                if (mEntity == null) return;
-                String username = mEntity.getId() + "-" + mEntity.getUsername();
-                AppService.startUpdateTimSign(LoginActivity.this, username, true);
-//                Hawk.put(Keys.TOKEN, mEntity.getToken());
+                UserEntity entity = response.body();
+                if (entity == null) return;
+                Hawk.put(Keys.TOKEN, entity.getToken());
+                mToken = entity.getToken();
+                AppService.startSaveUser(LoginActivity.this, true);
+//                String username = mEntity.getId() + "-" + mEntity.getUsername();
+//                AppService.startUpdateTimSign(LoginActivity.this, username, true);
 //                Hawk.put(Keys.USER_INFO, mEntity);
 //                startActivity(new Intent(LoginActivity.this, MainActivity.class));
 //                finish();
@@ -162,7 +165,7 @@ public class LoginActivity extends BaseLoginActivity implements OnClickListener,
     public void onSuccess() {
         dialogDisMiss();
         TimHelper.getInstance().initMessage();
-        Hawk.put(Keys.TOKEN, mEntity.getToken());
+        Hawk.put(Keys.TOKEN, mToken);
         Hawk.put(Keys.USER_INFO, mEntity);
         startActivity(new Intent(LoginActivity.this, MainActivity.class));
         finish();
@@ -176,10 +179,17 @@ public class LoginActivity extends BaseLoginActivity implements OnClickListener,
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void showMessage2(MessageEvent2 messageEvent) {
-//        showBadge(mNavigationTabBar, messageEvent.getMessage());
         if (messageEvent.getMessage() != null) {
             UserEntity entity = messageEvent.getMessage();
-            LoginBusiness.loginIm(entity.getUsername(), entity.getUser_sign(), this);
+            if (messageEvent.getType() == 0) {
+                LoginBusiness.loginIm(entity.getUsername(), entity.getUser_sign(), this);
+            } else if (messageEvent.getType() == 1) {
+                String username = entity.getId() + "-" + entity.getUsername();
+                mEntity = entity;
+                AppService.startUpdateTimSign(LoginActivity.this, username, true);
+            }
+        } else {
+            dialogDisMiss();
         }
     }
 }

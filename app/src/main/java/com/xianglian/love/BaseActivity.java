@@ -154,4 +154,10 @@ public class BaseActivity extends AppCompatActivity implements TitleBarView.OnTi
         super.onPause();
         MobclickAgent.onPause(this);
     }
+
+    @Override
+    public void finish() {
+        super.finish();
+        this.overridePendingTransition(0, R.anim.push_right_out);
+    }
 }

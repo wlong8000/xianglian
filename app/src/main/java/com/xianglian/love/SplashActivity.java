@@ -1,9 +1,7 @@
 package com.xianglian.love;
 
 import android.Manifest;
-import android.app.ActivityManager;
 import android.app.NotificationManager;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -17,7 +15,6 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.huawei.android.pushagent.PushManager;
 import com.orhanobut.hawk.Hawk;
 import com.tencent.TIMCallBack;
 import com.tencent.TIMLogLevel;
@@ -26,20 +23,17 @@ import com.tencent.qcloud.presentation.business.InitBusiness;
 import com.tencent.qcloud.presentation.business.LoginBusiness;
 import com.tencent.qcloud.presentation.event.FriendshipEvent;
 import com.tencent.qcloud.presentation.event.GroupEvent;
-import com.tencent.qcloud.presentation.event.MessageEvent;
 import com.tencent.qcloud.presentation.event.RefreshEvent;
 import com.tencent.qcloud.presentation.presenter.SplashPresenter;
 import com.tencent.qcloud.presentation.viewfeatures.SplashView;
 import com.tencent.qcloud.tlslibrary.service.TlsBusiness;
 import com.wl.appchat.TimHelper;
-import com.wl.appchat.utils.PushUtil;
 import com.xianglian.love.config.Keys;
 import com.wl.appcore.entity.UserEntity;
 import com.xianglian.love.model.ConfigEntity;
 import com.xianglian.love.user.LoginActivity;
 import com.xianglian.love.utils.AppUtils;
 import com.xianglian.love.utils.Trace;
-import com.xiaomi.mipush.sdk.MiPushClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -189,17 +183,6 @@ public class SplashActivity extends BaseActivity implements SplashView, TIMCallB
 
     @Override
     public void onSuccess() {
-        //初始化程序后台后消息推送
-//        PushUtil.getInstance();
-//        //初始化消息监听
-//        MessageEvent.getInstance();
-//        String deviceMan = android.os.Build.MANUFACTURER;
-//        //注册小米和华为推送
-//        if (deviceMan.equals("Xiaomi") && shouldMiInit()) {
-//            MiPushClient.registerPush(getApplicationContext(), "2882303761517480335", "5411748055335");
-//        } else if (deviceMan.equals("HUAWEI")) {
-//            PushManager.requestToken(this);
-//        }
         TimHelper.getInstance().initMessage();
 
 //        String refreshedToken = null;
@@ -217,41 +200,6 @@ public class SplashActivity extends BaseActivity implements SplashView, TIMCallB
         Log.d(TAG, "imsdk env " + TIMManager.getInstance().getEnv());
         gotoMainActivity();
     }
-
-    /**
-     * 判断小米推送是否已经初始化
-     */
-//    private boolean shouldMiInit() {
-//        ActivityManager am = ((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE));
-//        if (am == null) return false;
-//        List<ActivityManager.RunningAppProcessInfo> processInfoList = am.getRunningAppProcesses();
-//        String mainProcessName = getPackageName();
-//        int myPid = android.os.Process.myPid();
-//        for (ActivityManager.RunningAppProcessInfo info : processInfoList) {
-//            if (info.pid == myPid && mainProcessName.equals(info.processName)) {
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        Log.d(TAG, "onActivityResult code:" + requestCode);
-//        if (LOGIN_RESULT_CODE == requestCode) {
-//            Log.d(TAG, "login error no " + TLSService.getInstance().getLastErrno());
-//            if (0 == TLSService.getInstance().getLastErrno()) {
-//                String id = TLSService.getInstance().getLastUserIdentifier();
-//                UserInfo.getInstance().setId(id);
-//                UserInfo.getInstance().setUserSig(TLSService.getInstance().getUserSig(id));
-//                navToHome();
-//            } else if (resultCode == RESULT_CANCELED) {
-//                finish();
-//            }
-//        }
-//    }
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

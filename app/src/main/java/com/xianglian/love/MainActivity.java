@@ -9,14 +9,13 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
-import com.orhanobut.hawk.Hawk;
 import com.wl.appchat.ConversationFragment;
 import com.wl.appcore.event.MessageEvent;
-import com.xianglian.love.config.Keys;
 import com.xianglian.love.main.home.BaseHomeFragment;
 import com.xianglian.love.main.home.SearchActivity;
 import com.wl.appcore.entity.UserEntity;
 import com.xianglian.love.main.me.BaseMeFragment;
+import com.xianglian.love.user.LoginActivity;
 import com.xianglian.love.utils.AppUtils;
 import com.xianglian.love.utils.UpdateUtil;
 import com.xianglian.love.utils.UserUtils;
@@ -55,14 +54,9 @@ public class MainActivity extends BaseFragmentActivity {
         EventBus.getDefault().register(this);
         AppService.startConfigInfo(this);
         if (AppUtils.isLogin(this)) {
-            AppService.startSaveUser(this);
+            AppService.startSaveUser(this, true);
         }
         mUserEntity = UserUtils.getUserEntity();
-//        UserEntity userEntity = Hawk.get(Keys.USER_TIM_SIGN);
-//        if (userEntity == null && AppUtils.isLogin(this) && mUserEntity != null) {
-//            String username = mUserEntity.getId() + "-" + mUserEntity.getUsername();
-//            AppService.startUpdateTimSign(this, username);
-//        }
 
         setupTitle(getString(R.string.meet_you), R.drawable.btn_menu_normal);
         mViewPager = findViewById(R.id.vp_container);
@@ -104,8 +98,12 @@ public class MainActivity extends BaseFragmentActivity {
 
     @Override
     public void rightClick() {
-        Intent intent = SearchActivity.getIntent(this);
-        startActivityForResult(intent, REQUEST_CODE_SEARCH);
+        if (AppUtils.isLogin(this)) {
+            Intent intent = SearchActivity.getIntent(this);
+            startActivityForResult(intent, REQUEST_CODE_SEARCH);
+        } else {
+            startActivity(LoginActivity.getIntent(this));
+        }
     }
 
 

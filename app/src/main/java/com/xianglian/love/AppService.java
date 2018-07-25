@@ -47,16 +47,18 @@ public class AppService extends IntentService {
                 Trace.d(TAG, "username = " + username);
                 doTimSignRequest(username, send);
             } else if (ACTION_SAVE_USER.equals(intent.getAction())) {
-                doUserInfoRequest();
+                boolean send = intent.getBooleanExtra(KEY_SEND_BROADCAST, false);
+                doUserInfoRequest(send);
             } else if (ACTION_CONFIG_INFO.equals(intent.getAction())) {
                 doConfigRequest();
             }
         }
     }
 
-    public static void startSaveUser(Context context) {
+    public static void startSaveUser(Context context, boolean sendBroadcast) {
         Intent service = new Intent(context, AppService.class);
         service.setAction(AppService.ACTION_SAVE_USER);
+        service.putExtra(KEY_SEND_BROADCAST, sendBroadcast);
         context.startService(service);
     }
 
@@ -94,7 +96,7 @@ public class AppService extends IntentService {
                 Trace.d(TAG, "sign = " + entity.getUser_sign());
                 Hawk.put(Keys.USER_TIM_SIGN, entity);
                 if (send)
-                    EventBus.getDefault().post(new MessageEvent2(entity));
+                    EventBus.getDefault().post(new MessageEvent2(entity, 0));
             }
 
             @Override
@@ -102,28 +104,34 @@ public class AppService extends IntentService {
                 super.onError(response);
                 Trace.d(TAG, "onError = ");
                 if (send)
-                    EventBus.getDefault().post(new MessageEvent2(null));
+                    EventBus.getDefault().post(new MessageEvent2(null, 0));
             }
         });
     }
 
-    private void doUserInfoRequest() {
+    private void doUserInfoRequest(final boolean send) {
         final GetRequest<UserEntity> request = OkGo.get(Config.PATH + "user_info");
         request.headers("Authorization", AppUtils.getToken(this));
         request.execute(new JsonCallBack<UserEntity>(UserEntity.class) {
             @Override
             public void onSuccess(Response<UserEntity> response) {
-                if (response != null && response.body() != null) {
-                    UserEntity entity = response.body();
-                    Hawk.put(Keys.USER_INFO, entity.getResults().get(0));
+                if (response != null && response.body() != null && response.body().getResults() != null) {
+                    UserEntity entity = response.body().getResults().get(0);
+                    Hawk.put(Keys.USER_INFO, entity);
+                    if (send)
+                        EventBus.getDefault().post(new MessageEvent2(entity, 1));
                 } else {
                     Hawk.put(Keys.USER_INFO, null);
+                    if (send)
+                        EventBus.getDefault().post(new MessageEvent2(null, 1));
                 }
             }
 
             @Override
             public void onError(Response<UserEntity> response) {
                 super.onError(response);
+                if (send)
+                    EventBus.getDefault().post(new MessageEvent2(null, 1));
             }
         });
     }

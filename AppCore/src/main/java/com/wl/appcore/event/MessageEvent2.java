@@ -8,13 +8,23 @@ import com.wl.appcore.entity.UserEntity;
 
 public class MessageEvent2 {
     private UserEntity message;
+    private int type;
 
-    public MessageEvent2(UserEntity message) {
+    public MessageEvent2(UserEntity message, int type) {
         this.message = message;
+        this.type = type;
     }
 
     public UserEntity getMessage() {
         return message;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 
     public void setMessage(UserEntity message) {

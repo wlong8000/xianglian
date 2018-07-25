@@ -64,4 +64,10 @@ public class BaseFragmentActivity extends FragmentActivity implements TitleBarVi
         super.onPause();
         MobclickAgent.onPause(this);
     }
+
+    @Override
+    public void finish() {
+        super.finish();
+//        this.overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
+    }
 }
