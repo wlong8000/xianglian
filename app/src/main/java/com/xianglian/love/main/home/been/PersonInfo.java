@@ -67,8 +67,8 @@ public class PersonInfo implements Parcelable {
     }
 
     public interface Sex {
-        int MAN = 1;
-        int WOMAN = 0;
+        String MAN = "male";
+        String WOMAN = "female";
     }
 
 

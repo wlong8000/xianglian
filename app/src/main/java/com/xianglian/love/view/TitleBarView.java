@@ -70,6 +70,8 @@ public class TitleBarView extends FrameLayout {
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT);
             mLeftLayout.addView(view, params);
+        } else {
+            mLeftLayout.setVisibility(GONE);
         }
     }
 

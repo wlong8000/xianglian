@@ -28,7 +28,7 @@ public class SplashPresenter {
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (view.isUserLogin()) {
+                if (!view.isUserLogin()) {
                     view.navToHome();
                 } else {
                     view.navToLogin();

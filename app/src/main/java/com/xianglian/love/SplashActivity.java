@@ -31,7 +31,7 @@ import com.wl.appchat.TimHelper;
 import com.xianglian.love.config.Keys;
 import com.wl.appcore.entity.UserEntity;
 import com.xianglian.love.model.ConfigEntity;
-import com.xianglian.love.user.LoginActivity;
+import com.xianglian.love.user.SelectSexActivity;
 import com.xianglian.love.utils.AppUtils;
 import com.xianglian.love.utils.Trace;
 
@@ -135,14 +135,14 @@ public class SplashActivity extends BaseActivity implements SplashView, TIMCallB
 
     @Override
     public void navToLogin() {
-        Intent intent = LoginActivity.getIntent(this);
+        Intent intent = SelectSexActivity.getIntent(this);
         startActivity(intent);
+        finish();
     }
 
     @Override
     public boolean isUserLogin() {
-//        return !TextUtils.isEmpty(AppUtils.getToken(this));
-        return true;
+        return !AppUtils.isLogin(this) && TextUtils.isEmpty((CharSequence) Hawk.get(Keys.SEX));
     }
 
     /**
