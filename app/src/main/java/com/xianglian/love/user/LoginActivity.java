@@ -9,28 +9,32 @@ import android.view.View.OnClickListener;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 
-import com.google.gson.Gson;
-import com.okhttplib.HttpInfo;
-import com.okhttplib.OkHttpUtil;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.model.HttpParams;
+import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.PostRequest;
 import com.orhanobut.hawk.Hawk;
+import com.tencent.TIMCallBack;
+import com.tencent.qcloud.presentation.business.LoginBusiness;
+import com.wl.appchat.TimHelper;
+import com.wl.appcore.entity.UserEntity;
+import com.wl.appcore.event.MessageEvent2;
+import com.xianglian.love.AppService;
 import com.xianglian.love.MainActivity;
 import com.xianglian.love.R;
 import com.xianglian.love.config.Config;
 import com.xianglian.love.config.Keys;
-import com.xianglian.love.user.been.OwnerEntity;
-import com.xianglian.love.utils.ACache;
+import com.xianglian.love.net.JsonCallBack;
 import com.xianglian.love.utils.AppUtils;
-import com.okhttplib.callback.Callback;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 /**
  * A login screen that offers login via username/password.
  */
-public class LoginActivity extends BaseLoginActivity implements OnClickListener {
+public class LoginActivity extends BaseLoginActivity implements OnClickListener, TIMCallBack {
 
     private AutoCompleteTextView mUserNameView;
 
@@ -41,6 +45,8 @@ public class LoginActivity extends BaseLoginActivity implements OnClickListener 
     public static final String EXTRA_PWD = "pwd";
 
     public static final String EXTRA_AUTO_LOGIN = "auto_Login";
+
+    private UserEntity mEntity;
 
     public static Intent getIntent(Context context, String userName, String pwd, boolean autoLogin) {
         if (TextUtils.isEmpty(userName) || TextUtils.isEmpty(pwd)) return null;
@@ -59,6 +65,7 @@ public class LoginActivity extends BaseLoginActivity implements OnClickListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        EventBus.getDefault().register(this);
         setupTitle(getString(R.string.login), getString(R.string.register));
 
         mUserNameView = findViewById(R.id.user_name);
@@ -74,7 +81,7 @@ public class LoginActivity extends BaseLoginActivity implements OnClickListener 
         if (autoLogin) {
             String userName = intent.getStringExtra(EXTRA_USER_NAME);
             String pwd = intent.getStringExtra(EXTRA_PWD);
-            doLogin(userName, pwd);
+            loginRequest(userName, pwd);
         }
     }
 
@@ -106,79 +113,74 @@ public class LoginActivity extends BaseLoginActivity implements OnClickListener 
             return;
         }
         dialogShow();
-        doToken(username, password);
+        doLogin(username, password);
 
-    }
-
-    private void doToken(String userName, String passWord) {
-        String url = Config.PATH + "login/";
-        Map<String, String> params = new HashMap<>();
-        params.put("username", userName);
-        params.put("password", passWord);
-        OkHttpUtil.getDefault(this).doPostAsync(
-                HttpInfo.Builder().setUrl(url).addHeads(getHeader()).addParams(params).build(),
-                new Callback() {
-                    @Override
-                    public void onFailure(HttpInfo info) throws IOException {
-                        dialogDisMiss();
-                    }
-
-                    @Override
-                    public void onSuccess(HttpInfo info) throws IOException {
-                        dialogDisMiss();
-                        String result = info.getRetDetail();
-                        if (result == null) return;
-                        Gson gson = new Gson();
-                        OwnerEntity ownerEntity = gson.fromJson(result, OwnerEntity.class);
-                        if (ownerEntity == null) return;
-                        int code = ownerEntity.getCode();
-                        if (code == Config.FAIL) {
-                            toast(TextUtils.isEmpty(ownerEntity.getMsg()) ? getString(R.string.request_fail) : ownerEntity.getMsg());
-                            return;
-                        }
-                        Hawk.put(Keys.TOKEN, ownerEntity.getToken());
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                        finish();
-                    }
-                });
     }
 
     private void doLogin(String userName, String passWord) {
-        String url = Config.PATH + "user/login";
-        Map<String, String> params = new HashMap<>();
-        params.put("mobile", userName);
+        String url = Config.PATH + "login/";
+        HttpParams params = new HttpParams();
+        params.put("username", userName);
         params.put("password", passWord);
-        OkHttpUtil.getDefault(this).doPostAsync(
-                HttpInfo.Builder().setUrl(url).addHeads(getHeader()).addParams(params).build(),
-                new Callback() {
-                    @Override
-                    public void onFailure(HttpInfo info) throws IOException {
-                        dialogDisMiss();
-                    }
 
-                    @Override
-                    public void onSuccess(HttpInfo info) throws IOException {
-                        dialogDisMiss();
-                        String result = info.getRetDetail();
-                        if (result == null) return;
-                        Gson gson = new Gson();
-                        OwnerEntity ownerEntity = gson.fromJson(result, OwnerEntity.class);
-                        if (ownerEntity == null) return;
-                        int code = ownerEntity.getCode();
-                        if (code == Config.FAIL) {
-                            toast(TextUtils.isEmpty(ownerEntity.getMsg()) ? getString(R.string.request_fail) : ownerEntity.getMsg());
-                            return;
-                        }
-                        ACache.get(LoginActivity.this).put(Config.KEY_USER, result);
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                        finish();
-                    }
-                });
+        PostRequest<UserEntity> request = OkGo.post(url);
+        request.params(params);
+        request.headers("Authorization", AppUtils.getToken(this));
+        request.execute(new JsonCallBack<UserEntity>(UserEntity.class) {
+            @Override
+            public void onSuccess(Response<UserEntity> response) {
+//                dialogDisMiss();
+                mEntity = response.body();
+                if (mEntity == null) return;
+                String username = mEntity.getId() + "-" + mEntity.getUsername();
+                AppService.startUpdateTimSign(LoginActivity.this, username, true);
+//                Hawk.put(Keys.TOKEN, mEntity.getToken());
+//                Hawk.put(Keys.USER_INFO, mEntity);
+//                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+//                finish();
+            }
+
+            @Override
+            public void onError(Response<UserEntity> response) {
+                super.onError(response);
+                dialogDisMiss();
+            }
+        });
     }
 
     @Override
     public void rightClick() {
         startActivity(new Intent(LoginActivity.this, RegisterCodeActivity.class));
+    }
+
+    @Override
+    public void onError(int i, String s) {
+
+    }
+
+    @Override
+    public void onSuccess() {
+        dialogDisMiss();
+        TimHelper.getInstance().initMessage();
+        Hawk.put(Keys.TOKEN, mEntity.getToken());
+        Hawk.put(Keys.USER_INFO, mEntity);
+        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void showMessage2(MessageEvent2 messageEvent) {
+//        showBadge(mNavigationTabBar, messageEvent.getMessage());
+        if (messageEvent.getMessage() != null) {
+            UserEntity entity = messageEvent.getMessage();
+            LoginBusiness.loginIm(entity.getUsername(), entity.getUser_sign(), this);
+        }
     }
 }
 

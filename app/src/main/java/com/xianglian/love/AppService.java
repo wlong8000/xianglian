@@ -10,6 +10,7 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.GetRequest;
 import com.orhanobut.hawk.Hawk;
+import com.wl.appcore.event.MessageEvent2;
 import com.xianglian.love.config.Config;
 import com.xianglian.love.config.Keys;
 import com.wl.appcore.entity.UserEntity;
@@ -17,6 +18,8 @@ import com.xianglian.love.model.ConfigEntity;
 import com.xianglian.love.net.JsonCallBack;
 import com.xianglian.love.utils.AppUtils;
 import com.xianglian.love.utils.Trace;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * Created by wanglong on 17/4/2.
@@ -28,6 +31,7 @@ public class AppService extends IntentService {
     private final static String ACTION_SAVE_USER = "com.wl.lianba.service.action.SAVE_USER";
     private final static String ACTION_UPDATE_TIM_SIGN = "com.wl.lianba.service.action.ACTION_UPDATE_TIM_SIGN";
     private final static String ACTION_CONFIG_INFO = "com.wl.lianba.service.action.ACTION_CONFIG_INFO";
+    private final static String KEY_SEND_BROADCAST = "send_broadcast";
 
     public AppService() {
         super("HttpService");
@@ -39,8 +43,9 @@ public class AppService extends IntentService {
             Log.e(TAG, intent.getAction());
             if (ACTION_UPDATE_TIM_SIGN.equals(intent.getAction())) {
                 String username = intent.getStringExtra(Keys.USER_TIM_SIGN);
+                boolean send = intent.getBooleanExtra(KEY_SEND_BROADCAST, false);
                 Trace.d(TAG, "username = " + username);
-                doTimSignRequest(username);
+                doTimSignRequest(username, send);
             } else if (ACTION_SAVE_USER.equals(intent.getAction())) {
                 doUserInfoRequest();
             } else if (ACTION_CONFIG_INFO.equals(intent.getAction())) {
@@ -62,13 +67,18 @@ public class AppService extends IntentService {
     }
 
     public static void startUpdateTimSign(Context context, String username) {
+        startUpdateTimSign(context, username, false);
+    }
+
+    public static void startUpdateTimSign(Context context, String username, boolean sendBroadcast) {
         Intent service = new Intent(context, AppService.class);
         service.setAction(AppService.ACTION_UPDATE_TIM_SIGN);
         service.putExtra(Keys.USER_TIM_SIGN, username);
+        service.putExtra(KEY_SEND_BROADCAST, sendBroadcast);
         context.startService(service);
     }
 
-    private void doTimSignRequest(final String username) {
+    private void doTimSignRequest(final String username, final boolean send) {
         if (TextUtils.isEmpty(username)) return;
         GetRequest<UserEntity> request = OkGo.get(Config.PATH + "user_tim_sign/");
         request.params("username", username);
@@ -78,17 +88,21 @@ public class AppService extends IntentService {
             public void onSuccess(Response<UserEntity> response) {
                 UserEntity entity = response.body();
                 Trace.d(TAG, "onSuccess entity " + entity);
-                if (entity == null) {
+                if (entity == null || TextUtils.isEmpty(entity.getUser_sign())) {
                     return;
                 }
                 Trace.d(TAG, "sign = " + entity.getUser_sign());
                 Hawk.put(Keys.USER_TIM_SIGN, entity);
+                if (send)
+                    EventBus.getDefault().post(new MessageEvent2(entity));
             }
 
             @Override
             public void onError(Response<UserEntity> response) {
                 super.onError(response);
                 Trace.d(TAG, "onError = ");
+                if (send)
+                    EventBus.getDefault().post(new MessageEvent2(null));
             }
         });
     }

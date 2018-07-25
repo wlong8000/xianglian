@@ -19,6 +19,11 @@ import com.orhanobut.hawk.Hawk;
 import com.qiniu.android.http.ResponseInfo;
 import com.qiniu.android.storage.UpCompletionHandler;
 import com.qiniu.android.storage.UploadManager;
+import com.tencent.qcloud.presentation.event.MessageEvent;
+import com.tencent.qcloud.tlslibrary.service.TlsBusiness;
+import com.wl.appchat.model.FriendshipInfo;
+import com.wl.appchat.model.GroupInfo;
+import com.wl.appchat.model.UserInfo;
 import com.xianglian.love.BaseListFragment;
 import com.xianglian.love.R;
 import com.xianglian.love.config.Config;
@@ -142,6 +147,10 @@ public class BaseMeFragment extends BaseListFragment implements BaseQuickAdapter
                     public void onConfirm(String result) {
                         Config.TOKEN = null;
                         Hawk.put(Keys.TOKEN, null);
+                        Hawk.put(Keys.USER_TIM_SIGN, null);
+                        Hawk.put(Keys.SEX, null);
+                        Hawk.put(Keys.SEARCH_INFO_LIST, null);
+                        logout();
                     }
                 };
                 okDialog.show();
@@ -405,5 +414,15 @@ public class BaseMeFragment extends BaseListFragment implements BaseQuickAdapter
         } else {
             intoDetail();
         }
+    }
+
+
+    private void logout() {
+        TlsBusiness.logout(UserInfo.getInstance().getId());
+        UserInfo.getInstance().setId(null);
+        MessageEvent.getInstance().clear();
+        FriendshipInfo.getInstance().clear();
+        GroupInfo.getInstance().clear();
+
     }
 }

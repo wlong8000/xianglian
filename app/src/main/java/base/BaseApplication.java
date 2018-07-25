@@ -62,10 +62,6 @@ public class BaseApplication extends MultiDexApplication {
         }
         ARouter.init(this);
 
-        if (AppUtils.isLogin(this)) {
-            AppService.startSaveUser(this);
-        }
-
         UserEntity userEntity = UserUtils.getUserEntity();
         Trace.d(TAG, "userEntity = " + userEntity);
 
@@ -74,7 +70,8 @@ public class BaseApplication extends MultiDexApplication {
         }
 
         if (userEntity != null && !TextUtils.isEmpty(userEntity.getUsername())) {
-            AppService.startUpdateTimSign(this, userEntity.getUsername());
+            String username = userEntity.getId() + "-" + userEntity.getUsername();
+            AppService.startUpdateTimSign(this, username);
         }
 
         /*

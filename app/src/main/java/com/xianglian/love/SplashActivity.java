@@ -30,9 +30,8 @@ import com.tencent.qcloud.presentation.event.MessageEvent;
 import com.tencent.qcloud.presentation.event.RefreshEvent;
 import com.tencent.qcloud.presentation.presenter.SplashPresenter;
 import com.tencent.qcloud.presentation.viewfeatures.SplashView;
-import com.tencent.qcloud.tlslibrary.service.TLSService;
 import com.tencent.qcloud.tlslibrary.service.TlsBusiness;
-import com.wl.appchat.model.UserInfo;
+import com.wl.appchat.TimHelper;
 import com.wl.appchat.utils.PushUtil;
 import com.xianglian.love.config.Keys;
 import com.wl.appcore.entity.UserEntity;
@@ -51,14 +50,12 @@ import java.util.List;
 public class SplashActivity extends BaseActivity implements SplashView, TIMCallBack {
     private final int REQUEST_PHONE_PERMISSIONS = 0;
 
-    private static int LOGIN_RESULT_CODE = 100;
+//    private static final int LOGIN_RESULT_CODE = 100;
 
     private SplashPresenter mPresenter;
 
-//    @InjectView(R.id.base_splash_image)
     public SimpleDraweeView mSplashImg;
 
-//    @InjectView(R.id.ad_skip)
     public View mSkipView;
 
     private ConfigEntity mConfigEntity;
@@ -69,16 +66,17 @@ public class SplashActivity extends BaseActivity implements SplashView, TIMCallB
         clearNotification();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
-//        ButterKnife.inject(this);
         mConfigEntity = Hawk.get(Keys.CONFIG_INFO);
         setupView();
-        AppService.startConfigInfo(this);
+
         final List<String> permissionsList = new ArrayList<>();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if ((checkSelfPermission(Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED))
+            if ((checkSelfPermission(Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED)) {
                 permissionsList.add(Manifest.permission.READ_PHONE_STATE);
-            if ((checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED))
+            }
+            if ((checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)) {
                 permissionsList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            }
             if (permissionsList.size() == 0) {
                 init();
             } else {
@@ -107,9 +105,9 @@ public class SplashActivity extends BaseActivity implements SplashView, TIMCallB
         TlsBusiness.init(getApplicationContext());
         //设置刷新监听
         RefreshEvent.getInstance();
-        String id = TLSService.getInstance().getLastUserIdentifier();
-        UserInfo.getInstance().setId(id);
-        UserInfo.getInstance().setUserSig(TLSService.getInstance().getUserSig(id));
+//        String id = TLSService.getInstance().getLastUserIdentifier();
+//        UserInfo.getInstance().setId(id);
+//        UserInfo.getInstance().setUserSig(TLSService.getInstance().getUserSig(id));
         mPresenter = new SplashPresenter(this, mConfigEntity != null
                 ? Integer.parseInt(mConfigEntity.getSplash_time()) * 1000 : 2000);
         mPresenter.start();
@@ -149,7 +147,8 @@ public class SplashActivity extends BaseActivity implements SplashView, TIMCallB
 
     @Override
     public boolean isUserLogin() {
-        return !TextUtils.isEmpty(AppUtils.getToken(this));
+//        return !TextUtils.isEmpty(AppUtils.getToken(this));
+        return true;
     }
 
     /**
@@ -191,22 +190,23 @@ public class SplashActivity extends BaseActivity implements SplashView, TIMCallB
     @Override
     public void onSuccess() {
         //初始化程序后台后消息推送
-        PushUtil.getInstance();
-        //初始化消息监听
-        MessageEvent.getInstance();
-        String deviceMan = android.os.Build.MANUFACTURER;
-        //注册小米和华为推送
-        if (deviceMan.equals("Xiaomi") && shouldMiInit()) {
-            MiPushClient.registerPush(getApplicationContext(), "2882303761517480335", "5411748055335");
-        } else if (deviceMan.equals("HUAWEI")) {
-            PushManager.requestToken(this);
-        }
+//        PushUtil.getInstance();
+//        //初始化消息监听
+//        MessageEvent.getInstance();
+//        String deviceMan = android.os.Build.MANUFACTURER;
+//        //注册小米和华为推送
+//        if (deviceMan.equals("Xiaomi") && shouldMiInit()) {
+//            MiPushClient.registerPush(getApplicationContext(), "2882303761517480335", "5411748055335");
+//        } else if (deviceMan.equals("HUAWEI")) {
+//            PushManager.requestToken(this);
+//        }
+        TimHelper.getInstance().initMessage();
 
-        String refreshedToken = null;
+//        String refreshedToken = null;
 //        FirebaseInstanceId firebaseInstanceId = FirebaseInstanceId.getInstance();
 //        if (firebaseInstanceId != null) refreshedToken = firebaseInstanceId.getToken();
 //        Log.d(TAG, "refreshed token: " + refreshedToken);
-
+//
 //        if (!TextUtils.isEmpty(refreshedToken)) {
 //            TIMOfflinePushToken param = new TIMOfflinePushToken();
 //            param.setToken(refreshedToken);
@@ -221,36 +221,36 @@ public class SplashActivity extends BaseActivity implements SplashView, TIMCallB
     /**
      * 判断小米推送是否已经初始化
      */
-    private boolean shouldMiInit() {
-        ActivityManager am = ((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE));
-        if (am == null) return false;
-        List<ActivityManager.RunningAppProcessInfo> processInfoList = am.getRunningAppProcesses();
-        String mainProcessName = getPackageName();
-        int myPid = android.os.Process.myPid();
-        for (ActivityManager.RunningAppProcessInfo info : processInfoList) {
-            if (info.pid == myPid && mainProcessName.equals(info.processName)) {
-                return true;
-            }
-        }
-        return false;
-    }
+//    private boolean shouldMiInit() {
+//        ActivityManager am = ((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE));
+//        if (am == null) return false;
+//        List<ActivityManager.RunningAppProcessInfo> processInfoList = am.getRunningAppProcesses();
+//        String mainProcessName = getPackageName();
+//        int myPid = android.os.Process.myPid();
+//        for (ActivityManager.RunningAppProcessInfo info : processInfoList) {
+//            if (info.pid == myPid && mainProcessName.equals(info.processName)) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Log.d(TAG, "onActivityResult code:" + requestCode);
-        if (LOGIN_RESULT_CODE == requestCode) {
-            Log.d(TAG, "login error no " + TLSService.getInstance().getLastErrno());
-            if (0 == TLSService.getInstance().getLastErrno()) {
-                String id = TLSService.getInstance().getLastUserIdentifier();
-                UserInfo.getInstance().setId(id);
-                UserInfo.getInstance().setUserSig(TLSService.getInstance().getUserSig(id));
-                navToHome();
-            } else if (resultCode == RESULT_CANCELED) {
-                finish();
-            }
-        }
-    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        Log.d(TAG, "onActivityResult code:" + requestCode);
+//        if (LOGIN_RESULT_CODE == requestCode) {
+//            Log.d(TAG, "login error no " + TLSService.getInstance().getLastErrno());
+//            if (0 == TLSService.getInstance().getLastErrno()) {
+//                String id = TLSService.getInstance().getLastUserIdentifier();
+//                UserInfo.getInstance().setId(id);
+//                UserInfo.getInstance().setUserSig(TLSService.getInstance().getUserSig(id));
+//                navToHome();
+//            } else if (resultCode == RESULT_CANCELED) {
+//                finish();
+//            }
+//        }
+//    }
 
 
     @Override

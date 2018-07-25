@@ -9,13 +9,10 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
-//import com.tencent.qcloud.presentation.event.MessageEvent;
-//import com.tencent.qcloud.tlslibrary.service.TlsBusiness;
+import com.orhanobut.hawk.Hawk;
 import com.wl.appchat.ConversationFragment;
-//import com.wl.appchat.model.FriendshipInfo;
-//import com.wl.appchat.model.GroupInfo;
-//import com.wl.appchat.model.UserInfo;
 import com.wl.appcore.event.MessageEvent;
+import com.xianglian.love.config.Keys;
 import com.xianglian.love.main.home.BaseHomeFragment;
 import com.xianglian.love.main.home.SearchActivity;
 import com.wl.appcore.entity.UserEntity;
@@ -56,11 +53,19 @@ public class MainActivity extends BaseFragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         EventBus.getDefault().register(this);
+        AppService.startConfigInfo(this);
+        if (AppUtils.isLogin(this)) {
+            AppService.startSaveUser(this);
+        }
+        mUserEntity = UserUtils.getUserEntity();
+//        UserEntity userEntity = Hawk.get(Keys.USER_TIM_SIGN);
+//        if (userEntity == null && AppUtils.isLogin(this) && mUserEntity != null) {
+//            String username = mUserEntity.getId() + "-" + mUserEntity.getUsername();
+//            AppService.startUpdateTimSign(this, username);
+//        }
 
         setupTitle(getString(R.string.meet_you), R.drawable.btn_menu_normal);
         mViewPager = findViewById(R.id.vp_container);
-
-        mUserEntity = UserUtils.getUserEntity();
 
         initFragment();
         mAdapter = new MainAdapter(getSupportFragmentManager(), mFragments);
@@ -187,15 +192,6 @@ public class MainActivity extends BaseFragmentActivity {
             fragment.onActivityResult(requestCode, resultCode, data);
         }
     }
-//
-//    public void logout() {
-//        TlsBusiness.logout(UserInfo.getInstance().getId());
-//        UserInfo.getInstance().setId(null);
-//        MessageEvent.getInstance().clear();
-//        FriendshipInfo.getInstance().clear();
-//        GroupInfo.getInstance().clear();
-//
-//    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void showMessage(MessageEvent messageEvent) {
