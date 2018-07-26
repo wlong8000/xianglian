@@ -115,7 +115,10 @@ public class AppService extends IntentService {
         request.execute(new JsonCallBack<UserEntity>(UserEntity.class) {
             @Override
             public void onSuccess(Response<UserEntity> response) {
-                if (response != null && response.body() != null && response.body().getResults() != null) {
+                if (response != null
+                        && response.body() != null
+                        && response.body().getResults() != null
+                        && !response.body().getResults().isEmpty()) {
                     UserEntity entity = response.body().getResults().get(0);
                     Hawk.put(Keys.USER_INFO, entity);
                     if (send)
