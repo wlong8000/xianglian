@@ -2,6 +2,7 @@ package com.xianglian.love.main.home;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
@@ -46,7 +47,7 @@ public class BaseHomeFragment extends BaseListFragment implements BaseQuickAdapt
 
     private HomeAdapter mAdapter;
 
-    private int mSex;
+    private String mSex;
 
     private List<UserEntity> mUserEntities = new ArrayList<>();
 
@@ -80,11 +81,11 @@ public class BaseHomeFragment extends BaseListFragment implements BaseQuickAdapt
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mSex = AppSharePreferences.getIntValue(getContext(), AppSharePreferences.SEX);
+        mSex = Hawk.get(Keys.SEX);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.home_fragment, null);
         setupView(view);
         return view;
@@ -165,10 +166,7 @@ public class BaseHomeFragment extends BaseListFragment implements BaseQuickAdapt
             mAdapter.setNewData(userEntities);
         } else {
             mAdapter.addData(userEntities);
-//            mUserEntities.addAll(userEntities);
         }
-//        mUserEntities.addAll(userEntities);
-//        mAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -180,19 +178,13 @@ public class BaseHomeFragment extends BaseListFragment implements BaseQuickAdapt
         UserEntity info = mAdapter.getItem(position);
         if (info != null) {
             Intent intent = PersonDetailActivity.getIntent(getContext(), info);
-            getContext().startActivity(intent);
+            if (getContext() != null)
+                getContext().startActivity(intent);
         }
     }
 
     @Override
     public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-//        UserEntity info = mAdapter.getItem(position);
-//        switch (view.getId()) {
-//            case R.id.heart_layout:
-//                if (info != null)
-//                    doLikeRequest(info.getUid());
-//                break;
-//        }
     }
 
     @Override
@@ -211,10 +203,9 @@ public class BaseHomeFragment extends BaseListFragment implements BaseQuickAdapt
 
     private Map<String, String> getParams() {
         List<ItemInfo> itemInfoList = Hawk.get(Keys.SEARCH_INFO_LIST);
-        String sex = Hawk.get(Keys.SEX);
         Map<String, String> map = new HashMap<>();
-        if (sex != null) {
-            map.put("gender", sex);
+        if (!TextUtils.isEmpty(mSex)) {
+            map.put("gender", mSex);
         }
         if (itemInfoList != null && !itemInfoList.isEmpty()) {
             for (ItemInfo item : itemInfoList) {
@@ -251,6 +242,6 @@ public class BaseHomeFragment extends BaseListFragment implements BaseQuickAdapt
             }
             return map;
         }
-        return null;
+        return map;
     }
 }

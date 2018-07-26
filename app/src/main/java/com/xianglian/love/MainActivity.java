@@ -45,7 +45,7 @@ public class MainActivity extends BaseFragmentActivity {
 
     private int mCurrentPage;
 
-    private UserEntity mUserEntity;
+//    private UserEntity mUserEntity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +56,7 @@ public class MainActivity extends BaseFragmentActivity {
         if (AppUtils.isLogin(this)) {
             AppService.startSaveUser(this, true);
         }
-        mUserEntity = UserUtils.getUserEntity();
+//        mUserEntity = UserUtils.getUserEntity();
 
         setupTitle(getString(R.string.meet_you), R.drawable.btn_menu_normal);
         mViewPager = findViewById(R.id.vp_container);
