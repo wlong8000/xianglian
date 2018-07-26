@@ -7,6 +7,7 @@ import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.xianglian.love.R;
 import com.xianglian.love.library.tag.TagBaseAdapter;
 import com.xianglian.love.library.tag.TagCloudLayout;
@@ -49,6 +50,8 @@ public class PersonDetailAdapter extends BaseMultiItemQuickAdapter<UserDetailEnt
         UserDetailEntity item = result.getResult();
         switch (helper.getItemViewType()) {
             case UserDetailEntity.ViewType.TOP_INFO:
+                SimpleDraweeView simpleDraweeView = helper.getView(R.id.img);
+                simpleDraweeView.setImageURI(AppUtils.parse(item.getPic1()));
                 helper.setText(R.id.name, item.getNickname());
                 helper.setText(R.id.tv_locate, item.getWork_area_name());
                 helper.setText(R.id.tv_id, item.getAccount());

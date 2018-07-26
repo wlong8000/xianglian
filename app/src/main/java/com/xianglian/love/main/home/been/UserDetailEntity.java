@@ -134,6 +134,8 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
     private String receiver_avatar;
     private String create_time;
     private boolean show_msg_more;
+    private String pic1;
+    private String username;
 
     public String getMsg() {
         return msg;
@@ -615,6 +617,22 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
         this.show_msg_more = show_msg_more;
     }
 
+    public String getPic1() {
+        return pic1;
+    }
+
+    public void setPic1(String pic1) {
+        this.pic1 = pic1;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     @Override
     public int getItemType() {
         return viewType;
@@ -770,6 +788,8 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
         dest.writeString(this.receiver_avatar);
         dest.writeString(this.create_time);
         dest.writeByte(this.show_msg_more ? (byte) 1 : (byte) 0);
+        dest.writeString(this.pic1);
+        dest.writeString(this.username);
     }
 
     protected UserDetailEntity(Parcel in) {
@@ -835,6 +855,8 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
         this.receiver_avatar = in.readString();
         this.create_time = in.readString();
         this.show_msg_more = in.readByte() != 0;
+        this.pic1 = in.readString();
+        this.username = in.readString();
     }
 
     public static final Creator<UserDetailEntity> CREATOR = new Creator<UserDetailEntity>() {

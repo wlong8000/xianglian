@@ -1,17 +1,16 @@
 package com.xianglian.love.main.home;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.GetRequest;
-import com.xianglian.love.BaseListFragment;
+import com.xianglian.love.BaseListActivity;
 import com.xianglian.love.R;
 import com.xianglian.love.config.Config;
 import com.xianglian.love.main.home.adapter.PersonDetailAdapter;
@@ -27,8 +26,8 @@ import java.util.List;
  * Created by wanglong on 17/9/3.
  * 详情页
  */
-
-public class PersonDetailFragment extends BaseListFragment {
+@Route(path = "/detail/activity")
+public class PersonDetailActivity2 extends BaseListActivity {
 
     private PersonDetailAdapter mAdapter;
 
@@ -36,32 +35,25 @@ public class PersonDetailFragment extends BaseListFragment {
 
     private int mId;
 
-    public static PersonDetailFragment newInstance(int id) {
-        PersonDetailFragment fragment = new PersonDetailFragment();
-        Bundle args = new Bundle();
-        args.putInt("id", id);
-        fragment.setArguments(args);
-        return fragment;
+    public static Intent getIntent(Context context, int id) {
+        Intent intent = new Intent(context, PersonDetailActivity2.class);
+        intent.putExtra("id", id);
+        return intent;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() == null) return;
-        mId = getArguments().getInt("id");
+        setContentView(R.layout.fragment_user_detail);
+        mId = getIntent().getIntExtra("id", 0);
+        setupCommonTitle("详情");
+        setupRecyclerView();
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_user_detail, container, false);
-        setupRecyclerView(view);
-        return view;
-    }
 
-    public void setupRecyclerView(View view) {
-        super.setupRecyclerView(view);
-        mAdapter = new PersonDetailAdapter(getContext(), mUserDetailEntities);
+    public void setupRecyclerView() {
+        super.setupRecyclerView();
+        mAdapter = new PersonDetailAdapter(this, mUserDetailEntities);
         mRecyclerView.setAdapter(mAdapter);
         mSwipeRefreshLayout.setRefreshing(true);
         onRefresh2(true);
@@ -82,13 +74,13 @@ public class PersonDetailFragment extends BaseListFragment {
         if (!TextUtils.isEmpty(entity.getRelationship_desc())) {
             addDataByType(UserDetailEntity.ViewType.EXPERIENCE_EMOTION, entity);
         }
-        if (entity.getInterests() != null && entity.getInterests().size() > 0) {
-            addDataByType(UserDetailEntity.ViewType.FAVORITE, entity);
-        }
-        if (entity.getMessages() != null && entity.getMessages().size() > 0) {
-            addDataByType(UserDetailEntity.ViewType.TITLE, entity);
-            addDataByType(UserDetailEntity.ViewType.LEAVE_MESSAGE, entity);
-        }
+//        if (entity.getInterests() != null && entity.getInterests().size() > 0) {
+//            addDataByType(UserDetailEntity.ViewType.FAVORITE, entity);
+//        }
+//        if (entity.getMessages() != null && entity.getMessages().size() > 0) {
+//            addDataByType(UserDetailEntity.ViewType.TITLE, entity);
+//            addDataByType(UserDetailEntity.ViewType.LEAVE_MESSAGE, entity);
+//        }
 
         mAdapter.notifyDataSetChanged();
     }
@@ -131,7 +123,7 @@ public class PersonDetailFragment extends BaseListFragment {
     public void onRefresh2(final boolean refresh) {
         final String url = Config.PATH + "users/" + mId;
         final GetRequest<UserDetailEntity> request = OkGo.get(url);
-        request.headers("Authorization", AppUtils.getToken(getContext()));
+        request.headers("Authorization", AppUtils.getToken(this));
 
         request.execute(new JsonCallBack<UserDetailEntity>(UserDetailEntity.class) {
             @Override
@@ -141,6 +133,7 @@ public class PersonDetailFragment extends BaseListFragment {
                 if (response != null && response.body() != null) {
                     UserDetailEntity userEntity = response.body();
                     if (userEntity == null) return;
+                    setupCommonTitle(userEntity.getUsername());
                     addData(userEntity);
                 }
             }

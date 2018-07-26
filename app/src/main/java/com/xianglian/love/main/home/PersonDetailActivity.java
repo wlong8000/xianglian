@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.alibaba.android.arouter.facade.annotation.Route;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.tencent.TIMConversationType;
 import com.wl.appchat.ChatActivity;
@@ -23,7 +22,6 @@ import com.xianglian.love.config.Config;
 import com.xianglian.love.main.home.been.UserDetailEntity;
 import com.wl.appcore.entity.UserEntity;
 
-@Route(path = "/detail/activity")
 public class PersonDetailActivity extends BaseActivity implements View.OnClickListener {
 
     //头图
@@ -141,12 +139,9 @@ public class PersonDetailActivity extends BaseActivity implements View.OnClickLi
 
     class MyBaseAdapter extends FragmentStatePagerAdapter {
         Fragment[] fragments = new Fragment[]{
-                PersonDetailFragment.newInstance(mId)
+//                PersonDetailActivity2.newInstance(mId)
         };
 
-        PersonDetailFragment getPersionDetailFragment() {
-            return (PersonDetailFragment) fragments[0];
-        }
 
         MyBaseAdapter(FragmentManager fm) {
             super(fm);
