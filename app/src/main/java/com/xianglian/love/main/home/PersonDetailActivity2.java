@@ -5,14 +5,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.view.View;
+import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.GetRequest;
+import com.orhanobut.hawk.Hawk;
+import com.tencent.TIMConversationType;
+import com.wl.appchat.ChatActivity;
+import com.wl.appcore.entity.UserEntity;
 import com.xianglian.love.BaseListActivity;
 import com.xianglian.love.R;
 import com.xianglian.love.config.Config;
+import com.xianglian.love.config.Keys;
 import com.xianglian.love.main.home.adapter.PersonDetailAdapter;
 import com.xianglian.love.main.home.been.MessageEntity;
 import com.xianglian.love.main.home.been.UserDetailEntity;
@@ -35,6 +42,12 @@ public class PersonDetailActivity2 extends BaseListActivity {
 
     private int mId;
 
+    private String mUserName;
+
+    private TextView mChatIcon;
+
+    private UserEntity mOwerEntity;
+
     public static Intent getIntent(Context context, int id) {
         Intent intent = new Intent(context, PersonDetailActivity2.class);
         intent.putExtra("id", id);
@@ -56,6 +69,15 @@ public class PersonDetailActivity2 extends BaseListActivity {
         mAdapter = new PersonDetailAdapter(this, mUserDetailEntities);
         mRecyclerView.setAdapter(mAdapter);
         mSwipeRefreshLayout.setRefreshing(true);
+        mChatIcon = findViewById(R.id.icon_start_chat);
+        mOwerEntity = Hawk.get(Keys.USER_INFO);
+        mChatIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (TextUtils.isEmpty(mUserName)) return;
+                ChatActivity.navToChat(PersonDetailActivity2.this, mUserName, TIMConversationType.C2C);
+            }
+        });
         onRefresh2(true);
     }
 
@@ -134,6 +156,13 @@ public class PersonDetailActivity2 extends BaseListActivity {
                     UserDetailEntity userEntity = response.body();
                     if (userEntity == null) return;
                     setupCommonTitle(userEntity.getUsername());
+                    mUserName = AppUtils.getTimName(userEntity.getUsername(), userEntity.getId());
+                    if (mOwerEntity != null && !TextUtils.isEmpty(mOwerEntity.getUsername())
+                            && mOwerEntity.getUsername().equals(userEntity.getUsername())) {
+                        mChatIcon.setVisibility(View.GONE);
+                    } else {
+                        mChatIcon.setVisibility(View.VISIBLE);
+                    }
                     addData(userEntity);
                 }
             }
@@ -145,6 +174,5 @@ public class PersonDetailActivity2 extends BaseListActivity {
                 mAdapter.setEmptyView(errorView);
             }
         });
-
     }
 }

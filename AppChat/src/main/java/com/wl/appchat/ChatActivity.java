@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
+import android.text.TextUtils;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,7 +20,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.tencent.TIMConversationType;
 import com.tencent.TIMMessage;
 import com.tencent.TIMMessageDraft;
@@ -33,8 +33,6 @@ import com.tencent.qcloud.ui.VoiceSendingView;
 import com.wl.appchat.adapter.ChatAdapter;
 import com.wl.appchat.model.CustomMessage;
 import com.wl.appchat.model.FileMessage;
-import com.wl.appchat.model.FriendProfile;
-import com.wl.appchat.model.FriendshipInfo;
 import com.wl.appchat.model.GroupInfo;
 import com.wl.appchat.model.ImageMessage;
 import com.wl.appchat.model.Message;
@@ -147,7 +145,10 @@ public class ChatActivity extends FragmentActivity implements ChatView {
                         startActivity(intent);
                     }
                 });
-                title.setTitleText(titleStr = identify);
+                titleStr = identify;
+                if (!TextUtils.isEmpty(titleStr) && titleStr.split("-").length > 1) {
+                    title.setTitleText(titleStr.split("-")[1]);
+                }
                 break;
             case Group:
                 title.setMoreImg(R.drawable.btn_group);

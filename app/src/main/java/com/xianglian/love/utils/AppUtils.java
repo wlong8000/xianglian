@@ -597,4 +597,8 @@ public class AppUtils {
         return 0;
     }
 
+    public static String getTimName(String username, String id) {
+        return id + "-" + username;
+    }
+
 }
