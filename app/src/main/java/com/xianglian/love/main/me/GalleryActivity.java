@@ -41,7 +41,7 @@ public class GalleryActivity extends BaseUserInfoActivity implements AlumView.On
     //相册封装好的view
     private AlumView mAlumView;
 
-    private static final int MAX_PIC = 9;
+    private static final int MAX_PIC = 3;
 
     private int mMaxPicCount = MAX_PIC;
 
@@ -57,14 +57,15 @@ public class GalleryActivity extends BaseUserInfoActivity implements AlumView.On
         mAlumView = findViewById(R.id.layout_alum);
         mAlumView.setOnItemClickListener(this);
         mAlumView.initAdapter(3);
-//        addData();
         doRequest();
     }
 
     private void addData(List<PhotoInfo> albums) {
-        addDataByType(PhotoInfo.AlumViewType.ALUM_ADD, null);
         if (albums != null && !albums.isEmpty()) {
             addAlumData(albums);
+        }
+        if (mMaxPicCount > 0) {
+            addDataByType(PhotoInfo.AlumViewType.ALUM_ADD, null);
         }
         mAlumView.notifyDataSetChanged();
     }
@@ -131,6 +132,7 @@ public class GalleryActivity extends BaseUserInfoActivity implements AlumView.On
             PictureSelector.create(this)
                     .openGallery(PictureMimeType.ofImage())
                     .compress(true)
+                    .maxSelectNum(MAX_PIC)
                     .forResult(PictureConfig.CHOOSE_REQUEST);
         } else {
             List<PhotoInfo> data = mPersonInfo.getAlbum();
@@ -211,12 +213,6 @@ public class GalleryActivity extends BaseUserInfoActivity implements AlumView.On
                                 }
                             }
                             Trace.i("qiniu", "Upload Success");
-                            //                String url = bmobFile.getFileUrl();
-                            //                if (!TextUtils.isEmpty(url)) {
-                            //                    updateAvatar(url);
-                            //                } else {
-                            //                    toast(R.string.text_upload_avatar_fail);
-                            //                }
                         } else {
                             Trace.i("qiniu", "Upload Fail");
                             //如果失败，这里可以把info信息上报自己的服务器，便于后面分析上传错误原因

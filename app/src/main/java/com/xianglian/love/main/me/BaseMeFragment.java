@@ -148,9 +148,15 @@ public class BaseMeFragment extends BaseListFragment implements BaseQuickAdapter
                         Config.TOKEN = null;
                         Hawk.put(Keys.TOKEN, null);
                         Hawk.put(Keys.USER_TIM_SIGN, null);
-                        Hawk.put(Keys.SEX, null);
                         Hawk.put(Keys.SEARCH_INFO_LIST, null);
                         logout();
+                        for (ItemInfo itemInfo: mItemInfo) {
+                            if (itemInfo == null) continue;
+                            if (itemInfo.getItemType() == ItemInfo.ViewType.AVATAR) {
+                                itemInfo.setAvatar(null);
+                            }
+                        }
+                        mAdapter.notifyDataSetChanged();
                     }
                 };
                 okDialog.show();
@@ -324,7 +330,9 @@ public class BaseMeFragment extends BaseListFragment implements BaseQuickAdapter
                                         Uri.fromFile(new File(getAlbum().getFileName())),
                                         Uri.fromFile(new File(AppUtils.getPicturePath(getContext())
                                                 + "avatar/thumb_" + getAlbum().getName())));
-                                getActivity().startActivityForResult(albuIntent, PhotoUtils.REQUEST_CODE_ALBUM_CUT);
+                                if (getActivity() != null) {
+                                    getActivity().startActivityForResult(albuIntent, PhotoUtils.REQUEST_CODE_ALBUM_CUT);
+                                }
                             } else {
                                 AppUtils.showToast(getContext(), getString(R.string.unaccess_pic));
                             }
