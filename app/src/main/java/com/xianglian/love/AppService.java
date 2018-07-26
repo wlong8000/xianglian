@@ -80,6 +80,9 @@ public class AppService extends IntentService {
         context.startService(service);
     }
 
+    /**
+     * Tim相关
+     */
     private void doTimSignRequest(final String username, final boolean send) {
         if (TextUtils.isEmpty(username)) return;
         GetRequest<UserEntity> request = OkGo.get(Config.PATH + "user_tim_sign/");
@@ -109,6 +112,9 @@ public class AppService extends IntentService {
         });
     }
 
+    /**
+     * 用户信息
+     */
     private void doUserInfoRequest(final boolean send) {
         final GetRequest<UserEntity> request = OkGo.get(Config.PATH + "user_info");
         request.headers("Authorization", AppUtils.getToken(this));
@@ -121,6 +127,7 @@ public class AppService extends IntentService {
                         && !response.body().getResults().isEmpty()) {
                     UserEntity entity = response.body().getResults().get(0);
                     Hawk.put(Keys.USER_INFO, entity);
+                    Hawk.put(Keys.SEX, entity.getGender());
                     if (send)
                         EventBus.getDefault().post(new MessageEvent2(entity, 1));
                 } else {

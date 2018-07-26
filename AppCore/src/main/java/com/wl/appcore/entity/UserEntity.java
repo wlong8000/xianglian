@@ -43,6 +43,8 @@ public class UserEntity implements Serializable, MultiItemEntity {
     private int education;
     private int id;
 
+    private String gender;
+
     public String getBirthday() {
         return birthday;
     }
@@ -109,6 +111,14 @@ public class UserEntity implements Serializable, MultiItemEntity {
 
     public boolean isIs_like() {
         return is_like;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     /**

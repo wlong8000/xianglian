@@ -5,6 +5,8 @@ import android.os.Parcelable;
 import android.text.TextUtils;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
+import com.orhanobut.hawk.Hawk;
+import com.xianglian.love.config.Keys;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -692,6 +694,10 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
 
         if (!TextUtils.isEmpty(person_intro)) {
             params.put("person_intro", person_intro);
+        }
+        String sex = Hawk.get(Keys.SEX);
+        if (!TextUtils.isEmpty(sex)) {
+            params.put("gender", sex);
         }
         return params;
 

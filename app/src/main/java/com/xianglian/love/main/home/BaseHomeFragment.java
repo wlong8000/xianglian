@@ -26,7 +26,6 @@ import com.wl.appcore.entity.UserEntity;
 import com.xianglian.love.net.JsonCallBack;
 import com.xianglian.love.user.LoginActivity;
 import com.xianglian.love.user.been.ItemInfo;
-import com.xianglian.love.utils.AppSharePreferences;
 import com.xianglian.love.utils.AppUtils;
 
 import java.util.ArrayList;

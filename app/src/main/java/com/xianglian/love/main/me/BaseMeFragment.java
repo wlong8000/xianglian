@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,6 +80,8 @@ public class BaseMeFragment extends BaseListFragment implements BaseQuickAdapter
     private TakePhoto mTakePhoto;
 
     private Album mAlbum;
+
+    private UserEntity mUserEntity;
 
     private TakePhoto getTakePhoto() {
         if (mTakePhoto == null) {
@@ -159,7 +162,11 @@ public class BaseMeFragment extends BaseListFragment implements BaseQuickAdapter
                         mAdapter.notifyDataSetChanged();
                     }
                 };
+                Hawk.get(Keys.USER_INFO);
                 okDialog.show();
+                if (mUserEntity != null && !TextUtils.isEmpty(mUserEntity.getUsername())) {
+                    okDialog.setTitle(getString(R.string.exit_count_dialog) + "(" +  mUserEntity.getUsername() + ")");
+                }
                 break;
             }
         }
@@ -173,6 +180,7 @@ public class BaseMeFragment extends BaseListFragment implements BaseQuickAdapter
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mItemInfo.clear();
+        mUserEntity = Hawk.get(Keys.USER_INFO);
     }
 
     @Override
@@ -204,9 +212,8 @@ public class BaseMeFragment extends BaseListFragment implements BaseQuickAdapter
         switch (type) {
             case ItemInfo.ViewType.AVATAR: {
                 ItemInfo info = new ItemInfo();
-                UserEntity entity = Hawk.get(Keys.USER_INFO);
-                if (entity != null) {
-                    info.setAvatar(entity.getPic1());
+                if (mUserEntity != null) {
+                    info.setAvatar(mUserEntity.getPic1());
                 }
                 info.setViewType(type);
                 mItemInfo.add(info);
@@ -278,7 +285,8 @@ public class BaseMeFragment extends BaseListFragment implements BaseQuickAdapter
             @Override
             public void takePhoto() {
                 Intent takePhoto = getTakePhoto().setIntent(AppUtils.getPicturePath(getContext()) + "avatar/");
-                getActivity().startActivityForResult(takePhoto, PhotoUtils.PHOTO);
+                if (getActivity() != null)
+                    getActivity().startActivityForResult(takePhoto, PhotoUtils.PHOTO);
             }
 
             @Override
@@ -286,7 +294,8 @@ public class BaseMeFragment extends BaseListFragment implements BaseQuickAdapter
                 mAlbum = new Album();
                 Intent it = mAlbum.setIntent(AppUtils.getPicturePath(getContext()) + "avatar/",
                         "image/jpeg");
-                getActivity().startActivityForResult(it, PhotoUtils.ALBUM);
+                if (getActivity() != null)
+                    getActivity().startActivityForResult(it, PhotoUtils.ALBUM);
             }
         };
         dialog.show();
@@ -311,6 +320,7 @@ public class BaseMeFragment extends BaseListFragment implements BaseQuickAdapter
                 break;
             case PhotoUtils.ALBUM:
                 if (data != null) {
+                    if (getContext() == null) return;
                     ContentResolver resolver = getContext().getContentResolver();
                     // 照片的原始资源地址
                     Uri originalUri = AppUtils.getUri(getContext(), data);
@@ -338,6 +348,9 @@ public class BaseMeFragment extends BaseListFragment implements BaseQuickAdapter
                             }
                         } else {
                             AppUtils.showToast(getContext(), getString(R.string.unaccess_pic));
+                        }
+                        if (cursor != null) {
+                            cursor.close();
                         }
                     }
                 }
@@ -393,12 +406,6 @@ public class BaseMeFragment extends BaseListFragment implements BaseQuickAdapter
                         //res包含hash、key等信息，具体字段取决于上传策略的设置
                         if (info.isOK()) {
                             Trace.i("qiniu", "Upload Success");
-                            //                String url = bmobFile.getFileUrl();
-                            //                if (!TextUtils.isEmpty(url)) {
-                            //                    updateAvatar(url);
-                            //                } else {
-                            //                    toast(R.string.text_upload_avatar_fail);
-                            //                }
                         } else {
                             Trace.i("qiniu", "Upload Fail");
                             //如果失败，这里可以把info信息上报自己的服务器，便于后面分析上传错误原因

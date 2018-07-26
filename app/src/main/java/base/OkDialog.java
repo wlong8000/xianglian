@@ -34,6 +34,10 @@ public abstract class OkDialog extends BaseDialog implements View.OnClickListene
         resetWidth();
     }
 
+    public void setTitle(String title) {
+        mTextView.setText(title);
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
