@@ -136,19 +136,18 @@ public class ChatActivity extends FragmentActivity implements ChatView {
                 title.setMoreImgAction(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        int id = string2Int(getTextByPosition(0));
+                        if (id <= 0) return;
                         Intent intent = new Intent();
-                        intent.putExtra("id", "1");
+                        intent.putExtra("id", id);
                         ComponentName cn = new ComponentName("com.wl.lianba",
-                                "com.xianglian.love.main.home.PersonDetailActivity");
+                                "com.xianglian.love.main.home.PersonDetailActivity2");
                         intent.setComponent(cn);
                         startActivity(intent);
                     }
                 });
-                titleStr = identify;
-                if (!TextUtils.isEmpty(titleStr) && titleStr.split("-").length > 1) {
-                    title.setTitleText(titleStr.split("-")[1]);
-                }
+                titleStr = getTextByPosition(1);
+                title.setTitleText(titleStr);
                 break;
             case Group:
                 title.setMoreImg(R.drawable.btn_group);
@@ -502,6 +501,23 @@ public class ChatActivity extends FragmentActivity implements ChatView {
             Toast.makeText(this, getString(R.string.chat_file_not_exist), Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    private String getTextByPosition(int position) {
+        if (!TextUtils.isEmpty(identify) && identify.split("-").length > 1) {
+            return identify.split("-")[position];
+        }
+        return titleStr;
+    }
+
+    public static int string2Int(String text) {
+        if (TextUtils.isEmpty(text)) return 0;
+        try {
+            return Integer.parseInt(text);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
 

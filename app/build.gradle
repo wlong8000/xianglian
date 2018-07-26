@@ -52,7 +52,27 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        applicationVariants.all { variant ->
+            variant.outputs.all { output ->
+                def outputFile = outputFileName
+                if (outputFile != null && outputFile.endsWith('.apk')) {
+                    outputFileName = "xianglian-${defaultConfig.versionName}-${releaseTime()}-${TimesBuildNo()}.apk"
+                }
+            }
+        }
     }
+}
+
+def static releaseTime() {
+    return new Date().format("yyyy.MM.dd-HH.mm", TimeZone.getTimeZone("GMT+8"))
+}
+
+def static TimesBuildNo() {
+    def buildNo = 0
+    if (System.env.BUILD_NUMBER) {
+        buildNo = System.env.BUILD_NUMBER
+    }
+    return buildNo
 }
 
 dependencies {

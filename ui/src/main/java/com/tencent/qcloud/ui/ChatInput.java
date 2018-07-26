@@ -13,13 +13,10 @@ import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.text.SpannableStringBuilder;
+import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.text.method.KeyListener;
 import android.text.style.ImageSpan;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -31,7 +28,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.tencent.TIMElem;
 import com.tencent.qcloud.presentation.viewfeatures.ChatView;
 
 import java.io.IOException;
@@ -310,7 +306,9 @@ public class ChatInput extends RelativeLayout implements TextWatcher, View.OnCli
         Activity activity = (Activity) getContext();
         int id = v.getId();
         if (id == R.id.btn_send) {
-            chatView.sendText();
+            if (!TextUtils.isEmpty(getText())) {
+                chatView.sendText();
+            }
         }
         if (id == R.id.btn_add) {
             updateView(inputMode == InputMode.MORE ? InputMode.TEXT : InputMode.MORE);
