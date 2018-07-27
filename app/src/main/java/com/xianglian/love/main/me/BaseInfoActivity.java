@@ -101,6 +101,11 @@ public class BaseInfoActivity extends BaseEditUserInfoActivity implements BaseQu
         addData();
     }
 
+    @Override
+    public void onRefresh(boolean refresh) {
+
+    }
+
     private void addData() {
         addDataByType(ItemInfo.ViewType.PICK_SELECT);
     }

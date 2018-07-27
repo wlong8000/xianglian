@@ -56,6 +56,11 @@ public class EditPhoneActivity extends BaseListActivity {
         mAdapter.setEmptyView(loadingView);
     }
 
+    @Override
+    public void onRefresh(boolean refresh) {
+
+    }
+
     private void addData(List<Contacts> phones) {
         addDataByType(ItemInfo.ViewType.TOAST);
         addDataByType(ItemInfo.ViewType.TOAST2);

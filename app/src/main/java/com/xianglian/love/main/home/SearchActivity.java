@@ -31,10 +31,8 @@ import java.util.List;
 public class SearchActivity extends BaseEditUserInfoActivity implements
         BaseQuickAdapter.OnItemClickListener, View.OnClickListener {
 
-//    @InjectView(R.id.save)
     TextView mSaveView;
 
-//    @InjectView(R.id.reset)
     TextView mResetView;
 
     private UserInfoEditAdapter mAdapter;
@@ -125,6 +123,11 @@ public class SearchActivity extends BaseEditUserInfoActivity implements
         if (mItemInfo.isEmpty()) {
             addData();
         }
+    }
+
+    @Override
+    public void onRefresh(boolean refresh) {
+
     }
 
     private void addData() {

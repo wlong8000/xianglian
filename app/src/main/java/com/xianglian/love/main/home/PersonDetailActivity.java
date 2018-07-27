@@ -46,7 +46,7 @@ public class PersonDetailActivity extends BaseListActivity {
 
     private TextView mChatIcon;
 
-    private UserEntity mOwerEntity;
+    private UserEntity mOwnerEntity;
 
     public static Intent getIntent(Context context, int id) {
         Intent intent = new Intent(context, PersonDetailActivity.class);
@@ -70,7 +70,7 @@ public class PersonDetailActivity extends BaseListActivity {
         mRecyclerView.setAdapter(mAdapter);
         mSwipeRefreshLayout.setRefreshing(true);
         mChatIcon = findViewById(R.id.icon_start_chat);
-        mOwerEntity = Hawk.get(Keys.USER_INFO);
+        mOwnerEntity = Hawk.get(Keys.USER_INFO);
         mChatIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,7 +78,7 @@ public class PersonDetailActivity extends BaseListActivity {
                 ChatActivity.navToChat(PersonDetailActivity.this, mUserName, TIMConversationType.C2C);
             }
         });
-        onRefresh2(true);
+        onRefresh(true);
     }
 
     private void addData(UserDetailEntity entity) {
@@ -142,7 +142,7 @@ public class PersonDetailActivity extends BaseListActivity {
         }
     }
 
-    public void onRefresh2(final boolean refresh) {
+    public void onRefresh(final boolean refresh) {
         final String url = Config.PATH + "users/" + mId;
         final GetRequest<UserDetailEntity> request = OkGo.get(url);
         request.headers("Authorization", AppUtils.getToken(this));
@@ -157,8 +157,8 @@ public class PersonDetailActivity extends BaseListActivity {
                     if (userEntity == null) return;
                     setupCommonTitle(userEntity.getUsername());
                     mUserName = AppUtils.getTimName(userEntity.getUsername(), userEntity.getId());
-                    if (mOwerEntity != null && !TextUtils.isEmpty(mOwerEntity.getUsername())
-                            && mOwerEntity.getUsername().equals(userEntity.getUsername())) {
+                    if (mOwnerEntity != null && !TextUtils.isEmpty(mOwnerEntity.getUsername())
+                            && mOwnerEntity.getUsername().equals(userEntity.getUsername())) {
                         mChatIcon.setVisibility(View.GONE);
                     } else {
                         mChatIcon.setVisibility(View.VISIBLE);

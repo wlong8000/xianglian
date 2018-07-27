@@ -20,7 +20,7 @@ import java.util.Map;
  * Created by wanglong on 17/3/11.
  */
 
-public class BaseListActivity extends BaseActivity {
+public abstract class BaseListActivity extends BaseActivity {
     public View emptyView;
 
     public View errorView;
@@ -63,16 +63,19 @@ public class BaseListActivity extends BaseActivity {
 
             emptyView = getLayoutInflater().inflate(R.layout.empty,
                     (ViewGroup) mRecyclerView.getParent(), false);
-            errorView = getLayoutInflater().inflate(R.layout.loading_view,
+            errorView = getLayoutInflater().inflate(R.layout.error,
                     (ViewGroup) mRecyclerView.getParent(), false);
-            loadingView = getLayoutInflater().inflate(R.layout.loading_view,
-                    (ViewGroup) mRecyclerView.getParent(), false);
-            SimpleDraweeView loadView = loadingView.findViewById(R.id.loading_icon);
-            AppUtils.loadLocalGif(this, loadView, R.drawable.loading);
+            errorView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onRefresh(true);
+                }
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-
     }
+
+    public abstract void onRefresh(boolean refresh);
 }
