@@ -50,4 +50,6 @@
     <dimen name="ucrop_default_crop_grid_stoke_width">1dp</dimen>
     <dimen name="ucrop_default_crop_frame_stoke_width">1dp</dimen>
 
+    <dimen name="bottom_nav_textsize">10sp</dimen>
+
 </resources>

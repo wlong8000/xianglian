@@ -206,8 +206,6 @@ public class ConversationFragment extends Fragment implements ConversationView, 
         adapter.notifyDataSetChanged();
         //todo
         EventBus.getDefault().post(new MessageEvent(String.valueOf(getTotalUnreadNum())));
-//        if (getActivity() instanceof HomeActivity)
-//            ((HomeActivity) getActivity()).setMsgUnread(getTotalUnreadNum() == 0);
     }
 
 

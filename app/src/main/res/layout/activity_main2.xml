@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -21,6 +22,7 @@
         android:layout_height="50dp"
         app:ntb_badge_gravity="top"
         app:ntb_bg_color="@color/white"
+        android:visibility="gone"
         app:ntb_active_color="@color/lib_color_font8"
         app:ntb_badge_position="right"
         app:ntb_badged="true"
@@ -29,4 +31,63 @@
         app:ntb_tinted="true"
         app:ntb_title_mode="all"
         app:ntb_titled="true" />
+
+    <LinearLayout
+        android:id="@+id/ll_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:clipChildren="false"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#eff1f4"
+            tools:ignore="Suspicious0dp" />
+
+        <LinearLayout
+            android:id="@+id/bottomList"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:orientation="horizontal">
+
+
+            <Button
+                android:id="@+id/main"
+                style="@style/Button_Main"
+                android:drawableTop="@drawable/main_home"
+                android:text="@string/main_home"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/bottom_nav_textsize" />
+
+            <Button
+                android:id="@+id/chat"
+                style="@style/Button_Main"
+                android:drawableTop="@drawable/main_home"
+                android:text="@string/main_special"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/bottom_nav_textsize" />
+
+            <Button
+                android:id="@+id/my"
+                style="@style/Button_Main"
+                android:drawableTop="@drawable/main_home"
+                android:text="@string/main_my"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/bottom_nav_textsize" />
+
+            <!--<Button-->
+                <!--android:id="@+id/settings"-->
+                <!--style="@style/Button_Main"-->
+                <!--android:text="@string/Settings"-->
+                <!--android:textColor="@color/grey"-->
+                <!--android:textSize="@dimen/bottom_nav_textsize" />-->
+
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

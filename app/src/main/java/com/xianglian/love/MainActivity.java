@@ -1,24 +1,22 @@
 package com.xianglian.love;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.Button;
 
 import com.wl.appchat.ConversationFragment;
 import com.wl.appcore.event.MessageEvent;
 import com.xianglian.love.main.home.BaseHomeFragment;
 import com.xianglian.love.main.home.SearchActivity;
-import com.wl.appcore.entity.UserEntity;
 import com.xianglian.love.main.me.BaseMeFragment;
 import com.xianglian.love.user.LoginActivity;
 import com.xianglian.love.utils.AppUtils;
 import com.xianglian.love.utils.UpdateUtil;
-import com.xianglian.love.utils.UserUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -27,9 +25,10 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.List;
 
-import devlight.io.library.ntb.NavigationTabBar;
+import q.rorbin.badgeview.QBadgeView;
 
-public class MainActivity extends BaseFragmentActivity {
+
+public class MainActivity extends BaseFragmentActivity implements View.OnClickListener {
     private static final String TAG = "MainActivity";
     private ViewPager mViewPager;
 
@@ -37,15 +36,19 @@ public class MainActivity extends BaseFragmentActivity {
 
     private MainAdapter mAdapter;
 
-    private NavigationTabBar mNavigationTabBar;
-
     private long exitTime = 0;
 
     public static final int REQUEST_CODE_SEARCH = 1;
 
-    private int mCurrentPage;
+    public static final int TAB_MAIN = 0;
 
-//    private UserEntity mUserEntity;
+    public static final int TAB_CHATS = 1;
+
+    public static final int TAB_MY = 2;
+
+    private Button mBtnMain, mBtnChat, mBtnMy;
+
+    private int mTabIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,14 +59,14 @@ public class MainActivity extends BaseFragmentActivity {
         if (AppUtils.isLogin(this)) {
             AppService.startSaveUser(this, true);
         }
-//        mUserEntity = UserUtils.getUserEntity();
 
         setupTitle(getString(R.string.meet_you), R.drawable.btn_menu_normal);
         mViewPager = findViewById(R.id.vp_container);
 
         initFragment();
         mAdapter = new MainAdapter(getSupportFragmentManager(), mFragments);
-        initUI();
+        mViewPager.setAdapter(mAdapter);
+        setupView();
         //检查版本更新
         UpdateUtil.checkVersion(this);
     }
@@ -74,6 +77,23 @@ public class MainActivity extends BaseFragmentActivity {
         ConversationFragment conversationFragment = new ConversationFragment();
         mFragments.add(conversationFragment);
         mFragments.add(BaseMeFragment.newInstance());
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.main:
+                mTabIndex = 0;
+                break;
+            case R.id.chat:
+                mTabIndex = 1;
+                break;
+            case R.id.my:
+                mTabIndex = 2;
+                break;
+        }
+        mViewPager.setCurrentItem(mTabIndex, false);
+        dealJumpTab();
     }
 
     class MainAdapter extends FragmentStatePagerAdapter {
@@ -117,83 +137,70 @@ public class MainActivity extends BaseFragmentActivity {
         finish();
     }
 
-    private void initUI() {
-        mViewPager.setAdapter(mAdapter);
+    private void setupView() {
+        mBtnMain = findViewById(R.id.main);
+        mBtnChat = findViewById(R.id.chat);
+        mBtnMy = findViewById(R.id.my);
 
-        final String[] colors = getResources().getStringArray(R.array.default_preview2);
+        mBtnMain.setOnClickListener(this);
+        mBtnChat.setOnClickListener(this);
+        mBtnMy.setOnClickListener(this);
 
-        mNavigationTabBar = findViewById(R.id.tab);
-
-        final ArrayList<NavigationTabBar.Model> models = new ArrayList<>();
-        models.add(
-                new NavigationTabBar.Model.Builder(
-                        getResources().getDrawable(R.drawable.main_home),
-                        Color.parseColor(colors[0]))
-                        .selectedIcon(getResources().getDrawable(R.drawable.main_home_selected))
-                        .title(getResources().getString(R.string.main_home))
-                        .build()
-        );
-        models.add(
-                new NavigationTabBar.Model.Builder(
-                        getResources().getDrawable(R.drawable.main_meet),
-                        Color.parseColor(colors[1]))
-                        .selectedIcon(getResources().getDrawable(R.drawable.main_meet_selected))
-                        .title(getResources().getString(R.string.main_special))
-                        .build()
-        );
-
-        models.add(
-                new NavigationTabBar.Model.Builder(
-                        getResources().getDrawable(R.drawable.main_me),
-                        Color.parseColor(colors[2]))
-                        .selectedIcon(getResources().getDrawable(R.drawable.main_me_selected))
-                        .title(getResources().getString(R.string.main_my))
-                        .build()
-        );
-
-        mNavigationTabBar.setModels(models);
-        mNavigationTabBar.setViewPager(mViewPager, mCurrentPage);
-        mNavigationTabBar.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(final int position, final float positionOffset, final int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(final int position) {
-                mTitleBarView.setRightLayoutVisible(position == 0 ? View.VISIBLE : View.GONE);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(final int state) {
-
-            }
-        });
+        dealJumpTab();
     }
 
-    private void showBadge(final NavigationTabBar navigationTabBar, final String message) {
-        if (AppUtils.stringToInt(message) <= 0) return;
-        navigationTabBar.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                NavigationTabBar.Model model = navigationTabBar.getModels().get(1);
-                model.setBadgeTitle(message);
-                model.showBadge();
+    private void dealJumpTab() {
+        mViewPager.setCurrentItem(mTabIndex, false);
+        initBottomButton();
+    }
+
+    private void initBottomButton() {
+        mBtnMain.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.main_home, 0, 0);
+        mBtnMain.setTextColor(getResources().getColor(R.color.grey));
+
+        mBtnChat.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.main_meet, 0, 0);
+        mBtnChat.setTextColor(getResources().getColor(R.color.grey));
+
+        mBtnMy.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.main_me, 0, 0);
+        mBtnMy.setTextColor(getResources().getColor(R.color.grey));
+
+        switch (mTabIndex) {
+            case TAB_MAIN: {
+                mBtnMain.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.main_home_selected, 0,
+                        0);
+                mBtnMain.setTextColor(getResources().getColor(R.color.lib_color_font11));
+                break;
             }
-        }, 500);
+            case TAB_CHATS: {
+                mBtnChat.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.main_meet_selected, 0,
+                        0);
+                mBtnChat.setTextColor(getResources().getColor(R.color.lib_color_font11));
+                break;
+            }
+            case TAB_MY: {
+                mBtnMy.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.main_me_selected, 0,
+                        0);
+                mBtnMy.setTextColor(getResources().getColor(R.color.lib_color_font11));
+                break;
+            }
+        }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Fragment fragment =  mFragments.get(mViewPager.getCurrentItem());
+        Fragment fragment = mFragments.get(mViewPager.getCurrentItem());
         if (fragment != null) {
             fragment.onActivityResult(requestCode, resultCode, data);
         }
     }
 
+    private QBadgeView qBadgeView;
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void showMessage(MessageEvent messageEvent) {
-        showBadge(mNavigationTabBar, messageEvent.getMessage());
+        if (qBadgeView == null) qBadgeView = new QBadgeView(this);
+        qBadgeView.setGravityOffset(25, 0, true);
+        qBadgeView.bindTarget(mBtnChat).setBadgeNumber(AppUtils.stringToInt(messageEvent.getMessage()));
     }
 
 
