@@ -102,8 +102,6 @@
             android:screenOrientation="portrait" />
         <activity android:name=".main.home.PersonDetailActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".main.home.PersonDetailActivity2"
-            android:screenOrientation="portrait"/>
         <activity
             android:name=".user.IntroduceActivity"
             android:screenOrientation="portrait" />

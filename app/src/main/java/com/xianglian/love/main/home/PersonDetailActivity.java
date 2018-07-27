@@ -3,158 +3,176 @@ package com.xianglian.love.main.home;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.ViewPager;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.GetRequest;
+import com.orhanobut.hawk.Hawk;
 import com.tencent.TIMConversationType;
 import com.wl.appchat.ChatActivity;
-import com.xianglian.love.BaseActivity;
-import com.xianglian.love.R;
-import com.xianglian.love.utils.StatusbarUtil;
-import com.xianglian.love.config.Config;
-import com.xianglian.love.main.home.been.UserDetailEntity;
 import com.wl.appcore.entity.UserEntity;
+import com.xianglian.love.BaseListActivity;
+import com.xianglian.love.R;
+import com.xianglian.love.config.Config;
+import com.xianglian.love.config.Keys;
+import com.xianglian.love.main.home.adapter.PersonDetailAdapter;
+import com.xianglian.love.main.home.been.MessageEntity;
+import com.xianglian.love.main.home.been.UserDetailEntity;
+import com.xianglian.love.net.JsonCallBack;
+import com.xianglian.love.utils.AppUtils;
 
-public class PersonDetailActivity extends BaseActivity implements View.OnClickListener {
+import java.util.ArrayList;
+import java.util.List;
 
-    //头图
-//    @InjectView(R.id.img)
-    SimpleDraweeView mPicView;
+/**
+ * Created by wanglong on 17/9/3.
+ * 详情页
+ */
+@Route(path = "/detail/activity")
+public class PersonDetailActivity extends BaseListActivity {
 
-    //交换QQ
-//    @InjectView(R.id.change_qq)
-    TextView mChangeQQView;
+    private PersonDetailAdapter mAdapter;
 
-    //交换微信
-//    @InjectView(R.id.change_wx)
-    TextView mChangeWXView;
-
-    //留言
-//    @InjectView(R.id.leave_message)
-    TextView mLeaveMessageView;
-
-    //心动数量
-//    @InjectView(R.id.heart)
-    LinearLayout mHeartLayout;
-
-    //心动数量
-//    @InjectView(R.id.tv_heart_count)
-    TextView mHeartCountView;
-
-//    @InjectView(R.id.view_pager)
-    ViewPager mViewPager;
+    private List<UserDetailEntity> mUserDetailEntities = new ArrayList<>();
 
     private int mId;
 
-    private UserEntity mEntity;
+    private String mUserName;
 
-    private MyBaseAdapter mBaseAdapter;
+    private TextView mChatIcon;
 
-    public static Intent getIntent(Context context, String id) {
+    private UserEntity mOwerEntity;
+
+    public static Intent getIntent(Context context, int id) {
         Intent intent = new Intent(context, PersonDetailActivity.class);
-        intent.putExtra(Config.EXTRA_ID, id);
-        return intent;
-    }
-
-    public static Intent getIntent(Context context, UserEntity entity) {
-        Intent intent = new Intent(context, PersonDetailActivity.class);
-        intent.putExtra(Config.EXTRA_ENTITY, entity);
+        intent.putExtra("id", id);
         return intent;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_person_detail);
-        StatusbarUtil.setStatusBarTranslucent(this);
-//        ButterKnife.inject(this);
-        mEntity = (UserEntity) getIntent().getSerializableExtra(Config.EXTRA_ENTITY);
-        if (mEntity == null) {
-            mId = getIntent().getIntExtra(Config.EXTRA_ID, -1);
-        } else {
-            mId = mEntity.getId();
+        setContentView(R.layout.fragment_user_detail);
+        mId = getIntent().getIntExtra("id", 0);
+        setupCommonTitle("详情");
+        setupRecyclerView();
+    }
+
+
+    public void setupRecyclerView() {
+        super.setupRecyclerView();
+        mAdapter = new PersonDetailAdapter(this, mUserDetailEntities);
+        mRecyclerView.setAdapter(mAdapter);
+        mSwipeRefreshLayout.setRefreshing(true);
+        mChatIcon = findViewById(R.id.icon_start_chat);
+        mOwerEntity = Hawk.get(Keys.USER_INFO);
+        mChatIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (TextUtils.isEmpty(mUserName)) return;
+                ChatActivity.navToChat(PersonDetailActivity.this, mUserName, TIMConversationType.C2C);
+            }
+        });
+        onRefresh2(true);
+    }
+
+    private void addData(UserDetailEntity entity) {
+        addDataByType(UserDetailEntity.ViewType.TOP_INFO, entity);
+        if (!TextUtils.isEmpty(entity.getPerson_intro())) {
+            addDataByType(UserDetailEntity.ViewType.INTRODUCE, entity);
         }
-        setupView();
-        if (mEntity != null) {
-            setHeader(mEntity);
+        if (entity.getImages() != null && !entity.getImages().isEmpty()) {
+            addDataByType(UserDetailEntity.ViewType.ALBUM, entity);
         }
+        addDataByType(UserDetailEntity.ViewType.BASE_INFO, entity);
+        if (entity.getTags() != null && entity.getTags().size() > 0) {
+            addDataByType(UserDetailEntity.ViewType.MARK, entity);
+        }
+        if (!TextUtils.isEmpty(entity.getRelationship_desc())) {
+            addDataByType(UserDetailEntity.ViewType.EXPERIENCE_EMOTION, entity);
+        }
+//        if (entity.getInterests() != null && entity.getInterests().size() > 0) {
+//            addDataByType(UserDetailEntity.ViewType.FAVORITE, entity);
+//        }
+//        if (entity.getMessages() != null && entity.getMessages().size() > 0) {
+//            addDataByType(UserDetailEntity.ViewType.TITLE, entity);
+//            addDataByType(UserDetailEntity.ViewType.LEAVE_MESSAGE, entity);
+//        }
+
+        mAdapter.notifyDataSetChanged();
     }
 
-    private void setupView() {
-        mPicView = findViewById(R.id.img);
-        mChangeQQView = findViewById(R.id.change_qq);
-        mChangeWXView = findViewById(R.id.change_wx);
-        mLeaveMessageView = findViewById(R.id.leave_message);
-        mHeartLayout = findViewById(R.id.heart);
-        mHeartCountView = findViewById(R.id.tv_heart_count);
-        mViewPager = findViewById(R.id.view_pager);
-
-        mHeartLayout.setOnClickListener(this);
-        mChangeQQView.setOnClickListener(this);
-        mChangeWXView.setOnClickListener(this);
-        mLeaveMessageView.setOnClickListener(this);
-
-        mViewPager.setOffscreenPageLimit(1);
-        mBaseAdapter = new MyBaseAdapter(getSupportFragmentManager());
-        mViewPager.setAdapter(mBaseAdapter);
-
-    }
-
-    private void setHeader(UserDetailEntity entity) {
-        if (entity == null) return;
-        mPicView.setImageURI(entity.getAvatar());
-        mHeartCountView.setText(TextUtils.isEmpty(entity.getLike()) ? "" : entity.getLike());
-    }
-
-    private void setHeader(UserEntity entity) {
-        if (entity == null) return;
-        mPicView.setImageURI(entity.getPic1());
-        mHeartCountView.setText(TextUtils.isEmpty(entity.getLike()) ? "" : entity.getLike());
-    }
-
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.heart:
-//                doLikeRequest(mId);
+    private void addDataByType(int type, UserDetailEntity entity) {
+        switch (type) {
+            case UserDetailEntity.ViewType.LEAVE_MESSAGE:
+                if (entity != null && entity.getMessages() != null && entity.getMessages().size() > 0) {
+                    List<MessageEntity> msgList = entity.getMessages();
+                    int count = msgList.size();
+                    int i = 0;
+                    for (MessageEntity msg : msgList) {
+                        if (msg == null) continue;
+                        UserDetailEntity info = new UserDetailEntity();
+                        info.setViewType(type);
+                        info.setSender_avatar(msg.getSender_avatar());
+                        info.setSender_name(msg.getSender_name());
+                        info.setSender_id(msg.getSender_id());
+                        info.setContent(msg.getContent());
+                        info.setCreate_time(msg.getCreate_time());
+                        if (count >= 3 && i == count -1) {
+                            info.setShow_msg_more(true);
+                        } else {
+                            info.setShow_msg_more(false);
+                        }
+                        mUserDetailEntities.add(info);
+                        i++;
+                    }
+                }
                 break;
-            case R.id.change_qq:
-                ChatActivity.navToChat(this, mEntity.getUsername(), TIMConversationType.C2C);
-                break;
-            case R.id.change_wx:
-                break;
-            case R.id.leave_message:
-//                showEditDialog();
+            default:
+                UserDetailEntity info = new UserDetailEntity();
+                info.setViewType(type);
+                info.setResult(entity);
+                mUserDetailEntities.add(info);
                 break;
         }
     }
 
-    class MyBaseAdapter extends FragmentStatePagerAdapter {
-        Fragment[] fragments = new Fragment[]{
-//                PersonDetailActivity2.newInstance(mId)
-        };
+    public void onRefresh2(final boolean refresh) {
+        final String url = Config.PATH + "users/" + mId;
+        final GetRequest<UserDetailEntity> request = OkGo.get(url);
+        request.headers("Authorization", AppUtils.getToken(this));
 
+        request.execute(new JsonCallBack<UserDetailEntity>(UserDetailEntity.class) {
+            @Override
+            public void onSuccess(Response<UserDetailEntity> response) {
+                mSwipeRefreshLayout.setRefreshing(false);
+                mSwipeRefreshLayout.setEnabled(false);
+                if (response != null && response.body() != null) {
+                    UserDetailEntity userEntity = response.body();
+                    if (userEntity == null) return;
+                    setupCommonTitle(userEntity.getUsername());
+                    mUserName = AppUtils.getTimName(userEntity.getUsername(), userEntity.getId());
+                    if (mOwerEntity != null && !TextUtils.isEmpty(mOwerEntity.getUsername())
+                            && mOwerEntity.getUsername().equals(userEntity.getUsername())) {
+                        mChatIcon.setVisibility(View.GONE);
+                    } else {
+                        mChatIcon.setVisibility(View.VISIBLE);
+                    }
+                    addData(userEntity);
+                }
+            }
 
-        MyBaseAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return fragments[position];
-        }
-
-        @Override
-        public int getCount() {
-            return 1;
-        }
+            @Override
+            public void onError(Response<UserDetailEntity> response) {
+                super.onError(response);
+                mSwipeRefreshLayout.setRefreshing(false);
+                mAdapter.setEmptyView(errorView);
+            }
+        });
     }
 }

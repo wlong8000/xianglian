@@ -141,7 +141,7 @@ public class ChatActivity extends FragmentActivity implements ChatView {
                         Intent intent = new Intent();
                         intent.putExtra("id", id);
                         ComponentName cn = new ComponentName("com.wl.lianba",
-                                "com.xianglian.love.main.home.PersonDetailActivity2");
+                                "com.xianglian.love.main.home.PersonDetailActivity");
                         intent.setComponent(cn);
                         startActivity(intent);
                     }
