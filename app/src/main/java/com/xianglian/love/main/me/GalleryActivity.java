@@ -120,7 +120,8 @@ public class GalleryActivity extends BaseUserInfoActivity implements AlumView.On
             @Override
             public void onError(Response<UserDetailEntity> response) {
                 super.onError(response);
-                addData(null);
+                showToast(getResources().getString(R.string.please_check_network));
+//                addData(null);
             }
         });
     }

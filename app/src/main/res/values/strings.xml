@@ -33,6 +33,7 @@
     <string name="login_hit_username">请输入用户名</string>
     <string name="login_hint_password">密码</string>
     <string name="please_connect_network">请连接网络</string>
+    <string name="please_check_network">请检查网络状态</string>
     <string name="id">ID %1$s</string>
     <string name="change_qq">交换QQ</string>
     <string name="change_wx">交换微信</string>

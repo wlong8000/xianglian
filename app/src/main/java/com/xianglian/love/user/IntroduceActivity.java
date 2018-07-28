@@ -124,6 +124,7 @@ public class IntroduceActivity extends BaseUserInfoActivity {
                         break;
                 }
                 Hawk.put(Keys.USER_INFO, mUserEntity);
+                finish();
             }
         });
     }

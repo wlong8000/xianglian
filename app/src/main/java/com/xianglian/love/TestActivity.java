@@ -28,46 +28,46 @@ public class TestActivity extends BaseActivity implements View.OnClickListener {
 
     private void doGoods() {
         String url = Config.PATH + "goods/";
-        OkHttpUtil.getDefault(this).doGetAsync(
-                HttpInfo.Builder().setUrl(url).addHeads(getHeader()).build(),
-                new Callback() {
-                    @Override
-                    public void onFailure(HttpInfo info) throws IOException {
-                        String result = info.getRetDetail();
-                        Trace.d("TAG", "result fail == " + result);
-                    }
-
-                    @Override
-                    public void onSuccess(HttpInfo info) throws IOException {
-                        String result = info.getRetDetail();
-                        Trace.d("TAG", "result success == " + result);
-
-                    }
-                });
+//        OkHttpUtil.getDefault(this).doGetAsync(
+//                HttpInfo.Builder().setUrl(url).addHeads(getHeader()).build(),
+//                new Callback() {
+//                    @Override
+//                    public void onFailure(HttpInfo info) throws IOException {
+//                        String result = info.getRetDetail();
+//                        Trace.d("TAG", "result fail == " + result);
+//                    }
+//
+//                    @Override
+//                    public void onSuccess(HttpInfo info) throws IOException {
+//                        String result = info.getRetDetail();
+//                        Trace.d("TAG", "result success == " + result);
+//
+//                    }
+//                });
     }
 
     private void doLogin(String userName, String passWord) {
-        String url = Config.PATH + "api-token-auth/";
-        Map<String, String> params = new HashMap<>();
-        params.put("mobile", userName);
-        params.put("password", passWord);
-        OkHttpUtil.getDefault(this).doPostAsync(
-                HttpInfo.Builder().setUrl(url).addHeads(getHeader()).addParams(params).build(),
-                new Callback() {
-                    @Override
-                    public void onFailure(HttpInfo info) throws IOException {
-                        dialogDisMiss();
-                        String result = info.getRetDetail();
-                        Trace.d("TAG", "result fail == " + result);
-                    }
-
-                    @Override
-                    public void onSuccess(HttpInfo info) throws IOException {
-                        String result = info.getRetDetail();
-                        Trace.d("TAG", "result success == " + result);
-
-                    }
-                });
+//        String url = Config.PATH + "api-token-auth/";
+//        Map<String, String> params = new HashMap<>();
+//        params.put("mobile", userName);
+//        params.put("password", passWord);
+//        OkHttpUtil.getDefault(this).doPostAsync(
+//                HttpInfo.Builder().setUrl(url).addHeads(getHeader()).addParams(params).build(),
+//                new Callback() {
+//                    @Override
+//                    public void onFailure(HttpInfo info) throws IOException {
+//                        dialogDisMiss();
+//                        String result = info.getRetDetail();
+//                        Trace.d("TAG", "result fail == " + result);
+//                    }
+//
+//                    @Override
+//                    public void onSuccess(HttpInfo info) throws IOException {
+//                        String result = info.getRetDetail();
+//                        Trace.d("TAG", "result success == " + result);
+//
+//                    }
+//                });
     }
 
     @Override

@@ -47,38 +47,38 @@ public class ResetPwdActivity extends BaseLoginActivity implements View.OnClickL
     }
 
     private void resetPwd(String oldPwd, String newPwd, String rePwd) {
-        if (isEmpty(oldPwd) || isEmpty(newPwd)) {
-            toast(R.string.pwd_no_empty);
-            return;
-        }
-        if (isEmpty(rePwd) || !newPwd.equals(rePwd)) {
-            toast(getString(R.string.confirm_twice_pwd_sample));
-            return;
-        }
-
-        String url = Config.PATH + "user/reset/password";
-        Map<String, String> params = new HashMap<>();
-        params.put("mobile", null);
-        params.put("old_pwd", oldPwd);
-        params.put("password", newPwd);
-        params.put("password1", rePwd);
-        OkHttpUtil.getDefault(this).doPostAsync(
-                HttpInfo.Builder().setUrl(url).addParams(params).build(),
-                new Callback() {
-                    @Override
-                    public void onFailure(HttpInfo info) throws IOException {
-                        dialogDisMiss();
-                        String result = info.getRetDetail();
-                        MyLog.d("TAG", "&& doRegister fail= " + result);
-                    }
-
-                    @Override
-                    public void onSuccess(HttpInfo info) throws IOException {
-                        dialogDisMiss();
-                        MyLog.d("TAG", "&& doRegister success = " + info.getRetDetail());
-                        finish();
-                    }
-                });
+//        if (isEmpty(oldPwd) || isEmpty(newPwd)) {
+//            toast(R.string.pwd_no_empty);
+//            return;
+//        }
+//        if (isEmpty(rePwd) || !newPwd.equals(rePwd)) {
+//            toast(getString(R.string.confirm_twice_pwd_sample));
+//            return;
+//        }
+//
+//        String url = Config.PATH + "user/reset/password";
+//        Map<String, String> params = new HashMap<>();
+//        params.put("mobile", null);
+//        params.put("old_pwd", oldPwd);
+//        params.put("password", newPwd);
+//        params.put("password1", rePwd);
+//        OkHttpUtil.getDefault(this).doPostAsync(
+//                HttpInfo.Builder().setUrl(url).addParams(params).build(),
+//                new Callback() {
+//                    @Override
+//                    public void onFailure(HttpInfo info) throws IOException {
+//                        dialogDisMiss();
+//                        String result = info.getRetDetail();
+//                        MyLog.d("TAG", "&& doRegister fail= " + result);
+//                    }
+//
+//                    @Override
+//                    public void onSuccess(HttpInfo info) throws IOException {
+//                        dialogDisMiss();
+//                        MyLog.d("TAG", "&& doRegister success = " + info.getRetDetail());
+//                        finish();
+//                    }
+//                });
 
     }
 }
