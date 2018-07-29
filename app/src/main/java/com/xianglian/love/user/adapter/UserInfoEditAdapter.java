@@ -9,6 +9,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.xianglian.love.R;
 import com.xianglian.love.user.been.ItemInfo;
+import com.xianglian.love.utils.AppUtils;
 
 import java.util.List;
 
@@ -41,7 +42,11 @@ public class UserInfoEditAdapter extends BaseMultiItemQuickAdapter<ItemInfo, Bas
             case ItemInfo.ViewType.AVATAR:
                 SimpleDraweeView imageView = helper.getView(R.id.head_img);
                 if (!TextUtils.isEmpty(item.getAvatar())) {
-                    imageView.setImageURI(item.getAvatar());
+                    if (item.getAvatar() != null && !item.getAvatar().startsWith("http")) {
+                        imageView.setImageURI(AppUtils.getUriFromFile(item.getAvatar()));
+                    } else {
+                        imageView.setImageURI(item.getAvatar());
+                    }
                     helper.setText(R.id.set_photo_center_tv, item.username);
                 } else {
                     imageView.setImageURI("");

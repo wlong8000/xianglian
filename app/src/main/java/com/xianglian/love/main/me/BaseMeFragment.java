@@ -361,17 +361,21 @@ public class BaseMeFragment extends BaseListFragment implements BaseQuickAdapter
                     }
                 }
                 break;
-            case PhotoUtils.REQUEST_CODE_PHOTO_CUT:
-                getTakePhoto().getThumbPhoto(AppUtils.getPicturePath(getContext()) + "avatar/",
-                        "thumb_" + getTakePhoto().getName());
-                AttachmentEntity entity = getTakePhoto().getAttachment();
-//                uploadAvatar(entity.getUrl());
-                break;
+//            case PhotoUtils.REQUEST_CODE_PHOTO_CUT:
+//                getTakePhoto().getThumbPhoto(AppUtils.getPicturePath(getContext()) + "avatar/",
+//                        "thumb_" + getTakePhoto().getName());
+//                AttachmentEntity entity = getTakePhoto().getAttachment();
+////                uploadAvatar(entity.getUrl());
+//                break;
             case PhotoUtils.REQUEST_CODE_ALBUM_CUT:
                 if (resultCode != 0) {
                     String path = AppUtils.getPicturePath(getContext()) + "avatar/thumb_" + getAlbum().getName();
-//                    uploadAvatar(AppUtils.getPicturePath(getContext()) + "avatar/thumb_" + getAlbum().getName());
                     getQnToken(path);
+                    UserEntity entity = Hawk.get(Keys.USER_INFO);
+                    entity.setPic1(path);
+                    Hawk.put(Keys.USER_INFO, entity);
+                    mAdapter.getData().get(0).setAvatar(path);
+                    mAdapter.notifyItemChanged(0);
                 }
                 break;
         }

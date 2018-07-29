@@ -620,4 +620,8 @@ public class AppUtils {
         }
     }
 
+    public static Uri getUriFromFile(String url) {
+        return Uri.fromFile(new File(url));
+    }
+
 }

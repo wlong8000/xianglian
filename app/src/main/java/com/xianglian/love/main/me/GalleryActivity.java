@@ -184,10 +184,6 @@ public class GalleryActivity extends BaseUserInfoActivity implements AlumView.On
         }
     }
 
-    private int getAlumSize() {
-        return mAlumView.getData().size();
-    }
-
     private void getQnToken(final String path) {
         PostRequest<UserEntity> request = OkGo.post(Config.PATH + "qn_token/");
         SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd/HH/mm/ss", Locale.getDefault());
