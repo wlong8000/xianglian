@@ -178,8 +178,8 @@ public class MineAdapter extends RecyclerView.Adapter {
 
         SelectHolder(View itemView) {
             super(itemView);
-            mLeftView = (TextView) itemView.findViewById(R.id.tv_left_text);
-            mRightView = (TextView) itemView.findViewById(R.id.tv_right_text);
+            mLeftView = itemView.findViewById(R.id.tv_left_text);
+            mRightView = itemView.findViewById(R.id.tv_right_text);
             mDividerView = itemView.findViewById(R.id.divider);
         }
     }
@@ -191,9 +191,9 @@ public class MineAdapter extends RecyclerView.Adapter {
 
         AvatarHolder(View itemView) {
             super(itemView);
-            mAvatar = (SimpleDraweeView) itemView.findViewById(R.id.head_img);
-            mNickNameView = (TextView) itemView.findViewById(R.id.tv_nick_name);
-            mIdView = (TextView) itemView.findViewById(R.id.tv_id);
+            mAvatar = itemView.findViewById(R.id.head_img);
+            mNickNameView = itemView.findViewById(R.id.tv_nick_name);
+            mIdView = itemView.findViewById(R.id.tv_id);
         }
     }
 

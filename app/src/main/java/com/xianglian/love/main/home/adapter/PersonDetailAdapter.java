@@ -52,7 +52,7 @@ public class PersonDetailAdapter extends BaseMultiItemQuickAdapter<UserDetailEnt
             case UserDetailEntity.ViewType.TOP_INFO:
                 SimpleDraweeView simpleDraweeView = helper.getView(R.id.img);
                 simpleDraweeView.setImageURI(AppUtils.parse(item.getPic1()));
-                helper.setText(R.id.name, item.getNickname());
+                helper.setText(R.id.name, item.getUsername());
                 helper.setText(R.id.tv_locate, item.getWork_area_name());
                 helper.setText(R.id.tv_id, item.getAccount());
                 ImageView imageView = helper.getView(R.id.ver);

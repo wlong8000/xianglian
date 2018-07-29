@@ -73,11 +73,15 @@ public class AlumView extends RecyclerView implements View.OnClickListener {
     }
 
     public void addData(List<PhotoInfo> list) {
-        mAdapter.getData().addAll(list);
+        mAdapter.getData().addAll(0, list);
     }
 
     public void setData(List<PhotoInfo> list) {
         mAdapter.setData(list);
+    }
+
+    public List<PhotoInfo> getData() {
+        return mAdapter.getData();
     }
 
     public void notifyDataSetChanged () {

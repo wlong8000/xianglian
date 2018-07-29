@@ -76,7 +76,7 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
     private String person_id;
     private String account;
     private boolean identity_verified;
-    private String nickname;
+//    private String nickname;
     private String work_area_name;
     private String born_area_name;
     private String work_area_code;
@@ -201,13 +201,13 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
         this.identity_verified = identity_verified;
     }
 
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
+//    public String getNickname() {
+//        return nickname;
+//    }
+//
+//    public void setNickname(String nickname) {
+//        this.nickname = nickname;
+//    }
 
     public String getWork_area_name() {
         return work_area_name;
@@ -643,8 +643,8 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
 
     public Map<String, String> getParams() {
         Map<String, String> params = new HashMap<>();
-        if (!TextUtils.isEmpty(nickname)) {
-            params.put("nickname", nickname);
+        if (!TextUtils.isEmpty(username)) {
+            params.put("username", username);
         }
         if (!TextUtils.isEmpty(work_area_name)) {
             params.put("work_area_name", work_area_name);
@@ -736,7 +736,7 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
         dest.writeString(this.person_id);
         dest.writeString(this.account);
         dest.writeByte(this.identity_verified ? (byte) 1 : (byte) 0);
-        dest.writeString(this.nickname);
+//        dest.writeString(this.nickname);
         dest.writeString(this.work_area_name);
         dest.writeString(this.born_area_name);
         dest.writeString(this.work_area_code);
@@ -801,7 +801,7 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
         this.person_id = in.readString();
         this.account = in.readString();
         this.identity_verified = in.readByte() != 0;
-        this.nickname = in.readString();
+//        this.nickname = in.readString();
         this.work_area_name = in.readString();
         this.born_area_name = in.readString();
         this.work_area_code = in.readString();

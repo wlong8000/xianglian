@@ -2,6 +2,7 @@
 package com.xianglian.love.main.home.adapter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import com.xianglian.love.R;
 import com.xianglian.love.main.home.been.PhotoInfo;
 import com.xianglian.love.utils.AppUtils;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,11 +81,10 @@ public class AlumAdapter extends RecyclerView.Adapter {
                 if (info == null) return;
                 FavoriteViewHolder favoriteViewHolder = (FavoriteViewHolder) holder;
                 if (info.getImage_url() != null && !info.getImage_url().startsWith("http")) {
-                    String url = "content://com.xianglian.love/" + info.getImage_url();
-                    favoriteViewHolder.mPhotoView.setImageURI(AppUtils.parse(url));
+                    Uri imageUri= Uri.fromFile(new File(info.getImage_url()));
+                    favoriteViewHolder.mPhotoView.setImageURI(imageUri);
                 } else {
                     favoriteViewHolder.mPhotoView.setImageURI(AppUtils.parse(info.getImage_url()));
-
                 }
                 break;
             }

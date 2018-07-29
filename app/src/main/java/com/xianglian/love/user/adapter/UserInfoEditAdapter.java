@@ -42,7 +42,7 @@ public class UserInfoEditAdapter extends BaseMultiItemQuickAdapter<ItemInfo, Bas
                 SimpleDraweeView imageView = helper.getView(R.id.head_img);
                 if (!TextUtils.isEmpty(item.getAvatar())) {
                     imageView.setImageURI(item.getAvatar());
-                    helper.setText(R.id.set_photo_center_tv, R.string.modify_avatar);
+                    helper.setText(R.id.set_photo_center_tv, item.username);
                 } else {
                     imageView.setImageURI("");
                     helper.setText(R.id.set_photo_center_tv, R.string.upload_avatar);

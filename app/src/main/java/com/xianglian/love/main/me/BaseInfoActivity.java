@@ -130,7 +130,7 @@ public class BaseInfoActivity extends BaseEditUserInfoActivity implements BaseQu
             @Override
             public void onConfirm(String data) {
                 UserDetailEntity entity1 = new UserDetailEntity();
-                entity1.setNickname(data);
+                entity1.setUsername(data);
                 doRequest(entity1, data);
             }
         };
@@ -141,7 +141,7 @@ public class BaseInfoActivity extends BaseEditUserInfoActivity implements BaseQu
         UserEntity info = Hawk.get(Keys.USER_INFO);
         if (info == null) info = new UserEntity();
         //昵称
-        mItemInfo.add(getInfo(getString(R.string.nick_name), info.getNickname(), ItemInfo.MyInfoType.NICK_NAME, null));
+//        mItemInfo.add(getInfo(getString(R.string.nick_name), info.getUsername(), ItemInfo.MyInfoType.NICK_NAME, null));
 
         //出生日期
         mItemInfo.add(getInfo(getString(R.string.birth), info.getBirthday(), ItemInfo.MyInfoType.BIRTHDAY, null));
@@ -184,7 +184,7 @@ public class BaseInfoActivity extends BaseEditUserInfoActivity implements BaseQu
     public void onRequestSuccess(String response, int type, String data) {
         switch (type) {
             case ItemInfo.MyInfoType.NICK_NAME:
-                parseData("nickname", data);
+                parseData("username", data);
                 break;
             case ItemInfo.MyInfoType.BIRTHDAY:
                 parseData("birth_date", data);

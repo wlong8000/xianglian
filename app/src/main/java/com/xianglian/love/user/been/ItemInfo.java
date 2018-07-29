@@ -51,6 +51,7 @@ public class ItemInfo implements MultiItemEntity, Parcelable {
 	public String has_house;
 	public String is_student;
 	public String vip;
+	public String username;
 
 	public String work_area_code;
 	public String born_area_code;
@@ -293,6 +294,14 @@ public class ItemInfo implements MultiItemEntity, Parcelable {
 
 	public void setVip(String vip) {
 		this.vip = vip;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getWork_area_code() {
@@ -724,6 +733,7 @@ public class ItemInfo implements MultiItemEntity, Parcelable {
 		dest.writeString(this.has_house);
 		dest.writeString(this.is_student);
 		dest.writeString(this.vip);
+		dest.writeString(this.username);
 		dest.writeString(this.work_area_code);
 		dest.writeString(this.born_area_code);
 		dest.writeString(this.work_area_name);
@@ -736,7 +746,7 @@ public class ItemInfo implements MultiItemEntity, Parcelable {
 
 	protected ItemInfo(Parcel in) {
 		int paramsSize = in.readInt();
-		this.params = new HashMap<>(paramsSize);
+		this.params = new HashMap<String, String>(paramsSize);
 		for (int i = 0; i < paramsSize; i++) {
 			String key = in.readString();
 			String value = in.readString();
@@ -771,6 +781,7 @@ public class ItemInfo implements MultiItemEntity, Parcelable {
 		this.has_house = in.readString();
 		this.is_student = in.readString();
 		this.vip = in.readString();
+		this.username = in.readString();
 		this.work_area_code = in.readString();
 		this.born_area_code = in.readString();
 		this.work_area_name = in.readString();

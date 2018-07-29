@@ -41,7 +41,7 @@ public class HomeAdapter extends BaseMultiItemQuickAdapter<UserEntity, BaseViewH
                 View view = helper.itemView;
                 RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) view.getLayoutParams();
                 layoutParams.topMargin = (position == 0) ? AppUtils.dip2px(mContext, 0) : AppUtils.dip2px(mContext, 10);
-                helper.setText(R.id.tv_name, item.getNickname());
+                helper.setText(R.id.tv_name, item.getUsername());
 //                helper.setImageResource(R.id.iv_like, item.is_like() ?
 //                        R.drawable.icon_follow : R.drawable.icon_un_follow);
 //                helper.setText(R.id.like, item.getLike() + "");

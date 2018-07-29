@@ -161,6 +161,7 @@ public class BaseMeFragment extends BaseListFragment implements BaseQuickAdapter
                             if (itemInfo == null) continue;
                             if (itemInfo.getItemType() == ItemInfo.ViewType.AVATAR) {
                                 itemInfo.setAvatar(null);
+
                             }
                         }
                         mAdapter.notifyDataSetChanged();
@@ -218,6 +219,7 @@ public class BaseMeFragment extends BaseListFragment implements BaseQuickAdapter
                 ItemInfo info = new ItemInfo();
                 if (mUserEntity != null) {
                     info.setAvatar(mUserEntity.getPic1());
+                    info.setUsername(mUserEntity.getUsername());
                 }
                 info.setViewType(type);
                 mItemInfo.add(info);

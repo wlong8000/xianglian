@@ -28,7 +28,7 @@ public class UserEntity implements Serializable, MultiItemEntity {
      * 是否认证 0 未认证 1 已认证
      */
     private int identity_verified;
-    private String nickname;
+//    private String nickname;
     private String work_area;
     private String age;
     private String height;
@@ -235,13 +235,13 @@ public class UserEntity implements Serializable, MultiItemEntity {
         this.identity_verified = identity_verified;
     }
 
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
+//    public String getNickname() {
+//        return nickname;
+//    }
+//
+//    public void setNickname(String nickname) {
+//        this.nickname = nickname;
+//    }
 
     public String getWork_area() {
         return work_area;

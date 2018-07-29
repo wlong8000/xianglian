@@ -103,11 +103,13 @@ public class GalleryActivity extends BaseUserInfoActivity implements AlumView.On
     }
 
     private void doRequest() {
+        dialogShow();
         GetRequest<UserDetailEntity> request = OkGo.get(Config.PATH + "qn_token/");
         request.headers("Authorization", AppUtils.getToken(this));
         request.execute(new JsonCallBack<UserDetailEntity>(UserDetailEntity.class) {
             @Override
             public void onSuccess(Response<UserDetailEntity> response) {
+                dialogDisMiss();
                 UserDetailEntity entity = response.body();
                 if (entity == null || entity.getResults() == null) {
                     addData(null);
@@ -120,6 +122,7 @@ public class GalleryActivity extends BaseUserInfoActivity implements AlumView.On
             @Override
             public void onError(Response<UserDetailEntity> response) {
                 super.onError(response);
+                dialogDisMiss();
                 showToast(getResources().getString(R.string.please_check_network));
 //                addData(null);
             }
@@ -133,7 +136,7 @@ public class GalleryActivity extends BaseUserInfoActivity implements AlumView.On
             PictureSelector.create(this)
                     .openGallery(PictureMimeType.ofImage())
                     .compress(true)
-                    .maxSelectNum(MAX_PIC)
+                    .maxSelectNum(mMaxPicCount)
                     .forResult(PictureConfig.CHOOSE_REQUEST);
         } else {
             List<PhotoInfo> data = mPersonInfo.getAlbum();
@@ -168,13 +171,21 @@ public class GalleryActivity extends BaseUserInfoActivity implements AlumView.On
                         photoInfo.setImage_url(media.getCompressPath());
                         mLocalImages.add(photoInfo);
                     }
+                    dialogShow();
                     getQnToken(mLocalImages.get(0).getImage_url());
-
-                    mAlumView.setData(mLocalImages);
+                    mAlumView.addData(mLocalImages);
+                    List<PhotoInfo> list = mAlumView.getData();
+                    if (list.size() > 3) list = list.subList(0, 3);
+                    mAlumView.setData(list);
                     mAlumView.notifyDataSetChanged();
+                    mMaxPicCount = mMaxPicCount - mLocalImages.size();
                     break;
             }
         }
+    }
+
+    private int getAlumSize() {
+        return mAlumView.getData().size();
     }
 
     private void getQnToken(final String path) {
@@ -196,6 +207,12 @@ public class GalleryActivity extends BaseUserInfoActivity implements AlumView.On
                 Trace.d(TAG, "token : " + token);
                 uploadAvatar(token, path, fileName);
             }
+
+            @Override
+            public void onError(Response<UserEntity> response) {
+                super.onError(response);
+                dialogDisMiss();
+            }
         });
     }
 
@@ -211,6 +228,8 @@ public class GalleryActivity extends BaseUserInfoActivity implements AlumView.On
                                 mLocalImages.remove(0);
                                 if (mLocalImages.size() > 0) {
                                     getQnToken(mLocalImages.get(0).getImage_url());
+                                } else {
+                                    dialogDisMiss();
                                 }
                             }
                             Trace.i("qiniu", "Upload Success");
