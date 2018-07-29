@@ -182,41 +182,53 @@ public class BaseInfoActivity extends BaseEditUserInfoActivity implements BaseQu
 
     @Override
     public void onRequestSuccess(String response, int type, String data) {
+        UserEntity userEntity = Hawk.get(Keys.USER_INFO);
         switch (type) {
             case ItemInfo.MyInfoType.NICK_NAME:
-                parseData("username", data);
+//                parseData("username", data);
+                userEntity.setUsername(data);
                 break;
             case ItemInfo.MyInfoType.BIRTHDAY:
-                parseData("birth_date", data);
+//                parseData("birth_date", data);
+                userEntity.setBirthday(data);
                 break;
             case ItemInfo.MyInfoType.APARTMENT:
-                parseData("work_area_name", mItem.work_area_name);
+//                parseData("work_area_name", mItem.work_area_name);
+                userEntity.setWork_area_name(mItem.work_area_name);
                 break;
             case ItemInfo.MyInfoType.HOMETOWN:
-                parseData("born_area_name", mItem.born_area_name);
+//                parseData("born_area_name", mItem.born_area_name);
+                userEntity.setBorn_area_name(mItem.born_area_name);
                 break;
             case ItemInfo.MyInfoType.HEIGHT:
-                parseData("height", data);
+//                parseData("height", data);
+                userEntity.setHeight(data);
                 break;
             case ItemInfo.MyInfoType.EDUCATION:
-                parseData("education", data);
+//                parseData("education", data);
+                userEntity.setEducation(Integer.valueOf(data));
                 break;
             case ItemInfo.MyInfoType.PROFESSION:
-                parseData("career", data);
+//                parseData("career", data);
+                userEntity.setCareer(Integer.parseInt(data));
                 break;
             case ItemInfo.MyInfoType.INCOME:
-                parseData("income", data);
+//                parseData("income", data);
+                userEntity.setIncome(Integer.parseInt(data));
                 break;
             case ItemInfo.MyInfoType.MARRY_STATE:
-                parseData("marriage_status", data);
+//                parseData("marriage_status", data);
+                userEntity.setMarriage_status(Integer.parseInt(data));
                 break;
             case ItemInfo.MyInfoType.WEIGHT:
-                parseData("weight", data);
+//                parseData("weight", data);
+                userEntity.setWeight(data);
                 break;
-            case ItemInfo.MyInfoType.RANKING:
-                parseData("birth_index", data);
-                break;
+//            case ItemInfo.MyInfoType.RANKING:
+//                parseData("birth_index", data);
+//                break;
         }
+        Hawk.put(Keys.USER_INFO, userEntity);
         mEntity.setRightText(data);
         mAdapter.notifyDataSetChanged();
     }

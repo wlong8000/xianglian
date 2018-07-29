@@ -20,12 +20,12 @@ public class KeFuActivity extends BaseActivity {
         setupCommonTitle("客服中心");
         TextView kfView = findViewById(R.id.contacts);
         ConfigEntity entity = Hawk.get(Keys.CONFIG_INFO);
-        final String contacts = entity != null ? entity.getContacts_wx() : "15313433271";
-        kfView.setText("微信号:" + contacts);
+        final String contacts = entity != null ? entity.getContacts_wx() : "微信号:15313433271";
+        kfView.setText(contacts);
         kfView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AppUtils.copy(contacts);
+                AppUtils.copy(contacts.split(":")[1]);
             }
         });
     }
