@@ -144,6 +144,10 @@ public class BaseMeFragment extends BaseListFragment implements BaseQuickAdapter
                 startActivity(intent);
                 break;
             }
+            case ItemInfo.SettingType.CUSTOMER_AGENT: {
+                startActivity(new Intent(getContext(), KeFuActivity.class));
+                break;
+            }
             case ItemInfo.SettingType.EXIT_COUNT: {
                 OkDialog okDialog = new OkDialog(getContext()) {
                     @Override

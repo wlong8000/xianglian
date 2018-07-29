@@ -10,6 +10,7 @@ public class ConfigEntity implements Serializable {
     private String default_splash_img;
     private String splash_time;
     private String is_jump;
+    private String contacts_wx;
 
     public String getDefault_splash_img() {
         return default_splash_img;
@@ -33,5 +34,13 @@ public class ConfigEntity implements Serializable {
 
     public void setIs_jump(String is_jump) {
         this.is_jump = is_jump;
+    }
+
+    public String getContacts_wx() {
+        return contacts_wx;
+    }
+
+    public void setContacts_wx(String contacts_wx) {
+        this.contacts_wx = contacts_wx;
     }
 }

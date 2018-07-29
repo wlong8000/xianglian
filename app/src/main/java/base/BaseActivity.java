@@ -20,7 +20,6 @@ import java.util.List;
 import base.networkstate.NetInfo;
 import base.networkstate.NetworkStateListener;
 import base.networkstate.NetworkStateReceiver;
-import butterknife.ButterKnife;
 
 /**
  * Activity基类：支持动态权限申请，网络状态监听

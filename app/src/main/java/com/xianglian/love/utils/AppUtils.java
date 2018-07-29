@@ -3,6 +3,8 @@ package com.xianglian.love.utils;
 
 
 import android.app.Activity;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -64,6 +66,8 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import base.BaseApplication;
+
 
 public class AppUtils {
     private static final String TAG = "AppUtils";
@@ -92,6 +96,10 @@ public class AppUtils {
         }
         showToast(context, context.getResources().getString(R.string.please_connect_network));
         return false;
+    }
+
+    public static void showToast(String message) {
+        showToast(BaseApplication.getApplication(), message, true);
     }
 
     /**
@@ -439,7 +447,7 @@ public class AppUtils {
     }
 
     public static HttpHeaders getHeaders(Context context) {
-        HttpHeaders  headers = new HttpHeaders();
+        HttpHeaders headers = new HttpHeaders();
         headers.put("platform", "android");
         headers.put("version_code", String.valueOf(BuildConfig.VERSION_CODE));
         headers.put("version_name", BuildConfig.VERSION_NAME);
@@ -552,6 +560,7 @@ public class AppUtils {
 
     /**
      * Return pseudo unique ID
+     *
      * @return ID
      */
     public static String getUniquePsuedoID() {
@@ -599,6 +608,16 @@ public class AppUtils {
 
     public static String getTimName(String username, String id) {
         return id + "-" + username;
+    }
+
+    public static void copy(String text) {
+        ClipboardManager cm = (ClipboardManager) BaseApplication.getApplication().getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData mClipData = ClipData.newPlainText("Label", text);
+        // 将文本内容放到系统剪贴板里。
+        if (cm != null) {
+            cm.setPrimaryClip(mClipData);
+            showToast("复制微信号成功");
+        }
     }
 
 }

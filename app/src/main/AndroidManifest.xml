@@ -26,11 +26,8 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <!-- 其他权限 -->
     <uses-permission android:name="android.permission.VIBRATE" />
-
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.CAMERA" />
-
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.READ_LOGS" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
@@ -46,7 +43,6 @@
             android:name=".SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
-
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -57,8 +53,8 @@
             android:alwaysRetainTaskState="true"
             android:configChanges="orientation|keyboardHidden|screenSize|locale"
             android:exported="true"
-            android:launchMode="singleTask"
             android:hardwareAccelerated="true"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
             android:name=".user.LoginActivity"
@@ -100,8 +96,9 @@
         <activity
             android:name=".view.CutPictureAty"
             android:screenOrientation="portrait" />
-        <activity android:name=".main.home.PersonDetailActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".main.home.PersonDetailActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".user.IntroduceActivity"
             android:screenOrientation="portrait" />
@@ -139,24 +136,25 @@
             android:exported="false" />
 
         <activity
-            android:name="com.xianglian.love.TestActivity"
+            android:name=".TestActivity"
             android:exported="true" />
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="d8f386266eb85eb5f2897a2e375aeb284470d341" />
 
-        <!--云通信配置开始-->
-        <!--  消息收发 service -->
+        <!-- 云通信配置开始 -->
+        <!-- 消息收发 service -->
         <service
             android:name="com.tencent.qalsdk.service.QalService"
             android:exported="false"
             android:process=":QALSERVICE" />
-        <!--  消息收发辅助 service -->
+        <!-- 消息收发辅助 service -->
         <service
             android:name="com.tencent.qalsdk.service.QalAssistService"
             android:exported="false"
             android:process=":QALSERVICE" />
-        <!--  离线消息广播接收器 -->
+        <!-- 离线消息广播接收器 -->
         <receiver
             android:name="com.tencent.qalsdk.QALBroadcastReceiver"
             android:exported="false">
@@ -164,7 +162,7 @@
                 <action android:name="com.tencent.qalsdk.broadcast.qal" />
             </intent-filter>
         </receiver>
-        <!--  系统消息广播接收器 -->
+        <!-- 系统消息广播接收器 -->
         <receiver
             android:name="com.tencent.qalsdk.core.NetConnInfoCenter"
             android:process=":QALSERVICE">
@@ -181,7 +179,10 @@
                 <action android:name="android.intent.action.TIMEZONE_CHANGED" />
             </intent-filter>
         </receiver>
-        <!--云通信配置结束-->
+        <!-- 云通信配置结束 -->
+        <activity
+            android:name=".main.me.KeFuActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

@@ -130,7 +130,7 @@ task taskB {
         println('taskB')
     }
 }
-task taskC(dependsOn:taskA) {
+task taskC(dependsOn: taskA) {
     doLast {
         println('taskC')
     }
