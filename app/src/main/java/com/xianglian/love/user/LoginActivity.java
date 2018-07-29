@@ -136,11 +136,6 @@ public class LoginActivity extends BaseLoginActivity implements OnClickListener,
                 Hawk.put(Keys.TOKEN, entity.getToken());
                 mToken = entity.getToken();
                 AppService.startSaveUser(LoginActivity.this, true);
-//                String username = mEntity.getId() + "-" + mEntity.getUsername();
-//                AppService.startUpdateTimSign(LoginActivity.this, username, true);
-//                Hawk.put(Keys.USER_INFO, mEntity);
-//                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-//                finish();
             }
 
             @Override

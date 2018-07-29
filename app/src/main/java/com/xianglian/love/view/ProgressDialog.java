@@ -29,7 +29,7 @@ public class ProgressDialog extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_progress);
-        mProgressView = (ProgressImageView) findViewById(R.id.view_list_empty_progress);
+        mProgressView = findViewById(R.id.view_list_empty_progress);
 
     }
 

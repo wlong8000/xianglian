@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -44,7 +45,7 @@ public class PersonDetailActivity extends BaseListActivity {
 
     private String mUserName;
 
-    private TextView mChatIcon;
+    private ImageView mChatIcon;
 
     private UserEntity mOwnerEntity;
 

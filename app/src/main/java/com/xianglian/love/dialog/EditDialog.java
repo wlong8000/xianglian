@@ -24,7 +24,7 @@ public abstract class EditDialog extends BaseDialog implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_data_edit);
-        mEditView = (EditText) findViewById(R.id.edit);
+        mEditView = findViewById(R.id.edit);
         findViewById(R.id.cancel).setOnClickListener(this);
         findViewById(R.id.confirm).setOnClickListener(this);
 
