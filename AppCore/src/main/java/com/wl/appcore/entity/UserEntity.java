@@ -45,6 +45,10 @@ public class UserEntity implements Serializable, MultiItemEntity {
 
     private String gender;
 
+    private String black_user;
+    private String member_level;
+    private String member_end_date;
+
     public String getBirthday() {
         return birthday;
     }
@@ -119,6 +123,30 @@ public class UserEntity implements Serializable, MultiItemEntity {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public String getBlack_user() {
+        return black_user;
+    }
+
+    public void setBlack_user(String black_user) {
+        this.black_user = black_user;
+    }
+
+    public String getMember_level() {
+        return member_level;
+    }
+
+    public void setMember_level(String member_level) {
+        this.member_level = member_level;
+    }
+
+    public String getMember_end_date() {
+        return member_end_date;
+    }
+
+    public void setMember_end_date(String member_end_date) {
+        this.member_end_date = member_end_date;
     }
 
     /**

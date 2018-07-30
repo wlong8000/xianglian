@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.lzy.okgo.OkGo;
@@ -20,7 +19,7 @@ import com.wl.appcore.entity.UserEntity;
 import com.xianglian.love.BaseListActivity;
 import com.xianglian.love.R;
 import com.xianglian.love.config.Config;
-import com.xianglian.love.config.Keys;
+import com.wl.appcore.Keys;
 import com.xianglian.love.main.home.adapter.PersonDetailAdapter;
 import com.xianglian.love.main.home.been.MessageEntity;
 import com.xianglian.love.main.home.been.UserDetailEntity;

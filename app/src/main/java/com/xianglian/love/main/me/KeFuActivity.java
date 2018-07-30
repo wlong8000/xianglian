@@ -7,7 +7,7 @@ import android.widget.TextView;
 import com.orhanobut.hawk.Hawk;
 import com.xianglian.love.BaseActivity;
 import com.xianglian.love.R;
-import com.xianglian.love.config.Keys;
+import com.wl.appcore.Keys;
 import com.xianglian.love.model.ConfigEntity;
 import com.xianglian.love.utils.AppUtils;
 

@@ -58,6 +58,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
         AppService.startConfigInfo(this);
         if (AppUtils.isLogin(this)) {
             AppService.startSaveUser(this, true);
+            AppService.startDeviceInfo(this);
         }
 
         setupTitle(getString(R.string.meet_you), R.drawable.btn_menu_normal);

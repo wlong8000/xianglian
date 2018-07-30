@@ -1,4 +1,4 @@
-package com.xianglian.love.config;
+package com.wl.appcore;
 
 /**
  * Created by wanglong on 18/7/8.

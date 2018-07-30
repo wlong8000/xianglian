@@ -9,7 +9,7 @@ import com.orhanobut.hawk.Hawk;
 import com.xianglian.love.BaseActivity;
 import com.xianglian.love.MainActivity;
 import com.xianglian.love.R;
-import com.xianglian.love.config.Keys;
+import com.wl.appcore.Keys;
 import com.xianglian.love.main.home.been.PersonInfo;
 
 /**

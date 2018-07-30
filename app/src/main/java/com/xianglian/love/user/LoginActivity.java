@@ -23,7 +23,7 @@ import com.xianglian.love.AppService;
 import com.xianglian.love.MainActivity;
 import com.xianglian.love.R;
 import com.xianglian.love.config.Config;
-import com.xianglian.love.config.Keys;
+import com.wl.appcore.Keys;
 import com.xianglian.love.net.JsonCallBack;
 import com.xianglian.love.utils.AppUtils;
 
@@ -174,17 +174,16 @@ public class LoginActivity extends BaseLoginActivity implements OnClickListener,
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void showMessage2(MessageEvent2 messageEvent) {
-        if (messageEvent.getMessage() != null) {
-            UserEntity entity = messageEvent.getMessage();
-            if (messageEvent.getType() == 0) {
-                LoginBusiness.loginIm(entity.getUsername(), entity.getUser_sign(), this);
-            } else if (messageEvent.getType() == 1) {
-                String username = entity.getId() + "-" + entity.getUsername();
-                mEntity = entity;
-                AppService.startUpdateTimSign(LoginActivity.this, username, true);
-            }
-        } else {
+        UserEntity entity = messageEvent.getMessage();
+        if (messageEvent.getType() == 0) {
+            LoginBusiness.loginIm(entity.getUsername(), entity.getUser_sign(), this);
+        } else if (messageEvent.getType() == 1) {
+            String username = entity.getId() + "-" + entity.getUsername();
+            mEntity = entity;
+            AppService.startUpdateTimSign(LoginActivity.this, username, true);
+        } else if (messageEvent.getType() == 3) {
             dialogDisMiss();
+            showToast(getString(R.string.action_forbade));
         }
     }
 }

@@ -28,7 +28,7 @@ import com.tencent.qcloud.presentation.presenter.SplashPresenter;
 import com.tencent.qcloud.presentation.viewfeatures.SplashView;
 import com.tencent.qcloud.tlslibrary.service.TlsBusiness;
 import com.wl.appchat.TimHelper;
-import com.xianglian.love.config.Keys;
+import com.wl.appcore.Keys;
 import com.wl.appcore.entity.UserEntity;
 import com.xianglian.love.model.ConfigEntity;
 import com.xianglian.love.user.SelectSexActivity;

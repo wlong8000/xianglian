@@ -7,12 +7,14 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.GetRequest;
 import com.orhanobut.hawk.Hawk;
 import com.wl.appcore.event.MessageEvent2;
+import com.wl.appcore.manager.UserCenter;
 import com.xianglian.love.config.Config;
-import com.xianglian.love.config.Keys;
+import com.wl.appcore.Keys;
 import com.wl.appcore.entity.UserEntity;
 import com.xianglian.love.model.ConfigEntity;
 import com.xianglian.love.net.JsonCallBack;
@@ -31,6 +33,7 @@ public class AppService extends IntentService {
     private final static String ACTION_SAVE_USER = "com.wl.lianba.service.action.SAVE_USER";
     private final static String ACTION_UPDATE_TIM_SIGN = "com.wl.lianba.service.action.ACTION_UPDATE_TIM_SIGN";
     private final static String ACTION_CONFIG_INFO = "com.wl.lianba.service.action.ACTION_CONFIG_INFO";
+    private final static String ACTION_DEVICE_INFO = "com.wl.lianba.service.action.ACTION_DEVICE_INFO";
     private final static String KEY_SEND_BROADCAST = "send_broadcast";
 
     public AppService() {
@@ -51,6 +54,8 @@ public class AppService extends IntentService {
                 doUserInfoRequest(send);
             } else if (ACTION_CONFIG_INFO.equals(intent.getAction())) {
                 doConfigRequest();
+            } else if (ACTION_DEVICE_INFO.equals(intent.getAction())) {
+                doDeviceInfo();
             }
         }
     }
@@ -65,6 +70,12 @@ public class AppService extends IntentService {
     public static void startConfigInfo(Context context) {
         Intent service = new Intent(context, AppService.class);
         service.setAction(AppService.ACTION_CONFIG_INFO);
+        context.startService(service);
+    }
+
+    public static void startDeviceInfo(Context context) {
+        Intent service = new Intent(context, AppService.class);
+        service.setAction(AppService.ACTION_DEVICE_INFO);
         context.startService(service);
     }
 
@@ -126,8 +137,16 @@ public class AppService extends IntentService {
                         && response.body().getResults() != null
                         && !response.body().getResults().isEmpty()) {
                     UserEntity entity = response.body().getResults().get(0);
-                    Hawk.put(Keys.USER_INFO, entity);
-                    Hawk.put(Keys.SEX, entity.getGender());
+                    if ("1".equals(entity.getBlack_user())) {
+                        if (send) {
+                            EventBus.getDefault().post(new MessageEvent2(null, 3));
+                        } else {
+                            AppUtils.showToast(getString(R.string.action_forbade));
+                        }
+                        UserCenter.getDefault().notifyLogout();
+                        return;
+                    }
+                    UserCenter.getDefault().notifyLoginOk(entity);
                     if (send)
                         EventBus.getDefault().post(new MessageEvent2(entity, 1));
                 } else {
@@ -166,6 +185,24 @@ public class AppService extends IntentService {
                 super.onError(response);
             }
         });
+    }
+
+    private void doDeviceInfo() {
+        OkGo.<String>post(Config.PATH + "user_device/")
+                .params("device_id", AppUtils.getUniquePsuedoID())
+                .headers(AppUtils.getHeaders(this))
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        Trace.d(TAG, "doDeviceInfo success");
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+                        Trace.d(TAG, "doDeviceInfo onError");
+                    }
+                });
     }
 
 }

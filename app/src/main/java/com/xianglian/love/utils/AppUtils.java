@@ -47,7 +47,7 @@ import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.xianglian.love.BuildConfig;
 import com.xianglian.love.R;
 import com.xianglian.love.config.Config;
-import com.xianglian.love.config.Keys;
+import com.wl.appcore.Keys;
 import com.xianglian.love.main.home.been.PhotoInfo;
 import com.xianglian.love.main.home.been.UserDetailEntity;
 import com.xianglian.love.model.RegionGsonModel;
@@ -385,7 +385,7 @@ public class AppUtils {
 
 
     public static String getToken(Context context) {
-        if (!TextUtils.isEmpty(Config.TOKEN)) return Config.TOKEN;
+//        if (!TextUtils.isEmpty(Config.TOKEN)) return Config.TOKEN;
         String token = Hawk.get(Keys.TOKEN);
         if (!TextUtils.isEmpty(token)) {
             Config.TOKEN = "JWT " + token;

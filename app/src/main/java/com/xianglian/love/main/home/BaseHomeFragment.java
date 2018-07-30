@@ -19,7 +19,7 @@ import com.xianglian.love.BaseListFragment;
 import com.xianglian.love.MainActivity;
 import com.xianglian.love.R;
 import com.xianglian.love.config.Config;
-import com.xianglian.love.config.Keys;
+import com.wl.appcore.Keys;
 import com.xianglian.love.loadmore.CustomLoadMoreView;
 import com.xianglian.love.main.home.adapter.HomeAdapter;
 import com.wl.appcore.entity.UserEntity;

@@ -13,7 +13,7 @@ import com.orhanobut.hawk.Hawk;
 import com.xianglian.love.BaseEditUserInfoActivity;
 import com.xianglian.love.R;
 import com.xianglian.love.config.Config;
-import com.xianglian.love.config.Keys;
+import com.wl.appcore.Keys;
 import com.xianglian.love.user.adapter.UserInfoEditAdapter;
 import com.xianglian.love.user.been.ItemInfo;
 import com.xianglian.love.utils.UserUtils;
