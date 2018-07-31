@@ -51,7 +51,7 @@ public class IntroduceActivity extends BaseUserInfoActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_introduce);
-        mIntroduceView = findViewById(R.id.et_introduce);
+        mIntroduceView = (EditText) findViewById(R.id.et_introduce);
         mType = getIntent().getIntExtra(Config.INTRODUCE_KEY, INTRODUCE);
         mUserEntity = Hawk.get(Keys.USER_INFO);
         if (mUserEntity == null) mUserEntity = new UserEntity();

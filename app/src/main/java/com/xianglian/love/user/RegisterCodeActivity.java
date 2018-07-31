@@ -79,9 +79,9 @@ public class RegisterCodeActivity extends BaseLoginActivity implements View.OnCl
         setContentView(R.layout.activity_regist_code);
         setupTitle(getString(R.string.register));
 
-        mPhoneView = findViewById(R.id.tv_phone);
-        mSmsCodeView = findViewById(R.id.sms_code);
-        mVerifyView = findViewById(R.id.password_code);
+        mPhoneView = (AutoCompleteTextView) findViewById(R.id.tv_phone);
+        mSmsCodeView = (EditText) findViewById(R.id.sms_code);
+        mVerifyView = (TextView) findViewById(R.id.password_code);
         findViewById(R.id.next_btn).setOnClickListener(this);
         mVerifyView.setOnClickListener(this);
     }

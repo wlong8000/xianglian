@@ -20,7 +20,9 @@ import com.xianglian.love.view.TitleBarView;
 
 import java.util.Map;
 
-public class BaseActivity extends AppCompatActivity implements TitleBarView.OnTitleClickListener {
+import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
+
+public class BaseActivity extends SwipeBackActivity implements TitleBarView.OnTitleClickListener {
     public static String TAG = "meetUp";
 
     private ProgressDialog mDialog;
@@ -58,7 +60,7 @@ public class BaseActivity extends AppCompatActivity implements TitleBarView.OnTi
     }
 
     public void setupTitle(String title) {
-        mTitleBarView = findViewById(R.id.title_bar_layout);
+        mTitleBarView = (TitleBarView) findViewById(R.id.title_bar_layout);
         mTitleBarView.setTitleClickListener(this);
         mTitleBarView.setTitle(title);
         if (mTitleBarView != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {

@@ -69,7 +69,7 @@ public class PersonDetailActivity extends BaseListActivity {
         mAdapter = new PersonDetailAdapter(this, mUserDetailEntities);
         mRecyclerView.setAdapter(mAdapter);
         mSwipeRefreshLayout.setRefreshing(true);
-        mChatIcon = findViewById(R.id.icon_start_chat);
+        mChatIcon = (ImageView) findViewById(R.id.icon_start_chat);
         mOwnerEntity = Hawk.get(Keys.USER_INFO);
         mChatIcon.setOnClickListener(new View.OnClickListener() {
             @Override

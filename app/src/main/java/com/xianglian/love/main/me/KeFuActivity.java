@@ -18,7 +18,7 @@ public class KeFuActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.kefu);
         setupCommonTitle("客服中心");
-        TextView kfView = findViewById(R.id.contacts);
+        TextView kfView = (TextView) findViewById(R.id.contacts);
         ConfigEntity entity = Hawk.get(Keys.CONFIG_INFO);
         final String contacts = entity != null ? entity.getContacts_wx() : "微信号:15313433271";
         kfView.setText(contacts);

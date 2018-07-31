@@ -30,9 +30,9 @@ public class ResetPwdActivity extends BaseLoginActivity implements View.OnClickL
         setContentView(R.layout.activity_forget_pwd);
         setupTitle(getString(R.string.reset_pwd));
 
-        mPasswordView = findViewById(R.id.password_old);
-        mRePasswordView = findViewById(R.id.re_password);
-        mNewPasswordView = findViewById(R.id.password_new);
+        mPasswordView = (EditText) findViewById(R.id.password_old);
+        mRePasswordView = (EditText) findViewById(R.id.re_password);
+        mNewPasswordView = (EditText) findViewById(R.id.password_new);
 
         findViewById(R.id.reset_pwd_btn).setOnClickListener(this);
     }

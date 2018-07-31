@@ -70,8 +70,8 @@ public class LoginActivity extends BaseLoginActivity implements OnClickListener,
         EventBus.getDefault().register(this);
         setupTitle(getString(R.string.login), getString(R.string.register));
 
-        mUserNameView = findViewById(R.id.user_name);
-        mPasswordView = findViewById(R.id.password);
+        mUserNameView = (AutoCompleteTextView) findViewById(R.id.user_name);
+        mPasswordView = (EditText) findViewById(R.id.password);
         findViewById(R.id.login_button).setOnClickListener(this);
         findViewById(R.id.register).setOnClickListener(this);
         autoLogin();

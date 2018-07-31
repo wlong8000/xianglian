@@ -52,12 +52,12 @@ public abstract class BaseListActivity extends BaseActivity {
 
     public void setupRecyclerView() {
         try {
-            mSwipeRefreshLayout = findViewById(R.id.refresh);
+            mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.refresh);
         } catch (Exception e) {
             e.printStackTrace();
         }
         try {
-            mRecyclerView = findViewById(R.id.recycler_view);
+            mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
             mLayoutManager = new CommonLinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
             mRecyclerView.setLayoutManager(mLayoutManager);
 

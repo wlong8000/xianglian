@@ -54,7 +54,7 @@ public class GalleryActivity extends BaseUserInfoActivity implements AlumView.On
     }
 
     private void setupViews() {
-        mAlumView = findViewById(R.id.layout_alum);
+        mAlumView = (AlumView) findViewById(R.id.layout_alum);
         mAlumView.setOnItemClickListener(this);
         mAlumView.initAdapter(3);
         doRequest();

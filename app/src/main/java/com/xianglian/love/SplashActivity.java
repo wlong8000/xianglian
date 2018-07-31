@@ -83,7 +83,7 @@ public class SplashActivity extends BaseActivity implements SplashView, TIMCallB
     }
 
     private void setupView() {
-        mSplashImg = findViewById(R.id.base_splash_image);
+        mSplashImg = (SimpleDraweeView) findViewById(R.id.base_splash_image);
         mSkipView = findViewById(R.id.ad_skip);
         if (mConfigEntity != null && !TextUtils.isEmpty(mConfigEntity.getDefault_splash_img())) {
             mSplashImg.setImageURI(AppUtils.parse(mConfigEntity.getDefault_splash_img()));

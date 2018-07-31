@@ -48,8 +48,8 @@ public class SearchActivity extends BaseEditUserInfoActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.select_activity);
         setupCommonTitle(getString(R.string.selected));
-        mSaveView = findViewById(R.id.save);
-        mResetView = findViewById(R.id.reset);
+        mSaveView = (TextView) findViewById(R.id.save);
+        mResetView = (TextView) findViewById(R.id.reset);
         setupRecyclerView();
         mSaveView.setOnClickListener(this);
         mResetView.setOnClickListener(this);
