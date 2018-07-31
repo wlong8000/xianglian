@@ -183,7 +183,7 @@ public class LoginActivity extends BaseLoginActivity implements OnClickListener,
         if (messageEvent.getType() == 0) {
             LoginBusiness.loginIm(entity.getUsername(), entity.getUser_sign(), this);
         } else if (messageEvent.getType() == 1) {
-            String username = entity.getId() + "-" + entity.getUsername();
+            String username = AppUtils.getTimName(entity.getUsername(), String.valueOf(entity.getId()));
             mEntity = entity;
             AppService.startUpdateTimSign(LoginActivity.this, username, true);
         } else if (messageEvent.getType() == 3) {

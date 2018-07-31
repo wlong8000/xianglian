@@ -103,6 +103,7 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
     private String birthday;
     private String education;
     private String can_leave_message;
+    private String mobile;
 
     private List<PhotoInfo> images;
     private List<PhotoInfo> results;
@@ -367,6 +368,14 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
 
     public void setCan_leave_message(String can_leave_message) {
         this.can_leave_message = can_leave_message;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
     public List<PhotoInfo> getImages() {
@@ -736,7 +745,6 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
         dest.writeString(this.person_id);
         dest.writeString(this.account);
         dest.writeByte(this.identity_verified ? (byte) 1 : (byte) 0);
-//        dest.writeString(this.nickname);
         dest.writeString(this.work_area_name);
         dest.writeString(this.born_area_name);
         dest.writeString(this.work_area_code);
@@ -763,6 +771,7 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
         dest.writeString(this.birthday);
         dest.writeString(this.education);
         dest.writeString(this.can_leave_message);
+        dest.writeString(this.mobile);
         dest.writeList(this.images);
         dest.writeList(this.results);
         dest.writeString(this.id);
@@ -801,7 +810,6 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
         this.person_id = in.readString();
         this.account = in.readString();
         this.identity_verified = in.readByte() != 0;
-//        this.nickname = in.readString();
         this.work_area_name = in.readString();
         this.born_area_name = in.readString();
         this.work_area_code = in.readString();
@@ -828,9 +836,10 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
         this.birthday = in.readString();
         this.education = in.readString();
         this.can_leave_message = in.readString();
-        this.images = new ArrayList<PhotoInfo>();
+        this.mobile = in.readString();
+        this.images = new ArrayList<>();
         in.readList(this.images, PhotoInfo.class.getClassLoader());
-        this.results = new ArrayList<PhotoInfo>();
+        this.results = new ArrayList<>();
         in.readList(this.results, PhotoInfo.class.getClassLoader());
         this.id = in.readString();
         this.photo_url = in.readString();

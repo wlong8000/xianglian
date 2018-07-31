@@ -48,6 +48,7 @@ public class UserEntity implements Serializable, MultiItemEntity {
     private String black_user;
     private String member_level;
     private String member_end_date;
+    private String mobile;
 
     private int is_top;
     private int position;
@@ -150,6 +151,14 @@ public class UserEntity implements Serializable, MultiItemEntity {
 
     public void setMember_end_date(String member_end_date) {
         this.member_end_date = member_end_date;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
     public int getIs_top() {

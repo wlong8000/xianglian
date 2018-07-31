@@ -70,7 +70,7 @@ public class BaseApplication extends MultiDexApplication {
         }
 
         if (userEntity != null && !TextUtils.isEmpty(userEntity.getUsername())) {
-            String username = userEntity.getId() + "-" + userEntity.getUsername();
+            String username = AppUtils.getTimName(userEntity.getUsername(), String.valueOf(userEntity.getId()));
             AppService.startUpdateTimSign(this, username);
         }
 
@@ -116,7 +116,6 @@ public class BaseApplication extends MultiDexApplication {
         Crashlytics.setUserEmail("1615474873@qq.com");
         Crashlytics.setUserName("wlong");
     }
-
 
 
     @Override

@@ -343,6 +343,6 @@
     <string name="app_version_upgrade_title">您有新版本升级</string>
     <string name="app_version_upgrade_notif_desc">享恋新版本下载中…</string>
 
-    <string name="action_forbade">由于不当操作，被禁封</string>
+    <string name="action_forbade">由于不当操作，被封禁</string>
 
 </resources>
