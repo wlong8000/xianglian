@@ -49,6 +49,9 @@ public class UserEntity implements Serializable, MultiItemEntity {
     private String member_level;
     private String member_end_date;
 
+    private int is_top;
+    private int position;
+
     public String getBirthday() {
         return birthday;
     }
@@ -147,6 +150,22 @@ public class UserEntity implements Serializable, MultiItemEntity {
 
     public void setMember_end_date(String member_end_date) {
         this.member_end_date = member_end_date;
+    }
+
+    public int getIs_top() {
+        return is_top;
+    }
+
+    public void setIs_top(int is_top) {
+        this.is_top = is_top;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
     }
 
     /**

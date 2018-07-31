@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheMode;
@@ -30,6 +31,7 @@ import com.xianglian.love.utils.AppUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -86,7 +88,7 @@ public class BaseHomeFragment extends BaseListFragment implements BaseQuickAdapt
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        MainActivity activity = ((MainActivity)getActivity());
+        MainActivity activity = ((MainActivity) getActivity());
         if (activity != null) {
             ((MainActivity) getActivity()).mTitleBarView.setRightLayoutVisible(isVisibleToUser ? View.VISIBLE : View.GONE);
         }
@@ -164,17 +166,51 @@ public class BaseHomeFragment extends BaseListFragment implements BaseQuickAdapt
         });
     }
 
+    private List<UserEntity> getUserEntities(List<UserEntity> entities) {
+        List<UserEntity> adapterList = mAdapter.getData();
+
+        List<UserEntity> entityList = new ArrayList<>();
+        List<UserEntity> topList = new ArrayList<>();
+        List<UserEntity> sortList = new ArrayList<>();
+        List<UserEntity> normalList = new ArrayList<>();
+        for (UserEntity entity : entities) {
+            if (entity == null
+                    || TextUtils.isEmpty(entity.getPic1())
+                    || "1".equals(entity.getBlack_user())) {
+                continue;
+            }
+            if (entity.getIs_top() == 1) {
+                topList.add(entity);
+            } else if (entity.getPosition() <= 0) {
+                normalList.add(entity);
+            } else {
+                sortList.add(entity);
+            }
+        }
+        adapterList.addAll(0, topList);
+        adapterList.addAll(normalList);
+        if (!sortList.isEmpty()) {
+            for (UserEntity userEntity : sortList) {
+                if (userEntity == null) continue;
+                adapterList.add(userEntity.getPosition(), userEntity);
+            }
+        }
+        mAdapter.notifyDataSetChanged();
+        return entityList;
+    }
+
     private void dealItemData(List<UserEntity> userEntities, boolean refresh) {
         if (userEntities == null || userEntities.size() == 0) return;
         if (refresh) mUserEntities.clear();
         for (UserEntity entity : userEntities) {
             entity.setViewType(UserEntity.TYPE_NORMAL);
         }
-        if (refresh) {
-            mAdapter.setNewData(userEntities);
-        } else {
-            mAdapter.addData(userEntities);
-        }
+        getUserEntities(userEntities);
+//        if (refresh) {
+//            mAdapter.setNewData(userEntities);
+//        } else {
+//            mAdapter.addData(userEntities);
+//        }
     }
 
     @Override
