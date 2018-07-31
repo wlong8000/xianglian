@@ -133,6 +133,11 @@ public class LoginActivity extends BaseLoginActivity implements OnClickListener,
             public void onSuccess(Response<UserEntity> response) {
                 UserEntity entity = response.body();
                 if (entity == null) return;
+                if (TextUtils.isEmpty(entity.getToken())) {
+                    dialogDisMiss();
+                    showToast(R.string.username_or_pwd_error);
+                    return;
+                }
                 Hawk.put(Keys.TOKEN, entity.getToken());
                 mToken = entity.getToken();
                 AppService.startSaveUser(LoginActivity.this, true);

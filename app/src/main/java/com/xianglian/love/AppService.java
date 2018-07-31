@@ -12,7 +12,7 @@ import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.GetRequest;
 import com.orhanobut.hawk.Hawk;
 import com.wl.appcore.event.MessageEvent2;
-import com.wl.appcore.manager.UserCenter;
+import com.xianglian.love.manager.UserCenter;
 import com.xianglian.love.config.Config;
 import com.wl.appcore.Keys;
 import com.wl.appcore.entity.UserEntity;

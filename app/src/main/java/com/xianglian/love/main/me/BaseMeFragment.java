@@ -20,11 +20,6 @@ import com.orhanobut.hawk.Hawk;
 import com.qiniu.android.http.ResponseInfo;
 import com.qiniu.android.storage.UpCompletionHandler;
 import com.qiniu.android.storage.UploadManager;
-import com.tencent.qcloud.presentation.event.MessageEvent;
-import com.tencent.qcloud.tlslibrary.service.TlsBusiness;
-import com.wl.appchat.model.FriendshipInfo;
-import com.wl.appchat.model.GroupInfo;
-import com.wl.appchat.model.UserInfo;
 import com.xianglian.love.BaseListFragment;
 import com.xianglian.love.R;
 import com.xianglian.love.config.Config;
@@ -33,6 +28,7 @@ import com.xianglian.love.dialog.SelectPicAlertDialog;
 import com.xianglian.love.main.home.EditPhoneActivity;
 import com.xianglian.love.main.home.been.PersonInfo;
 import com.wl.appcore.entity.UserEntity;
+import com.xianglian.love.manager.UserCenter;
 import com.xianglian.love.model.Album;
 import com.xianglian.love.model.TakePhoto;
 import com.xianglian.love.net.JsonCallBack;
@@ -151,22 +147,16 @@ public class BaseMeFragment extends BaseListFragment implements BaseQuickAdapter
                 OkDialog okDialog = new OkDialog(getContext()) {
                     @Override
                     public void onConfirm(String result) {
-                        Config.TOKEN = null;
-                        Hawk.put(Keys.TOKEN, null);
-                        Hawk.put(Keys.USER_TIM_SIGN, null);
-                        Hawk.put(Keys.SEARCH_INFO_LIST, null);
-                        logout();
+                        UserCenter.getDefault().notifyLogout();
                         for (ItemInfo itemInfo: mItemInfo) {
                             if (itemInfo == null) continue;
                             if (itemInfo.getItemType() == ItemInfo.ViewType.AVATAR) {
                                 itemInfo.setAvatar(null);
-
                             }
                         }
                         mAdapter.notifyDataSetChanged();
                     }
                 };
-                Hawk.get(Keys.USER_INFO);
                 okDialog.show();
                 if (mUserEntity != null && !TextUtils.isEmpty(mUserEntity.getUsername())) {
                     okDialog.setTitle(getString(R.string.exit_count_dialog) + "(" +  mUserEntity.getUsername() + ")");
@@ -438,15 +428,5 @@ public class BaseMeFragment extends BaseListFragment implements BaseQuickAdapter
         } else {
             intoDetail();
         }
-    }
-
-
-    private void logout() {
-        TlsBusiness.logout(UserInfo.getInstance().getId());
-        UserInfo.getInstance().setId(null);
-        MessageEvent.getInstance().clear();
-        FriendshipInfo.getInstance().clear();
-        GroupInfo.getInstance().clear();
-
     }
 }
