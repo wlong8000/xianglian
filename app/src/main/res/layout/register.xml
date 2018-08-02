@@ -23,7 +23,7 @@
             android:id="@+id/user_name"
             style="@style/lib_style_button4_large"
             android:layout_width="match_parent"
-            android:drawableLeft="@drawable/icon_phone"
+            android:drawableLeft="@drawable/icon_u_name"
             android:drawablePadding="8dp"
             android:hint="@string/login_hit_username"
             android:inputType="textEmailAddress"
