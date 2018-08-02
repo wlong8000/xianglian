@@ -204,7 +204,8 @@ public abstract class BaseEditUserInfoActivity extends BaseListActivity {
         JsonBean.CityBean cityBean = mOptions2Items.get(options1).get(option2);
         JsonBean.CityBean city2Bean = mOptions3Items.get(options1).get(option2).get(option3);
         String two = cityBean.getName();
-        String three = city2Bean.getName();
+        String three = null;
+        if (hasOption3) three = city2Bean.getName();
         switch (mEntity.getType()) {
             case ItemInfo.Type.HOMETOWN:
                 mItem.born_area_code = !hasOption3 ? cityBean.getCode() : city2Bean.getCode();
