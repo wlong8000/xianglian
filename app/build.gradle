@@ -83,17 +83,8 @@ dependencies {
     implementation 'com.android.support:design:27.1.1'
     testCompile 'junit:junit:4.12'
     implementation 'com.android.support:recyclerview-v7:27.1.1'
-    implementation 'com.facebook.fresco:fresco:1.0.0'
     implementation 'com.readystatesoftware.systembartint:systembartint:1.0.3'
     implementation 'me.majiajie:pager-bottom-tab-strip:2.2.2'
-    implementation('com.facebook.fresco:animated-webp:1.0.0') {
-        exclude module: 'bolts-android'
-    }
-    implementation('com.facebook.fresco:animated-gif:1.0.0') {
-        exclude module: 'bolts-android'
-    }
-    implementation 'com.facebook.stetho:stetho:1.5.0'
-    implementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
     implementation 'com.zhousf.lib:okhttp3:2.8.9'
     implementation 'com.contrarywind:Android-PickerView:3.2.6'
     implementation 'top.zibin:Luban:1.1.2'

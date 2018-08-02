@@ -69,7 +69,7 @@ public class FriendshipInfo extends Observable implements Observer {
     }
 
 
-    private void refresh() {
+    public void refresh() {
         groups.clear();
         friends.clear();
         Log.d(TAG, "get friendship info id :" + UserInfo.getInstance().getId());

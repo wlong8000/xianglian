@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:focusable="true"
     android:orientation="vertical">
 
@@ -27,10 +28,11 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp">
 
-            <com.tencent.qcloud.ui.CircleImageView
+            <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/leftAvatar"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
+                fresco:roundAsCircle="true"
                 android:layout_alignParentLeft="true"
                 android:src="@drawable/head_other" />
 
@@ -76,11 +78,12 @@
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp">
 
-            <com.tencent.qcloud.ui.CircleImageView
+            <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/rightAvatar"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_alignParentRight="true"
+                fresco:roundAsCircle="true"
                 android:src="@drawable/head_me" />
 
             <RelativeLayout

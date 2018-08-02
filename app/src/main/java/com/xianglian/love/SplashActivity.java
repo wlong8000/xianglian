@@ -17,8 +17,11 @@ import android.widget.Toast;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.orhanobut.hawk.Hawk;
 import com.tencent.TIMCallBack;
+import com.tencent.TIMFriendshipManager;
+import com.tencent.TIMFriendshipSettings;
 import com.tencent.TIMLogLevel;
 import com.tencent.TIMManager;
+import com.tencent.TIMUserProfile;
 import com.tencent.qcloud.presentation.business.InitBusiness;
 import com.tencent.qcloud.presentation.business.LoginBusiness;
 import com.tencent.qcloud.presentation.event.FriendshipEvent;
@@ -26,8 +29,10 @@ import com.tencent.qcloud.presentation.event.GroupEvent;
 import com.tencent.qcloud.presentation.event.RefreshEvent;
 import com.tencent.qcloud.presentation.presenter.SplashPresenter;
 import com.tencent.qcloud.presentation.viewfeatures.SplashView;
+import com.tencent.qcloud.tlslibrary.service.TLSService;
 import com.tencent.qcloud.tlslibrary.service.TlsBusiness;
 import com.wl.appchat.TimHelper;
+import com.wl.appchat.model.UserInfo;
 import com.wl.appcore.Keys;
 import com.wl.appcore.entity.UserEntity;
 import com.xianglian.love.model.ConfigEntity;
@@ -99,9 +104,15 @@ public class SplashActivity extends BaseActivity implements SplashView, TIMCallB
         TlsBusiness.init(getApplicationContext());
         //设置刷新监听
         RefreshEvent.getInstance();
-//        String id = TLSService.getInstance().getLastUserIdentifier();
-//        UserInfo.getInstance().setId(id);
-//        UserInfo.getInstance().setUserSig(TLSService.getInstance().getUserSig(id));
+        String id = TLSService.getInstance().getLastUserIdentifier();
+        UserInfo.getInstance().setId(id);
+        UserInfo.getInstance().setUserSig(TLSService.getInstance().getUserSig(id));
+
+        long flags = 0;
+        flags |= TIMFriendshipManager.TIM_PROFILE_FLAG_ALLOW_TYPE
+                | TIMFriendshipManager.TIM_PROFILE_FLAG_FACE_URL
+                | TIMFriendshipManager.TIM_PROFILE_FLAG_NICK;
+//        TIMManager.getInstance().initFriendshipSettings(flags, null);
         mPresenter = new SplashPresenter(this, mConfigEntity != null
                 ? Integer.parseInt(mConfigEntity.getSplash_time()) * 1000 : 2000);
         mPresenter.start();

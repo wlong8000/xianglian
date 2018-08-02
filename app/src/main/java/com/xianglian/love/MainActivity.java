@@ -58,7 +58,8 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
         AppService.startConfigInfo(this);
         if (AppUtils.isLogin(this)) {
             AppService.startSaveUser(this, true);
-            AppService.startDeviceInfo(this);
+            UserLocation.updateLocation();
+            AppService.startUpdateTimInfo(this);
         }
 
         setupTitle(getString(R.string.meet_you), R.drawable.btn_menu_normal);
@@ -70,6 +71,24 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
         setupView();
         //检查版本更新
         UpdateUtil.checkVersion(this);
+
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                mTabIndex = position;
+                dealJumpTab();
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     private void initFragment() {
@@ -201,7 +220,9 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
     public void showMessage(MessageEvent messageEvent) {
         if (qBadgeView == null) qBadgeView = new QBadgeView(this);
         qBadgeView.setGravityOffset(25, 0, true);
-        qBadgeView.bindTarget(mBtnChat).setBadgeNumber(AppUtils.stringToInt(messageEvent.getMessage()));
+        int count = AppUtils.stringToInt(messageEvent.getMessage());
+        if (count > 99) count = 99;
+        qBadgeView.bindTarget(mBtnChat).setBadgeNumber(count);
     }
 
 

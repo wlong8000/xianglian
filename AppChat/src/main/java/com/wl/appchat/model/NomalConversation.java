@@ -1,6 +1,7 @@
 package com.wl.appchat.model;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.tencent.TIMConversation;
 import com.tencent.TIMConversationType;
@@ -34,14 +35,17 @@ public class NomalConversation extends Conversation {
 
 
     @Override
-    public int getAvatar() {
+    public String getAvatar() {
         switch (type) {
-            case C2C:
-                return R.drawable.head_other;
-            case Group:
-                return R.drawable.head_group;
+            case C2C: {
+//                return R.drawable.head_other;
+                FriendProfile profile = FriendshipInfo.getInstance().getProfile(identify);
+                String avatar;
+                avatar = profile == null ? null : profile.getAvatarUrl();
+                return avatar;
+            }
         }
-        return 0;
+        return null;
     }
 
     /**
@@ -82,12 +86,13 @@ public class NomalConversation extends Conversation {
             name = GroupInfo.getInstance().getGroupName(identify);
             if (name.equals("")) name = identify;
         } else {
+            boolean f = FriendshipInfo.getInstance().isFriend(identify);
+            Log.d("TAG", "is friend " + f + ", identify =" + identify);
             FriendProfile profile = FriendshipInfo.getInstance().getProfile(identify);
             name = profile == null ? identify : profile.getName();
         }
         return name;
     }
-
 
     /**
      * 获取未读消息数量

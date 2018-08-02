@@ -1,14 +1,19 @@
 package com.wl.appchat.model;
 
 import android.content.Context;
+import android.net.Uri;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import com.orhanobut.hawk.Hawk;
 import com.tencent.TIMConversationType;
 import com.tencent.TIMMessage;
 import com.tencent.TIMMessageStatus;
 import com.wl.appchat.adapter.ChatAdapter;
 import com.wl.appchat.utils.TimeUtil;
+import com.wl.appcore.Keys;
+import com.wl.appcore.entity.UserEntity;
 
 /**
  * 消息数据基类
@@ -25,6 +30,8 @@ public abstract class Message {
      * 消息描述信息
      */
     private String desc;
+
+    private String avatar;
 
 
     public TIMMessage getMessage() {
@@ -52,10 +59,15 @@ public abstract class Message {
         if (message.isSelf()) {
             viewHolder.leftPanel.setVisibility(View.GONE);
             viewHolder.rightPanel.setVisibility(View.VISIBLE);
+            viewHolder.rightAvatar.setImageURI(Uri.parse(getAvatar()));
             return viewHolder.rightMessage;
         } else {
             viewHolder.leftPanel.setVisibility(View.VISIBLE);
             viewHolder.rightPanel.setVisibility(View.GONE);
+            FriendProfile friendProfile = FriendshipInfo.getInstance().getProfile(message.getConversation().getPeer());
+            if (friendProfile != null) {
+                viewHolder.leftAvatar.setImageURI(friendProfile.getAvatarUrl());
+            }
             //群聊显示名称，群名片>个人昵称>identify
             if (message.getConversation().getType() == TIMConversationType.Group) {
                 viewHolder.sender.setVisibility(View.VISIBLE);
@@ -187,5 +199,13 @@ public abstract class Message {
             viewHolder.rightDesc.setVisibility(View.VISIBLE);
             viewHolder.rightDesc.setText(desc);
         }
+    }
+
+    private String getAvatar() {
+        if (TextUtils.isEmpty(avatar)) {
+            UserEntity entity = Hawk.get(Keys.TimKeys.USER_INFO);
+            if (entity != null) avatar = entity.getPic1();
+        }
+        return avatar;
     }
 }

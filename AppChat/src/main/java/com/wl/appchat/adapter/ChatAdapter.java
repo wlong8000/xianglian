@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.wl.appchat.R;
 import com.wl.appchat.model.Message;
 
@@ -57,6 +58,8 @@ public class ChatAdapter extends ArrayAdapter<Message> {
             viewHolder.sender = view.findViewById(R.id.sender);
             viewHolder.rightDesc = view.findViewById(R.id.rightDesc);
             viewHolder.systemMessage = view.findViewById(R.id.systemMessage);
+            viewHolder.leftAvatar = view.findViewById(R.id.leftAvatar);
+            viewHolder.rightAvatar = view.findViewById(R.id.rightAvatar);
             view.setTag(viewHolder);
         }
         if (position < getCount()) {
@@ -77,5 +80,7 @@ public class ChatAdapter extends ArrayAdapter<Message> {
         public TextView sender;
         public TextView systemMessage;
         public TextView rightDesc;
+        public SimpleDraweeView leftAvatar;
+        public SimpleDraweeView rightAvatar;
     }
 }

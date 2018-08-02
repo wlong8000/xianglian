@@ -10,15 +10,13 @@ import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.okhttplib.HttpInfo;
-import com.okhttplib.OkHttpUtil;
-import com.okhttplib.callback.Callback;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.HttpParams;
+import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.PostRequest;
 import com.xianglian.love.R;
 import com.xianglian.love.config.Config;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 获取验证码
@@ -121,21 +119,40 @@ public class RegisterCodeActivity extends BaseLoginActivity implements View.OnCl
      */
     private void getCode(String phone) {
         String url = Config.PATH + "code/";
-        Map<String, String> params = new HashMap<>();
-        params.put("mobile", phone);
-        OkHttpUtil.getDefault(this).doPostAsync(
-                HttpInfo.Builder().setUrl(url).addParams(params).addHeads(getHeader()).build(),
-                new Callback() {
-                    @Override
-                    public void onFailure(HttpInfo info) throws IOException {
-                        dialogDisMiss();
-                        mHandler.removeCallbacks(runnable);
-                    }
 
-                    @Override
-                    public void onSuccess(HttpInfo info) throws IOException {
-                        dialogDisMiss();
-                    }
-                });
+        HttpParams params = new HttpParams();
+        params.put("mobile", phone);
+
+        PostRequest<String> request = OkGo.post(url);
+        request.params(params);
+        request.execute(new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                dialogDisMiss();
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+                dialogDisMiss();
+                mHandler.removeCallbacks(runnable);
+            }
+        });
+
+
+//        OkHttpUtil.getDefault(this).doPostAsync(
+//                HttpInfo.Builder().setUrl(url).addParams(params).addHeads(getHeader()).build(),
+//                new Callback() {
+//                    @Override
+//                    public void onFailure(HttpInfo info) throws IOException {
+//                        dialogDisMiss();
+//                        mHandler.removeCallbacks(runnable);
+//                    }
+//
+//                    @Override
+//                    public void onSuccess(HttpInfo info) throws IOException {
+//                        dialogDisMiss();
+//                    }
+//                });
     }
 }

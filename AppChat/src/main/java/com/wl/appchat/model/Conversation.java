@@ -39,7 +39,7 @@ public abstract class Conversation implements Comparable {
     /**
      * 获取头像
      */
-    abstract public int getAvatar();
+    abstract public String getAvatar();
 
 
     /**
@@ -69,8 +69,7 @@ public abstract class Conversation implements Comparable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Conversation that = (Conversation) o;
-        if (!identify.equals(that.identify)) return false;
-        return type == that.type;
+        return identify.equals(that.identify) && type == that.type;
 
     }
 

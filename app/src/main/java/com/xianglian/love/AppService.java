@@ -8,9 +8,14 @@ import android.util.Log;
 
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.HttpParams;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.GetRequest;
 import com.orhanobut.hawk.Hawk;
+import com.tencent.TIMCallBack;
+import com.tencent.TIMFriendshipManager;
+import com.tencent.TIMUserProfile;
+import com.tencent.TIMValueCallBack;
 import com.wl.appcore.event.MessageEvent2;
 import com.xianglian.love.manager.UserCenter;
 import com.xianglian.love.config.Config;
@@ -23,6 +28,9 @@ import com.xianglian.love.utils.Trace;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.Map;
+
+
 /**
  * Created by wanglong on 17/4/2.
  */
@@ -34,7 +42,9 @@ public class AppService extends IntentService {
     private final static String ACTION_UPDATE_TIM_SIGN = "com.wl.lianba.service.action.ACTION_UPDATE_TIM_SIGN";
     private final static String ACTION_CONFIG_INFO = "com.wl.lianba.service.action.ACTION_CONFIG_INFO";
     private final static String ACTION_DEVICE_INFO = "com.wl.lianba.service.action.ACTION_DEVICE_INFO";
+    private final static String ACTION_TIM_UPDATE = "com.wl.lianba.service.action.ACTION_TIM_UPDATE";
     private final static String KEY_SEND_BROADCAST = "send_broadcast";
+    private final static String KEY_LOCATION = "location";
 
     public AppService() {
         super("HttpService");
@@ -55,7 +65,15 @@ public class AppService extends IntentService {
             } else if (ACTION_CONFIG_INFO.equals(intent.getAction())) {
                 doConfigRequest();
             } else if (ACTION_DEVICE_INFO.equals(intent.getAction())) {
-                doDeviceInfo();
+                String location = intent.getStringExtra(KEY_LOCATION);
+                HttpParams params = new HttpParams();
+                params.put("device_id", AppUtils.getUniquePsuedoID());
+                if (!TextUtils.isEmpty(location)) {
+                    params.put("location", location);
+                }
+                doDeviceInfo(params);
+            } else if (ACTION_TIM_UPDATE.equals(intent.getAction())) {
+                doTimInfo();
             }
         }
     }
@@ -74,8 +92,21 @@ public class AppService extends IntentService {
     }
 
     public static void startDeviceInfo(Context context) {
+        startDeviceInfo(context, null);
+    }
+
+    public static void startDeviceInfo(Context context, String location) {
         Intent service = new Intent(context, AppService.class);
         service.setAction(AppService.ACTION_DEVICE_INFO);
+        if (!TextUtils.isEmpty(location)) {
+            service.putExtra(KEY_LOCATION, location);
+        }
+        context.startService(service);
+    }
+
+    public static void startUpdateTimInfo(Context context) {
+        Intent service = new Intent(context, AppService.class);
+        service.setAction(AppService.ACTION_TIM_UPDATE);
         context.startService(service);
     }
 
@@ -187,14 +218,18 @@ public class AppService extends IntentService {
         });
     }
 
-    private void doDeviceInfo() {
+    private void doDeviceInfo(HttpParams params) {
+        String location = Hawk.get(Keys.LOCATION);
+        if (!TextUtils.isEmpty(location)) return;
         OkGo.<String>post(Config.PATH + "user_device/")
-                .params("device_id", AppUtils.getUniquePsuedoID())
+//                .params("device_id", AppUtils.getUniquePsuedoID())
+                .params(params)
                 .headers(AppUtils.getHeaders(this))
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
                         Trace.d(TAG, "doDeviceInfo success");
+                        Hawk.put(Keys.LOCATION, "true");
                     }
 
                     @Override
@@ -204,5 +239,93 @@ public class AppService extends IntentService {
                     }
                 });
     }
+
+    private void doTimInfo() {
+        //初始化参数，修改昵称为“cat”
+        UserEntity userEntity = Hawk.get(Keys.USER_INFO);
+        if (userEntity != null) {
+            String nickName = Hawk.get(Keys.TimKeys.NICK_NAME);
+            if (!TextUtils.isEmpty(userEntity.getUsername()) && !"true".equals(nickName)) {
+                TIMFriendshipManager.getInstance().setNickName(userEntity.getUsername(), new TIMCallBack() {
+                    @Override
+                    public void onError(int i, String s) {
+                        Trace.d(TAG, "setTimInfo error " + s);
+                    }
+
+                    @Override
+                    public void onSuccess() {
+                        Trace.d(TAG, "setTimInfo success ");
+                        Hawk.put(Keys.TimKeys.NICK_NAME, "true");
+                    }
+                });
+            }
+
+            String faceUrl = Hawk.get(Keys.TimKeys.FACE_URL);
+            if (!TextUtils.isEmpty(userEntity.getPic1()) && !"true".equals(faceUrl)) {
+                TIMFriendshipManager.getInstance().setFaceUrl(userEntity.getPic1(), new TIMCallBack() {
+                    @Override
+                    public void onError(int i, String s) {
+                        Trace.d(TAG, "setTimInfo error2 " + s);
+                    }
+
+                    @Override
+                    public void onSuccess() {
+                        Trace.d(TAG, "setTimInfo success2 ");
+                        Hawk.put(Keys.TimKeys.FACE_URL, "true");
+                    }
+                });
+            }
+
+            String userId = Hawk.get(Keys.TimKeys.USER_ID);
+            if (userEntity.getId() != 0 && !"true".equals(userId)) {
+                TIMFriendshipManager.getInstance().setCustomInfo("Tag_Profile_Custom_Id", String.valueOf(userEntity.getId()).getBytes(), new TIMCallBack() {
+                    @Override
+                    public void onError(int i, String s) {
+                        Trace.d(TAG, "setTimInfo error3 " + s);
+                    }
+
+                    @Override
+                    public void onSuccess() {
+                        Hawk.put(Keys.TimKeys.USER_ID, "true");
+                    }
+                });
+            }
+
+            UserEntity timInfo = Hawk.get(Keys.TimKeys.USER_INFO);
+            if (timInfo == null) {
+                //获取自己的资料
+                TIMFriendshipManager.getInstance().getSelfProfile(new TIMValueCallBack<TIMUserProfile>() {
+                    @Override
+                    public void onError(int code, String desc) {
+                        //错误码 code 和错误描述 desc，可用于定位请求失败原因
+                        //错误码 code 列表请参见错误码表
+                        Trace.d(TAG, "getSelfProfile failed: " + code + " desc");
+                    }
+
+                    @Override
+                    public void onSuccess(TIMUserProfile result) {
+                        Trace.d(TAG, "getSelfProfile succ");
+                        Trace.d(TAG, "identifier: " + result.getIdentifier() + " nickName: " + result.getNickName()
+                                + " remark: " + result.getRemark() + " allow: " + result.getAllowType());
+                        Map<String, byte[]> map = result.getCustomInfo();
+                        String id = null;
+                        if (map != null && map.containsKey("Tag_Profile_Custom_Id")) {
+                            byte[] bytes = map.get("Tag_Profile_Custom_Id");
+                            if (bytes != null) {
+                                id = new String(bytes);
+                            }
+                        }
+                        UserEntity entity = new UserEntity();
+                        entity.setPic1(result.getFaceUrl());
+                        if (!TextUtils.isEmpty(id)) {
+                            entity.setId(AppUtils.stringToInt(id));
+                        }
+                        Hawk.put(Keys.TimKeys.USER_INFO, entity);
+                    }
+                });
+            }
+        }
+    }
+
 
 }

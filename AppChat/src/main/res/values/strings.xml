@@ -305,4 +305,7 @@
     <string name="message_notify_c2c_music">自定义C2C消息推送声音</string>
     <string name="message_notify_group_music">自定义群消息推送声音</string>
 
+    <string name="add_friend_request_has_send">请求已发送</string>
+    <string name="add_friend_success">添加好友成功</string>
+
 </resources>

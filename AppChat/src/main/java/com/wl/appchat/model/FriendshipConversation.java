@@ -50,8 +50,9 @@ public class FriendshipConversation extends Conversation {
      * 获取头像
      */
     @Override
-    public int getAvatar() {
-        return R.drawable.ic_news;
+    public String getAvatar() {
+//        return R.drawable.ic_news;
+        return null;
     }
 
     /**

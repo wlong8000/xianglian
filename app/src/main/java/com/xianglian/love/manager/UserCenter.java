@@ -45,6 +45,5 @@ public class UserCenter {
         MessageEvent.getInstance().clear();
         FriendshipInfo.getInstance().clear();
         GroupInfo.getInstance().clear();
-
     }
 }

@@ -7,7 +7,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
-import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -21,6 +20,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.tencent.TIMConversationType;
+import com.tencent.TIMFriendStatus;
 import com.tencent.TIMMessage;
 import com.tencent.TIMMessageDraft;
 import com.tencent.TIMMessageStatus;
@@ -31,9 +31,11 @@ import com.tencent.qcloud.ui.ChatInput;
 import com.tencent.qcloud.ui.TemplateTitle;
 import com.tencent.qcloud.ui.VoiceSendingView;
 import com.wl.appchat.adapter.ChatAdapter;
+import com.wl.appchat.model.AddFriendFragmentActivity;
 import com.wl.appchat.model.CustomMessage;
 import com.wl.appchat.model.FileMessage;
-import com.wl.appchat.model.GroupInfo;
+import com.wl.appchat.model.FriendProfile;
+import com.wl.appchat.model.FriendshipInfo;
 import com.wl.appchat.model.ImageMessage;
 import com.wl.appchat.model.Message;
 import com.wl.appchat.model.MessageFactory;
@@ -48,7 +50,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChatActivity extends FragmentActivity implements ChatView {
+public class ChatActivity extends AddFriendFragmentActivity implements ChatView {
 
     private static final String TAG = "ChatActivity";
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
@@ -66,6 +68,7 @@ public class ChatActivity extends FragmentActivity implements ChatView {
     private RecorderUtil recorder = new RecorderUtil();
     private TIMConversationType type;
     private String titleStr;
+    private TemplateTitle mTitle;
     private Handler handler = new Handler();
     /**
      * 将标题设置为对象名称
@@ -129,43 +132,52 @@ public class ChatActivity extends FragmentActivity implements ChatView {
             }
         });
         registerForContextMenu(listView);
-        TemplateTitle title = findViewById(R.id.chat_title);
+        mTitle = findViewById(R.id.chat_title);
         switch (type) {
             case C2C:
-                title.setMoreImg(R.drawable.btn_person);
-                title.setMoreImgAction(new View.OnClickListener() {
+                mTitle.setMoreImg(R.drawable.btn_person);
+                mTitle.setMoreImgAction(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        int id = string2Int(getTextByPosition(0));
-                        if (id <= 0) return;
-                        Intent intent = new Intent();
-                        intent.putExtra("id", id);
-                        ComponentName cn = new ComponentName("com.wl.lianba",
-                                "com.xianglian.love.main.home.PersonDetailActivity");
-                        intent.setComponent(cn);
-                        startActivity(intent);
-                    }
-                });
-                titleStr = getTextByPosition(1);
-                title.setTitleText(titleStr);
-                break;
-            case Group:
-                title.setMoreImg(R.drawable.btn_group);
-                title.setMoreImgAction(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        //todo
-//                        Intent intent = new Intent(ChatActivity.this, GroupProfileActivity.class);
-//                        intent.putExtra("identify", identify);
+//                        int id = string2Int(getTextByPosition(0));
+//                        if (id <= 0) return;
+//                        Intent intent = new Intent();
+//                        intent.putExtra("id", id);
+//                        ComponentName cn = new ComponentName("com.wl.lianba",
+//                                "com.xianglian.love.main.home.PersonDetailActivity");
+//                        intent.setComponent(cn);
 //                        startActivity(intent);
                     }
                 });
-                title.setTitleText(GroupInfo.getInstance().getGroupName(identify));
+                titleStr = identify;
+                mTitle.setTitleText(titleStr);
                 break;
 
         }
         voiceSendingView = findViewById(R.id.voice_sending);
         presenter.start();
+        CheckAndAddFriend();
+    }
+
+    private void CheckAndAddFriend() {
+        switch (type) {
+            case C2C:
+                isFriend(identify);
+                break;
+        }
+    }
+
+    protected void isFriend(final String identify) {
+        if (!FriendshipInfo.getInstance().isFriend(identify)) {
+            addFriend(identify);
+        } else {
+            setName();
+        }
+    }
+
+    private void setName() {
+        FriendProfile profile = FriendshipInfo.getInstance().getProfile(identify);
+        mTitle.setTitleText(titleStr = profile == null ? "smillier" : profile.getName());
     }
 
     @Override
@@ -518,6 +530,29 @@ public class ChatActivity extends FragmentActivity implements ChatView {
             e.printStackTrace();
         }
         return 0;
+    }
+
+    @Override
+    public void onAddFriend(TIMFriendStatus status) {
+        super.onAddFriend(status);
+        switch (status) {
+            case TIM_FRIEND_STATUS_SUCC:
+                recurrence();
+                break;
+        }
+    }
+
+    private void recurrence() {
+        if (FriendshipInfo.getInstance().isFriend(identify)) {
+            setName();
+        } else {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    recurrence();
+                }
+            }, 100);
+        }
     }
 
 

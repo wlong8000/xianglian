@@ -1,6 +1,8 @@
 package com.wl.appchat.adapter;
 
 import android.content.Context;
+import android.net.Uri;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,7 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 
-import com.tencent.qcloud.ui.CircleImageView;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.wl.appchat.R;
 import com.wl.appchat.model.Conversation;
 import com.wl.appchat.utils.TimeUtil;
@@ -54,7 +56,11 @@ public class ConversationAdapter extends ArrayAdapter<Conversation> {
         }
         final Conversation data = getItem(position);
         viewHolder.tvName.setText(data.getName());
-        viewHolder.avatar.setImageResource(data.getAvatar());
+        if (!TextUtils.isEmpty(data.getAvatar())) {
+            viewHolder.avatar.setImageURI(Uri.parse(data.getAvatar()));
+        } else {
+            viewHolder.avatar.setImageResource(R.drawable.head_other);
+        }
         viewHolder.lastMessage.setText(data.getLastMessageSummary());
         viewHolder.time.setText(TimeUtil.getTimeStr(data.getLastMessageTime()));
         long unRead = data.getUnreadNum();
@@ -78,7 +84,7 @@ public class ConversationAdapter extends ArrayAdapter<Conversation> {
 
     public class ViewHolder {
         public TextView tvName;
-        public CircleImageView avatar;
+        public SimpleDraweeView avatar;
         public TextView lastMessage;
         public TextView time;
         public TextView unread;

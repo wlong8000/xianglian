@@ -38,4 +38,19 @@ public class Keys {
      * config信息 ConfigEntity
      */
     public static String CONFIG_INFO = "h_user_config_info";
+
+    /**
+     * 地理位置 String
+     */
+    public static String LOCATION = "h_location";
+
+    public interface TimKeys {
+        String NICK_NAME = "tim_nick_name_flag";
+        String FACE_URL = "tim_face_url_flag";
+        String USER_ID = "tim_user_id_flag";
+        /**
+         * 用户自己的聊天资料 UserEntity
+         */
+        String USER_INFO = "tim_user_info";
+    }
 }

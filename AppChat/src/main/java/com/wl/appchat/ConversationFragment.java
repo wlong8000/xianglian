@@ -3,6 +3,7 @@ package com.wl.appchat;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -33,6 +34,7 @@ import com.wl.appchat.model.MessageFactory;
 import com.wl.appchat.model.NomalConversation;
 import com.wl.appchat.utils.PushUtil;
 import com.wl.appcore.event.MessageEvent;
+import com.wl.appcore.utils.AppUtils2;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -63,6 +65,16 @@ public class ConversationFragment extends Fragment implements ConversationView, 
 
     public ConversationFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        Log.d("TAG", "isVisibleToUser " + isVisibleToUser);
+        if (isVisibleToUser && !AppUtils2.isLogin(getContext()) && listView != null && adapter != null) {
+            adapter.clear();
+            adapter.notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -203,9 +215,23 @@ public class ConversationFragment extends Fragment implements ConversationView, 
     @Override
     public void refresh() {
         Collections.sort(conversationList);
+        dealConversationList();
         adapter.notifyDataSetChanged();
         //todo
         EventBus.getDefault().post(new MessageEvent(String.valueOf(getTotalUnreadNum())));
+    }
+
+    private void dealConversationList() {
+        if (conversationList != null && !conversationList.isEmpty()) {
+            Iterator<Conversation> iterator = conversationList.iterator();
+            while (iterator.hasNext()) {
+                Conversation conversation = iterator.next();
+                if (conversation instanceof NomalConversation) {
+                    continue;
+                }
+                iterator.remove();
+            }
+        }
     }
 
 
