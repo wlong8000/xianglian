@@ -101,8 +101,11 @@
 
     <string name="hope_marry">期望结婚时间</string>
     <string name="nation">民族</string>
+    <string name="constellation">星座</string>
+    <string name="brother_state">姊妹情况</string>
     <string name="marry_state">婚姻状况</string>
     <string name="raking">家中排行</string>
+    <string name="parent_work">父母工作</string>
     <string name="has_child">有无子女</string>
     <string name="weight">体重(单位：kg)</string>
     <string name="money">%1$sK</string>
@@ -221,9 +224,8 @@
     <string name="ok_setting">设置</string>
     <string name="ok_cancel">取消</string>
     <string name="ok">确定</string>
-    <string-array name="profession_array">
-        <item>未透露</item>
-        <item>学生</item>
+
+    <string-array name="parent_profession">
         <item>私营业主</item>
         <item>农业劳动者</item>
         <item>企业职工</item>

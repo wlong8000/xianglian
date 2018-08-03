@@ -22,13 +22,14 @@ public class UserEntity implements Serializable, MultiItemEntity {
 
     private List<UserEntity> results;
     private String uid;
+    private int id;
     private String account;
     private String token;
     /**
      * 是否认证 0 未认证 1 已认证
      */
     private int identity_verified;
-//    private String nickname;
+    //    private String nickname;
     private String work_area;
     private String age;
     private String height;
@@ -40,8 +41,7 @@ public class UserEntity implements Serializable, MultiItemEntity {
     private String user_sign;
     private String username;
 
-    private int education;
-    private int id;
+    private String education;
 
     private String gender;
 
@@ -52,6 +52,38 @@ public class UserEntity implements Serializable, MultiItemEntity {
 
     private int is_top;
     private int position;
+
+    /**
+     * 职业 (0, '未透露'), (1, "在校学生"), (2, "私营业主"), (3, "农业劳动者"), (4, "企业职工"), (5, "政府机关/事业单位"), (6, "自由职业")
+     */
+    private String career;
+    /**
+     * 收入 (0, "5k以下"),(1, "5K-8k"), (2, "8k-12k"), (3, "12k-20k"), (4, "20k-30k"), (5, "30k以上")
+     */
+    private String income;
+    private String person_intro;
+    private String relationship_desc;
+    private String marriage_status;
+    private String mate_preference;
+    private String like;
+    private String pic1;
+    /**
+     * 类型 1 条目 2 广告
+     */
+    private int type;
+
+    private UserEntity content;
+    private String url;
+    private String name;
+    private String img;
+    private String desc;
+    private boolean is_like;
+    private String constellation;
+    private String parent_work;
+    private String expect_marry_time;
+    private String brother_state;
+    private String nationality;
+
 
     public String getBirthday() {
         return birthday;
@@ -101,11 +133,11 @@ public class UserEntity implements Serializable, MultiItemEntity {
         this.username = username;
     }
 
-    public int getEducation() {
+    public String getEducation() {
         return education;
     }
 
-    public void setEducation(int education) {
+    public void setEducation(String education) {
         this.education = education;
     }
 
@@ -176,32 +208,6 @@ public class UserEntity implements Serializable, MultiItemEntity {
     public void setPosition(int position) {
         this.position = position;
     }
-
-    /**
-     * 职业 (0, '未透露'), (1, "在校学生"), (2, "私营业主"), (3, "农业劳动者"), (4, "企业职工"), (5, "政府机关/事业单位"), (6, "自由职业")
-     */
-    private int career;
-    /**
-     * 收入 (0, "5k以下"),(1, "5K-8k"), (2, "8k-12k"), (3, "12k-20k"), (4, "20k-30k"), (5, "30k以上")
-     */
-    private int income;
-    private String person_intro;
-    private String relationship_desc;
-    private int marriage_status;
-    private String mate_preference;
-    private String like;
-    private String pic1;
-    /**
-     * 类型 1 条目 2 广告
-     */
-    private int type;
-
-    private UserEntity content;
-    private String url;
-    private String name;
-    private String img;
-    private String desc;
-    private boolean is_like;
 
     public String getMsg() {
         return msg;
@@ -323,19 +329,19 @@ public class UserEntity implements Serializable, MultiItemEntity {
         this.height = height;
     }
 
-    public int getCareer() {
+    public String getCareer() {
         return career;
     }
 
-    public void setCareer(int career) {
+    public void setCareer(String career) {
         this.career = career;
     }
 
-    public int getIncome() {
+    public String getIncome() {
         return income;
     }
 
-    public void setIncome(int income) {
+    public void setIncome(String income) {
         this.income = income;
     }
 
@@ -355,11 +361,51 @@ public class UserEntity implements Serializable, MultiItemEntity {
         this.relationship_desc = relationship_desc;
     }
 
-    public int getMarriage_status() {
+    public String getConstellation() {
+        return constellation;
+    }
+
+    public void setConstellation(String constellation) {
+        this.constellation = constellation;
+    }
+
+    public String getParent_work() {
+        return parent_work;
+    }
+
+    public void setParent_work(String parent_work) {
+        this.parent_work = parent_work;
+    }
+
+    public String getExpect_marry_time() {
+        return expect_marry_time;
+    }
+
+    public void setExpect_marry_time(String expect_marry_time) {
+        this.expect_marry_time = expect_marry_time;
+    }
+
+    public String getNationality() {
+        return nationality;
+    }
+
+    public void setNationality(String nationality) {
+        this.nationality = nationality;
+    }
+
+    public String getBrother_state() {
+        return brother_state;
+    }
+
+    public void setBrother_state(String brother_state) {
+        this.brother_state = brother_state;
+    }
+
+    public String getMarriage_status() {
         return marriage_status;
     }
 
-    public void setMarriage_status(int marriage_status) {
+    public void setMarriage_status(String marriage_status) {
         this.marriage_status = marriage_status;
     }
 

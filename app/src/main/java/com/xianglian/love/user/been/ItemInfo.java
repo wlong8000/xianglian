@@ -2,18 +2,14 @@ package com.xianglian.love.user.been;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.text.TextUtils;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.xianglian.love.main.home.been.PersonInfo;
-import com.xianglian.love.utils.AppUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import base.DateUtils2;
 
 /**
  * 针对 用户信息编辑类
@@ -42,7 +38,6 @@ public class ItemInfo implements MultiItemEntity, Parcelable {
 	public int max_education;
 	public String career;
 	public String income;
-	public String expect_marry_date;
 	public String marriage_status;
 	public String min_weight;
 	public String max_weight;
@@ -63,6 +58,12 @@ public class ItemInfo implements MultiItemEntity, Parcelable {
 	public String birth_index;
 	public int phoneType;
 	public Contacts contacts;
+
+	public String constellation;
+	public String parent_work;
+	public String expect_marry_time;
+	public String brother_state;
+
 
 	public String getText() {
 		return text;
@@ -224,14 +225,6 @@ public class ItemInfo implements MultiItemEntity, Parcelable {
 		this.income = income;
 	}
 
-	public String getExpect_marry_date() {
-		return expect_marry_date;
-	}
-
-	public void setExpect_marry_date(String expect_marry_date) {
-		this.expect_marry_date = expect_marry_date;
-	}
-
 	public String getMarriage_status() {
 		return marriage_status;
 	}
@@ -368,6 +361,38 @@ public class ItemInfo implements MultiItemEntity, Parcelable {
 		this.contacts = contacts;
 	}
 
+	public String getConstellation() {
+		return constellation;
+	}
+
+	public void setConstellation(String constellation) {
+		this.constellation = constellation;
+	}
+
+	public String getParent_work() {
+		return parent_work;
+	}
+
+	public void setParent_work(String parent_work) {
+		this.parent_work = parent_work;
+	}
+
+	public String getExpect_marry_time() {
+		return expect_marry_time;
+	}
+
+	public void setExpect_marry_time(String expect_marry_time) {
+		this.expect_marry_time = expect_marry_time;
+	}
+
+	public String getBrother_state() {
+		return brother_state;
+	}
+
+	public void setBrother_state(String brother_state) {
+		this.brother_state = brother_state;
+	}
+
 	public ItemInfo() {
 
 	}
@@ -378,40 +403,40 @@ public class ItemInfo implements MultiItemEntity, Parcelable {
 	}
 
 
-	public Map<String, String> toMap() {
-		params.clear();
-		if (AppUtils.stringToInt(min_age) >= 0) {
-			params.put("max_age", DateUtils2.getBirthday(min_age) + "");
-		}
-		if (AppUtils.stringToInt(max_age) > 0) {
-			params.put("min_age", DateUtils2.getBirthday(max_age) + "");
-		}
-
-		if (AppUtils.stringToInt(min_height) >= 0) {
-			params.put("min_height", min_height);
-		}
-		if (AppUtils.stringToInt(max_height) > 0) {
-			params.put("max_height", max_height);
-		}
-
-		if (min_education >= 0) {
-			params.put("min_education", String.valueOf(min_education));
-		}
-
-		if (max_education > 0) {
-			params.put("max_education", String.valueOf(max_education));
-		}
-
-		if (!TextUtils.isEmpty(work_area_code) && work_area_code.length() > 4) {
-			params.put("work_area_code", work_area_code.substring(0, 4));
-		}
-
-		if (!TextUtils.isEmpty(born_area_code) && born_area_code.length() > 4) {
-			params.put("born_area_code", born_area_code.substring(0, 4));
-		}
-
-		return params;
-	}
+//	public Map<String, String> toMap() {
+//		params.clear();
+//		if (AppUtils.stringToInt(min_age) >= 0) {
+//			params.put("max_age", DateUtils2.getBirthday(min_age) + "");
+//		}
+//		if (AppUtils.stringToInt(max_age) > 0) {
+//			params.put("min_age", DateUtils2.getBirthday(max_age) + "");
+//		}
+//
+//		if (AppUtils.stringToInt(min_height) >= 0) {
+//			params.put("min_height", min_height);
+//		}
+//		if (AppUtils.stringToInt(max_height) > 0) {
+//			params.put("max_height", max_height);
+//		}
+//
+//		if (min_education >= 0) {
+//			params.put("min_education", String.valueOf(min_education));
+//		}
+//
+//		if (max_education > 0) {
+//			params.put("max_education", String.valueOf(max_education));
+//		}
+//
+//		if (!TextUtils.isEmpty(work_area_code) && work_area_code.length() > 4) {
+//			params.put("work_area_code", work_area_code.substring(0, 4));
+//		}
+//
+//		if (!TextUtils.isEmpty(born_area_code) && born_area_code.length() > 4) {
+//			params.put("born_area_code", born_area_code.substring(0, 4));
+//		}
+//
+//		return params;
+//	}
 
 	/**
 	 * 个人信息编辑页 分类
@@ -669,9 +694,9 @@ public class ItemInfo implements MultiItemEntity, Parcelable {
 		int MARRY_STATE = 11;
 
 		/**
-		 * 家中排行
+		 * 姊妹情况
 		 */
-		int RANKING = 12;
+		int BROTHER_STATE = 12;
 
 		/**
 		 * 有无子女
@@ -682,6 +707,16 @@ public class ItemInfo implements MultiItemEntity, Parcelable {
 		 * 体重
 		 */
 		int WEIGHT = 14;
+
+		/**
+		 * 星座
+		 */
+		int CONSTELLATION = 15;
+
+		/**
+		 * 父母工作
+		 */
+		int PARENT_WORK = 16;
 	}
 
 	/**
@@ -691,6 +726,7 @@ public class ItemInfo implements MultiItemEntity, Parcelable {
 		int QQ = 0;
 		int WEI_XIN = 1;
 	}
+
 
 	@Override
 	public int describeContents() {
@@ -724,7 +760,6 @@ public class ItemInfo implements MultiItemEntity, Parcelable {
 		dest.writeInt(this.max_education);
 		dest.writeString(this.career);
 		dest.writeString(this.income);
-		dest.writeString(this.expect_marry_date);
 		dest.writeString(this.marriage_status);
 		dest.writeString(this.min_weight);
 		dest.writeString(this.max_weight);
@@ -742,11 +777,15 @@ public class ItemInfo implements MultiItemEntity, Parcelable {
 		dest.writeString(this.birth_index);
 		dest.writeInt(this.phoneType);
 		dest.writeParcelable(this.contacts, flags);
+		dest.writeString(this.constellation);
+		dest.writeString(this.parent_work);
+		dest.writeString(this.expect_marry_time);
+		dest.writeString(this.brother_state);
 	}
 
 	protected ItemInfo(Parcel in) {
 		int paramsSize = in.readInt();
-		this.params = new HashMap<String, String>(paramsSize);
+		this.params = new HashMap<>(paramsSize);
 		for (int i = 0; i < paramsSize; i++) {
 			String key = in.readString();
 			String value = in.readString();
@@ -772,7 +811,6 @@ public class ItemInfo implements MultiItemEntity, Parcelable {
 		this.max_education = in.readInt();
 		this.career = in.readString();
 		this.income = in.readString();
-		this.expect_marry_date = in.readString();
 		this.marriage_status = in.readString();
 		this.min_weight = in.readString();
 		this.max_weight = in.readString();
@@ -790,6 +828,10 @@ public class ItemInfo implements MultiItemEntity, Parcelable {
 		this.birth_index = in.readString();
 		this.phoneType = in.readInt();
 		this.contacts = in.readParcelable(Contacts.class.getClassLoader());
+		this.constellation = in.readString();
+		this.parent_work = in.readString();
+		this.expect_marry_time = in.readString();
+		this.brother_state = in.readString();
 	}
 
 	public static final Creator<ItemInfo> CREATOR = new Creator<ItemInfo>() {

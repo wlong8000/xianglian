@@ -159,6 +159,17 @@ public class UserUtils {
         return getItem(getConstellations(), item);
     }
 
+    /**
+     * 父母工作
+     */
+    public static List<String> getParentProfessions() {
+        return getArray(R.array.parent_profession);
+    }
+
+    public static String getParentProfession(int item) {
+        return getItem(getParentProfessions(), item);
+    }
+
     @NonNull
     public static List<String> getResources(Context context, @ArrayRes int id) {
         Resources res = context.getResources();
@@ -170,7 +181,7 @@ public class UserUtils {
     }
 
     public static String getItem(List<String> list, int item) {
-        if (item >= list.size()) return null;
+        if (item >= list.size() || item < 0) return null;
         return list.get(item);
     }
 

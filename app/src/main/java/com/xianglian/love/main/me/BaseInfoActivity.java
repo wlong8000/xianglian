@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.orhanobut.hawk.Hawk;
 import com.xianglian.love.BaseEditUserInfoActivity;
@@ -17,6 +18,7 @@ import com.xianglian.love.user.adapter.UserInfoEditAdapter;
 import com.xianglian.love.user.been.ItemInfo;
 import com.xianglian.love.utils.AppUtils;
 import com.xianglian.love.utils.UserUtils;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -85,6 +87,27 @@ public class BaseInfoActivity extends BaseEditUserInfoActivity implements BaseQu
                 text = dealWeight(options1);
                 entity.setWeight(text);
                 break;
+            case ItemInfo.MyInfoType.NATION:
+                text = dealNationality(options1);
+                entity.setNationality(mItem.nationality);
+                break;
+            case ItemInfo.MyInfoType.BROTHER_STATE:
+                text = dealBrotherState(options1);
+                entity.setBrother_state(mItem.brother_state);
+                break;
+            case ItemInfo.MyInfoType.CONSTELLATION:
+                text = dealConstellation(options1);
+                entity.setConstellation(mItem.constellation);
+                break;
+            case ItemInfo.MyInfoType.PARENT_WORK:
+                text = dealParentWork(options1);
+                entity.setParent_work(mItem.parent_work);
+                break;
+            case ItemInfo.MyInfoType.HOPE_MARRY:
+                text = dealHopeMarry(options1);
+                entity.setExpect_marry_time(mItem.expect_marry_time);
+                break;
+
         }
         if (TextUtils.isEmpty(text)) return;
         doRequest(entity, text);
@@ -140,9 +163,6 @@ public class BaseInfoActivity extends BaseEditUserInfoActivity implements BaseQu
     private void setData() {
         UserEntity info = Hawk.get(Keys.USER_INFO);
         if (info == null) info = new UserEntity();
-        //昵称
-//        mItemInfo.add(getInfo(getString(R.string.nick_name), info.getUsername(), ItemInfo.MyInfoType.NICK_NAME, null));
-
         //出生日期
         mItemInfo.add(getInfo(getString(R.string.birth), info.getBirthday(), ItemInfo.MyInfoType.BIRTHDAY, null));
 
@@ -157,21 +177,35 @@ public class BaseInfoActivity extends BaseEditUserInfoActivity implements BaseQu
                 null, ItemInfo.MyInfoType.HEIGHT, UserUtils.getHighData()));
 
         //学历
-        mItemInfo.add(getInfo(getString(R.string.education), UserUtils.getEdu(info.getEducation()), ItemInfo.MyInfoType.EDUCATION, UserUtils.getEduList()));
+        mItemInfo.add(getInfo(getString(R.string.education), UserUtils.getEdu(getInt(info.getEducation())), ItemInfo.MyInfoType.EDUCATION, UserUtils.getEduList()));
 
         //职业
-        mItemInfo.add(getInfo(getString(R.string.profession), UserUtils.getProfession(info.getCareer()), ItemInfo.MyInfoType.PROFESSION, UserUtils.getProfessions()));
+        mItemInfo.add(getInfo(getString(R.string.profession), UserUtils.getProfession(getInt(info.getCareer())), ItemInfo.MyInfoType.PROFESSION, UserUtils.getProfessions()));
 
         //月收入
-        mItemInfo.add(getInfo(getString(R.string.income), UserUtils.getInCome(info.getIncome()), ItemInfo.MyInfoType.INCOME, UserUtils.getInComingList()));
+        mItemInfo.add(getInfo(getString(R.string.income), UserUtils.getInCome(getInt(info.getIncome())), ItemInfo.MyInfoType.INCOME, UserUtils.getInComingList()));
 
+        //星座
+        mItemInfo.add(getInfo(getString(R.string.constellation), UserUtils.getConstellation(getInt(info.getConstellation())), ItemInfo.MyInfoType.CONSTELLATION, UserUtils.getConstellations()));
 
         //婚姻状况
-        mItemInfo.add(getInfo(getString(R.string.marry_state), UserUtils.getMarryState(info.getMarriage_status()), ItemInfo.MyInfoType.MARRY_STATE, UserUtils.getMarryStates()));
+        mItemInfo.add(getInfo(getString(R.string.marry_state), UserUtils.getMarryState(getInt(info.getMarriage_status())), ItemInfo.MyInfoType.MARRY_STATE, UserUtils.getMarryStates()));
+
+        //期望结婚时间
+        mItemInfo.add(getInfo(getString(R.string.hope_marry), UserUtils.getHopeMarry(getInt(info.getExpect_marry_time())), ItemInfo.MyInfoType.HOPE_MARRY, UserUtils.getHopeMarries()));
+
+        //民族
+        mItemInfo.add(getInfo(getString(R.string.nation), UserUtils.getHopeMarry(getInt(info.getNationality())), ItemInfo.MyInfoType.NATION, UserUtils.getNations()));
+
+        //姊妹情况
+        mItemInfo.add(getInfo(getString(R.string.brother_state), UserUtils.getBrotherState(getInt(info.getBrother_state())), ItemInfo.MyInfoType.BROTHER_STATE, UserUtils.getBrotherStates()));
 
         //体重(单位：kg)
         mItemInfo.add(getInfo(getString(R.string.weight), AppUtils.stringToFloat(info.getWeight()) > 0 ? AppUtils.stringToFloat(info.getWeight()) + "" :
                 null, ItemInfo.MyInfoType.WEIGHT, UserUtils.getWeight()));
+
+        //父母工作
+        mItemInfo.add(getInfo(getString(R.string.parent_work), UserUtils.getParentProfession(getInt(info.getParent_work())), ItemInfo.MyInfoType.PARENT_WORK, UserUtils.getParentProfessions()));
 
     }
 
@@ -206,31 +240,48 @@ public class BaseInfoActivity extends BaseEditUserInfoActivity implements BaseQu
                 break;
             case ItemInfo.MyInfoType.EDUCATION:
 //                parseData("education", data);
-                userEntity.setEducation(Integer.valueOf(data));
+                userEntity.setEducation(data);
                 break;
             case ItemInfo.MyInfoType.PROFESSION:
 //                parseData("career", data);
-                userEntity.setCareer(Integer.parseInt(data));
+                userEntity.setCareer(data);
                 break;
             case ItemInfo.MyInfoType.INCOME:
 //                parseData("income", data);
-                userEntity.setIncome(Integer.parseInt(data));
+                userEntity.setIncome(data);
                 break;
             case ItemInfo.MyInfoType.MARRY_STATE:
 //                parseData("marriage_status", data);
-                userEntity.setMarriage_status(Integer.parseInt(data));
+                userEntity.setMarriage_status(data);
                 break;
             case ItemInfo.MyInfoType.WEIGHT:
 //                parseData("weight", data);
                 userEntity.setWeight(data);
                 break;
-//            case ItemInfo.MyInfoType.RANKING:
+            case ItemInfo.MyInfoType.BROTHER_STATE:
 //                parseData("birth_index", data);
-//                break;
+                userEntity.setBrother_state(data);
+                break;
+            case ItemInfo.MyInfoType.CONSTELLATION:
+//                parseData("birth_index", data);
+                userEntity.setConstellation(data);
+                break;
+            case ItemInfo.MyInfoType.PARENT_WORK:
+//                parseData("birth_index", data);
+                userEntity.setParent_work(data);
+                break;
+            case ItemInfo.MyInfoType.NATION:
+//                parseData("birth_index", data);
+                userEntity.setNationality(data);
+                break;
         }
         Hawk.put(Keys.USER_INFO, userEntity);
         mEntity.setRightText(data);
         mAdapter.notifyDataSetChanged();
+    }
+
+    private int getInt(String data) {
+        return AppUtils.stringToInt(data);
     }
 
     @Override
@@ -248,22 +299,13 @@ public class BaseInfoActivity extends BaseEditUserInfoActivity implements BaseQu
                     showRegion(false);
                     break;
                 }
-                case ItemInfo.MyInfoType.INCOME:
-                case ItemInfo.MyInfoType.EDUCATION:
-                case ItemInfo.MyInfoType.PROFESSION:
-                case ItemInfo.MyInfoType.HOPE_MARRY:
-                case ItemInfo.MyInfoType.NATION:
-                case ItemInfo.MyInfoType.MARRY_STATE:
-                case ItemInfo.MyInfoType.RANKING:
-                case ItemInfo.MyInfoType.HAS_CHILD:
-                case ItemInfo.MyInfoType.WEIGHT:
-                case ItemInfo.MyInfoType.HEIGHT: {
-                    pvCustomOptions.setPicker(mEntity.getItems());//添加数据
-                    pvCustomOptions.show();
-                    break;
-                }
                 case ItemInfo.MyInfoType.NICK_NAME: {
                     showEditDialog();
+                    break;
+                }
+                default: {
+                    pvCustomOptions.setPicker(mEntity.getItems());//添加数据
+                    pvCustomOptions.show();
                     break;
                 }
             }

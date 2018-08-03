@@ -87,7 +87,6 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
     private String income;
     private String person_intro;
     private String like;
-    private String expect_marry_date;
     private String nationality;
     private String marriage_status;
     private String birth_index;
@@ -99,7 +98,6 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
     private String has_house;
     private String relationship_desc;
     private String mate_preference;
-    private String constellation;
     private String birthday;
     private String education;
     private String can_leave_message;
@@ -137,6 +135,11 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
     private boolean show_msg_more;
     private String pic1;
     private String username;
+
+    private String constellation;
+    private String parent_work;
+    private String expect_marry_time;
+    private String brother_state;
 
     public String getMsg() {
         return msg;
@@ -248,14 +251,6 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
 
     public void setPerson_intro(String person_intro) {
         this.person_intro = person_intro;
-    }
-
-    public String getExpect_marry_date() {
-        return expect_marry_date;
-    }
-
-    public void setExpect_marry_date(String expect_marry_date) {
-        this.expect_marry_date = expect_marry_date;
     }
 
     public String getNationality() {
@@ -642,6 +637,30 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
         this.username = username;
     }
 
+    public String getParent_work() {
+        return parent_work;
+    }
+
+    public void setParent_work(String parent_work) {
+        this.parent_work = parent_work;
+    }
+
+    public String getExpect_marry_time() {
+        return expect_marry_time;
+    }
+
+    public void setExpect_marry_time(String expect_marry_time) {
+        this.expect_marry_time = expect_marry_time;
+    }
+
+    public String getBrother_state() {
+        return brother_state;
+    }
+
+    public void setBrother_state(String brother_state) {
+        this.brother_state = brother_state;
+    }
+
     @Override
     public int getItemType() {
         return viewType;
@@ -682,8 +701,8 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
         if (!TextUtils.isEmpty(income)) {
             params.put("income", income);
         }
-        if (!TextUtils.isEmpty(expect_marry_date)) {
-            params.put("expect_marry_date", expect_marry_date);
+        if (!TextUtils.isEmpty(expect_marry_time)) {
+            params.put("expect_marry_time", expect_marry_time);
         }
         if (!TextUtils.isEmpty(nationality)) {
             params.put("nationality", nationality);
@@ -722,6 +741,18 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
         if (!TextUtils.isEmpty(person_intro)) {
             params.put("person_intro", person_intro);
         }
+
+        if (!TextUtils.isEmpty(brother_state)) {
+            params.put("brother_state", brother_state);
+        }
+        if (!TextUtils.isEmpty(constellation)) {
+            params.put("constellation", constellation);
+        }
+
+        if (!TextUtils.isEmpty(parent_work)) {
+            params.put("parent_work", parent_work);
+        }
+
         String sex = Hawk.get(Keys.SEX);
         if (!TextUtils.isEmpty(sex)) {
             params.put("gender", sex);
@@ -755,7 +786,6 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
         dest.writeString(this.income);
         dest.writeString(this.person_intro);
         dest.writeString(this.like);
-        dest.writeString(this.expect_marry_date);
         dest.writeString(this.nationality);
         dest.writeString(this.marriage_status);
         dest.writeString(this.birth_index);
@@ -767,7 +797,6 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
         dest.writeString(this.has_house);
         dest.writeString(this.relationship_desc);
         dest.writeString(this.mate_preference);
-        dest.writeString(this.constellation);
         dest.writeString(this.birthday);
         dest.writeString(this.education);
         dest.writeString(this.can_leave_message);
@@ -799,6 +828,10 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
         dest.writeByte(this.show_msg_more ? (byte) 1 : (byte) 0);
         dest.writeString(this.pic1);
         dest.writeString(this.username);
+        dest.writeString(this.constellation);
+        dest.writeString(this.parent_work);
+        dest.writeString(this.expect_marry_time);
+        dest.writeString(this.brother_state);
     }
 
     protected UserDetailEntity(Parcel in) {
@@ -820,7 +853,6 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
         this.income = in.readString();
         this.person_intro = in.readString();
         this.like = in.readString();
-        this.expect_marry_date = in.readString();
         this.nationality = in.readString();
         this.marriage_status = in.readString();
         this.birth_index = in.readString();
@@ -832,7 +864,6 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
         this.has_house = in.readString();
         this.relationship_desc = in.readString();
         this.mate_preference = in.readString();
-        this.constellation = in.readString();
         this.birthday = in.readString();
         this.education = in.readString();
         this.can_leave_message = in.readString();
@@ -866,6 +897,10 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
         this.show_msg_more = in.readByte() != 0;
         this.pic1 = in.readString();
         this.username = in.readString();
+        this.constellation = in.readString();
+        this.parent_work = in.readString();
+        this.expect_marry_time = in.readString();
+        this.brother_state = in.readString();
     }
 
     public static final Creator<UserDetailEntity> CREATOR = new Creator<UserDetailEntity>() {

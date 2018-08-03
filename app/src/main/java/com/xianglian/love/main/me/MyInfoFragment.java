@@ -66,7 +66,7 @@ public class MyInfoFragment extends BaseListFragment implements OnClickListener{
                     case ItemInfo.MyInfoType.HOPE_MARRY:
                     case ItemInfo.MyInfoType.NATION:
                     case ItemInfo.MyInfoType.MARRY_STATE:
-                    case ItemInfo.MyInfoType.RANKING:
+                    case ItemInfo.MyInfoType.BROTHER_STATE:
                     case ItemInfo.MyInfoType.HAS_CHILD:
                     case ItemInfo.MyInfoType.WEIGHT:
                     case ItemInfo.MyInfoType.HEIGHT: {
@@ -206,7 +206,7 @@ public class MyInfoFragment extends BaseListFragment implements OnClickListener{
         data.add(getInfo(getString(R.string.marry_state), ItemInfo.MyInfoType.MARRY_STATE, UserUtils.getMarryStates()));
 
         //家中排行
-        data.add(getInfo(getString(R.string.raking), ItemInfo.MyInfoType.RANKING, UserUtils.getBrotherStates()));
+        data.add(getInfo(getString(R.string.raking), ItemInfo.MyInfoType.BROTHER_STATE, UserUtils.getBrotherStates()));
 
         //有无子女
         data.add(getInfo(getString(R.string.has_child), ItemInfo.MyInfoType.HAS_CHILD, UserUtils.getRight()));

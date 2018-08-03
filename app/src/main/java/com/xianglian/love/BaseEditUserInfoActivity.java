@@ -194,6 +194,36 @@ public abstract class BaseEditUserInfoActivity extends BaseListActivity {
     }
 
     @NonNull
+    public String dealNationality(int options1) {
+        mItem.nationality = String.valueOf(options1);
+        return UserUtils.getNation(options1);
+    }
+
+    @NonNull
+    public String dealBrotherState(int options1) {
+        mItem.brother_state = String.valueOf(options1);
+        return UserUtils.getBrotherState(options1);
+    }
+
+    @NonNull
+    public String dealConstellation(int options1) {
+        mItem.constellation = String.valueOf(options1);
+        return UserUtils.getConstellation(options1);
+    }
+
+    @NonNull
+    public String dealHopeMarry(int options1) {
+        mItem.expect_marry_time = String.valueOf(options1);
+        return UserUtils.getHopeMarry(options1);
+    }
+
+    @NonNull
+    public String dealParentWork(int options1) {
+        mItem.parent_work = String.valueOf(options1);
+        return UserUtils.getParentProfession(options1);
+    }
+
+    @NonNull
     public String dealWeight(int options1) {
         return UserUtils.getWeight().get(options1);
     }
