@@ -92,7 +92,7 @@ public abstract class BaseEditUserInfoActivity extends BaseListActivity {
         Calendar startDate = Calendar.getInstance();
         startDate.set(1970, 1, 1);
         Calendar endDate = Calendar.getInstance();
-        endDate.set(2019, 1, 1);
+        endDate.set(2006, 1, 1);
         //时间选择器 ，自定义布局
         pvCustomTime = new TimePickerView.Builder(this, new TimePickerView.OnTimeSelectListener() {
             @Override
@@ -162,7 +162,7 @@ public abstract class BaseEditUserInfoActivity extends BaseListActivity {
 
     @NonNull
     public String dealProfession(int options1) {
-        mItem.career = (options1 + 1) + "";
+        mItem.career = String.valueOf(options1);
         return UserUtils.getProfessions().get(options1);
     }
 

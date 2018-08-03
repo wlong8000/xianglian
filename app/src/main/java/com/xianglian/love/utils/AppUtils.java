@@ -10,7 +10,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
@@ -364,26 +363,6 @@ public class AppUtils {
         return (freeBlocks * blockSize); // 单位byte
     }
 
-//    public static OwnerEntity getOwnerInfo(Context context) {
-//        String cache = ACache.get(context).getAsString(Config.KEY_USER);
-//        if (TextUtils.isEmpty(cache)) return null;
-//        try {
-//            return JSON.parseObject(cache, OwnerEntity.class);
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//        return null;
-//    }
-
-//    public static String getUserId(Context context) {
-//        OwnerEntity entity = getOwnerInfo(context);
-//        if (entity != null && entity.getResult() != null && entity.getResult().getUser_info() != null) {
-//            return entity.getResult().getUser_info().getUid();
-//        }
-//        return null;
-//    }
-
-
     public static String getToken(Context context) {
 //        if (!TextUtils.isEmpty(Config.TOKEN)) return Config.TOKEN;
         String token = Hawk.get(Keys.TOKEN);
@@ -472,19 +451,6 @@ public class AppUtils {
         }
         headers.put("platform", "android");
         return headers;
-    }
-
-    /**
-     * 职业 (0, '未透露'), (1, "在校学生"), (2, "私营业主"), (3, "农业劳动者"), (4, "企业职工"), (5, "政府机关/事业单位"), (6, "自由职业")
-     *
-     * @param career
-     * @return
-     */
-    public static String getCareer(Context context, int career) {
-        Resources res = context.getResources();
-        String[] arr = res.getStringArray(R.array.profession_array);
-        if (arr.length <= career) return null;
-        return arr[career];
     }
 
     public static int stringToInt(String num) {

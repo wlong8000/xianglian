@@ -117,7 +117,7 @@ public class PersonDetailAdapter extends BaseMultiItemQuickAdapter<UserDetailEnt
         if (AppUtils.stringToInt2(item.getHeight()) > 0) {
             builder.append(mContext.getString(R.string.height2)).append(" ").append(AppUtils.stringToInt2(item.getHeight())).append("  ");
         }
-        String career = AppUtils.getCareer(mContext, AppUtils.stringToInt(item.getCareer()));
+        String career = UserUtils.getProfession(AppUtils.stringToInt(item.getCareer()));
         if (!TextUtils.isEmpty(career)) {
             builder.append(career).append("  ");
         }

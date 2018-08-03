@@ -76,7 +76,7 @@ public class HomeAdapter extends BaseMultiItemQuickAdapter<UserEntity, BaseViewH
         if (AppUtils.stringToInt2(item.getHeight()) > 0) {
             builder.append(mContext.getString(R.string.height2)).append(" ").append(AppUtils.stringToInt2(item.getHeight())).append("  ");
         }
-        String career = AppUtils.getCareer(mContext, item.getCareer());
+        String career = UserUtils.getProfession(item.getCareer());
         if (!TextUtils.isEmpty(career)) {
             builder.append(career).append("  ");
         }

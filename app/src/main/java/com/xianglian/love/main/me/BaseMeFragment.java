@@ -78,7 +78,7 @@ public class BaseMeFragment extends BaseListFragment implements BaseQuickAdapter
 
     private UserEntity mUserEntity;
 
-    private int mTpye;
+    private int mType;
 
     public static final int TYPE_FROM_LOGIN = 1;
 
@@ -189,7 +189,7 @@ public class BaseMeFragment extends BaseListFragment implements BaseQuickAdapter
         mItemInfo.clear();
         mUserEntity = Hawk.get(Keys.USER_INFO);
         if (getArguments() != null)
-            mTpye = getArguments().getInt("key_from_type");
+            mType = getArguments().getInt("key_from_type");
     }
 
     @Override
@@ -279,7 +279,7 @@ public class BaseMeFragment extends BaseListFragment implements BaseQuickAdapter
     }
 
     private boolean isFromLogin() {
-        return mTpye == TYPE_FROM_LOGIN;
+        return mType == TYPE_FROM_LOGIN;
     }
 
     public ItemInfo getInfo(String text, int type, PersonInfo info) {
