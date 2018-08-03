@@ -44,6 +44,11 @@ public class Keys {
      */
     public static String LOCATION = "h_location";
 
+    /**
+     * 是否填写个人信息 String
+     */
+    public static String USER_EDIT_INFO = "h_user_edit_info";
+
     public interface TimKeys {
         String NICK_NAME = "tim_nick_name_flag";
         String FACE_URL = "tim_face_url_flag";

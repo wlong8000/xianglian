@@ -62,10 +62,6 @@
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".user.UserInfoEditActivity"
-            android:exported="true"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".user.AuthenticationActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -183,6 +179,9 @@
         <!-- 云通信配置结束 -->
         <activity
             android:name=".main.me.KeFuActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.me.UserInfoEditActivity"
             android:screenOrientation="portrait" />
     </application>
 

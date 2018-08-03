@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import base.BaseApplication;
+
 /**
  * Created by wanglong on 17/3/30.
  * 个人信息数据
@@ -24,7 +26,9 @@ import java.util.List;
 
 public class UserUtils {
 
-
+    /**
+     * 身高
+     */
     public static List<String> getHighData() {
         ArrayList<String> data = new ArrayList<>();
         for (int i = 140; i < 200; i++) {
@@ -33,12 +37,23 @@ public class UserUtils {
         return data;
     }
 
+    public static List<List<String>> getSubHeight() {
+        return getSubData(ItemInfo.Type.HEIGHT);
+    }
+
+    /**
+     * 年龄
+     */
     public static List<String> getAge() {
         ArrayList<String> data = new ArrayList<>();
         for (int i = 18; i < 60; i++) {
             data.add(String.valueOf(i));
         }
         return data;
+    }
+
+    public static List<List<String>> getSubAge() {
+        return getSubData(ItemInfo.Type.AGE);
     }
 
     /**
@@ -52,7 +67,124 @@ public class UserUtils {
         return data;
     }
 
-    static List<List<String>> getSubData(Context context, int type) {
+    /**
+     * 职业
+     */
+    public static List<String> getProfessions() {
+        return getArray(R.array.profession);
+    }
+
+    public static String getProfession(int item) {
+        return getItem(getProfessions(), item);
+    }
+
+    /**
+     * 收入
+     */
+    public static List<String> getInComingList() {
+        return getArray(R.array.income);
+    }
+
+    public static String getInCome(int item) {
+        return getItem(getInComingList(), item);
+    }
+
+    /**
+     * 教育程度
+     */
+    public static List<String> getEduList() {
+        return getArray(R.array.edu);
+    }
+
+    public static String getEdu(int item) {
+        return getItem(getEduList(), item);
+    }
+
+    public static List<List<String>> getSubEdu() {
+        return getSubData(ItemInfo.Type.EDUCATION);
+    }
+
+    /**
+     * 婚姻状况
+     */
+    public static List<String> getMarryStates() {
+        return getArray(R.array.marry_state);
+    }
+
+    public static String getMarryState(int item) {
+        return getItem(getMarryStates(), item);
+    }
+
+    /**
+     * 期望结婚时间
+     */
+    public static List<String> getHopeMarries() {
+        return getArray(R.array.expect_marry_time);
+    }
+
+    public static String getHopeMarry(int item) {
+        return getItem(getHopeMarries(), item);
+    }
+
+    /**
+     * 民族
+     */
+    public static List<String> getNations() {
+        return getArray(R.array.nation);
+    }
+
+    public static String getNation(int item) {
+        return getItem(getNations(), item);
+    }
+
+    /**
+     * 家中姊妹情况
+     */
+    public static List<String> getBrotherStates() {
+        return getArray(R.array.brother_state);
+    }
+
+    public static String getBrotherState(int item) {
+        return getItem(getBrotherStates(), item);
+    }
+
+    /**
+     * 星座
+     */
+    public static List<String> getConstellations() {
+        return getArray(R.array.constellation);
+    }
+
+    public static String getConstellation(int item) {
+        return getItem(getConstellations(), item);
+    }
+
+    @NonNull
+    public static List<String> getResources(Context context, @ArrayRes int id) {
+        Resources res = context.getResources();
+        return new ArrayList<>(Arrays.asList(res.getStringArray(id)));
+    }
+
+    public static List<String> getArray(@ArrayRes int id) {
+        return getResources(BaseApplication.baseApplication, id);
+    }
+
+    public static String getItem(List<String> list, int item) {
+        if (item >= list.size()) return null;
+        return list.get(item);
+    }
+
+    /**
+     * 是否
+     */
+    public static List<String> getRight() {
+        ArrayList<String> data = new ArrayList<>();
+        data.add("是");
+        data.add("否");
+        return data;
+    }
+
+    public static List<List<String>> getSubData(int type) {
         List<List<String>> subData = new ArrayList<>();
 
         List<String> list = null;
@@ -64,7 +196,7 @@ public class UserUtils {
                 list = getHighData();
                 break;
             case ItemInfo.Type.EDUCATION:
-                list = getEduData(context);
+                list = getEduList();
                 break;
         }
         if (list == null) return null;
@@ -77,159 +209,6 @@ public class UserUtils {
             subData.add(temp);
         }
         return subData;
-    }
-
-    public static List<List<String>> getSubAge(Context context) {
-        return getSubData(context, ItemInfo.Type.AGE);
-    }
-
-    public static List<List<String>> getSubHeight(Context context) {
-        return getSubData(context, ItemInfo.Type.HEIGHT);
-    }
-
-    public static List<String> getEduData(Context context) {
-        return getResources(context, R.array.edu);
-    }
-
-    @NonNull
-    public static List<String> getResources(Context context, @ArrayRes int id) {
-        Resources res = context.getResources();
-        return new ArrayList<>(Arrays.asList(res.getStringArray(id)));
-    }
-
-    public static List<List<String>> getSubEdu(Context context) {
-        return getSubData(context, ItemInfo.Type.EDUCATION);
-    }
-
-    public static List<String> getComingData(Context context) {
-        return getResources(context, R.array.income);
-    }
-
-    /**
-     * 婚姻状况
-     */
-    public static List<String> getMarryState(Context context) {
-        return getResources(context, R.array.marry_state);
-    }
-
-    public static String getMarry(int marry) {
-        switch (marry) {
-            case 1:
-                return "未婚";
-            case 2:
-                return "离异";
-            case 3:
-                return "丧偶";
-            default:
-                return "未婚";
-        }
-    }
-
-    public static String getCareer(int career) {
-        switch (career) {
-            case 1:
-                return "在校学生";
-            case 2:
-                return "私营业主";
-            case 3:
-                return "农业劳动者";
-            case 4:
-                return "企业职工";
-            case 5:
-                return "政府机关/事业单位";
-            default:
-                return "自由职业";
-        }
-    }
-
-    public static List<String> getProfessionData() {
-        ArrayList<String> data = new ArrayList<>();
-        data.add("在校学生");
-        data.add("私营业主");
-        data.add("农业劳动者");
-        data.add("企业职工");
-        data.add("政府机关/事业单位");
-        data.add("自由职业");
-        return data;
-    }
-
-    public static String getIncome(int inCome) {
-        switch (inCome) {
-            case 1:
-                return "5K以下";
-            case 2:
-                return "5K~8K";
-            case 3:
-                return "8K~12K";
-            case 4:
-                return "12K~20K";
-            case 5:
-                return "20K-30K";
-            default:
-                return "30K以上";
-        }
-    }
-
-    public static String getEdu(int edu) {
-        switch (edu) {
-            case 1:
-                return "高中/技校";
-            case 2:
-                return "专科";
-            case 3:
-                return "本科";
-            case 4:
-                return "研究生";
-            case 5:
-                return "海龟";
-            default:
-                return "高中/技校";
-        }
-    }
-
-    /**
-     * 期望结婚时间
-     */
-    public static List<String> getHopeMarry() {
-        ArrayList<String> data = new ArrayList<>();
-        data.add("3个月内");
-        data.add("6个月内");
-        data.add("1年内");
-        data.add("2年内");
-        data.add("2年以上");
-        return data;
-    }
-
-    /**
-     * 民族
-     */
-    public static List<String> getNation() {
-        ArrayList<String> data = new ArrayList<>();
-        data.add("汉族");
-        data.add("少数民族");
-        return data;
-    }
-
-    /**
-     * 家中排行
-     */
-    public static List<String> getRankings() {
-        ArrayList<String> data = new ArrayList<>();
-        data.add("老大");
-        data.add("老二");
-        data.add("老三");
-        data.add("老四");
-        return data;
-    }
-
-    /**
-     * 是否
-     */
-    public static List<String> getRight() {
-        ArrayList<String> data = new ArrayList<>();
-        data.add("是");
-        data.add("否");
-        return data;
     }
 
 

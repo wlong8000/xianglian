@@ -52,12 +52,12 @@ public class BaseInfoActivity extends BaseEditUserInfoActivity implements BaseQu
                 entity.setBirthday(text);
                 break;
             case ItemInfo.MyInfoType.APARTMENT:
-                text = dealRegion(options1, option2, options3, true);
+                text = dealRegion(options1, option2, options3, false);
                 entity.setWork_area_code(mItem.work_area_code);
                 entity.setWork_area_name(mItem.work_area_name);
                 break;
             case ItemInfo.MyInfoType.HOMETOWN:
-                text = dealRegion(options1, option2, options3, true);
+                text = dealRegion(options1, option2, options3, false);
                 entity.setBorn_area_code(mItem.born_area_code);
                 entity.setBorn_area_name(mItem.born_area_name);
                 break;
@@ -157,17 +157,17 @@ public class BaseInfoActivity extends BaseEditUserInfoActivity implements BaseQu
                 null, ItemInfo.MyInfoType.HEIGHT, UserUtils.getHighData()));
 
         //学历
-        mItemInfo.add(getInfo(getString(R.string.education), UserUtils.getEdu(info.getEducation()), ItemInfo.MyInfoType.EDUCATION, UserUtils.getEduData(this)));
+        mItemInfo.add(getInfo(getString(R.string.education), UserUtils.getEdu(info.getEducation()), ItemInfo.MyInfoType.EDUCATION, UserUtils.getEduList()));
 
         //职业
-        mItemInfo.add(getInfo(getString(R.string.profession), UserUtils.getCareer(info.getCareer()), ItemInfo.MyInfoType.PROFESSION, UserUtils.getProfessionData()));
+        mItemInfo.add(getInfo(getString(R.string.profession), UserUtils.getProfession(info.getCareer()), ItemInfo.MyInfoType.PROFESSION, UserUtils.getProfessions()));
 
         //月收入
-        mItemInfo.add(getInfo(getString(R.string.income), UserUtils.getIncome(info.getIncome()), ItemInfo.MyInfoType.INCOME, UserUtils.getComingData(this)));
+        mItemInfo.add(getInfo(getString(R.string.income), UserUtils.getInCome(info.getIncome()), ItemInfo.MyInfoType.INCOME, UserUtils.getInComingList()));
 
 
         //婚姻状况
-        mItemInfo.add(getInfo(getString(R.string.marry_state), UserUtils.getMarry(info.getMarriage_status()), ItemInfo.MyInfoType.MARRY_STATE, UserUtils.getMarryState(this)));
+        mItemInfo.add(getInfo(getString(R.string.marry_state), UserUtils.getMarryState(info.getMarriage_status()), ItemInfo.MyInfoType.MARRY_STATE, UserUtils.getMarryStates()));
 
         //体重(单位：kg)
         mItemInfo.add(getInfo(getString(R.string.weight), AppUtils.stringToFloat(info.getWeight()) > 0 ? AppUtils.stringToFloat(info.getWeight()) + "" :

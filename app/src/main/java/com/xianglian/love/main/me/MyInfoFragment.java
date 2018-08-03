@@ -187,26 +187,26 @@ public class MyInfoFragment extends BaseListFragment implements OnClickListener{
         data.add(getInfo(getString(R.string.height), ItemInfo.MyInfoType.HEIGHT, UserUtils.getHighData()));
 
         //学历
-        data.add(getInfo(getString(R.string.education), ItemInfo.MyInfoType.EDUCATION, UserUtils.getEduData(getContext())));
+        data.add(getInfo(getString(R.string.education), ItemInfo.MyInfoType.EDUCATION, UserUtils.getEduList()));
 
         //职业
-        data.add(getInfo(getString(R.string.profession), ItemInfo.MyInfoType.PROFESSION, UserUtils.getProfessionData()));
+        data.add(getInfo(getString(R.string.profession), ItemInfo.MyInfoType.PROFESSION, UserUtils.getProfessions()));
 
         //年收入
-        data.add(getInfo(getString(R.string.income), ItemInfo.MyInfoType.INCOME, UserUtils.getComingData(getContext())));
+        data.add(getInfo(getString(R.string.income), ItemInfo.MyInfoType.INCOME, UserUtils.getInComingList()));
 
 
         //期望结婚时间
-        data.add(getInfo(getString(R.string.hope_marry), ItemInfo.MyInfoType.HOPE_MARRY, UserUtils.getHopeMarry()));
+        data.add(getInfo(getString(R.string.hope_marry), ItemInfo.MyInfoType.HOPE_MARRY, UserUtils.getHopeMarries()));
 
         //民族
-        data.add(getInfo(getString(R.string.nation), ItemInfo.MyInfoType.NATION, UserUtils.getNation()));
+        data.add(getInfo(getString(R.string.nation), ItemInfo.MyInfoType.NATION, UserUtils.getNations()));
 
         //婚姻状况
-        data.add(getInfo(getString(R.string.marry_state), ItemInfo.MyInfoType.MARRY_STATE, UserUtils.getMarryState(getContext())));
+        data.add(getInfo(getString(R.string.marry_state), ItemInfo.MyInfoType.MARRY_STATE, UserUtils.getMarryStates()));
 
         //家中排行
-        data.add(getInfo(getString(R.string.raking), ItemInfo.MyInfoType.RANKING, UserUtils.getRankings()));
+        data.add(getInfo(getString(R.string.raking), ItemInfo.MyInfoType.RANKING, UserUtils.getBrotherStates()));
 
         //有无子女
         data.add(getInfo(getString(R.string.has_child), ItemInfo.MyInfoType.HAS_CHILD, UserUtils.getRight()));

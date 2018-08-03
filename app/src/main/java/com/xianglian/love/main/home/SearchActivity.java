@@ -59,11 +59,11 @@ public class SearchActivity extends BaseEditUserInfoActivity implements
         List<ItemInfo> data = new ArrayList<>();
 
         //年龄
-        data.add(getInfo(getString(R.string.age), ItemInfo.Type.AGE, UserUtils.getAge(), UserUtils.getSubAge(this)));
+        data.add(getInfo(getString(R.string.age), ItemInfo.Type.AGE, UserUtils.getAge(), UserUtils.getSubAge()));
 
         //身高
         data.add(getInfo(getString(R.string.height), ItemInfo.Type.HEIGHT, UserUtils.getHighData(),
-                UserUtils.getSubHeight(this)));
+                UserUtils.getSubHeight()));
 
         //居住地
         data.add(getInfo(getString(R.string.apartment), ItemInfo.Type.APARTMENT, null));
@@ -72,7 +72,7 @@ public class SearchActivity extends BaseEditUserInfoActivity implements
         data.add(getInfo(getString(R.string.home_town), ItemInfo.Type.HOMETOWN, null));
 
         //学历
-        data.add(getInfo(getString(R.string.education), ItemInfo.Type.EDUCATION, UserUtils.getEduData(this), UserUtils.getSubEdu(this)));
+        data.add(getInfo(getString(R.string.education), ItemInfo.Type.EDUCATION, UserUtils.getEduList(), UserUtils.getSubEdu()));
 
         //收入
 //        data.add(getInfo(getString(R.string.income), ItemInfo.Type.INCOME, UserUtils.getComingData(this)));

@@ -78,6 +78,11 @@ public class BaseMeFragment extends BaseListFragment implements BaseQuickAdapter
 
     private UserEntity mUserEntity;
 
+    private int mTpye;
+
+    public static final int TYPE_FROM_LOGIN = 1;
+
+
     private TakePhoto getTakePhoto() {
         if (mTakePhoto == null) {
             mTakePhoto = new TakePhoto(PhotoUtils.PHOTO);
@@ -167,7 +172,15 @@ public class BaseMeFragment extends BaseListFragment implements BaseQuickAdapter
     }
 
     public static BaseMeFragment newInstance() {
-        return new BaseMeFragment();
+        return newInstance(0);
+    }
+
+    public static BaseMeFragment newInstance(int type) {
+        BaseMeFragment fragment = new BaseMeFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("key_from_type", type);
+        fragment.setArguments(bundle);
+        return fragment;
     }
 
     @Override
@@ -175,6 +188,8 @@ public class BaseMeFragment extends BaseListFragment implements BaseQuickAdapter
         super.onCreate(savedInstanceState);
         mItemInfo.clear();
         mUserEntity = Hawk.get(Keys.USER_INFO);
+        if (getArguments() != null)
+            mTpye = getArguments().getInt("key_from_type");
     }
 
     @Override
@@ -253,13 +268,18 @@ public class BaseMeFragment extends BaseListFragment implements BaseQuickAdapter
 
         //兴趣爱好
 //        mItemInfo.add(getInfo(getString(R.string.hobby), ItemInfo.SettingType.HOBBY, null));
+        if (!isFromLogin()) {
+            //设置
+            mItemInfo.add(getInfo(getString(R.string.exit_count), ItemInfo.SettingType.EXIT_COUNT, null));
 
-        //设置
-        mItemInfo.add(getInfo(getString(R.string.exit_count), ItemInfo.SettingType.EXIT_COUNT, null));
+            //客服
+            mItemInfo.add(getInfo(getString(R.string.customer_agent), ItemInfo.SettingType.CUSTOMER_AGENT, null));
+        }
 
-        //客服
-        mItemInfo.add(getInfo(getString(R.string.customer_agent), ItemInfo.SettingType.CUSTOMER_AGENT, null));
+    }
 
+    private boolean isFromLogin() {
+        return mTpye == TYPE_FROM_LOGIN;
     }
 
     public ItemInfo getInfo(String text, int type, PersonInfo info) {

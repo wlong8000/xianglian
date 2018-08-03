@@ -135,7 +135,7 @@ public abstract class BaseEditUserInfoActivity extends BaseListActivity {
     @NonNull
     public String dealAge(int options1, int option2) {
         String minAge = UserUtils.getAge().get(options1);
-        String maxAge = UserUtils.getSubAge(this).get(options1).get(option2);
+        String maxAge = UserUtils.getSubAge().get(options1).get(option2);
         mItem.setMin_age(minAge);
         mItem.setMax_age(maxAge);
         return minAge + "-" + maxAge;
@@ -149,7 +149,7 @@ public abstract class BaseEditUserInfoActivity extends BaseListActivity {
     @NonNull
     public String dealHeight(int options1, int option2) {
         String min = UserUtils.getHighData().get(options1);
-        String max = UserUtils.getSubHeight(this).get(options1).get(option2);
+        String max = UserUtils.getSubHeight().get(options1).get(option2);
         mItem.setMin_height(min);
         mItem.setMax_height(max);
         return min + "-" + max;
@@ -163,13 +163,13 @@ public abstract class BaseEditUserInfoActivity extends BaseListActivity {
     @NonNull
     public String dealProfession(int options1) {
         mItem.career = (options1 + 1) + "";
-        return UserUtils.getProfessionData().get(options1);
+        return UserUtils.getProfessions().get(options1);
     }
 
     @NonNull
     public String dealEdu(int options1, int option2) {
-        String min = UserUtils.getEduData(this).get(options1);
-        String max = UserUtils.getSubEdu(this).get(options1).get(option2);
+        String min = UserUtils.getEduList().get(options1);
+        String max = UserUtils.getSubEdu().get(options1).get(option2);
         mItem.setMin_education(options1);
         mItem.setMax_education(option2);
         return min + "-" + max;
@@ -177,20 +177,20 @@ public abstract class BaseEditUserInfoActivity extends BaseListActivity {
 
     @NonNull
     public String dealEdu(int options1) {
-        mItem.education = (options1 + 1) + "";
-        return UserUtils.getEduData(this).get(options1);
+        mItem.education = String.valueOf(options1);
+        return UserUtils.getEdu(options1);
     }
 
     @NonNull
     public String dealIncome(int options1) {
-        mItem.income = (options1 + 1) + "";
-        return UserUtils.getComingData(this).get(options1);
+        mItem.income = String.valueOf(options1);
+        return UserUtils.getInCome(options1);
     }
 
     @NonNull
     public String dealMarryState(int options1) {
-        mItem.marriage_status = (options1 + 1) + "";
-        return UserUtils.getMarryState(this).get(options1);
+        mItem.marriage_status = String.valueOf(options1);
+        return UserUtils.getMarryState(options1);
     }
 
     @NonNull

@@ -80,7 +80,7 @@ public class HomeAdapter extends BaseMultiItemQuickAdapter<UserEntity, BaseViewH
         if (!TextUtils.isEmpty(career)) {
             builder.append(career).append("  ");
         }
-        builder.append(mContext.getString(R.string.income)).append(" ").append(UserUtils.getIncome(item.getIncome()));
+        builder.append(mContext.getString(R.string.income)).append(" ").append(UserUtils.getInCome(item.getIncome()));
         helper.setText(R.id.tv_user_head_info, builder.toString());
     }
 }

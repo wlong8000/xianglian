@@ -24,6 +24,7 @@ import com.xianglian.love.MainActivity;
 import com.xianglian.love.R;
 import com.xianglian.love.config.Config;
 import com.wl.appcore.Keys;
+import com.xianglian.love.main.me.*;
 import com.xianglian.love.net.JsonCallBack;
 import com.xianglian.love.utils.AppUtils;
 
@@ -33,6 +34,10 @@ import org.greenrobot.eventbus.ThreadMode;
 
 /**
  * A login screen that offers login via username/password.
+ * 1、登录获取token
+ * 2、拿token去获取用户信息
+ * 3、用username生成聊天的key
+ * 4、
  */
 public class LoginActivity extends BaseLoginActivity implements OnClickListener, TIMCallBack {
 
@@ -49,6 +54,18 @@ public class LoginActivity extends BaseLoginActivity implements OnClickListener,
     private UserEntity mEntity;
 
     private String mToken;
+    /**
+     * 获取用户信息
+     */
+    private static final int GET_USER_INFO = 1;
+    /**
+     * 获取聊天用的key
+     */
+    private static final int GET_TIM_SIGN = 0;
+    /**
+     * 改用户被封禁
+     */
+    private static final int FORBID = 3;
 
     public static Intent getIntent(Context context, String userName, String pwd, boolean autoLogin) {
         if (TextUtils.isEmpty(userName) || TextUtils.isEmpty(pwd)) return null;
@@ -138,7 +155,7 @@ public class LoginActivity extends BaseLoginActivity implements OnClickListener,
                     showToast(R.string.username_or_pwd_error);
                     return;
                 }
-                Hawk.put(Keys.TOKEN, entity.getToken());
+//                Hawk.put(Keys.TOKEN, entity.getToken());
                 mToken = entity.getToken();
                 AppService.startSaveUser(LoginActivity.this, true);
             }
@@ -167,7 +184,12 @@ public class LoginActivity extends BaseLoginActivity implements OnClickListener,
         TimHelper.getInstance().initMessage();
         Hawk.put(Keys.TOKEN, mToken);
         Hawk.put(Keys.USER_INFO, mEntity);
-        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        String edit = Hawk.get(Keys.USER_EDIT_INFO);
+        if ("true".equals(edit)) {
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        } else {
+            startActivity(new Intent(LoginActivity.this, UserInfoEditActivity.class));
+        }
         finish();
     }
 
@@ -180,13 +202,13 @@ public class LoginActivity extends BaseLoginActivity implements OnClickListener,
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void showMessage2(MessageEvent2 messageEvent) {
         UserEntity entity = messageEvent.getMessage();
-        if (messageEvent.getType() == 0) {
+        if (messageEvent.getType() == GET_TIM_SIGN) {
             LoginBusiness.loginIm(entity.getUsername(), entity.getUser_sign(), this);
-        } else if (messageEvent.getType() == 1) {
+        } else if (messageEvent.getType() == GET_USER_INFO) {
             String username = AppUtils.getTimName(entity.getUsername(), String.valueOf(entity.getId()));
             mEntity = entity;
             AppService.startUpdateTimSign(LoginActivity.this, username, true);
-        } else if (messageEvent.getType() == 3) {
+        } else if (messageEvent.getType() == FORBID) {
             dialogDisMiss();
             showToast(getString(R.string.action_forbade));
         }

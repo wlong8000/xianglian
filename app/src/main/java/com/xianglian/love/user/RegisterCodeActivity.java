@@ -17,6 +17,7 @@ import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.PostRequest;
 import com.xianglian.love.R;
 import com.xianglian.love.config.Config;
+import com.xianglian.love.utils.AppUtils;
 
 /**
  * 获取验证码
@@ -75,6 +76,10 @@ public class RegisterCodeActivity extends BaseLoginActivity implements View.OnCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_regist_code);
+        if (AppUtils.isLogin(this)) {
+            finish();
+            return;
+        }
         setupTitle(getString(R.string.register));
 
         mPhoneView = (AutoCompleteTextView) findViewById(R.id.tv_phone);
