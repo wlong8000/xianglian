@@ -85,6 +85,7 @@ public class BaseHomeFragment extends BaseListFragment implements BaseQuickAdapt
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mSex = Hawk.get(Keys.SEX);
+        mSex = Keys.TYPE_FEMALE.equals(mSex) ? Keys.TYPE_MALE : Keys.TYPE_FEMALE;
     }
 
     @Override

@@ -35,6 +35,7 @@ import com.wl.appchat.TimHelper;
 import com.wl.appchat.model.UserInfo;
 import com.wl.appcore.Keys;
 import com.wl.appcore.entity.UserEntity;
+import com.xianglian.love.config.Config;
 import com.xianglian.love.model.ConfigEntity;
 import com.xianglian.love.user.SelectSexActivity;
 import com.xianglian.love.utils.AppUtils;
@@ -66,6 +67,8 @@ public class SplashActivity extends BaseActivity implements SplashView, TIMCallB
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
         mConfigEntity = Hawk.get(Keys.CONFIG_INFO);
+        if (mConfigEntity != null)
+            Config.PATH = mConfigEntity.getServer_path();
         setupView();
 
         final List<String> permissionsList = new ArrayList<>();

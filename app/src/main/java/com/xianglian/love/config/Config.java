@@ -16,7 +16,7 @@ public class Config {
      */
     public static final String USER_INFO_KEY = "user_info_key";
 
-    public static final String PATH = "http://wlong800.s1.natapp.cc/";
+    public static String PATH = "http://wlong800.s1.natapp.cc/";
 
     /**
      * banner
