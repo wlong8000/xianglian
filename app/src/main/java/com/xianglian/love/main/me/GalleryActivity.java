@@ -11,9 +11,11 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.GetRequest;
 import com.lzy.okgo.request.PostRequest;
+import com.orhanobut.hawk.Hawk;
 import com.qiniu.android.http.ResponseInfo;
 import com.qiniu.android.storage.UpCompletionHandler;
 import com.qiniu.android.storage.UploadManager;
+import com.wl.appcore.Keys;
 import com.xianglian.love.R;
 import com.xianglian.love.ShowPicActivity;
 import com.xianglian.love.config.Config;
@@ -226,6 +228,10 @@ public class GalleryActivity extends BaseUserInfoActivity implements AlumView.On
                                     getQnToken(mLocalImages.get(0).getImage_url());
                                 } else {
                                     dialogDisMiss();
+                                    UserEntity userEntity = Hawk.get(Keys.USER_INFO);
+                                    if (userEntity != null) {
+                                        userEntity.setHas_album(true);
+                                    }
                                 }
                             }
                             Trace.i("qiniu", "Upload Success");

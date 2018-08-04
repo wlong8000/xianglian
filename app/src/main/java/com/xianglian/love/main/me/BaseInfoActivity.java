@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.orhanobut.hawk.Hawk;
+import com.wl.appcore.utils.AppUtils2;
 import com.xianglian.love.BaseEditUserInfoActivity;
 import com.xianglian.love.R;
 import com.wl.appcore.Keys;
@@ -23,8 +24,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import base.OkDialog;
+
 /**
- * 基本资料&择偶要求
+ * 基本资料
  */
 public class BaseInfoActivity extends BaseEditUserInfoActivity implements BaseQuickAdapter.OnItemClickListener {
 
@@ -195,7 +198,7 @@ public class BaseInfoActivity extends BaseEditUserInfoActivity implements BaseQu
         mItemInfo.add(getInfo(getString(R.string.hope_marry), UserUtils.getHopeMarry(getInt(info.getExpect_marry_time())), ItemInfo.MyInfoType.HOPE_MARRY, UserUtils.getHopeMarries()));
 
         //民族
-        mItemInfo.add(getInfo(getString(R.string.nation), UserUtils.getHopeMarry(getInt(info.getNationality())), ItemInfo.MyInfoType.NATION, UserUtils.getNations()));
+        mItemInfo.add(getInfo(getString(R.string.nation), UserUtils.getNation(getInt(info.getNationality())), ItemInfo.MyInfoType.NATION, UserUtils.getNations()));
 
         //姊妹情况
         mItemInfo.add(getInfo(getString(R.string.brother_state), UserUtils.getBrotherState(getInt(info.getBrother_state())), ItemInfo.MyInfoType.BROTHER_STATE, UserUtils.getBrotherStates()));
@@ -218,60 +221,46 @@ public class BaseInfoActivity extends BaseEditUserInfoActivity implements BaseQu
     public void onRequestSuccess(String response, int type, String data) {
         UserEntity userEntity = Hawk.get(Keys.USER_INFO);
         switch (type) {
-            case ItemInfo.MyInfoType.NICK_NAME:
-//                parseData("username", data);
-                userEntity.setUsername(data);
-                break;
+//            case ItemInfo.MyInfoType.NICK_NAME:
+//                userEntity.setUsername(data);
+//                break;
             case ItemInfo.MyInfoType.BIRTHDAY:
-//                parseData("birth_date", data);
                 userEntity.setBirthday(data);
                 break;
             case ItemInfo.MyInfoType.APARTMENT:
-//                parseData("work_area_name", mItem.work_area_name);
                 userEntity.setWork_area_name(mItem.work_area_name);
                 break;
             case ItemInfo.MyInfoType.HOMETOWN:
-//                parseData("born_area_name", mItem.born_area_name);
                 userEntity.setBorn_area_name(mItem.born_area_name);
                 break;
             case ItemInfo.MyInfoType.HEIGHT:
-//                parseData("height", data);
                 userEntity.setHeight(data);
                 break;
             case ItemInfo.MyInfoType.EDUCATION:
-//                parseData("education", data);
                 userEntity.setEducation(data);
                 break;
             case ItemInfo.MyInfoType.PROFESSION:
-//                parseData("career", data);
                 userEntity.setCareer(data);
                 break;
             case ItemInfo.MyInfoType.INCOME:
-//                parseData("income", data);
                 userEntity.setIncome(data);
                 break;
             case ItemInfo.MyInfoType.MARRY_STATE:
-//                parseData("marriage_status", data);
                 userEntity.setMarriage_status(data);
                 break;
             case ItemInfo.MyInfoType.WEIGHT:
-//                parseData("weight", data);
                 userEntity.setWeight(data);
                 break;
             case ItemInfo.MyInfoType.BROTHER_STATE:
-//                parseData("birth_index", data);
                 userEntity.setBrother_state(data);
                 break;
             case ItemInfo.MyInfoType.CONSTELLATION:
-//                parseData("birth_index", data);
                 userEntity.setConstellation(data);
                 break;
             case ItemInfo.MyInfoType.PARENT_WORK:
-//                parseData("birth_index", data);
                 userEntity.setParent_work(data);
                 break;
             case ItemInfo.MyInfoType.NATION:
-//                parseData("birth_index", data);
                 userEntity.setNationality(data);
                 break;
         }
@@ -310,5 +299,31 @@ public class BaseInfoActivity extends BaseEditUserInfoActivity implements BaseQu
                 }
             }
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        showDialog();
+    }
+
+    @Override
+    public void leftClick() {
+        showDialog();
+    }
+
+    private void showDialog() {
+        String text = AppUtils2.isCompleteData(1);
+        if (TextUtils.isEmpty(text)) {
+            finish();
+            return;
+        }
+        OkDialog okDialog = new OkDialog(this) {
+            @Override
+            public void onConfirm(String result) {
+                finish();
+            }
+        };
+        okDialog.show();
+        okDialog.setTitle("如果要查看别人资料，请填写完整个人基本资料，当前填写不完整，确定退出？");
     }
 }

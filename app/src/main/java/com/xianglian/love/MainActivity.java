@@ -1,16 +1,19 @@
 package com.xianglian.love;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 
 import com.wl.appchat.ConversationFragment;
 import com.wl.appcore.event.MessageEvent;
+import com.wl.appcore.utils.AppUtils2;
 import com.xianglian.love.main.home.BaseHomeFragment;
 import com.xianglian.love.main.home.SearchActivity;
 import com.xianglian.love.main.me.BaseMeFragment;
@@ -50,10 +53,24 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
 
     private int mTabIndex;
 
+    private int mType;
+
+    public static Intent getIntent(Context context) {
+        return getIntent(context, TAB_MAIN);
+    }
+
+    public static Intent getIntent(Context context, int type) {
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.putExtra("main_type", type);
+        return intent;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+        mType = getIntent().getIntExtra("main_type", TAB_MAIN);
+        setTabIndex();
         EventBus.getDefault().register(this);
         AppService.startConfigInfo(this);
         if (AppUtils.isLogin(this)) {
@@ -81,7 +98,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
             @Override
             public void onPageSelected(int position) {
                 mTabIndex = position;
-                dealJumpTab();
+                dealJumpTab(position);
             }
 
             @Override
@@ -99,6 +116,20 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
         mFragments.add(BaseMeFragment.newInstance());
     }
 
+    private void setTabIndex() {
+        switch (mType) {
+            case TAB_MAIN:
+                mTabIndex = 0;
+                break;
+            case TAB_CHATS:
+                mTabIndex = 1;
+                break;
+            case TAB_MY:
+                mTabIndex = 2;
+                break;
+        }
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -113,7 +144,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
                 break;
         }
         mViewPager.setCurrentItem(mTabIndex, false);
-        dealJumpTab();
+        dealJumpTab(mTabIndex);
     }
 
     class MainAdapter extends FragmentStatePagerAdapter {
@@ -141,8 +172,11 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
         if (AppUtils.isLogin(this)) {
             Intent intent = SearchActivity.getIntent(this);
             startActivityForResult(intent, REQUEST_CODE_SEARCH);
-        } else {
+        } else if (!AppUtils.isLogin(this)) {
             startActivity(LoginActivity.getIntent(this));
+        } else if (!TextUtils.isEmpty(AppUtils2.isCompleteData())) {
+            showToast(AppUtils2.isCompleteData());
+//            mViewPager.setCurrentItem(TAB_MY, false);
         }
     }
 
@@ -166,11 +200,12 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
         mBtnChat.setOnClickListener(this);
         mBtnMy.setOnClickListener(this);
 
-        dealJumpTab();
+        dealJumpTab(mTabIndex);
     }
 
-    private void dealJumpTab() {
-        mViewPager.setCurrentItem(mTabIndex, false);
+    public void dealJumpTab(int position) {
+        mTabIndex = position;
+        mViewPager.setCurrentItem(position, false);
         initBottomButton();
     }
 

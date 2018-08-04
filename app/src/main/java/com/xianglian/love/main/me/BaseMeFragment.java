@@ -20,6 +20,7 @@ import com.orhanobut.hawk.Hawk;
 import com.qiniu.android.http.ResponseInfo;
 import com.qiniu.android.storage.UpCompletionHandler;
 import com.qiniu.android.storage.UploadManager;
+import com.wl.appcore.utils.AppUtils2;
 import com.xianglian.love.BaseListFragment;
 import com.xianglian.love.R;
 import com.xianglian.love.config.Config;
@@ -243,7 +244,7 @@ public class BaseMeFragment extends BaseListFragment implements BaseQuickAdapter
         mItemInfo.add(getInfo(getString(R.string.my_album), ItemInfo.SettingType.MY_ALBUM, null, true));
 
         //个人简介
-        mItemInfo.add(getInfo(getString(R.string.introduce), ItemInfo.SettingType.INTRODUCE, null));
+//        mItemInfo.add(getInfo(getString(R.string.introduce), ItemInfo.SettingType.INTRODUCE, null));
 
         //个人信息
         mItemInfo.add(getInfo(getString(R.string.my_info), ItemInfo.SettingType.MY_INFO, null));
@@ -257,11 +258,12 @@ public class BaseMeFragment extends BaseListFragment implements BaseQuickAdapter
         //联系方式
 //        mItemInfo.add(getInfo(getString(R.string.phone), ItemInfo.SettingType.PHONE, null));
 
-        //情感经历
-        mItemInfo.add(getInfo(getString(R.string.experience_love), ItemInfo.SettingType.EXPERIENCE_LOVE, null, true));
-
         //择偶标准
         mItemInfo.add(getInfo(getString(R.string.condition_friend), ItemInfo.SettingType.CHOOSE_FRIEND_STANDARD, null));
+
+        //内心独白
+        mItemInfo.add(getInfo(getString(R.string.experience_love), ItemInfo.SettingType.EXPERIENCE_LOVE, null, true));
+
 
         //个人标签
 //        mItemInfo.add(getInfo(getString(R.string.mark), ItemInfo.SettingType.MARK, null, true));
@@ -440,7 +442,10 @@ public class BaseMeFragment extends BaseListFragment implements BaseQuickAdapter
             Intent intent = LoginActivity.getIntent(getContext());
             startActivity(intent);
             return;
-        }
+        }/* else if (!TextUtils.isEmpty(AppUtils2.isCompleteData())) {
+            startActivity(UserInfoEditActivity.getIntent(getContext()));
+            return;
+        }*/
         mEntity = mAdapter.getItem(position);
         if (mEntity == null) return;
         if (ItemInfo.ViewType.AVATAR == mEntity.getViewType()) {

@@ -59,12 +59,15 @@ public class IntroduceActivity extends BaseUserInfoActivity {
         if (INTRODUCE == mType) {
             setupTitle(getString(R.string.my_introduce), getString(R.string.save));
             content = mUserEntity.getPerson_intro();
+            mIntroduceView.setHint(R.string.person_des_text_hint);
         } else if (EXPERIENCE == mType) {
             setupTitle(getString(R.string.experience_love), getString(R.string.save));
             content = mUserEntity.getRelationship_desc();
+            mIntroduceView.setHint(R.string.person_heart_text_hint);
         } else if (CHOOSE_FRIEND_STANDARD == mType) {
             setupTitle(getString(R.string.condition_friend), getString(R.string.save));
             content = mUserEntity.getMate_preference();
+            mIntroduceView.setHint(R.string.person_condition_text_hint);
         }
         if (!TextUtils.isEmpty(content)) {
             mIntroduceView.setText(content);

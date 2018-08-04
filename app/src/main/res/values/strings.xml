@@ -42,6 +42,7 @@
     <string name="look_more">查看更多</string>
     <string name="publish">发布</string>
     <string name="skip">跳过</string>
+    <string name="mate_condition">择偶要求</string>
 
 
     <!-- 登录注册 -->
@@ -71,9 +72,9 @@
     <string name="main_my">我的</string>
     <string name="meet_you">享恋</string>
     <string name="mark">个人标签</string>
-    <string name="introduce">个人介绍</string>
+    <string name="introduce">个人简绍</string>
     <string name="my_album">我的相册</string>
-    <string name="my_info">个人信息</string>
+    <string name="my_info">个人基本资料</string>
     <string name="person_identity">身份认证</string>
     <string name="phone">联系方式</string>
     <string name="set_vip">成为会员</string>
@@ -83,7 +84,7 @@
     <string name="has_no_car">未购车</string>
     <string name="has_house">已购房</string>
     <string name="has_no_house">未购房</string>
-    <string name="experience_love">情感经历</string>
+    <string name="experience_love">内心独白</string>
     <string name="condition_friend">择偶标准</string>
     <string name="hobby">兴趣爱好</string>
     <string name="please_write_introduce">请输入简介</string>
@@ -148,6 +149,8 @@
     <string name="modify_complete">修改完成</string>
     <string name="upload_avatar_desc">将作为个人封面图，展示到首页</string>
     <string name="person_des_text_hint">请输入个人简介 （200字以内)</string>
+    <string name="person_heart_text_hint">请输入内心独白 （200字以内)</string>
+    <string name="person_condition_text_hint">请输入择偶标准 （200字以内)</string>
     <string name="my_photos">我的相册</string>
     <string name="my_introduce">个人简介</string>
     <string name="text_upload_avatar_success">头像上传成功</string>
@@ -166,9 +169,9 @@
     <string name="gallery_unable">相册不可用</string>
     <string name="unaccess_pic">无权限访问选定的图片</string>
     <string name="hint_introduce">最多100字</string>
-    <string name="introduce_null">个人介绍不能为空</string>
+    <string name="introduce_null">个人简绍不能为空</string>
     <string name="phone_change_null">QQ或者微信需要至少填写一个</string>
-    <string name="introduce_little">个人介绍太少</string>
+    <string name="introduce_little">个人简绍太少</string>
     <string name="save">保存</string>
     <string name="save_fail">保存失败</string>
     <string name="save_success">保存成功</string>

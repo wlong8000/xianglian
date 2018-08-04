@@ -19,6 +19,7 @@ import com.tencent.qcloud.presentation.business.LoginBusiness;
 import com.wl.appchat.TimHelper;
 import com.wl.appcore.entity.UserEntity;
 import com.wl.appcore.event.MessageEvent2;
+import com.wl.appcore.utils.AppUtils2;
 import com.xianglian.love.AppService;
 import com.xianglian.love.MainActivity;
 import com.xianglian.love.R;
@@ -155,7 +156,7 @@ public class LoginActivity extends BaseLoginActivity implements OnClickListener,
                     showToast(R.string.username_or_pwd_error);
                     return;
                 }
-//                Hawk.put(Keys.TOKEN, entity.getToken());
+                Hawk.put(Keys.TOKEN, entity.getToken());
                 mToken = entity.getToken();
                 AppService.startSaveUser(LoginActivity.this, true);
             }
@@ -184,11 +185,10 @@ public class LoginActivity extends BaseLoginActivity implements OnClickListener,
         TimHelper.getInstance().initMessage();
         Hawk.put(Keys.TOKEN, mToken);
         Hawk.put(Keys.USER_INFO, mEntity);
-        String edit = Hawk.get(Keys.USER_EDIT_INFO);
-        if ("true".equals(edit)) {
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        if (!TextUtils.isEmpty(AppUtils2.isCompleteData())) {
+            startActivity(UserInfoEditActivity.getIntent(LoginActivity.this));
         } else {
-            startActivity(new Intent(LoginActivity.this, UserInfoEditActivity.class));
+            startActivity(MainActivity.getIntent(LoginActivity.this, MainActivity.TAB_MY));
         }
         finish();
     }

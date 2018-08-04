@@ -23,8 +23,10 @@ public class UserCenter {
     }
 
     public void notifyLoginOk(UserEntity user) {
-        Hawk.put(Keys.USER_INFO, user);
-        Hawk.put(Keys.SEX, user.getGender());
+        if (user != null) {
+            Hawk.put(Keys.USER_INFO, user);
+            Hawk.put(Keys.SEX, user.getGender());
+        }
     }
 
     public void notifyLogout() {

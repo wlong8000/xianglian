@@ -53,7 +53,7 @@ public class SelectSexActivity extends BaseActivity implements View.OnClickListe
 
     private void intoPersonInfo(String sex) {
         Hawk.put(Keys.SEX, sex);
-        startActivity(new Intent(this, MainActivity.class));
+        startActivity(MainActivity.getIntent(this));
         finish();
     }
 }

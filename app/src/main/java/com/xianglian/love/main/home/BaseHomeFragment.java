@@ -16,6 +16,7 @@ import com.lzy.okgo.cache.CacheMode;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.GetRequest;
 import com.orhanobut.hawk.Hawk;
+import com.wl.appcore.utils.AppUtils2;
 import com.xianglian.love.BaseListFragment;
 import com.xianglian.love.MainActivity;
 import com.xianglian.love.R;
@@ -24,6 +25,7 @@ import com.wl.appcore.Keys;
 import com.xianglian.love.loadmore.CustomLoadMoreView;
 import com.xianglian.love.main.home.adapter.HomeAdapter;
 import com.wl.appcore.entity.UserEntity;
+import com.xianglian.love.main.me.UserInfoEditActivity;
 import com.xianglian.love.net.JsonCallBack;
 import com.xianglian.love.user.LoginActivity;
 import com.xianglian.love.user.been.ItemInfo;
@@ -175,7 +177,7 @@ public class BaseHomeFragment extends BaseListFragment implements BaseQuickAdapt
         List<UserEntity> normalList = new ArrayList<>();
         for (UserEntity entity : entities) {
             if (entity == null
-                    || TextUtils.isEmpty(entity.getPic1())
+                    /*|| TextUtils.isEmpty(entity.getPic1())*/
                     || "1".equals(entity.getBlack_user())) {
                 continue;
             }
@@ -217,6 +219,13 @@ public class BaseHomeFragment extends BaseListFragment implements BaseQuickAdapt
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         if (!AppUtils.isLogin(getContext())) {
             startActivity(LoginActivity.getIntent(getContext()));
+            return;
+        } else if (!TextUtils.isEmpty(AppUtils2.isCompleteData())) {
+//            startActivity(MainActivity.getIntent(getContext(), MainActivity.TAB_MY));
+            if (getActivity() != null && getActivity() instanceof MainActivity) {
+                ((MainActivity) getActivity()).showToast(AppUtils2.isCompleteData());
+//                ((MainActivity) getActivity()).dealJumpTab(MainActivity.TAB_MY);
+            }
             return;
         }
         UserEntity info = mAdapter.getItem(position);

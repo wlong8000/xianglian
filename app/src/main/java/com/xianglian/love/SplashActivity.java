@@ -140,7 +140,7 @@ public class SplashActivity extends BaseActivity implements SplashView, TIMCallB
     }
 
     private void gotoMainActivity() {
-        startActivity(new Intent(SplashActivity.this, MainActivity.class));
+        startActivity(MainActivity.getIntent(this));
         finish();
     }
 

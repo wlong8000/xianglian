@@ -83,6 +83,7 @@ public class UserEntity implements Serializable, MultiItemEntity {
     private String expect_marry_time;
     private String brother_state;
     private String nationality;
+    private boolean has_album;
 
 
     public String getBirthday() {
@@ -495,6 +496,14 @@ public class UserEntity implements Serializable, MultiItemEntity {
 
     public void setIs_like(boolean is_like) {
         this.is_like = is_like;
+    }
+
+    public boolean isHas_album() {
+        return has_album;
+    }
+
+    public void setHas_album(boolean has_album) {
+        this.has_album = has_album;
     }
 
     public UserEntity() {
