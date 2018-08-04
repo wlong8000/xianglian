@@ -103,6 +103,7 @@ public class RegisterCodeActivity extends BaseLoginActivity implements View.OnCl
                 Intent intent = RegisterActivity.getIntent(RegisterCodeActivity.this,
                         getText(mPhoneView), getText(mSmsCodeView));
                 startActivity(intent);
+                finish();
                 break;
             case R.id.password_code:
                 getSmsCode();
