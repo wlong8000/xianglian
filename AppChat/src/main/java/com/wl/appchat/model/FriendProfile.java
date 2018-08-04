@@ -2,6 +2,8 @@ package com.wl.appchat.model;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
+import android.widget.Toast;
 
 import com.tencent.TIMUserProfile;
 import com.wl.appchat.MyApplication;
@@ -49,6 +51,13 @@ public class FriendProfile implements ProfileSummary {
             return profile.getRemark();
         } else if (!profile.getNickName().equals("")) {
             return profile.getNickName();
+        }
+        String text = profile.getIdentifier();
+        if (!TextUtils.isEmpty(text)) {
+            String[] str = text.split("-");
+            if (str.length > 1) {
+                return str[1];
+            }
         }
         return profile.getIdentifier();
     }

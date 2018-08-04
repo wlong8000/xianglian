@@ -9,9 +9,8 @@ import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.xianglian.love.R;
-import com.xianglian.love.library.tag.TagBaseAdapter;
-import com.xianglian.love.library.tag.TagCloudLayout;
 import com.xianglian.love.main.home.been.UserDetailEntity;
+import com.xianglian.love.main.me.ItemContainerLayout;
 import com.xianglian.love.utils.AppUtils;
 import com.xianglian.love.utils.UserUtils;
 import com.xianglian.love.view.AlumView;
@@ -38,6 +37,7 @@ public class PersonDetailAdapter extends BaseMultiItemQuickAdapter<UserDetailEnt
         addItemType(UserDetailEntity.ViewType.INTRODUCE, R.layout.item_home_detail_introduce);
         addItemType(UserDetailEntity.ViewType.ALBUM, R.layout.item_home_detail_alum);
         addItemType(UserDetailEntity.ViewType.EXPERIENCE_EMOTION, R.layout.item_home_detail_introduce);
+        addItemType(UserDetailEntity.ViewType.CHOOSE_CONDITION, R.layout.item_home_detail_introduce);
         addItemType(UserDetailEntity.ViewType.MARK, R.layout.item_home_detail_mark);
         addItemType(UserDetailEntity.ViewType.FAVORITE, R.layout.item_home_detail_fav);
         addItemType(UserDetailEntity.ViewType.BASE_INFO, R.layout.item_home_detail_base_info);
@@ -68,6 +68,10 @@ public class PersonDetailAdapter extends BaseMultiItemQuickAdapter<UserDetailEnt
                 helper.setText(R.id.title, mContext.getString(R.string.experience_love));
                 helper.setText(R.id.introduce, item.getRelationship_desc());
                 break;
+            case UserDetailEntity.ViewType.CHOOSE_CONDITION:
+                helper.setText(R.id.title, mContext.getString(R.string.mate_condition));
+                helper.setText(R.id.introduce, item.getMate_preference());
+                break;
             case UserDetailEntity.ViewType.MARK:
                 helper.setText(R.id.title, mContext.getString(R.string.mark));
                 FavoriteView view = helper.getView(R.id.favorite_layout);
@@ -81,18 +85,21 @@ public class PersonDetailAdapter extends BaseMultiItemQuickAdapter<UserDetailEnt
                 favoriteView.setData(AppUtils.getInterests(item.getInterests()));
                 break;
             case UserDetailEntity.ViewType.ALBUM:
+                helper.setText(R.id.title, mContext.getString(R.string.ta_alums));
                 AlumView alumView = helper.getView(R.id.alum_layout);
                 alumView.initAdapter(4);
                 alumView.setData(item.getImages());
                 break;
             case UserDetailEntity.ViewType.BASE_INFO:
+                helper.setText(R.id.title, mContext.getString(R.string.base_info));
                 helper.setText(R.id.car, "有".equals(item.getHas_car()) ?
                         mContext.getString(R.string.has_car) : mContext.getString(R.string.has_no_car));
                 helper.setText(R.id.house, "有".equals(item.getHas_house()) ?
                         mContext.getString(R.string.has_house) : mContext.getString(R.string.has_no_house));
-                TagCloudLayout tagCloudLayout = helper.getView(R.id.tab_container);
-                TagBaseAdapter mAdapter = new TagBaseAdapter(mContext, UserUtils.getBaseInfoList(item));
-                tagCloudLayout.setAdapter(mAdapter);
+                ItemContainerLayout tagCloudLayout = helper.getView(R.id.tab_container);
+                tagCloudLayout.setDetailEntity(item).addItems().build();
+//                TagBaseAdapter mAdapter = new TagBaseAdapter(mContext, UserUtils.getBaseInfoList(item));
+//                tagCloudLayout.setAdapter(mAdapter);
                 break;
             case UserDetailEntity.ViewType.TITLE:
                 helper.setText(R.id.title, mContext.getString(R.string.message));

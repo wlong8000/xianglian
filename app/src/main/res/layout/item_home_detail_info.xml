@@ -5,12 +5,13 @@
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:orientation="vertical">
+
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/img"
+        style="@style/lib_style_fresco_base_normal"
         android:layout_width="match_parent"
-        android:layout_height="260dp"
-        android:scaleType="fitXY"
-        app:progressBarImageScaleType="centerCrop" />
+        android:layout_height="wrap_content"
+        app:viewAspectRatio="1" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,7 +33,8 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
             android:text=" | "
-            android:textColor="@color/lib_color_bg12" />
+            android:textColor="@color/lib_color_bg12"
+            android:visibility="gone" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -40,7 +42,8 @@
             android:layout_marginRight="5dp"
             android:text="ID"
             android:textColor="#aaa7a7"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tv_id"
@@ -49,14 +52,16 @@
             android:layout_marginRight="5dp"
             android:text="124235543545"
             android:textColor="#aaa7a7"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/ver"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:src="@drawable/icon_user_certificate" />
+            android:src="@drawable/icon_user_certificate"
+            android:visibility="gone" />
 
     </LinearLayout>
 
@@ -145,6 +150,6 @@
 
     <View
         style="@style/lib_style_divider5"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="15dp" />
 
 </LinearLayout>

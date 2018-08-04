@@ -227,13 +227,31 @@ public class UserUtils {
         if (entity == null) return null;
         List<String> list = new ArrayList<>();
         if (!TextUtils.isEmpty(entity.getConstellation())) {
-            list.add("星座/" + entity.getConstellation());
+            list.add(UserUtils.getConstellation(AppUtils.stringToInt(entity.getConstellation())));
+        }
+        if (!TextUtils.isEmpty(entity.getEducation())) {
+            list.add(UserUtils.getEdu(AppUtils.stringToInt(entity.getEducation())));
         }
         if (!TextUtils.isEmpty(entity.getWork_area_name())) {
             list.add("工作地/" + entity.getWork_area_name());
         }
         if (!TextUtils.isEmpty(entity.getBorn_area_name())) {
             list.add("出生地/" + entity.getBorn_area_name());
+        }
+        if (!TextUtils.isEmpty(entity.getMarriage_status())) {
+            list.add(UserUtils.getMarryState(AppUtils.stringToInt(entity.getMarriage_status())));
+        }
+        if (!TextUtils.isEmpty(entity.getNationality())) {
+            list.add(UserUtils.getNation(AppUtils.stringToInt(entity.getNationality())));
+        }
+        if (!TextUtils.isEmpty(entity.getBrother_state())) {
+            list.add(UserUtils.getBrotherState(AppUtils.stringToInt(entity.getBrother_state())));
+        }
+        if (!TextUtils.isEmpty(entity.getWeight())) {
+            list.add("体重(kg)/" + AppUtils.stringToInt2(entity.getWeight()));
+        }
+        if (!TextUtils.isEmpty(entity.getParent_work())) {
+            list.add("父母工作/" + UserUtils.getParentProfession(AppUtils.stringToInt(entity.getParent_work())));
         }
         return list;
     }

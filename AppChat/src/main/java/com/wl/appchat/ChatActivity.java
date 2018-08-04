@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -69,6 +70,7 @@ public class ChatActivity extends AddFriendFragmentActivity implements ChatView 
     private TIMConversationType type;
     private String titleStr;
     private TemplateTitle mTitle;
+    private FriendProfile profile;
     private Handler handler = new Handler();
     /**
      * 将标题设置为对象名称
@@ -171,12 +173,15 @@ public class ChatActivity extends AddFriendFragmentActivity implements ChatView 
         if (!FriendshipInfo.getInstance().isFriend(identify)) {
             addFriend(identify);
         } else {
+            Toast.makeText(this, "已经是朋友了", Toast.LENGTH_LONG).show();
+            profile = FriendshipInfo.getInstance().getProfile(identify);
+            Log.d(TAG, "profile2 = " + profile);
             setName();
         }
     }
 
     private void setName() {
-        FriendProfile profile = FriendshipInfo.getInstance().getProfile(identify);
+//        FriendProfile profile = FriendshipInfo.getInstance().getProfile(identify);
         mTitle.setTitleText(titleStr = profile == null ? "smillier" : profile.getName());
     }
 
@@ -537,6 +542,9 @@ public class ChatActivity extends AddFriendFragmentActivity implements ChatView 
         super.onAddFriend(status);
         switch (status) {
             case TIM_FRIEND_STATUS_SUCC:
+                Toast.makeText(this, "添加朋友成功", Toast.LENGTH_LONG).show();
+                profile = FriendshipInfo.getInstance().getProfile(identify);
+                Log.d(TAG, "profile = " + profile);
                 recurrence();
                 break;
         }
@@ -546,12 +554,12 @@ public class ChatActivity extends AddFriendFragmentActivity implements ChatView 
         if (FriendshipInfo.getInstance().isFriend(identify)) {
             setName();
         } else {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    recurrence();
-                }
-            }, 100);
+//            new Handler().postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    recurrence();
+//                }
+//            }, 100);
         }
     }
 

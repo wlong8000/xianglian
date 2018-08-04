@@ -33,7 +33,7 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
         int INTRODUCE = 1;
 
         /**
-         * 情感经历
+         * 内心独白
          */
         int EXPERIENCE_EMOTION = 2;
 
@@ -66,6 +66,11 @@ public class UserDetailEntity implements Parcelable, MultiItemEntity {
          * 标题
          */
         int TITLE = 8;
+
+        /**
+         * 择偶标准
+         */
+        int CHOOSE_CONDITION = 9;
     }
     private String msg;
     private int code;

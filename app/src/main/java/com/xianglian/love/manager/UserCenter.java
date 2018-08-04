@@ -34,6 +34,11 @@ public class UserCenter {
         Hawk.put(Keys.TOKEN, null);
         Hawk.put(Keys.USER_TIM_SIGN, null);
         Hawk.put(Keys.SEARCH_INFO_LIST, null);
+
+        Hawk.put(Keys.TimKeys.NICK_NAME, null);
+        Hawk.put(Keys.TimKeys.FACE_URL, null);
+        Hawk.put(Keys.TimKeys.USER_ID, null);
+        Hawk.put(Keys.TimKeys.USER_INFO, null);
         logout();
     }
 

@@ -234,6 +234,7 @@
         <item>企业职工</item>
         <item>政府机关/事业单位</item>
         <item>自由职业</item>
+        <item>退休职工</item>
     </string-array>
 
     <string-array name="edu">

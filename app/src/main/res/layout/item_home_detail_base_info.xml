@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
@@ -8,30 +7,7 @@
 
     <View style="@style/lib_style_divider5" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingBottom="15dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="15dp">
-
-        <TextView
-            android:layout_width="3dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="8dp"
-            android:background="@color/lib_color_font1" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="5dp"
-            android:text="@string/base_info"
-            android:textColor="@color/lib_color_bg12"
-            android:textSize="16sp" />
-
-    </LinearLayout>
+    <include layout="@layout/item_detail_title" />
 
     <View
         style="@style/lib_style_divider"
@@ -39,6 +15,7 @@
         android:layout_marginRight="12dp" />
 
     <RelativeLayout
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -99,24 +76,14 @@
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp" />
 
-    <com.xianglian.love.library.tag.TagCloudLayout
+    <com.xianglian.love.main.me.ItemContainerLayout
         android:id="@+id/tab_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="20dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="13dp"
-        app:lineSpacing="10dp"
-        app:tagSpacing="15dp" />
-
-    <ImageView
-        android:id="@+id/arrow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:padding="10dp"
-        android:visibility="gone"
-        android:src="@drawable/arrow_down" />
+        android:layout_marginRight="10dp" />
 
 
 </LinearLayout>

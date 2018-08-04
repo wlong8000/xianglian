@@ -83,18 +83,25 @@ public class PersonDetailActivity extends BaseListActivity {
 
     private void addData(UserDetailEntity entity) {
         addDataByType(UserDetailEntity.ViewType.TOP_INFO, entity);
-        if (!TextUtils.isEmpty(entity.getPerson_intro())) {
-            addDataByType(UserDetailEntity.ViewType.INTRODUCE, entity);
-        }
         if (entity.getImages() != null && !entity.getImages().isEmpty()) {
             addDataByType(UserDetailEntity.ViewType.ALBUM, entity);
         }
+
+//        if (!TextUtils.isEmpty(entity.getPerson_intro())) {
+//            addDataByType(UserDetailEntity.ViewType.INTRODUCE, entity);
+//        }
+
+        if (!TextUtils.isEmpty(entity.getMate_preference())) {
+            addDataByType(UserDetailEntity.ViewType.CHOOSE_CONDITION, entity);
+        }
+
+        if (!TextUtils.isEmpty(entity.getRelationship_desc())) {
+            addDataByType(UserDetailEntity.ViewType.EXPERIENCE_EMOTION, entity);
+        }
+
         addDataByType(UserDetailEntity.ViewType.BASE_INFO, entity);
         if (entity.getTags() != null && entity.getTags().size() > 0) {
             addDataByType(UserDetailEntity.ViewType.MARK, entity);
-        }
-        if (!TextUtils.isEmpty(entity.getRelationship_desc())) {
-            addDataByType(UserDetailEntity.ViewType.EXPERIENCE_EMOTION, entity);
         }
 //        if (entity.getInterests() != null && entity.getInterests().size() > 0) {
 //            addDataByType(UserDetailEntity.ViewType.FAVORITE, entity);
