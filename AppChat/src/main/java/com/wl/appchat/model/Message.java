@@ -73,8 +73,10 @@ public abstract class Message {
             viewHolder.leftPanel.setVisibility(View.VISIBLE);
             viewHolder.rightPanel.setVisibility(View.GONE);
             FriendProfile friendProfile = FriendshipInfo.getInstance().getProfile(message.getConversation().getPeer());
-            if (friendProfile != null) {
+            if (friendProfile != null && !TextUtils.isEmpty(friendProfile.getAvatarUrl())) {
                 viewHolder.leftAvatar.setImageURI(friendProfile.getAvatarUrl());
+            } else {
+                AppUtils2.loadLocalImage(MyApplication.getContext(), viewHolder.leftAvatar, R.drawable.head_me);
             }
             //群聊显示名称，群名片>个人昵称>identify
             if (message.getConversation().getType() == TIMConversationType.Group) {
