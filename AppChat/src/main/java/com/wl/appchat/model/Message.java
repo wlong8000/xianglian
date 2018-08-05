@@ -212,11 +212,14 @@ public abstract class Message {
     }
 
     private String getAvatar() {
+        System.out.println("=====avatar===== start " + avatar);
         if (TextUtils.isEmpty(avatar)) {
             UserEntity entity = Hawk.get(Keys.TimKeys.USER_INFO);
-            if (entity != null) avatar = entity.getPic1();
+            System.out.println("=====avatar===== start2 " + entity);
+            if (entity != null) {
+                avatar = entity.getPic1();
+            }
         }
-        System.out.print("=====avatar=====" + avatar);
         return avatar;
     }
 }

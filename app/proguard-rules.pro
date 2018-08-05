@@ -94,13 +94,13 @@
 }
 
 #release版不打印log
--assumenosideeffects class android.util.Log {
-    public static *** d(...);
-    public static *** v(...);
-    public static *** i(...);
-    public static *** e(...);
-    public static *** w(...);
-}
+#-assumenosideeffects class android.util.Log {
+#    public static *** d(...);
+#    public static *** v(...);
+#    public static *** i(...);
+#    public static *** e(...);
+#    public static *** w(...);
+#}
 
 #四大组件不能混淆
 -dontwarn android.support.v4.**

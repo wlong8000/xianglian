@@ -47,6 +47,7 @@ public class FriendProfile implements ProfileSummary {
      */
     @Override
     public String getName() {
+        System.out.println("------>>> getIdentifier " + profile.getIdentifier() + ", remark = " + profile.getRemark() + ", nickname = " + profile.getNickName());
         if (!profile.getRemark().equals("")) {
             return profile.getRemark();
         } else if (!profile.getNickName().equals("")) {
@@ -59,7 +60,7 @@ public class FriendProfile implements ProfileSummary {
                 return str[1];
             }
         }
-        return profile.getIdentifier();
+        return text;
     }
 
     /**

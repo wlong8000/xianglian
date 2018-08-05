@@ -77,7 +77,7 @@ public class TalkMeetAdapter extends RecyclerView.Adapter {
     public int getItemViewType(int position) {
         if (getItem(position) == null)
             return -1;
-        return getItem(position).getViewType();
+        return getItem(position).getItemType();
 
     }
 

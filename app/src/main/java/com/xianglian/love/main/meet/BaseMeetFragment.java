@@ -1,81 +1,45 @@
 package com.xianglian.love.main.meet;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.GetRequest;
+import com.wl.appcore.utils.AppUtils2;
 import com.xianglian.love.BaseListFragment;
+import com.xianglian.love.MainActivity;
 import com.xianglian.love.R;
-import com.xianglian.love.main.home.been.PersonInfo;
-import com.xianglian.love.main.meet.adapter.MeetAdapter;
-import com.xianglian.love.user.been.ItemInfo;
-import com.xianglian.love.utils.CommonLinearLayoutManager;
+import com.xianglian.love.config.Config;
+import com.xianglian.love.loadmore.CustomLoadMoreView;
+import com.xianglian.love.main.meet.adapter.Meet2Adapter;
+import com.xianglian.love.main.meet.model.MeetInfo;
+import com.xianglian.love.net.JsonCallBack;
+import com.xianglian.love.user.LoginActivity;
+import com.xianglian.love.utils.AppUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by wanglong on 17/3/11.
- * 专刊
+ * 聚会
  */
 
-public class BaseMeetFragment extends BaseListFragment {
+public class BaseMeetFragment extends BaseListFragment implements BaseQuickAdapter.OnItemClickListener,
+        BaseQuickAdapter.OnItemChildClickListener {
 
-    private RecyclerView mRecyclerView;
+    private Meet2Adapter mAdapter;
 
-    private CommonLinearLayoutManager mLayoutManager;
-
-    private MeetAdapter mAdapter;
-
-    private PersonInfo mPersonInfo;
-
-    private ItemInfo mEntity;
-
-    private View.OnClickListener itemClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            int position = mRecyclerView.getChildAdapterPosition(view);
-            mEntity = mAdapter.getItem(position);
-            if (mEntity == null) return;
-            if (ItemInfo.ViewType.PICK_SELECT == mEntity.getViewType()) {
-                switch (mEntity.getType()) {
-                    case ItemInfo.MeetType.AT_ME: {
-                        Intent intent = TaMeetActivity.getIntent(getContext());
-                        startActivity(intent);
-                        break;
-                    }
-                    case ItemInfo.MeetType.ME_AT: {
-                        Intent intent = MeMeetActivity.getIntent(getContext());
-                        startActivity(intent);
-                        break;
-                    }
-                    case ItemInfo.MeetType.LAST_COME: {
-                        Intent intent = LastVisitActivity.getIntent(getContext());
-                        startActivity(intent);
-                        break;
-                    }
-                    case ItemInfo.MeetType.HEART_RECORD: {
-                        Intent intent = HeartRecordActivity.getIntent(getContext());
-                        startActivity(intent);
-                        break;
-                    }
-                    case ItemInfo.MeetType.HEART_ADDRESS_BOOK: {
-                        Intent intent = HeartContactActivity.getIntent(getContext());
-                        startActivity(intent);
-                        break;
-                    }
-                }
-            }
-        }
-    };
+    private List<MeetInfo> meetInfoList = new ArrayList<>();
 
     public static BaseMeetFragment newInstance() {
-        BaseMeetFragment fragment = new BaseMeetFragment();
-        return fragment;
+        return new BaseMeetFragment();
     }
 
     @Override
@@ -86,60 +50,90 @@ public class BaseMeetFragment extends BaseListFragment {
     }
 
     public void setupRecyclerView(View view) {
-        mRecyclerView = view.findViewById(R.id.recycler_view);
-        mLayoutManager = new CommonLinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new MeetAdapter(getContext(), itemClickListener);
+        super.setupRecyclerView(view);
+        mAdapter = new Meet2Adapter(meetInfoList);
         mRecyclerView.setAdapter(mAdapter);
-        addData();
+        mAdapter.setOnItemClickListener(this);
+        mAdapter.setOnItemChildClickListener(this);
+        mAdapter.setLoadMoreView(new CustomLoadMoreView());
+        mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                onRefresh2(false);
+            }
+        }, mRecyclerView);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                onRefresh2(true);
+            }
+        });
+        mSwipeRefreshLayout.setRefreshing(true);
+        onRefresh2(true);
     }
 
     @Override
-    public void onRefresh2(boolean refresh) {
-
-    }
-
-    private void addData() {
-        addDataByType(ItemInfo.ViewType.PICK_SELECT);
-    }
-
-    private void addDataByType(int type) {
-        switch (type) {
-            case ItemInfo.ViewType.PICK_SELECT: {
-                mAdapter.getInfo().addAll(getData());
-                break;
-            }
+    public void onRefresh2(final boolean refresh) {
+        String url;
+        if (!refresh && TextUtils.isEmpty(mNextUrl)) {
+            return;
         }
-        mAdapter.notifyDataSetChanged();
+        if (!refresh && !TextUtils.isEmpty(mNextUrl)) {
+            url = mNextUrl;
+        } else {
+            url = Config.PATH + "meet_action/";
+        }
+        GetRequest<MeetInfo> request = OkGo.get(url);
+        request.headers("Authorization", AppUtils.getToken(getContext()));
+        request.execute(new JsonCallBack<MeetInfo>(MeetInfo.class) {
+            @Override
+            public void onSuccess(Response<MeetInfo> response) {
+                mSwipeRefreshLayout.setRefreshing(false);
+                MeetInfo entity = response.body();
+                if (entity == null || entity.getResults() == null) {
+                    mAdapter.setNewData(null);
+                    mAdapter.setEmptyView(emptyView);
+                    return;
+                }
+                mNextUrl = entity.getNext();
+                if (refresh) {
+                    mAdapter.setNewData(entity.getResults());
+                } else {
+                    mAdapter.addData(entity.getResults());
+                }
+                if (TextUtils.isEmpty(mNextUrl)) {
+                    mAdapter.loadMoreEnd(refresh);
+                } else {
+                    mAdapter.loadMoreComplete();
+                }
+            }
+
+            @Override
+            public void onError(Response<MeetInfo> response) {
+                super.onError(response);
+                mSwipeRefreshLayout.setRefreshing(false);
+//                showToast(getResources().getString(R.string.please_check_network));
+//                addData(null);
+            }
+        });
     }
 
-    private List<ItemInfo> getData() {
-        List<ItemInfo> data = new ArrayList<>();
+    @Override
+    public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
 
-        //有人想约我
-        data.add(getInfo(getString(R.string.meet_me), ItemInfo.MeetType.AT_ME, null));
-
-        //我发出去的约见
-        data.add(getInfo(getString(R.string.me_meet), ItemInfo.MeetType.ME_AT, null));
-
-        //最近来访
-        data.add(getInfo(getString(R.string.last_come), ItemInfo.MeetType.LAST_COME, null));
-
-        //心动记录
-        data.add(getInfo(getString(R.string.heart_record), ItemInfo.MeetType.HEART_RECORD, null));
-
-        //心动通讯录
-        data.add(getInfo(getString(R.string.heart_address_book), ItemInfo.MeetType.HEART_ADDRESS_BOOK, null));
-
-        return data;
     }
 
-    public ItemInfo getInfo(String text, int type, PersonInfo info) {
-        ItemInfo data = new ItemInfo();
-        data.setViewType(ItemInfo.ViewType.PICK_SELECT);
-        data.setText(text);
-        data.setType(type);
-        data.setInfo(info);
-        return data;
+    @Override
+    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        if (!AppUtils.isLogin(getContext())) {
+            startActivity(LoginActivity.getIntent(getContext()));
+            return;
+        } else if (!TextUtils.isEmpty(AppUtils2.isCompleteData())) {
+//            startActivity(MainActivity.getIntent(getContext(), MainActivity.TAB_MY));
+            if (getActivity() != null && getActivity() instanceof MainActivity) {
+                ((MainActivity) getActivity()).showToast(AppUtils2.isCompleteData());
+            }
+            return;
+        }
     }
 }

@@ -17,6 +17,7 @@ import com.wl.appcore.utils.AppUtils2;
 import com.xianglian.love.main.home.BaseHomeFragment;
 import com.xianglian.love.main.home.SearchActivity;
 import com.xianglian.love.main.me.BaseMeFragment;
+import com.xianglian.love.main.meet.BaseMeetFragment;
 import com.xianglian.love.user.LoginActivity;
 import com.xianglian.love.utils.AppUtils;
 import com.xianglian.love.utils.UpdateUtil;
@@ -47,13 +48,15 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
 
     public static final int TAB_CHATS = 1;
 
-    public static final int TAB_MY = 2;
+    public static final int TAB_MEET = 2;
 
-    private Button mBtnMain, mBtnChat, mBtnMy;
+    public static final int TAB_MY = 3;
+
+    private Button mBtnMain, mBtnChat, mBtnMeet, mBtnMy;
 
     private int mTabIndex;
 
-    private int mType;
+    private QBadgeView qBadgeView;
 
     public static Intent getIntent(Context context) {
         return getIntent(context, TAB_MAIN);
@@ -69,8 +72,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-        mType = getIntent().getIntExtra("main_type", TAB_MAIN);
-        setTabIndex();
+        mTabIndex = getIntent().getIntExtra("main_type", TAB_MAIN);
         EventBus.getDefault().register(this);
         AppService.startConfigInfo(this);
         if (AppUtils.isLogin(this)) {
@@ -113,34 +115,24 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
         mFragments.add(BaseHomeFragment.newInstance());
         ConversationFragment conversationFragment = new ConversationFragment();
         mFragments.add(conversationFragment);
+        mFragments.add(BaseMeetFragment.newInstance());
         mFragments.add(BaseMeFragment.newInstance());
-    }
-
-    private void setTabIndex() {
-        switch (mType) {
-            case TAB_MAIN:
-                mTabIndex = 0;
-                break;
-            case TAB_CHATS:
-                mTabIndex = 1;
-                break;
-            case TAB_MY:
-                mTabIndex = 2;
-                break;
-        }
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.main:
-                mTabIndex = 0;
+                mTabIndex = TAB_MAIN;
                 break;
             case R.id.chat:
-                mTabIndex = 1;
+                mTabIndex = TAB_CHATS;
+                break;
+            case R.id.meet:
+                mTabIndex = TAB_MEET;
                 break;
             case R.id.my:
-                mTabIndex = 2;
+                mTabIndex = TAB_MY;
                 break;
         }
         mViewPager.setCurrentItem(mTabIndex, false);
@@ -194,10 +186,12 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
     private void setupView() {
         mBtnMain = findViewById(R.id.main);
         mBtnChat = findViewById(R.id.chat);
+        mBtnMeet = findViewById(R.id.meet);
         mBtnMy = findViewById(R.id.my);
 
         mBtnMain.setOnClickListener(this);
         mBtnChat.setOnClickListener(this);
+        mBtnMeet.setOnClickListener(this);
         mBtnMy.setOnClickListener(this);
 
         dealJumpTab(mTabIndex);
@@ -216,6 +210,9 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
         mBtnChat.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.main_meet, 0, 0);
         mBtnChat.setTextColor(getResources().getColor(R.color.grey));
 
+        mBtnMeet.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.main_meet, 0, 0);
+        mBtnMeet.setTextColor(getResources().getColor(R.color.grey));
+
         mBtnMy.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.main_me, 0, 0);
         mBtnMy.setTextColor(getResources().getColor(R.color.grey));
 
@@ -230,6 +227,12 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
                 mBtnChat.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.main_meet_selected, 0,
                         0);
                 mBtnChat.setTextColor(getResources().getColor(R.color.lib_color_font11));
+                break;
+            }
+            case TAB_MEET: {
+                mBtnMeet.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.main_meet_selected, 0,
+                        0);
+                mBtnMeet.setTextColor(getResources().getColor(R.color.lib_color_font11));
                 break;
             }
             case TAB_MY: {
@@ -248,8 +251,6 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
             fragment.onActivityResult(requestCode, resultCode, data);
         }
     }
-
-    private QBadgeView qBadgeView;
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void showMessage(MessageEvent messageEvent) {

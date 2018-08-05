@@ -20,12 +20,12 @@
         android:id="@+id/tab"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        app:ntb_badge_gravity="top"
-        app:ntb_bg_color="@color/white"
         android:visibility="gone"
         app:ntb_active_color="@color/lib_color_font8"
+        app:ntb_badge_gravity="top"
         app:ntb_badge_position="right"
         app:ntb_badged="true"
+        app:ntb_bg_color="@color/white"
         app:ntb_scaled="false"
         app:ntb_swiped="true"
         app:ntb_tinted="true"
@@ -74,6 +74,14 @@
                 android:textSize="@dimen/bottom_nav_textsize" />
 
             <Button
+                android:id="@+id/meet"
+                style="@style/Button_Main"
+                android:drawableTop="@drawable/main_home"
+                android:text="@string/main_meet"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/bottom_nav_textsize" />
+
+            <Button
                 android:id="@+id/my"
                 style="@style/Button_Main"
                 android:drawableTop="@drawable/main_home"
@@ -82,11 +90,11 @@
                 android:textSize="@dimen/bottom_nav_textsize" />
 
             <!--<Button-->
-                <!--android:id="@+id/settings"-->
-                <!--style="@style/Button_Main"-->
-                <!--android:text="@string/Settings"-->
-                <!--android:textColor="@color/grey"-->
-                <!--android:textSize="@dimen/bottom_nav_textsize" />-->
+            <!--android:id="@+id/settings"-->
+            <!--style="@style/Button_Main"-->
+            <!--android:text="@string/Settings"-->
+            <!--android:textColor="@color/grey"-->
+            <!--android:textSize="@dimen/bottom_nav_textsize" />-->
 
         </LinearLayout>
     </LinearLayout>

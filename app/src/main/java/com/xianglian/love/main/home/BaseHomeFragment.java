@@ -25,7 +25,6 @@ import com.wl.appcore.Keys;
 import com.xianglian.love.loadmore.CustomLoadMoreView;
 import com.xianglian.love.main.home.adapter.HomeAdapter;
 import com.wl.appcore.entity.UserEntity;
-import com.xianglian.love.main.me.UserInfoEditActivity;
 import com.xianglian.love.net.JsonCallBack;
 import com.xianglian.love.user.LoginActivity;
 import com.xianglian.love.user.been.ItemInfo;
@@ -33,7 +32,6 @@ import com.xianglian.love.utils.AppUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
