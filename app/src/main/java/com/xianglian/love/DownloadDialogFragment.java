@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.orhanobut.hawk.Hawk;
 import com.xianglian.love.model.DownloadModel;
+import com.xianglian.love.utils.AppUtils;
 import com.xianglian.love.utils.Trace;
 
 
@@ -152,14 +153,14 @@ public class DownloadDialogFragment extends DialogFragment implements View.OnCli
         if (state != PackageManager.COMPONENT_ENABLED_STATE_DEFAULT
                 && state != PackageManager.COMPONENT_ENABLED_STATE_ENABLED) {
             Intent webIntent = new Intent(Intent.ACTION_VIEW);
-            webIntent.setData(Uri.parse(url));
+            webIntent.setData(AppUtils.parse(url));
             context.startActivity(webIntent);
             return;
         }
 
         DownloadManager manager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
         // 创建下载请求
-        DownloadManager.Request down = new DownloadManager.Request(Uri.parse(url));
+        DownloadManager.Request down = new DownloadManager.Request(AppUtils.parse(url));
         // 设置允许使用的网络类型，这里是移动网络和wifi都可以
         down.setAllowedNetworkTypes(
                 DownloadManager.Request.NETWORK_MOBILE | DownloadManager.Request.NETWORK_WIFI);

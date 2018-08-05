@@ -13,6 +13,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 
 import com.xianglian.love.R;
+import com.xianglian.love.utils.AppUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -175,7 +176,7 @@ public abstract class BaseActivity extends AppCompatActivity implements
     private void startAppSettings() {
         Intent intent = new Intent(
                 Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-        intent.setData(Uri.parse("package:" + getPackageName()));
+        intent.setData(AppUtils.parse("package:" + getPackageName()));
         startActivity(intent);
     }
 

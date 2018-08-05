@@ -594,7 +594,7 @@ public class Tool {
      * 调用电话
      */
     public static void call(Context ctx, String phoneno) {
-        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneno));
+        Intent intent = new Intent(Intent.ACTION_DIAL, AppUtils.parse("tel:" + phoneno));
         ctx.startActivity(intent);
     }
 

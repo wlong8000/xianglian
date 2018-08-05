@@ -1,8 +1,13 @@
 package com.wl.appcore.utils;
 
 import android.content.Context;
+import android.net.Uri;
+import android.support.annotation.DrawableRes;
 import android.text.TextUtils;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.interfaces.DraweeController;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.orhanobut.hawk.Hawk;
 import com.wl.appcore.Keys;
 import com.wl.appcore.entity.UserEntity;
@@ -89,5 +94,20 @@ public class AppUtils2 {
 
     public static String getToken() {
         return Hawk.get(Keys.TOKEN);
+    }
+
+    public static Uri parse(String url) {
+        if (TextUtils.isEmpty(url))
+            return Uri.parse("");
+        return Uri.parse(url);
+    }
+
+    public static void loadLocalImage(Context context, SimpleDraweeView img, @DrawableRes int res) {
+        Uri uri = Uri.parse("res://" + context.getPackageName() + "/" + res);
+        DraweeController draweeController = Fresco.newDraweeControllerBuilder()
+                .setUri(uri)
+                .setAutoPlayAnimations(true) // 设置加载图片完成后是否直接进行播放
+                .build();
+        img.setController(draweeController);
     }
 }

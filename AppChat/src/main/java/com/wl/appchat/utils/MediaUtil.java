@@ -6,6 +6,7 @@ import android.util.Log;
 
 
 import com.wl.appchat.MyApplication;
+import com.wl.appcore.utils.AppUtils2;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -69,7 +70,7 @@ public class MediaUtil {
     }
 
     public long getDuration(String path) {
-        player = MediaPlayer.create(MyApplication.getContext(), Uri.parse(path));
+        player = MediaPlayer.create(MyApplication.getContext(), AppUtils2.parse(path));
         return player.getDuration();
     }
 

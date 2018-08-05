@@ -128,8 +128,10 @@ public class BaseHomeFragment extends BaseListFragment implements BaseQuickAdapt
             @Override
             public void onSuccess(Response<UserEntity> response) {
                 mSwipeRefreshLayout.setRefreshing(false);
+                System.out.print("response&&& " + response);
                 if (response != null && response.body() != null) {
                     UserEntity userEntity = response.body();
+                    System.out.print("response&&&2 " + userEntity);
                     if (userEntity == null) return;
                     if (userEntity.getCount() <= 0) {
                         mAdapter.setNewData(null);
@@ -137,7 +139,9 @@ public class BaseHomeFragment extends BaseListFragment implements BaseQuickAdapt
                         return;
                     }
                     mNextUrl = userEntity.getNext();
+                    System.out.print("response&&&3 " + mNextUrl);
                     List<UserEntity> userEntities = userEntity.getResults();
+                    System.out.print("response&&&4 " + userEntities);
                     dealItemData(userEntities, refresh);
                     if (TextUtils.isEmpty(mNextUrl)) {
                         mAdapter.loadMoreEnd(refresh);

@@ -29,3 +29,5 @@
 -dontwarn qalsdk.**
 
 -keep class dalvik.system.DexFile{*;}
+
+-keep class com.wl.appchat.model.** { *; }

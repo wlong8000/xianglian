@@ -10,10 +10,14 @@ import com.orhanobut.hawk.Hawk;
 import com.tencent.TIMConversationType;
 import com.tencent.TIMMessage;
 import com.tencent.TIMMessageStatus;
+import com.tencent.qalsdk.util.BaseApplication;
+import com.wl.appchat.MyApplication;
+import com.wl.appchat.R;
 import com.wl.appchat.adapter.ChatAdapter;
 import com.wl.appchat.utils.TimeUtil;
 import com.wl.appcore.Keys;
 import com.wl.appcore.entity.UserEntity;
+import com.wl.appcore.utils.AppUtils2;
 
 /**
  * 消息数据基类
@@ -59,7 +63,11 @@ public abstract class Message {
         if (message.isSelf()) {
             viewHolder.leftPanel.setVisibility(View.GONE);
             viewHolder.rightPanel.setVisibility(View.VISIBLE);
-            viewHolder.rightAvatar.setImageURI(Uri.parse(getAvatar()));
+            if (TextUtils.isEmpty(getAvatar())) {
+                AppUtils2.loadLocalImage(MyApplication.getContext(), viewHolder.rightAvatar,R.drawable.head_me);
+            } else {
+                viewHolder.rightAvatar.setImageURI(AppUtils2.parse(getAvatar()));
+            }
             return viewHolder.rightMessage;
         } else {
             viewHolder.leftPanel.setVisibility(View.VISIBLE);
@@ -206,6 +214,7 @@ public abstract class Message {
             UserEntity entity = Hawk.get(Keys.TimKeys.USER_INFO);
             if (entity != null) avatar = entity.getPic1();
         }
+        System.out.print("=====avatar=====" + avatar);
         return avatar;
     }
 }

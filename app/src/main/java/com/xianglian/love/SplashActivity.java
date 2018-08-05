@@ -67,7 +67,7 @@ public class SplashActivity extends BaseActivity implements SplashView, TIMCallB
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
         mConfigEntity = Hawk.get(Keys.CONFIG_INFO);
-        if (mConfigEntity != null)
+        if (mConfigEntity != null && !TextUtils.isEmpty(mConfigEntity.getServer_path()))
             Config.PATH = mConfigEntity.getServer_path();
         setupView();
 

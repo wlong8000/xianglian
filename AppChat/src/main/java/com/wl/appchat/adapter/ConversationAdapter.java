@@ -14,6 +14,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.wl.appchat.R;
 import com.wl.appchat.model.Conversation;
 import com.wl.appchat.utils.TimeUtil;
+import com.wl.appcore.utils.AppUtils2;
 
 import java.util.List;
 
@@ -57,7 +58,7 @@ public class ConversationAdapter extends ArrayAdapter<Conversation> {
         final Conversation data = getItem(position);
         viewHolder.tvName.setText(data.getName());
         if (!TextUtils.isEmpty(data.getAvatar())) {
-            viewHolder.avatar.setImageURI(Uri.parse(data.getAvatar()));
+            viewHolder.avatar.setImageURI(AppUtils2.parse(data.getAvatar()));
         } else {
             viewHolder.avatar.setImageResource(R.drawable.head_other);
         }
