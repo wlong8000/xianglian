@@ -26,7 +26,7 @@
             android:drawableLeft="@drawable/icon_phone"
             android:drawablePadding="8dp"
             android:hint="@string/enter_phone_number"
-            android:inputType="textEmailAddress"
+            android:inputType="number"
             android:maxLines="1"
             android:singleLine="true" />
 
@@ -44,7 +44,6 @@
                 android:drawableLeft="@drawable/icon_password"
                 android:drawablePadding="8dp"
                 android:hint="@string/enter_code"
-                android:imeActionId="@+id/login"
                 android:imeOptions="actionUnspecified"
                 android:inputType="textPassword"
                 android:maxLines="1"

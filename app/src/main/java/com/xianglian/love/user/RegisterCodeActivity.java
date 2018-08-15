@@ -3,7 +3,6 @@ package com.xianglian.love.user;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
@@ -15,9 +14,13 @@ import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.HttpParams;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.PostRequest;
+import com.wl.appcore.utils.AppUtils2;
 import com.xianglian.love.R;
 import com.xianglian.love.config.Config;
 import com.xianglian.love.utils.AppUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * 获取验证码
@@ -35,13 +38,7 @@ public class RegisterCodeActivity extends BaseLoginActivity implements View.OnCl
 
     private int time = CYCLE;
 
-    private Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-
-        }
-    };
+    private Handler mHandler = new Handler();
 
     private Runnable runnable = new Runnable() {
         @Override
@@ -107,14 +104,17 @@ public class RegisterCodeActivity extends BaseLoginActivity implements View.OnCl
                 break;
             case R.id.password_code:
                 getSmsCode();
-                mHandler.post(runnable);
                 break;
         }
     }
 
     private void getSmsCode() {
         if (TextUtils.isEmpty(getText(mPhoneView))) {
-            toast(R.string.sms_code_null);
+            toast(R.string.phone_null);
+            return;
+        }
+        if (!AppUtils2.isMobileNO(getText(mPhoneView))) {
+            toast(R.string.phone_error);
             return;
         }
         getCode(getText(mPhoneView));
@@ -124,8 +124,9 @@ public class RegisterCodeActivity extends BaseLoginActivity implements View.OnCl
      * 获取验证码
      */
     private void getCode(String phone) {
-        String url = Config.PATH + "code/";
+        mHandler.post(runnable);
 
+        String url = Config.PATH + "code/";
         HttpParams params = new HttpParams();
         params.put("mobile", phone);
 
@@ -135,6 +136,19 @@ public class RegisterCodeActivity extends BaseLoginActivity implements View.OnCl
             @Override
             public void onSuccess(Response<String> response) {
                 dialogDisMiss();
+                String result = response.body();
+                try {
+                    JSONObject object = new JSONObject(result);
+                    int code = object.getInt("code");
+                    if (code != 0) {
+                        showToast(object.getString("msg"));
+                        mHandler.removeCallbacks(runnable);
+                        resetRunnable();
+                        enableVerify();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
@@ -142,23 +156,21 @@ public class RegisterCodeActivity extends BaseLoginActivity implements View.OnCl
                 super.onError(response);
                 dialogDisMiss();
                 mHandler.removeCallbacks(runnable);
+                resetRunnable();
+                enableVerify();
             }
         });
+    }
 
+    @Override
+    public void finish() {
+        super.finish();
+        mHandler.removeCallbacks(runnable);
+    }
 
-//        OkHttpUtil.getDefault(this).doPostAsync(
-//                HttpInfo.Builder().setUrl(url).addParams(params).addHeads(getHeader()).build(),
-//                new Callback() {
-//                    @Override
-//                    public void onFailure(HttpInfo info) throws IOException {
-//                        dialogDisMiss();
-//                        mHandler.removeCallbacks(runnable);
-//                    }
-//
-//                    @Override
-//                    public void onSuccess(HttpInfo info) throws IOException {
-//                        dialogDisMiss();
-//                    }
-//                });
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mHandler.removeCallbacks(runnable);
     }
 }

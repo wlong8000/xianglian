@@ -1,20 +1,12 @@
 package com.xianglian.love.config;
 
-import android.os.Environment;
 
 /**
  * Created by Administrator on 2017/3/9.
  */
 public class Config {
-    public static final String DEFAULT_MD5 = "sdfasdf!@##$%DSfg$%^(DFG>:<LKP:<?<:K";
-    /**
-     * 缓存路径
-     */
-    public static final String CACHE_PATH = Environment.getExternalStorageDirectory().getPath() + "/lianba";
-    /**
-     * 用户信息KEY
-     */
-    public static final String USER_INFO_KEY = "user_info_key";
+
+//    public static String PATH = "http://xlian.freestyle9527.com:8000/";
 
     public static String PATH = "http://wlong800.s1.natapp.cc/";
 

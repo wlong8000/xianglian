@@ -59,6 +59,7 @@
     <string name="sms_code_err">验证码错误</string>
     <string name="sms_code_null">验证码不能为空</string>
     <string name="phone_null">手机号不能为空</string>
+    <string name="phone_error">手机号码不合法</string>
 
     <string name="maxsupport_num">只能上传%1$s张图啦</string>
     <string name="send_error">发送失败,请重试</string>
@@ -68,7 +69,7 @@
 
     <string name="main_home">首页</string>
     <string name="main_special">侃侃</string>
-    <string name="main_meet">相亲会</string>
+    <string name="main_meet">活动</string>
     <string name="main_my">我的</string>
     <string name="meet_you">享恋</string>
     <string name="mark">个人标签</string>
@@ -137,7 +138,7 @@
         <item>其他</item>
     </string-array>
 
-    <string name="selected_sex">请选择性别</string>
+    <string name="selected_sex">请选择您的性别</string>
     <string name="selected">条件筛选</string>
     <string name="selected_user_info">填写个人信息</string>
     <string name="complete">完成</string>

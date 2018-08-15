@@ -116,7 +116,7 @@ public class SplashActivity extends BaseActivity implements SplashView, TIMCallB
                 | TIMFriendshipManager.TIM_PROFILE_FLAG_FACE_URL
                 | TIMFriendshipManager.TIM_PROFILE_FLAG_NICK;
 //        TIMManager.getInstance().initFriendshipSettings(flags, null);
-        mPresenter = new SplashPresenter(this, mConfigEntity != null
+        mPresenter = new SplashPresenter(this, mConfigEntity != null && !TextUtils.isEmpty(mConfigEntity.getSplash_time())
                 ? Integer.parseInt(mConfigEntity.getSplash_time()) * 1000 : 2000);
         mPresenter.start();
     }
