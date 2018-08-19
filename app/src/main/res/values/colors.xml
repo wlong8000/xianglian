@@ -77,6 +77,9 @@
     <color name="lib_color_bg14">#ffeeef</color>
     <color name="lib_color_bg15">#fff3dc</color>
 
+    <color name="lib_color_bg16">#f7bf0d</color>
+    <color name="lib_color_bg17">#fffef8</color>
+
     <!--特殊-系统社区消息未读背景色-->
     <color name="lib_color_bg_msg">#FFFCDB</color>
     <!-- 透明 -->

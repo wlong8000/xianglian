@@ -1,5 +1,7 @@
 package com.xianglian.love.main.meet.adapter;
 
+import android.text.TextUtils;
+
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -34,6 +36,21 @@ public class Meet2Adapter extends BaseMultiItemQuickAdapter<MeetInfo, BaseViewHo
             case MeetInfo.ViewType.COMMON_INFO:
                 SimpleDraweeView imageView = helper.getView(R.id.cover_img);
                 imageView.setImageURI(AppUtils.parse(item.getUrl()));
+                helper.setText(R.id.title, item.getTitle());
+                helper.setText(R.id.sub_content, item.getSub_describe());
+                helper.setText(R.id.price, item.getPrice());
+                if (!TextUtils.isEmpty(item.getTag1())) {
+                    helper.setVisible(R.id.tag_layout, true);
+                    helper.setText(R.id.tag1, item.getTag1());
+                }
+                if (!TextUtils.isEmpty(item.getTag2())) {
+                    helper.setVisible(R.id.tag_layout, true);
+                    helper.setText(R.id.tag2, item.getTag2());
+                }
+                if (!TextUtils.isEmpty(item.getTag3())) {
+                    helper.setVisible(R.id.tag_layout, true);
+                    helper.setText(R.id.tag3, item.getTag3());
+                }
                 break;
         }
     }
