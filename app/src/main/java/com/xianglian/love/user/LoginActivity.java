@@ -183,7 +183,6 @@ public class LoginActivity extends BaseLoginActivity implements OnClickListener,
     public void onSuccess() {
         dialogDisMiss();
         TimHelper.getInstance().initMessage();
-        Hawk.put(Keys.TOKEN, mToken);
         Hawk.put(Keys.USER_INFO, mEntity);
         if (!TextUtils.isEmpty(AppUtils2.isCompleteData())) {
             startActivity(UserInfoEditActivity.getIntent(LoginActivity.this));

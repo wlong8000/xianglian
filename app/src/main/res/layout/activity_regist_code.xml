@@ -45,7 +45,7 @@
                 android:drawablePadding="8dp"
                 android:hint="@string/enter_code"
                 android:imeOptions="actionUnspecified"
-                android:inputType="textPassword"
+                android:inputType="number"
                 android:maxLines="1"
                 android:singleLine="true" />
 

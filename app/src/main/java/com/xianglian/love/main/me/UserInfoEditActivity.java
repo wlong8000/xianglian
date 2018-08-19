@@ -47,7 +47,7 @@ public class UserInfoEditActivity extends BaseActivity {
         dialog.show();
         dialog.setCanceledOnTouchOutside(false);
         dialog.setTitle("1、恭喜您，注册成功，欢迎加入<享恋>大家庭\n2、本APP为免费APP，没有会员机制，不收取任何费用\n3、我们欢迎真正找对象的您，发广告，有其他目的的用户，零容忍" +
-                "\n4、认真填写个人资料，否则无法查看其他人的资料\n5、填写资料大概需要3-8分钟，请耐心，您的这几分钟，可以是您步入婚礼殿堂的开始");
+                "\n4、认真填写个人资料，否则无法查看其他人的资料\n5、填写资料大概需要3-8分钟，请耐心，您的这几分钟，可能是您迈入婚礼殿堂的开始");
 
     }
 

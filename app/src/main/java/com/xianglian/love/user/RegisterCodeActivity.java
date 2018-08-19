@@ -139,7 +139,13 @@ public class RegisterCodeActivity extends BaseLoginActivity implements View.OnCl
                 String result = response.body();
                 try {
                     JSONObject object = new JSONObject(result);
-                    int code = object.getInt("code");
+                    int code = -1;
+                    if (object.has("code")) {
+                        code = object.getInt("code");
+                    } else if (object.has("mobile")) {
+                        object = object.getJSONObject("mobile");
+                        code = object.getInt("code");
+                    }
                     if (code != 0) {
                         showToast(object.getString("msg"));
                         mHandler.removeCallbacks(runnable);

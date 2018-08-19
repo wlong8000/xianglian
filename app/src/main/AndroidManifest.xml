@@ -182,6 +182,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".main.me.UserInfoEditActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" />
     </application>
 

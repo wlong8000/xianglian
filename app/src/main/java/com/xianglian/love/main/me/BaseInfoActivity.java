@@ -186,7 +186,7 @@ public class BaseInfoActivity extends BaseEditUserInfoActivity implements BaseQu
         mItemInfo.add(getInfo(getString(R.string.profession), UserUtils.getProfession(getInt(info.getCareer())), ItemInfo.MyInfoType.PROFESSION, UserUtils.getProfessions()));
 
         //月收入
-        mItemInfo.add(getInfo(getString(R.string.income), UserUtils.getInCome(getInt(info.getIncome())), ItemInfo.MyInfoType.INCOME, UserUtils.getInComingList()));
+        mItemInfo.add(getInfo(getString(R.string.income), UserUtils.getInCome(AppUtils.stringToInt2(info.getIncome())), ItemInfo.MyInfoType.INCOME, UserUtils.getInComingList()));
 
         //星座
         mItemInfo.add(getInfo(getString(R.string.constellation), UserUtils.getConstellation(getInt(info.getConstellation())), ItemInfo.MyInfoType.CONSTELLATION, UserUtils.getConstellations()));

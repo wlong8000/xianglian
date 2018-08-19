@@ -112,8 +112,6 @@ public class BaseMeetFragment extends BaseListFragment implements BaseQuickAdapt
             public void onError(Response<MeetInfo> response) {
                 super.onError(response);
                 mSwipeRefreshLayout.setRefreshing(false);
-//                showToast(getResources().getString(R.string.please_check_network));
-//                addData(null);
             }
         });
     }
@@ -127,13 +125,10 @@ public class BaseMeetFragment extends BaseListFragment implements BaseQuickAdapt
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         if (!AppUtils.isLogin(getContext())) {
             startActivity(LoginActivity.getIntent(getContext()));
-            return;
         } else if (!TextUtils.isEmpty(AppUtils2.isCompleteData())) {
-//            startActivity(MainActivity.getIntent(getContext(), MainActivity.TAB_MY));
             if (getActivity() != null && getActivity() instanceof MainActivity) {
                 ((MainActivity) getActivity()).showToast(AppUtils2.isCompleteData());
             }
-            return;
         }
     }
 }

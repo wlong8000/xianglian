@@ -64,6 +64,7 @@
     <string name="maxsupport_num">只能上传%1$s张图啦</string>
     <string name="send_error">发送失败,请重试</string>
     <string name="second">秒</string>
+    <string name="second2">秒</string>
 
     <string name="exit_count_dialog">确定退出当前账号?</string>
 
@@ -134,7 +135,7 @@
     <!--滚动选择器-->
     <string-array name="items">
         <item>城市选择器</item>
-        <item>日期选择器 </item>
+        <item>日期选择器</item>
         <item>其他</item>
     </string-array>
 
@@ -252,7 +253,7 @@
         <item>8k~12k</item>
         <item>12k~20k</item>
         <item>20k~30k</item>
-        <item>30以上</item>
+        <item>30k以上</item>
     </string-array>
 
     <string-array name="marry_state">
