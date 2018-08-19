@@ -21,13 +21,15 @@ public class MeetInfo implements Serializable,MultiItemEntity {
     private String city;
     private String nick_name;
     private String place_detail;
-    private String meet_data;
+    private String meet_time;
     private String mobile;
     private String sub_describe;
     private String price;
     private String tag1;
     private String tag2;
     private String tag3;
+    private int res;
+    private int id;
 
     private int itemType;
 
@@ -44,9 +46,14 @@ public class MeetInfo implements Serializable,MultiItemEntity {
         int COMMON_INFO = 0;
 
         /**
-         * 文章
+         * 顶部
          */
-        int ARTICLE = 1;
+        int HEADER = 1;
+
+        /**
+         * 普通条目
+         */
+        int ITEM = 2;
 
     }
 
@@ -122,12 +129,12 @@ public class MeetInfo implements Serializable,MultiItemEntity {
         this.place_detail = place_detail;
     }
 
-    public String getMeet_data() {
-        return meet_data;
+    public String getMeet_time() {
+        return meet_time;
     }
 
-    public void setMeet_data(String meet_data) {
-        this.meet_data = meet_data;
+    public void setMeet_time(String meet_time) {
+        this.meet_time = meet_time;
     }
 
     public String getMobile() {
@@ -176,6 +183,22 @@ public class MeetInfo implements Serializable,MultiItemEntity {
 
     public void setTag3(String tag3) {
         this.tag3 = tag3;
+    }
+
+    public int getRes() {
+        return res;
+    }
+
+    public void setRes(int res) {
+        this.res = res;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setViewType(int viewType) {

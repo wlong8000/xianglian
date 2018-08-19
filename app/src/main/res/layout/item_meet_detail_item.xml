@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/icon_u_name"
+        android:drawablePadding="5dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:paddingBottom="15dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="15dp"
+        android:text="胡歌1111111111111111111"
+        android:textColor="@color/lib_color_bg12"
+        android:textSize="15sp" />
+
+    <View
+        style="@style/lib_style_divider"
+        android:layout_marginLeft="40dp" />
+
+</LinearLayout>

@@ -1,5 +1,6 @@
 package com.xianglian.love.main.meet;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
@@ -129,6 +130,9 @@ public class BaseMeetFragment extends BaseListFragment implements BaseQuickAdapt
             if (getActivity() != null && getActivity() instanceof MainActivity) {
                 ((MainActivity) getActivity()).showToast(AppUtils2.isCompleteData());
             }
+        } else {
+            Intent intent = MeetDetailActivity.getIntent(getContext(), mAdapter.getData().get(position).getId());
+            startActivity(intent);
         }
     }
 }

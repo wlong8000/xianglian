@@ -12,6 +12,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -20,6 +21,7 @@ import android.os.Environment;
 import android.os.StatFs;
 import android.provider.MediaStore;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.RawRes;
 import android.telephony.TelephonyManager;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -28,6 +30,7 @@ import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.binaryresource.BinaryResource;
@@ -588,6 +591,14 @@ public class AppUtils {
 
     public static Uri getUriFromFile(String url) {
         return Uri.fromFile(new File(url));
+    }
+
+    public static void drawableLeft(TextView textView, int res) {
+        Drawable drawable = BaseApplication.baseApplication.getResources().getDrawable(res);
+        // 这一步必须要做,否则不会显示.
+        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+        textView.setCompoundDrawablePadding(dip2px(BaseApplication.baseApplication, 5));
+        textView.setCompoundDrawables(drawable, null, null, null);
     }
 
 }
