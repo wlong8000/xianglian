@@ -99,6 +99,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
 
             @Override
             public void onPageSelected(int position) {
+                mTitleBarView.setRightLayoutVisible(position == 0 ? View.VISIBLE : View.GONE);
                 mTabIndex = position;
                 dealJumpTab(position);
             }
@@ -210,7 +211,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
         mBtnChat.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.main_meet, 0, 0);
         mBtnChat.setTextColor(getResources().getColor(R.color.grey));
 
-        mBtnMeet.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.main_meet, 0, 0);
+        mBtnMeet.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.main_active, 0, 0);
         mBtnMeet.setTextColor(getResources().getColor(R.color.grey));
 
         mBtnMy.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.main_me, 0, 0);
@@ -230,7 +231,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
                 break;
             }
             case TAB_MEET: {
-                mBtnMeet.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.main_meet_selected, 0,
+                mBtnMeet.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.main_active_selected, 0,
                         0);
                 mBtnMeet.setTextColor(getResources().getColor(R.color.lib_color_font11));
                 break;

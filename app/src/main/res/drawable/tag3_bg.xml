@@ -3,15 +3,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_pressed="false">
         <shape>
-            <stroke android:width="0.5dip" android:color="@color/red" />
-            <solid android:color="@color/red" />
+            <stroke android:width="0.5dip" android:color="#19BD3F" />
+            <solid android:color="#e8f8eb" />
             <corners android:radius="2dp" />
         </shape>
     </item>
     <item android:state_pressed="true">
         <shape>
-            <stroke android:width="0.5dip" android:color="@color/red" />
-            <solid android:color="@color/red" />
+            <stroke android:width="0.5dip" android:color="#19BD3F" />
+            <solid android:color="#e8f8eb" />
             <corners android:radius="2dp" />
         </shape>
     </item>

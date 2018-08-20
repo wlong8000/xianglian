@@ -23,6 +23,7 @@
         android:layout_toRightOf="@id/cover_img"
         android:ellipsize="end"
         android:maxLines="2"
+        android:textColor="@color/lib_color_font2"
         android:text="【北京场】大望路聚会，大当家的份上第三方"
         android:textSize="15sp" />
 
@@ -53,7 +54,7 @@
                 android:maxLines="1"
                 android:paddingLeft="3dp"
                 android:paddingRight="3dp"
-                android:textColor="#ffffff"
+                android:textColor="#FE2B44"
                 android:text="已认证"
                 android:textSize="12sp" />
 
@@ -68,7 +69,7 @@
                 android:paddingLeft="3dp"
                 android:paddingRight="3dp"
                 android:text="最新"
-                android:textColor="#ffffff"
+                android:textColor="#FF9500"
                 android:textSize="12sp" />
 
             <TextView
@@ -81,7 +82,7 @@
                 android:paddingLeft="3dp"
                 android:paddingRight="3dp"
                 android:text="放心购"
-                android:textColor="#ffffff"
+                android:textColor="#19BD3F"
                 android:textSize="12sp" />
         </LinearLayout>
 
@@ -94,6 +95,7 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:text="10/14 周日 北京西城"
+            android:textColor="@color/lib_color_font5"
             android:textSize="12sp" />
 
         <TextView
@@ -102,12 +104,11 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_below="@id/tag_layout"
-            android:layout_marginTop="5dp"
             android:ellipsize="end"
             android:maxLines="1"
             android:text="￥ 50 起"
-            android:textColor="@color/lib_color_bg3"
-            android:textSize="12sp" />
+            android:textColor="@color/lib_color_font2"
+            android:textSize="18sp" />
     </RelativeLayout>
 
 

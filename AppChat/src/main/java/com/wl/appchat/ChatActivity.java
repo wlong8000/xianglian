@@ -173,7 +173,7 @@ public class ChatActivity extends AddFriendFragmentActivity implements ChatView 
         if (!FriendshipInfo.getInstance().isFriend(identify)) {
             addFriend(identify);
         } else {
-            Toast.makeText(this, "已经是朋友了", Toast.LENGTH_LONG).show();
+//            Toast.makeText(this, "已经是朋友了", Toast.LENGTH_LONG).show();
             profile = FriendshipInfo.getInstance().getProfile(identify);
             Log.d(TAG, "profile2 = " + profile);
             setName();
@@ -542,7 +542,7 @@ public class ChatActivity extends AddFriendFragmentActivity implements ChatView 
         super.onAddFriend(status);
         switch (status) {
             case TIM_FRIEND_STATUS_SUCC:
-                Toast.makeText(this, "添加朋友成功", Toast.LENGTH_LONG).show();
+//                Toast.makeText(this, "添加朋友成功", Toast.LENGTH_LONG).show();
                 profile = FriendshipInfo.getInstance().getProfile(identify);
                 Log.d(TAG, "profile = " + profile);
                 recurrence();

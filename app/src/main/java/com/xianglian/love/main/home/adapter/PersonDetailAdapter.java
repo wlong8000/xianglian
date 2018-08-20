@@ -128,7 +128,7 @@ public class PersonDetailAdapter extends BaseMultiItemQuickAdapter<UserDetailEnt
         if (!TextUtils.isEmpty(career)) {
             builder.append(career).append("  ");
         }
-        builder.append(mContext.getString(R.string.income)).append(" ").append(UserUtils.getInCome(AppUtils.stringToInt(item.getIncome())));
+        builder.append(mContext.getString(R.string.income)).append(" ").append(UserUtils.getInCome(AppUtils.stringToInt2(item.getIncome())));
         helper.setText(R.id.tv_user_head_info, builder.toString());
     }
 

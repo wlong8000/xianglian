@@ -87,15 +87,6 @@ public class BaseHomeFragment extends BaseListFragment implements BaseQuickAdapt
     }
 
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        MainActivity activity = ((MainActivity) getActivity());
-        if (activity != null) {
-            ((MainActivity) getActivity()).mTitleBarView.setRightLayoutVisible(isVisibleToUser ? View.VISIBLE : View.GONE);
-        }
-    }
-
-    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.home_fragment, null);
         setupView(view);

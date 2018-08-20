@@ -42,16 +42,23 @@ public class Meet2Adapter extends BaseMultiItemQuickAdapter<MeetInfo, BaseViewHo
                 helper.setText(R.id.title, item.getTitle());
                 helper.setText(R.id.sub_content, item.getSub_describe());
                 helper.setText(R.id.price, item.getPrice());
+                helper.setVisible(R.id.tag_layout, false);
+                helper.setVisible(R.id.tag1, false);
+                helper.setVisible(R.id.tag2, false);
+                helper.setVisible(R.id.tag3, false);
                 if (!TextUtils.isEmpty(item.getTag1())) {
                     helper.setVisible(R.id.tag_layout, true);
+                    helper.setVisible(R.id.tag1, true);
                     helper.setText(R.id.tag1, item.getTag1());
                 }
                 if (!TextUtils.isEmpty(item.getTag2())) {
                     helper.setVisible(R.id.tag_layout, true);
+                    helper.setVisible(R.id.tag2, true);
                     helper.setText(R.id.tag2, item.getTag2());
                 }
                 if (!TextUtils.isEmpty(item.getTag3())) {
                     helper.setVisible(R.id.tag_layout, true);
+                    helper.setVisible(R.id.tag3, true);
                     helper.setText(R.id.tag3, item.getTag3());
                 }
             }
