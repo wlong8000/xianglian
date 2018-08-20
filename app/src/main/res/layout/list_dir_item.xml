@@ -56,5 +56,5 @@
         android:layout_alignParentBottom="true"
         android:background="#a0444444"
         android:layout_width="match_parent"
-        android:layout_height="1px"></View>
+        android:layout_height="1px" />
 </RelativeLayout>

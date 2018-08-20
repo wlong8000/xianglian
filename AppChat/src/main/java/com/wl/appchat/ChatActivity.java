@@ -1,6 +1,5 @@
 package com.wl.appchat;
 
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;

@@ -9,13 +9,14 @@
         android:scaleType="centerCrop"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
     <View
         android:background="#90999999"
         android:id="@+id/alpha_view"
         android:visibility="gone"
         android:clickable="true"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></View>
+        android:layout_height="match_parent" />
     <ImageButton
         android:id="@+id/checkimages"
         android:layout_gravity="right"

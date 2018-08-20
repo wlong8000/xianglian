@@ -184,7 +184,7 @@
             android:name=".main.me.UserInfoEditActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
-        <activity android:name=".main.meet.MeetDetailActivity"></activity>
+        <activity android:name=".main.meet.MeetDetailActivity" />
     </application>
 
 </manifest>

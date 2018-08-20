@@ -102,7 +102,7 @@ public class MeetDetailActivity extends BaseListActivity {
         if (!TextUtils.isEmpty(entity.getMeet_time())) {
             MeetInfo meetInfo = new MeetInfo();
             meetInfo.setViewType(MeetInfo.ViewType.ITEM);
-            meetInfo.setRes(R.drawable.icon_u_name);
+            meetInfo.setRes(R.drawable.icon_place);
             meetInfo.setContent(entity.getMeet_time());
             meetInfoList.add(meetInfo);
         }
@@ -110,7 +110,7 @@ public class MeetDetailActivity extends BaseListActivity {
         if (!TextUtils.isEmpty(entity.getPlace_detail())) {
             MeetInfo meetInfo = new MeetInfo();
             meetInfo.setViewType(MeetInfo.ViewType.ITEM);
-            meetInfo.setRes(R.drawable.icon_u_name);
+            meetInfo.setRes(R.drawable.icon_place);
             meetInfo.setContent(entity.getPlace_detail());
             meetInfoList.add(meetInfo);
         }
@@ -118,7 +118,7 @@ public class MeetDetailActivity extends BaseListActivity {
         if (!TextUtils.isEmpty(entity.getPrice())) {
             MeetInfo meetInfo = new MeetInfo();
             meetInfo.setViewType(MeetInfo.ViewType.ITEM);
-            meetInfo.setRes(R.drawable.icon_u_name);
+            meetInfo.setRes(R.drawable.icon_price);
             meetInfo.setContent(entity.getPrice());
             meetInfoList.add(meetInfo);
         }
@@ -126,7 +126,7 @@ public class MeetDetailActivity extends BaseListActivity {
         if (!TextUtils.isEmpty(entity.getMobile())) {
             MeetInfo meetInfo = new MeetInfo();
             meetInfo.setViewType(MeetInfo.ViewType.ITEM);
-            meetInfo.setRes(R.drawable.icon_u_name);
+            meetInfo.setRes(R.drawable.icon_phone2);
             meetInfo.setContent(entity.getMobile());
             meetInfoList.add(meetInfo);
         }
