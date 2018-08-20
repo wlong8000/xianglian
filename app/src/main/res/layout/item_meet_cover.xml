@@ -17,15 +17,16 @@
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignTop="@id/cover_img"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="6dp"
-        android:layout_alignTop="@id/cover_img"
         android:layout_toRightOf="@id/cover_img"
         android:ellipsize="end"
         android:maxLines="2"
         android:textColor="@color/lib_color_font2"
-        android:text="【北京场】大望路聚会，大当家的份上第三方"
-        android:textSize="15sp" />
+        android:textSize="15sp"
+        android:layout_toEndOf="@id/cover_img"
+        android:layout_marginStart="6dp" />
 
     <RelativeLayout
         android:id="@+id/bottom_layout"
@@ -35,14 +36,16 @@
         android:layout_marginLeft="6dp"
         android:layout_marginRight="10dp"
         android:layout_toRightOf="@id/cover_img"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginEnd="10dp"
+        android:layout_toEndOf="@id/cover_img">
 
         <LinearLayout
             android:id="@+id/tag_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/tag1"
@@ -54,8 +57,8 @@
                 android:maxLines="1"
                 android:paddingLeft="3dp"
                 android:paddingRight="3dp"
-                android:textColor="#FE2B44"
                 android:text="已认证"
+                android:textColor="#FE2B44"
                 android:textSize="12sp" />
 
             <TextView
@@ -81,7 +84,6 @@
                 android:maxLines="1"
                 android:paddingLeft="3dp"
                 android:paddingRight="3dp"
-                android:text="放心购"
                 android:textColor="#19BD3F"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -94,7 +96,6 @@
             android:layout_marginTop="5dp"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="10/14 周日 北京西城"
             android:textColor="@color/lib_color_font5"
             android:textSize="12sp" />
 
@@ -106,7 +107,6 @@
             android:layout_below="@id/tag_layout"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="￥ 50 起"
             android:textColor="@color/lib_color_font2"
             android:textSize="18sp" />
     </RelativeLayout>
