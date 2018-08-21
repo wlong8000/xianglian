@@ -17,7 +17,6 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:paddingTop="15dp"
-        android:text="胡歌1111111111111111111"
         android:textColor="@color/lib_color_bg12"
         android:textSize="15sp" />
 

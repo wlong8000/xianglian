@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.tencent.qalsdk.QALSDKManager;
 import com.tencent.qcloud.tlslibrary.helper.Util;
 
 import tencent.tls.platform.TLSAccountHelper;
@@ -33,7 +32,6 @@ public class TLSService {
     private SmsLoginService smsLoginService;
     private SmsRegisterService smsRegisterService;
     private QQLoginService qqLoginService;
-    private WXLoginService wxLoginService;
     private AccountLoginService accountLoginService;
     private AccountRegisterService accountRegisterService;
     private PhonePwdLoginService phonePwdLoginService;
@@ -328,7 +326,6 @@ public class TLSService {
      * 代理微信登录的接口
      * */
     public void initWXLoginService(Context context, Button btn_wxlogin) {
-        wxLoginService = new WXLoginService(context, btn_wxlogin);
     }
 
 

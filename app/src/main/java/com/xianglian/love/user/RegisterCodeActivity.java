@@ -43,7 +43,7 @@ public class RegisterCodeActivity extends BaseLoginActivity implements View.OnCl
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
-            mVerifyView.setText(time-- + getString(R.string.second));
+
             mHandler.postDelayed(runnable, DELAY);
             disableVerify();
             if (time < 0) {
@@ -123,7 +123,7 @@ public class RegisterCodeActivity extends BaseLoginActivity implements View.OnCl
     /**
      * 获取验证码
      */
-    private void getCode(String phone) {
+    private void getCode(final String phone) {
         mHandler.post(runnable);
 
         String url = Config.PATH + "code/";
@@ -140,6 +140,10 @@ public class RegisterCodeActivity extends BaseLoginActivity implements View.OnCl
                 try {
                     JSONObject object = new JSONObject(result);
                     int code = -1;
+                    if (object.has("sms_code")) {
+                        showToast(object.getString("sms_code"));
+                        return;
+                    }
                     if (object.has("code")) {
                         code = object.getInt("code");
                     } else if (object.has("mobile")) {

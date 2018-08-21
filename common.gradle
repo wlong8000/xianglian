@@ -34,7 +34,6 @@ ext {
                 'libOkhttp'              : 'com.squareup.okhttp3:okhttp:3.3.0',
                 'libAutoScrollViewPager' : 'cn.trinea.android.view.autoscrollviewpager:android-auto-scroll-view-pager:1.1.2',
                 'libSlidableActivity'    : 'com.r0adkll:slidableactivity:2.0.5',
-                'libAndfix'              : 'com.alipay.euler:andfix:0.5.0@aar',
                 'libLogger'              : 'com.orhanobut:logger:+',
                 'libTinker'              : "com.tencent.tinker:tinker-android-lib:1.7.7",
                 'libTinkerAndroid'       : "com.tencent.tinker:tinker-android-anno:1.7.7"]

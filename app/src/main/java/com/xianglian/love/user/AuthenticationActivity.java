@@ -215,8 +215,6 @@ public class AuthenticationActivity extends BaseLoginActivity implements View.On
                 startActivityForResult(intent, IMAGE_CODE2);
                 break;
             case R.id.bottom_next_position_anthentication_page:
-                Intent intent1 = new Intent(this, SelectPayMethodActivity.class);
-                startActivity(intent1);
                 break;
             case R.id.show_or_hide_text:
                 if (show_or_hide_text.getText().equals(getString(R.string.hide_case))) {

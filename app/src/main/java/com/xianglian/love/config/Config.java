@@ -6,9 +6,9 @@ package com.xianglian.love.config;
  */
 public class Config {
 
-    public static String PATH = "http://xlian.freestyle9527.com:8000/";
+//    public static String PATH = "http://xlian.freestyle9527.com:8000/";
 
-//    public static String PATH = "http://wlong800.s1.natapp.cc/";
+    public static String PATH = "http://wlong800.s1.natapp.cc/";
 
     /**
      * banner

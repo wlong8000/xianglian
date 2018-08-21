@@ -65,9 +65,6 @@
             android:name=".user.AuthenticationActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".user.SelectPayMethodActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".user.RegisterActivity"
             android:screenOrientation="portrait" />
         <activity
