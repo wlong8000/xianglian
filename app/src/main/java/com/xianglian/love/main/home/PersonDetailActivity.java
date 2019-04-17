@@ -13,8 +13,6 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.GetRequest;
 import com.orhanobut.hawk.Hawk;
-import com.tencent.TIMConversationType;
-import com.wl.appchat.ChatActivity;
 import com.wl.appcore.entity.UserEntity;
 import com.xianglian.love.BaseListActivity;
 import com.xianglian.love.R;
@@ -75,7 +73,6 @@ public class PersonDetailActivity extends BaseListActivity {
             @Override
             public void onClick(View view) {
                 if (TextUtils.isEmpty(mUserName)) return;
-                ChatActivity.navToChat(PersonDetailActivity.this, mUserName, TIMConversationType.C2C);
             }
         });
         onRefresh(true);

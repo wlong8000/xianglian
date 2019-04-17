@@ -47,13 +47,6 @@
 
 -keep class dalvik.system.DexFile{*;}
 
-#腾讯云
--keep class com.tencent.**{*;}
--dontwarn com.tencent.**
-
--keep class tencent.**{*;}
--dontwarn tencent.**
-
 -keep class qalsdk.**{*;}
 -dontwarn qalsdk.**
 

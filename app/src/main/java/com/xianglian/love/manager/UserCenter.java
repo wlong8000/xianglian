@@ -1,12 +1,6 @@
 package com.xianglian.love.manager;
 
-import com.orhanobut.hawk.Hawk;
-import com.tencent.qcloud.presentation.event.MessageEvent;
-import com.tencent.qcloud.tlslibrary.service.TlsBusiness;
-import com.wl.appchat.model.FriendshipInfo;
-import com.wl.appchat.model.GroupInfo;
-import com.wl.appchat.model.UserInfo;
-import com.wl.appcore.Keys;
+
 import com.wl.appcore.entity.UserEntity;
 
 /**
@@ -23,22 +17,22 @@ public class UserCenter {
     }
 
     public void notifyLoginOk(UserEntity user) {
-        if (user != null) {
-            Hawk.put(Keys.USER_INFO, user);
-            Hawk.put(Keys.SEX, user.getGender());
-        }
+//        if (user != null) {
+//            Hawk.put(Keys.USER_INFO, user);
+//            Hawk.put(Keys.SEX, user.getGender());
+//        }
     }
 
     public void notifyLogout() {
-        Hawk.put(Keys.USER_INFO, null);
-        Hawk.put(Keys.TOKEN, null);
-        Hawk.put(Keys.USER_TIM_SIGN, null);
-        Hawk.put(Keys.SEARCH_INFO_LIST, null);
-
-        Hawk.put(Keys.TimKeys.NICK_NAME, null);
-        Hawk.put(Keys.TimKeys.FACE_URL, null);
-        Hawk.put(Keys.TimKeys.USER_ID, null);
-        Hawk.put(Keys.TimKeys.USER_INFO, null);
+//        Hawk.put(Keys.USER_INFO, null);
+//        Hawk.put(Keys.TOKEN, null);
+//        Hawk.put(Keys.USER_TIM_SIGN, null);
+//        Hawk.put(Keys.SEARCH_INFO_LIST, null);
+//
+//        Hawk.put(Keys.TimKeys.NICK_NAME, null);
+//        Hawk.put(Keys.TimKeys.FACE_URL, null);
+//        Hawk.put(Keys.TimKeys.USER_ID, null);
+//        Hawk.put(Keys.TimKeys.USER_INFO, null);
         logout();
     }
 
@@ -47,10 +41,10 @@ public class UserCenter {
     }
 
     private void logout() {
-        TlsBusiness.logout(UserInfo.getInstance().getId());
-        UserInfo.getInstance().setId(null);
-        MessageEvent.getInstance().clear();
-        FriendshipInfo.getInstance().clear();
-        GroupInfo.getInstance().clear();
+//        TlsBusiness.logout(UserInfo.getInstance().getId());
+//        UserInfo.getInstance().setId(null);
+//        MessageEvent.getInstance().clear();
+//        FriendshipInfo.getInstance().clear();
+//        GroupInfo.getInstance().clear();
     }
 }

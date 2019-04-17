@@ -11,7 +11,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 
-import com.wl.appchat.ConversationFragment;
 import com.wl.appcore.event.MessageEvent;
 import com.wl.appcore.utils.AppUtils2;
 import com.xianglian.love.main.home.BaseHomeFragment;
@@ -114,8 +113,8 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
     private void initFragment() {
         mFragments = new ArrayList<>();
         mFragments.add(BaseHomeFragment.newInstance());
-        ConversationFragment conversationFragment = new ConversationFragment();
-        mFragments.add(conversationFragment);
+//        ConversationFragment conversationFragment = new ConversationFragment();
+//        mFragments.add(conversationFragment);
         mFragments.add(BaseMeetFragment.newInstance());
         mFragments.add(BaseMeFragment.newInstance());
     }

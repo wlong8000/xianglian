@@ -14,9 +14,6 @@ import com.lzy.okgo.model.HttpParams;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.PostRequest;
 import com.orhanobut.hawk.Hawk;
-import com.tencent.TIMCallBack;
-import com.tencent.qcloud.presentation.business.LoginBusiness;
-import com.wl.appchat.TimHelper;
 import com.wl.appcore.entity.UserEntity;
 import com.wl.appcore.event.MessageEvent2;
 import com.wl.appcore.utils.AppUtils2;
@@ -40,7 +37,7 @@ import org.greenrobot.eventbus.ThreadMode;
  * 3、用username生成聊天的key
  * 4、
  */
-public class LoginActivity extends BaseLoginActivity implements OnClickListener, TIMCallBack {
+public class LoginActivity extends BaseLoginActivity implements OnClickListener {
 
     private AutoCompleteTextView mUserNameView;
 
@@ -175,42 +172,9 @@ public class LoginActivity extends BaseLoginActivity implements OnClickListener,
     }
 
     @Override
-    public void onError(int i, String s) {
-
-    }
-
-    @Override
-    public void onSuccess() {
-        dialogDisMiss();
-        TimHelper.getInstance().initMessage();
-        Hawk.put(Keys.USER_INFO, mEntity);
-        if (!TextUtils.isEmpty(AppUtils2.isCompleteData())) {
-            startActivity(UserInfoEditActivity.getIntent(LoginActivity.this));
-        } else {
-            startActivity(MainActivity.getIntent(LoginActivity.this, MainActivity.TAB_MY));
-        }
-        finish();
-    }
-
-    @Override
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void showMessage2(MessageEvent2 messageEvent) {
-        UserEntity entity = messageEvent.getMessage();
-        if (messageEvent.getType() == GET_TIM_SIGN) {
-            LoginBusiness.loginIm(entity.getUsername(), entity.getUser_sign(), this);
-        } else if (messageEvent.getType() == GET_USER_INFO) {
-            String username = AppUtils.getTimName(entity.getUsername(), String.valueOf(entity.getId()));
-            mEntity = entity;
-            AppService.startUpdateTimSign(LoginActivity.this, username, true);
-        } else if (messageEvent.getType() == FORBID) {
-            dialogDisMiss();
-            showToast(getString(R.string.action_forbade));
-        }
     }
 }
 

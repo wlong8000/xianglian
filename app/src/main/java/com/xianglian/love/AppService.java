@@ -12,10 +12,6 @@ import com.lzy.okgo.model.HttpParams;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.GetRequest;
 import com.orhanobut.hawk.Hawk;
-import com.tencent.TIMCallBack;
-import com.tencent.TIMFriendshipManager;
-import com.tencent.TIMUserProfile;
-import com.tencent.TIMValueCallBack;
 import com.wl.appcore.event.MessageEvent2;
 import com.xianglian.love.manager.UserCenter;
 import com.xianglian.love.config.Config;
@@ -241,90 +237,6 @@ public class AppService extends IntentService {
     }
 
     private void doTimInfo() {
-        //初始化参数，修改昵称为“cat”
-        UserEntity userEntity = Hawk.get(Keys.USER_INFO);
-        if (userEntity != null) {
-            String nickName = Hawk.get(Keys.TimKeys.NICK_NAME);
-            if (!TextUtils.isEmpty(userEntity.getUsername()) && !"true".equals(nickName)) {
-                TIMFriendshipManager.getInstance().setNickName(userEntity.getUsername(), new TIMCallBack() {
-                    @Override
-                    public void onError(int i, String s) {
-                        Trace.d(TAG, "setTimInfo error " + s);
-                    }
-
-                    @Override
-                    public void onSuccess() {
-                        Trace.d(TAG, "setTimInfo success ");
-                        Hawk.put(Keys.TimKeys.NICK_NAME, "true");
-                    }
-                });
-            }
-
-            String faceUrl = Hawk.get(Keys.TimKeys.FACE_URL);
-            if (!TextUtils.isEmpty(userEntity.getPic1()) && !"true".equals(faceUrl)) {
-                TIMFriendshipManager.getInstance().setFaceUrl(userEntity.getPic1(), new TIMCallBack() {
-                    @Override
-                    public void onError(int i, String s) {
-                        Trace.d(TAG, "setTimInfo error2 " + s);
-                    }
-
-                    @Override
-                    public void onSuccess() {
-                        Trace.d(TAG, "setTimInfo success2 ");
-                        Hawk.put(Keys.TimKeys.FACE_URL, "true");
-                    }
-                });
-            }
-
-            String userId = Hawk.get(Keys.TimKeys.USER_ID);
-            if (userEntity.getId() != 0 && !"true".equals(userId)) {
-                TIMFriendshipManager.getInstance().setCustomInfo("Tag_Profile_Custom_Id", String.valueOf(userEntity.getId()).getBytes(), new TIMCallBack() {
-                    @Override
-                    public void onError(int i, String s) {
-                        Trace.d(TAG, "setTimInfo error3 " + s);
-                    }
-
-                    @Override
-                    public void onSuccess() {
-                        Hawk.put(Keys.TimKeys.USER_ID, "true");
-                    }
-                });
-            }
-
-            UserEntity timInfo = Hawk.get(Keys.TimKeys.USER_INFO);
-            if (timInfo == null) {
-                //获取自己的资料
-                TIMFriendshipManager.getInstance().getSelfProfile(new TIMValueCallBack<TIMUserProfile>() {
-                    @Override
-                    public void onError(int code, String desc) {
-                        //错误码 code 和错误描述 desc，可用于定位请求失败原因
-                        //错误码 code 列表请参见错误码表
-                        Trace.d(TAG, "getSelfProfile failed: " + code + " desc");
-                    }
-
-                    @Override
-                    public void onSuccess(TIMUserProfile result) {
-                        Trace.d(TAG, "getSelfProfile succ");
-                        Trace.d(TAG, "identifier: " + result.getIdentifier() + " nickName: " + result.getNickName()
-                                + " remark: " + result.getRemark() + " allow: " + result.getAllowType());
-                        Map<String, byte[]> map = result.getCustomInfo();
-                        String id = null;
-                        if (map != null && map.containsKey("Tag_Profile_Custom_Id")) {
-                            byte[] bytes = map.get("Tag_Profile_Custom_Id");
-                            if (bytes != null) {
-                                id = new String(bytes);
-                            }
-                        }
-                        UserEntity entity = new UserEntity();
-                        entity.setPic1(result.getFaceUrl());
-                        if (!TextUtils.isEmpty(id)) {
-                            entity.setId(AppUtils.stringToInt(id));
-                        }
-                        Hawk.put(Keys.TimKeys.USER_INFO, entity);
-                    }
-                });
-            }
-        }
     }
 
 

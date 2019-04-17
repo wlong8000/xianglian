@@ -36,12 +36,12 @@
     <application
         android:name="base.BaseApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/icon_location"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".SplashActivity"
+            android:name=".MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -49,14 +49,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".MainActivity"
-            android:alwaysRetainTaskState="true"
-            android:configChanges="orientation|keyboardHidden|screenSize|locale"
-            android:exported="true"
-            android:hardwareAccelerated="true"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+        <!--<activity-->
+            <!--android:name=".MainActivity"-->
+            <!--android:alwaysRetainTaskState="true"-->
+            <!--android:configChanges="orientation|keyboardHidden|screenSize|locale"-->
+            <!--android:exported="true"-->
+            <!--android:hardwareAccelerated="true"-->
+            <!--android:launchMode="singleTask"-->
+            <!--android:screenOrientation="portrait" />-->
         <activity
             android:name=".user.LoginActivity"
             android:exported="true"
@@ -137,43 +137,6 @@
             android:name="io.fabric.ApiKey"
             android:value="d8f386266eb85eb5f2897a2e375aeb284470d341" />
 
-        <!-- 云通信配置开始 -->
-        <!-- 消息收发 service -->
-        <service
-            android:name="com.tencent.qalsdk.service.QalService"
-            android:exported="false"
-            android:process=":QALSERVICE" />
-        <!-- 消息收发辅助 service -->
-        <service
-            android:name="com.tencent.qalsdk.service.QalAssistService"
-            android:exported="false"
-            android:process=":QALSERVICE" />
-        <!-- 离线消息广播接收器 -->
-        <receiver
-            android:name="com.tencent.qalsdk.QALBroadcastReceiver"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.tencent.qalsdk.broadcast.qal" />
-            </intent-filter>
-        </receiver>
-        <!-- 系统消息广播接收器 -->
-        <receiver
-            android:name="com.tencent.qalsdk.core.NetConnInfoCenter"
-            android:process=":QALSERVICE">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.TIME_SET" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
-            </intent-filter>
-        </receiver>
-        <!-- 云通信配置结束 -->
         <activity
             android:name=".main.me.KeFuActivity"
             android:screenOrientation="portrait" />

@@ -1,1 +1,1 @@
-include ':app', ':AppCore', ':AppChat', ':sdk', ':presentation', ':tlslibrary', ':ui'
+include ':app', ':AppCore'

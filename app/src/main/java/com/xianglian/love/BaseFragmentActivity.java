@@ -3,22 +3,18 @@ package com.xianglian.love;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.Window;
 import android.widget.Toast;
 
-import com.tencent.TIMFriendStatus;
-import com.tencent.qcloud.presentation.presenter.FriendshipManagerPresenter;
-import com.tencent.qcloud.presentation.viewfeatures.FriendshipManageView;
+
 import com.umeng.analytics.MobclickAgent;
-import com.wl.appchat.model.FriendshipInfo;
 import com.xianglian.love.view.TitleBarView;
 
 /**
  * Created by wanglong on 17/3/10.
  */
 
-public class BaseFragmentActivity extends FragmentActivity implements FriendshipManageView, TitleBarView.OnTitleClickListener {
+public class BaseFragmentActivity extends FragmentActivity implements TitleBarView.OnTitleClickListener {
     public TitleBarView mTitleBarView;
 
     @Override
@@ -76,34 +72,4 @@ public class BaseFragmentActivity extends FragmentActivity implements Friendship
 //        this.overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
     }
 
-    public void addFriend(String account) {
-        FriendshipManagerPresenter presenter = new FriendshipManagerPresenter(this);
-        presenter.addFriend(account, "", "", "");
-    }
-
-    @Override
-    public void onAddFriend(TIMFriendStatus status) {
-        switch (status) {
-            case TIM_ADD_FRIEND_STATUS_PENDING:
-                Log.e("TencentHelper", getString(com.wl.appchat.R.string.add_friend_request_has_send));
-                break;
-            case TIM_FRIEND_STATUS_SUCC:
-                FriendshipInfo.getInstance().refresh();
-                Log.e("TencentHelper", getString(com.wl.appchat.R.string.add_friend_success));
-                break;
-            case TIM_ADD_FRIEND_STATUS_FRIEND_SIDE_FORBID_ADD:
-                Log.e("TencentHelper", getString(com.wl.appchat.R.string.add_friend_refuse_all));
-                break;
-        }
-    }
-
-    @Override
-    public void onDelFriend(TIMFriendStatus status) {
-
-    }
-
-    @Override
-    public void onChangeGroup(TIMFriendStatus status, String groupName) {
-
-    }
 }
