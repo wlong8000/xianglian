@@ -82,7 +82,7 @@ public class LoginActivity extends BaseLoginActivity implements OnClickListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        EventBus.getDefault().register(this);
+//        EventBus.getDefault().register(this);
         setupTitle(getString(R.string.login), getString(R.string.register));
 
         mUserNameView = (AutoCompleteTextView) findViewById(R.id.user_name);
@@ -174,7 +174,7 @@ public class LoginActivity extends BaseLoginActivity implements OnClickListener 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
+//        EventBus.getDefault().unregister(this);
     }
 }
 

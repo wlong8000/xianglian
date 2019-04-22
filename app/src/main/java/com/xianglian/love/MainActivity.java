@@ -161,15 +161,17 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
 
     @Override
     public void rightClick() {
-        if (AppUtils.isLogin(this)) {
-            Intent intent = SearchActivity.getIntent(this);
-            startActivityForResult(intent, REQUEST_CODE_SEARCH);
-        } else if (!AppUtils.isLogin(this)) {
-            startActivity(LoginActivity.getIntent(this));
-        } else if (!TextUtils.isEmpty(AppUtils2.isCompleteData())) {
-            showToast(AppUtils2.isCompleteData());
-//            mViewPager.setCurrentItem(TAB_MY, false);
-        }
+        Intent intent = SearchActivity.getIntent(this);
+        startActivityForResult(intent, REQUEST_CODE_SEARCH);
+//        if (AppUtils.isLogin(this)) {
+//            Intent intent = SearchActivity.getIntent(this);
+//            startActivityForResult(intent, REQUEST_CODE_SEARCH);
+//        } else if (!AppUtils.isLogin(this)) {
+//            startActivity(LoginActivity.getIntent(this));
+//        } else if (!TextUtils.isEmpty(AppUtils2.isCompleteData())) {
+//            showToast(AppUtils2.isCompleteData());
+////            mViewPager.setCurrentItem(TAB_MY, false);
+//        }
     }
 
 
