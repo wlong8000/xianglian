@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
@@ -33,9 +34,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/lib_font_size6"
-            android:layout_toLeftOf="@id/right_go_more_img"
-            android:layout_toRightOf="@id/tv_left_text"
             android:ellipsize="end"
             android:gravity="right"
             android:maxLines="1"
