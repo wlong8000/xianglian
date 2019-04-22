@@ -21,7 +21,6 @@ repositories {
 
 android {
     compileSdkVersion android2.compileSdkVersion
-    buildToolsVersion android2.buildToolsVersion
     useLibrary 'org.apache.http.legacy'
 
     defaultConfig {
@@ -62,6 +61,7 @@ android {
         }
     }
 
+    buildToolsVersion '28.0.3'
 }
 
 def static releaseTime() {
